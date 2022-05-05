@@ -20,9 +20,15 @@
 <h2 id="label"><a href="#label" class="headerlink" title="label"></a>label</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% label 我是 %&#125;&#123;% label 什么 blue %&#125;&#123;%label 颜色 red %&#125;</span><br></pre></td></tr></table></figure>
 <mark class="hl-label default">我是</mark> <mark class="hl-label blue">什么</mark> <mark class="hl-label red">颜色</mark> 
 ]]></content>
+      <categories>
+        <category>study</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
   </entry>
   <entry>
-    <title>PRML.md</title>
+    <title>PRML</title>
     <url>/2022/05/05/PRML/</url>
     <content><![CDATA[<h1 id="Pattern-recognition-and-machine-learning"><a href="#Pattern-recognition-and-machine-learning" class="headerlink" title="Pattern recognition and machine learning"></a>Pattern recognition and machine learning</h1><h2 id="0-Guidance"><a href="#0-Guidance" class="headerlink" title="0. Guidance"></a>0. Guidance</h2><ul>
 <li>English<ol>
@@ -246,65 +252,75 @@
         <category>study</category>
       </categories>
       <tags>
-        <tag>Pattern Recognizition</tag>
+        <tag>PR</tag>
       </tags>
   </entry>
   <entry>
-    <title>Line Search</title>
-    <url>/2022/05/04/cgo/</url>
-    <content><![CDATA[<h2 id="2-Line-Search"><a href="#2-Line-Search" class="headerlink" title="2.Line Search"></a>2.Line Search</h2><ul>
-<li>最適化関数</li>
-<li>局所的最小値（極小値）<ul>
-<li>狭義極小値（严格的最小值）：不带等号，必须最小值小于所有值</li>
-</ul>
-</li>
-<li>函数存在最小值的必要条件<ul>
-<li>一阶必要条件（<strong>FIRST-ORDER NECESSARY CONDITIONS</strong>）<ul>
-<li>①函数f(x)在点$x^<em>$可微且②$x^</em>$若是局部极小点，则梯度  ${\nabla f(x^*)=0}$</li>
-</ul>
-</li>
-<li>二阶必要条件<ul>
-<li>①函数f(x)在点$x^<em>$可微且②$x^</em>$若是局部极小点，则梯度  ${\nabla f(x^<em>)=0}$,并且hesse矩阵 ${\nabla^2 f(x^</em>)}$半正定            <blockquote>
-<p>半正定值：<br>  对于所有x不等于0，都有 ${x^TAx≥0}$;且对某个x不等于0，有 ${x^TAx&gt;0}$<br>  则A为半正定</p>
-</blockquote>
+    <title>无约束最优化</title>
+    <url>/2022/05/04/%E6%97%A0%E7%BA%A6%E6%9D%9F%E6%9C%80%E4%BC%98%E5%8C%96/</url>
+    <content><![CDATA[<h2 id="1-Minizer"><a href="#1-Minizer" class="headerlink" title="1. Minizer"></a>1. Minizer</h2><ol>
+<li>全局最小值 Global Minizer</li>
+<li>局部最小值 Local Minizer<ul>
+<li>weak </li>
+<li>strict</li>
+<li>孤立的局部最小值isolated local minimizer <div class="note success modern"><p>对于凸函数，局部最小值立即成为全局最小值</p>
+</div>
 </li>
 </ul>
 </li>
-</ul>
+</ol>
+<h2 id="2-局部最小值条件"><a href="#2-局部最小值条件" class="headerlink" title="2. 局部最小值条件"></a>2. 局部最小值条件</h2><ol>
+<li>一阶必要条件（FIRST-ORDER NECESSARY CONDITIONS）<ol>
+<li>函数$f(x)$在点$x^*$可微</li>
+<li>梯度${\nabla f(x^*)=0}$</li>
+</ol>
 </li>
-<li><p>最小二乘法（LEAST-SQUARES）</p>
-<ul>
-<li><p>${f<em>0(x)=||Ax-b||^2_2=\sum</em>{i=1}^k({a_i}^Tx-b_i)^2}$</p>
+<li>二阶必要条件<ol>
+<li>满足一阶</li>
+<li>hesse矩阵${\nabla^2 f(x^*)}$半正定   </li>
+</ol>
+</li>
+</ol>
+<div class="tabs" id="1"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#1-1">海塞矩阵</button></li><li class="tab"><button type="button" data-href="#1-2">半正定值</button></li><li class="tab"><button type="button" data-href="#1-3">海塞矩阵的半正定值</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="1-1"><p><img src="https://ds055uzetaobb.cloudfront.net/brioche/uploads/gVN1lN1A28-hessian.png?width=1200" alt=""></p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="1-2"><p>半正定值：</p>
+<ol>
+<li>对于所有x不等于0，都有 ${x^TAx≥0}$</li>
+<li>且对某个x不等于0,有 ${x^TAx&gt;0}$</li>
+</ol><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="1-3"><p>因为hesse矩阵是对称矩阵所以有以下性质：（仅限于对称矩阵！！）<br>半正定：所有特征值都大于等于0<br>正定：所有特征值都大于0<br>负定：所有特征值都小于0</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+<mark class="hl-label red">现在虽然知道了确认某点是否为最小值的算法，但是对于如何找到这个点我们还无从得知（总不能把所有点都算一遍吧）</mark> 
+<h2 id="3-直线探索策略-line-search-strategy"><a href="#3-直线探索策略-line-search-strategy" class="headerlink" title="3. 直线探索策略 line search strategy"></a>3. 直线探索策略 line search strategy</h2><ol>
+<li>Line Serch<br> 设在某点$x_k$，寻找方向$p_k$和步长$\alpha$使得min$f(x_k+\alpha p_k)$<br> <strong>需求值：方向和步长</strong></li>
+<li>Trust Region<br> 对于点x_k上的近似函数求最小值：min$m_k(x_k+p_k)$。同时，近似函数是有限的，所以可信赖区间需要被确定。<br> <strong>需求值：近似函数和可信赖区间p</strong></li>
+</ol>
+]]></content>
+      <categories>
+        <category>study</category>
+      </categories>
+      <tags>
+        <tag>Optimizition</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>最小二乘问题</title>
+    <url>/2022/05/05/%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<h2 id="最小二乘（LEAST-SQUARES）问题定义"><a href="#最小二乘（LEAST-SQUARES）问题定义" class="headerlink" title="最小二乘（LEAST-SQUARES）问题定义"></a>最小二乘（LEAST-SQUARES）问题定义</h2><p>${f<em>0(x)=||Ax-b||^2_2<br>        =\sum</em>{i=1}^k({a_i}^Tx-b_i)^2}$</p>
 <blockquote>
-<p>2-范数</p>
-<pre><code>$&#123;||x||_2=(x,x)^&#123;1/2&#125;=\sqrt&#123;\sum_&#123;i=1&#125;^n x_i^2&#125;&#125;$      备注
-</code></pre></blockquote>
-</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><p>解最小二乘法</p>
-<ul>
-<li><p>上面的式子可被简化为：</p>
-<p>   ${(A^TA)x = A^Tb}$     →    ${x = (A^TA)^{-1}A^Tb}$</p>
-<pre><code>   代入原式并求hesse矩阵的话
-</code></pre><p>   ${\nabla^2 ||Ax-b||^2_2=2A^TA}$</p>
-<p>  → 变成了确认 ${2A^TA}$的正定值与否的问题</p>
-</li>
-</ul>
-</li>
-<li><p>补充：最小二乘</p>
-<ul>
+<p>2-范数<br>${||x||<em>2=(x,x)^{1/2}=\sqrt{\sum</em>{i=1}^n x_i^2}}$</p>
+</blockquote>
+<h2 id="最小二乘法"><a href="#最小二乘法" class="headerlink" title="最小二乘法"></a>最小二乘法</h2><p>上面的式子可被简化为：<br>${(A^TA)x = A^Tb}$     →    ${x = (A^TA)^{-1}A^Tb}$<br>代入原式并求hesse矩阵的话<br>${\nabla^2 ||Ax-b||^2_2=2A^TA}$<br>→ 变成了确认 ${2A^TA}$的正定值与否的问题</p>
+<h2 id="补充：最小二乘"><a href="#补充：最小二乘" class="headerlink" title="补充：最小二乘"></a>补充：最小二乘</h2><ul>
 <li>如下二维平面图中有很多个点，假设我们想用一条直线来拟合数据，即期望能找到一条直线能最好地穿过这些数据点。</li>
 <li>一个点就可以构造一个方程，而未知数显然只有两个（直线的斜率和截距），因此这就是一个超定系统，我们是没有办法找到一条完美的直线，使得上述的点都在直线上。因此，我们只能期望找到一条最好的“适配（best fitting line）”直线来拟合这些数据</li>
 <li>有x作为自变量，y表示x对应的真实值，$y^hat$表示由拟合直线对应的预测值</li>
 <li>找一条直线能使得所有点离这个直线的距离平均值最小的这种近似的结果就是回归分析的目标。</li>
 <li>最小二乘法主要包含了两大类方法，一种是线性最小二乘法（Linear Least Squares），一种是非线性最小二乘法（Nonlinear Least Squares）。</li>
 </ul>
-</li>
-</ul>
 ]]></content>
+      <categories>
+        <category>study</category>
+      </categories>
+      <tags>
+        <tag>Optimizition</tag>
+      </tags>
   </entry>
   <entry>
     <title>闲谈-关于美术馆拍摄的变形问题</title>
@@ -322,50 +338,11 @@
 </blockquote>
 <p>[1]<a href="https://www.zhihu.com/question/272102579/answer/1297496356">https://www.zhihu.com/question/272102579/answer/1297496356</a><br>[2]<a href="http://www.kansmemo.com/photo/camera/principles/entry-191.html">http://www.kansmemo.com/photo/camera/principles/entry-191.html</a></p>
 ]]></content>
+      <categories>
+        <category>blog</category>
+      </categories>
       <tags>
         <tag>other</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>分类</title>
-    <url>/categories/index.html</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
-    <title>测试</title>
-    <url>//artitalk.html</url>
-    <content><![CDATA[<!-- 引用 artitalk -->
-<script type="text/javascript" src="https://unpkg.com/artitalk"></script>
-<!-- 存放说说的容器 -->
-<div id="artitalk_main"></div>
-<script>
-new Artitalk({
-    appId: 'vjtQHHDmHDs5uaqwCNP3qo5O-MdYXbMMI', // Your LeanCloud appId
-    appKey: 'A8RIm0ol4FRPecB8kswpJwcq' // Your LeanCloud appKey
-})
-</script>]]></content>
-  </entry>
-  <entry>
-    <title></title>
-    <url>/photo/spring2022.html</url>
-    <content><![CDATA[<div class="fj-gallery"><p><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h1wil5g0i6j21hc0u07kd.jpg" alt=""><br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h1wil65uhoj20u00u0tdi.jpg" alt=""><br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h1wil848fnj213y0u07d9.jpg" alt=""><br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h1wil94a2qj21hc0u07h9.jpg" alt=""><br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h1wil9wvqkj21hc0u00z8.jpg" alt=""><br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h1wilbsqlkj213y0u0111.jpg" alt=""><br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h1wildrqo1j213y0u0tbs.jpg" alt=""><br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h1wilef7xyj213y0u0wk3.jpg" alt=""><br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h1wilf6fpvj213y0u041w.jpg" alt=""><br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h1wilfzsluj213y0u0ten.jpg" alt=""><br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h1wilha7m1j213y0u0dmr.jpg" alt=""></p>
-          </div>]]></content>
-  </entry>
-  <entry>
-    <title>Phtograph</title>
-    <url>//photo.html</url>
-    <content><![CDATA[<div class="gallery-group-main">
-
-  <figure class="gallery-group">
-  <img class="gallery-group-img no-lightbox" src='https://tva1.sinaimg.cn/large/e6c9d24egy1h1wib2yljij21hc0u07kd.jpg' alt="Group Image Gallery">
-  <figcaption>
-  <div class="gallery-group-name">2022春</div>
-  <p></p>
-  <a href='/photo/spring2022'></a>
-  </figcaption>
-  </figure>
-  
-</div>
-]]></content>
   </entry>
 </search>
