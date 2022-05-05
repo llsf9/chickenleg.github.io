@@ -1,0 +1,443 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>PRML.md | Chicken Leg 's Homepage</title><meta name="keywords" content="PR"><meta name="author" content="Ann Sue"><meta name="copyright" content="Ann Sue"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="A lecture memo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PRML.md">
+<meta property="og:url" content="https://llsf9.github.io/2022/05/05/PRML/index.html">
+<meta property="og:site_name" content="Chicken Leg &#39;s Homepage">
+<meta property="og:description" content="A lecture memo">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://images.unsplash.com/photo-1605845872108-b733db1f2663?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80">
+<meta property="article:published_time" content="2022-05-05T00:36:56.000Z">
+<meta property="article:modified_time" content="2022-05-05T01:13:01.969Z">
+<meta property="article:author" content="Ann Sue">
+<meta property="article:tag" content="Pattern Recognizition">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1605845872108-b733db1f2663?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"><link rel="shortcut icon" href="/butterfly/favicon.png"><link rel="canonical" href="https://llsf9.github.io/2022/05/05/PRML/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'PRML.md',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-05-05 10:13:01'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.1.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/butterfly/favicon.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">4</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">2</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/study/"><i class="fa-fw fas fa-school"></i><span> 学习</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-school"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photo"><i class="fa-fw fas fa-camera-retro"></i><span> 摄影</span></a></div><div class="menus_item"><a class="site-page" href="/artitalk"><i class="fa-fw fas fa-school"></i><span> 闲言</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-rainbow"></i><span> 个人</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book"></i><span> 书籍</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://images.unsplash.com/photo-1605845872108-b733db1f2663?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1170&amp;q=80')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Chicken Leg 's Homepage</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/study/"><i class="fa-fw fas fa-school"></i><span> 学习</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-school"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photo"><i class="fa-fw fas fa-camera-retro"></i><span> 摄影</span></a></div><div class="menus_item"><a class="site-page" href="/artitalk"><i class="fa-fw fas fa-school"></i><span> 闲言</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-rainbow"></i><span> 个人</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book"></i><span> 书籍</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">PRML.md</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-05-05T00:36:56.000Z" title="发表于 2022-05-05 09:36:56">2022-05-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-05-05T01:13:01.969Z" title="更新于 2022-05-05 10:13:01">2022-05-05</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/study/">study</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="PRML.md"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Pattern-recognition-and-machine-learning"><a href="#Pattern-recognition-and-machine-learning" class="headerlink" title="Pattern recognition and machine learning"></a>Pattern recognition and machine learning</h1><h2 id="0-Guidance"><a href="#0-Guidance" class="headerlink" title="0. Guidance"></a>0. Guidance</h2><ul>
+<li>English<ol>
+<li>neural network  </li>
+<li>in the past decade</li>
+<li>achieve breakthrough　取得重大进展</li>
+<li>speech recognition 语音识别</li>
+<li>machine translation 机器翻译</li>
+<li>train CNN from scratch 从零开始训练</li>
+<li>afterwards 之后</li>
+<li>ambiguous 不明确的</li>
+<li>classes to be recognized 将要被识别的类</li>
+<li>estimate 评价</li>
+<li>supplemental 补充的</li>
+<li>proceed 继续</li>
+</ol>
+</li>
+</ul>
+<h2 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h2><ul>
+<li>English<ol>
+<li>contribute to 造成；以助于</li>
+<li>emphasize 强调</li>
+<li>tough 难的</li>
+<li>facility 能力</li>
+<li>prebuilt 做好的</li>
+</ol>
+</li>
+</ul>
+<blockquote>
+<p>Perceptual computing in auttumn is advanced content of RP</p>
+</blockquote>
+<h3 id="1-1-what-is-PR"><a href="#1-1-what-is-PR" class="headerlink" title="1.1 what is PR"></a>1.1 what is PR</h3><ul>
+<li>Problem/target of PR:<strong>How to estimate the class of data?</strong></li>
+<li><p>Method / Procedure of PR</p>
+<ol>
+<li>prepare training data(labeled)</li>
+<li>get feature vectors from data</li>
+<li>get distribution of each class from feature vectors</li>
+<li>get distribution of each class</li>
+<li>define class boudary </li>
+<li><p>estimate class</p>
+<p>❓What is difference between PR and classification</p>
+</li>
+</ol>
+<ul>
+<li><p>Pattern recognition is a generic term for the ability to recognize regularities or patterns in data. A more generic one is machine learning. Classification is an example of pattern recognition, where a model devides the data into classes.</p>
+<p>  More specific from left to right: <strong><em>Machine Learning &gt; Pattern Recognition &gt; Classification &gt; Linear Classification &gt; SVM</em></strong></p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="SV1-2-Data-driven-feature-extraction"><a href="#SV1-2-Data-driven-feature-extraction" class="headerlink" title="SV1-2 Data-driven feature extraction"></a>SV1-2 Data-driven feature extraction</h3><ul>
+<li>English<ol>
+<li>wind turbine 风轮机</li>
+<li>anomaly detection 异常检出</li>
+<li>large- scale 大规模的</li>
+<li>feasible 可能的，可行的 《=》 infeasible</li>
+<li>adhoc video search 特别录像查询（whether the queried object is shown in video or not）</li>
+<li>-driven 由…主导的<ol>
+<li>data-driven 数据驱动的</li>
+</ol>
+</li>
+<li>discriminative model 識別モデル</li>
+<li>be suitable to 适合于</li>
+<li>CMS：Condition Monitoring System</li>
+<li>GMM:Gaussian Mixture Model</li>
+<li></li>
+</ol>
+</li>
+<li>If we don’t have enough data to train a network when we know it’s similar to another task, we can:  use the <strong>well-developed NN for feature extractor    →</strong> so we can only trian <strong>a part of NN by fewer train data</strong></li>
+<li><p>Anomaly  detection APPROACH</p>
+<ol>
+<li><p>Auto encoder (AE)</p>
+<blockquote>
+<p>エンコードしてからデコードします　→　次元削減、特徴抽出</p>
+<ul>
+<li>教師なし学習、異常データいらない</li>
+<li>仕組み：デコードの時に再構築するため、学習されていないものが元画像とのlossがめちゃくちゃ高くなり、Acnomalyと判定される。<a target="_blank" rel="noopener" href="http://www.renom.jp/ja/notebooks/tutorial/clustering/anomaly-detection-using-autoencoder/notebook.html">http://www.renom.jp/ja/notebooks/tutorial/clustering/anomaly-detection-using-autoencoder/notebook.html</a></li>
+<li>Need a great number of Traing DATASET</li>
+</ul>
+</blockquote>
+<pre><code> ![截屏2022-04-06 15.31.18.png](Pattern%20recognition%20and%20machine%20learning%20e1f94fd17812467f8adc1a323302ed35/%E6%88%AA%E5%B1%8F2022-04-06_15.31.18.png)
+
+ ![截屏2022-04-06 15.33.26.png](Pattern%20recognition%20and%20machine%20learning%20e1f94fd17812467f8adc1a323302ed35/%E6%88%AA%E5%B1%8F2022-04-06_15.33.26.png)
+</code></pre></li>
+<li><p>DNN (discriminative feature extractor)</p>
+<ul>
+<li><p>need to input <strong>normal data and abnoormal data</strong> to train the model how to discriminate</p>
+<p>  <img src="Pattern%20recognition%20and%20machine%20learning%20e1f94fd17812467f8adc1a323302ed35/%E6%88%AA%E5%B1%8F2022-04-06_15.33.00.png" alt="截屏2022-04-06 15.33.00.png"></p>
+<p>  <img src="Pattern%20recognition%20and%20machine%20learning%20e1f94fd17812467f8adc1a323302ed35/%E6%88%AA%E5%B1%8F2022-04-06_15.33.37.png" alt="截屏2022-04-06 15.33.37.png"></p>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h3 id="SV2-Semi-supervised-learning"><a href="#SV2-Semi-supervised-learning" class="headerlink" title="SV2 Semi-supervised learning"></a>SV2 Semi-supervised learning</h3><ul>
+<li>English<ul>
+<li>assign labels ラベルを付与する</li>
+<li>supervised 教師あり</li>
+<li>semi-supervised 半教師あり</li>
+<li>unsupervised 教師なし</li>
+<li>reliable-unreliable 可靠的 - 不可靠的</li>
+<li>exploit 利用</li>
+<li>in terms of 就。。。而言,从。。。观点来看</li>
+<li>engage 使参与；吸引；雇佣</li>
+<li>refer to 称之为</li>
+<li>calve 产子</li>
+<li>exploision 爆炸；突然出现</li>
+<li>sophisticate 使更精确</li>
+<li>threshold 下限；门槛</li>
+<li>intermidiate 中距离</li>
+<li>rotation 旋转</li>
+<li>assimilation 同化，融合</li>
+</ul>
+</li>
+<li><p>Semi-supervise</p>
+<p>  <img src="Pattern%20recognition%20and%20machine%20learning%20e1f94fd17812467f8adc1a323302ed35/%E6%88%AA%E5%B1%8F2022-04-06_15.50.55.png" alt="截屏2022-04-06 15.50.55.png"></p>
+</li>
+<li><p>crowdsourcing</p>
+<p>  Request tasks to unspecified large number of people</p>
+<p>  (E.g. To let them annotation the object(迷惑メール))</p>
+</li>
+</ul>
+<h3 id="SV3-Data-assimilation"><a href="#SV3-Data-assimilation" class="headerlink" title="SV3 Data assimilation"></a>SV3 Data assimilation</h3><ul>
+<li>English<ul>
+<li>oceangraphical 海洋学的</li>
+<li>incorporate 纳入；合并</li>
+<li>in contrast 相反的</li>
+<li>operation 运行，实施，行动</li>
+<li>meteorological 气象学的</li>
+<li>intuition 直觉</li>
+<li>consist of 包括</li>
+<li>induce 劝说，促使</li>
+<li>influx 流入 涌入</li>
+<li>pot 笼子</li>
+<li>emulate 模仿 仿真</li>
+<li>sophiscated 需要经验的</li>
+<li>stochastic 随机的</li>
+<li>fomulation 构想；体系化，公式化</li>
+<li>state equation 状态方程式</li>
+<li>observation equation 观测方程式</li>
+<li>degree 程度，阶段</li>
+<li>dotted line 虚线</li>
+<li>phenomenon 现象</li>
+</ul>
+</li>
+<li>Data Assimilation(データ同化、数据同化)<ul>
+<li>主に<a target="_blank" rel="noopener" href="https://ja.wikipedia.org/wiki/%E5%9C%B0%E7%90%83%E7%A7%91%E5%AD%A6">地球科学</a>の分野において数値<a target="_blank" rel="noopener" href="https://ja.wikipedia.org/wiki/%E6%95%B0%E7%90%86%E3%83%A2%E3%83%87%E3%83%AB">モデル</a>の再現性を高めるために行われる作業である。簡単に言えば、モデルに実際の観測値を入力してより現実に近い結果が出るようにすることを指す。</li>
+</ul>
+</li>
+<li>GBDT<ul>
+<li>GBDTとは「勾配降下法(Gradient)」と「Boosting(アンサンブル)」、「決定木(Decision Tree)」を組み合わせた手法です。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>In this case (for forcasting the fish catchs), we get better result in DATA ASSIMILATION but not machine learning .<br>Because we can’t deal with data that not happend in the previous data<br>But in DA,we can incorporate expert’s knowledge when make a model so it can predict very well although we only have a few of data</p>
+</blockquote>
+<h3 id="Summarize"><a href="#Summarize" class="headerlink" title="Summarize"></a>Summarize</h3><p><img src="Pattern%20recognition%20and%20machine%20learning%20e1f94fd17812467f8adc1a323302ed35/%E6%88%AA%E5%B1%8F2022-04-07_17.54.35.png" alt="截屏2022-04-07 17.54.35.png"></p>
+<h2 id="2-Feature-embedding"><a href="#2-Feature-embedding" class="headerlink" title="2. Feature embedding"></a>2. Feature embedding</h2><ul>
+<li>English<ul>
+<li>dimensionality reduction 次元削減</li>
+<li>coordinate 座標</li>
+<li>orthonormal coordinate 正規系座標系</li>
+<li>basis 基底</li>
+<li>subspace 部分空間</li>
+<li>projection function 射影変換</li>
+<li>Principal Component Analysis 主成分分析</li>
+<li>prime　プライム；上标号</li>
+<li>scatter 分散，散布</li>
+<li>axis 轴</li>
+<li>formulate 构想，创建，表达</li>
+<li>notation memo</li>
+<li>constraint 限制</li>
+<li>derivative 导数</li>
+<li>eigenvalue 固有值</li>
+<li>eigenvector 固有向量</li>
+<li>correspond 相符，相当</li>
+<li>consistent 一致的</li>
+</ul>
+</li>
+</ul>
+<h3 id="Dimensionality-Reduction"><a href="#Dimensionality-Reduction" class="headerlink" title="Dimensionality Reduction"></a>Dimensionality Reduction</h3><p><strong>Goal: Reduct dimensions but minimize the loss of information</strong></p>
+<p><img src="Pattern%20recognition%20and%20machine%20learning%20e1f94fd17812467f8adc1a323302ed35/%E6%88%AA%E5%B1%8F2022-04-08_16.36.37.png" alt="截屏2022-04-08 16.36.37.png"></p>
+<p><img src="Pattern%20recognition%20and%20machine%20learning%20e1f94fd17812467f8adc1a323302ed35/%E6%88%AA%E5%B1%8F2022-04-08_16.37.05.png" alt="截屏2022-04-08 16.37.05.png"></p>
+<p>T : a projection function</p>
+<p>x: data will to be reducted</p>
+<p>z: reducted data</p>
+<h3 id="Principal-Component-Analysis-PCA"><a href="#Principal-Component-Analysis-PCA" class="headerlink" title="Principal Component Analysis(PCA)"></a>Principal Component Analysis(PCA)</h3><ul>
+<li><p>Minimum Loss of Information = Maximum Variance</p>
+<p>  <img src="Pattern%20recognition%20and%20machine%20learning%20e1f94fd17812467f8adc1a323302ed35/%E6%88%AA%E5%B1%8F2022-04-08_17.00.14.png" alt="截屏2022-04-08 17.00.14.png"></p>
+<p>  OA is a constant → Minimize error AA’ = Maximize variance OA’</p>
+<pre><code>                              → Sum of errors over all samples would be     
+</code></pre><p>  minimized.= Variance of all projected samples on subspace<br>  would be maximized.</p>
+</li>
+<li><p>検証</p>
+<p>  <img src="Pattern%20recognition%20and%20machine%20learning%20e1f94fd17812467f8adc1a323302ed35/Untitled.png" alt="Untitled"></p>
+<p>   **射影の分散の平均値を0としています</p>
+</li>
+<li><p>手順：</p>
+<ol>
+<li>sample x の分散共分散行列求める</li>
+<li>固有値、固有ベクトル求める</li>
+<li>固有値の絶対値大きいほど、大きい分散しているを表す。対応のベクトルは第一成分。</li>
+</ol>
+</li>
+<li><p>評価方法</p>
+<ul>
+<li><p>寄与率</p>
+<p>  <img src="Pattern%20recognition%20and%20machine%20learning%20e1f94fd17812467f8adc1a323302ed35/%E6%88%AA%E5%B1%8F2022-04-11_15.30.44.png" alt="截屏2022-04-11 15.30.44.png"></p>
+</li>
+<li><p>累積寄与率</p>
+<p>  <img src="Pattern%20recognition%20and%20machine%20learning%20e1f94fd17812467f8adc1a323302ed35/%E6%88%AA%E5%B1%8F2022-04-11_15.31.50.png" alt="截屏2022-04-11 15.31.50.png"></p>
+</li>
+</ul>
+</li>
+</ul>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Pattern-Recognizition/">Pattern Recognizition</a></div><div class="post_share"><div class="social-share" data-image="https://images.unsplash.com/photo-1605845872108-b733db1f2663?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1170&amp;q=80" data-sites="twitter,wechat,weibo"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/05/05/HexoTags/"><img class="prev-cover" src="https://images.unsplash.com/photo-1545989253-02cc26577f88?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1170&amp;q=80" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">HexoTags</div></div></a></div><div class="next-post pull-right"><a href="/2022/05/04/cgo/"><img class="next-cover" src="https://www.jmp.com/en_in/statistics-knowledge-portal/what-is-regression/the-method-of-least-squares/_jcr_content/par/styledcontainer_2069/par/lightbox_4392/lightboxImage.img.png/1548351202284.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Line Search</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/butterfly/favicon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Ann Sue</div><div class="author-info__description">我偏要用粉色！</div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">4</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">2</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/llsf9" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:baihe2333@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Pattern-recognition-and-machine-learning"><span class="toc-number">1.</span> <span class="toc-text">Pattern recognition and machine learning</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#0-Guidance"><span class="toc-number">1.1.</span> <span class="toc-text">0. Guidance</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Introduction"><span class="toc-number">1.2.</span> <span class="toc-text">1. Introduction</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-what-is-PR"><span class="toc-number">1.2.1.</span> <span class="toc-text">1.1 what is PR</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SV1-2-Data-driven-feature-extraction"><span class="toc-number">1.2.2.</span> <span class="toc-text">SV1-2 Data-driven feature extraction</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SV2-Semi-supervised-learning"><span class="toc-number">1.2.3.</span> <span class="toc-text">SV2 Semi-supervised learning</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SV3-Data-assimilation"><span class="toc-number">1.2.4.</span> <span class="toc-text">SV3 Data assimilation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Summarize"><span class="toc-number">1.2.5.</span> <span class="toc-text">Summarize</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Feature-embedding"><span class="toc-number">1.3.</span> <span class="toc-text">2. Feature embedding</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Dimensionality-Reduction"><span class="toc-number">1.3.1.</span> <span class="toc-text">Dimensionality Reduction</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Principal-Component-Analysis-PCA"><span class="toc-number">1.3.2.</span> <span class="toc-text">Principal Component Analysis(PCA)</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background-image: url('https://images.unsplash.com/photo-1605845872108-b733db1f2663?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1170&amp;q=80')"><div id="footer-wrap"><div class="copyright">&copy;2022 By Ann Sue</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="/%5Bobject%20Object%5D"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'omFH1UxI30hsl2zXfNeMW6w5-MdYXbMMI',
+      appKey: 'VlTbgpsggvEnNJxLunar4zMe',
+      avatar: 'retro',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
