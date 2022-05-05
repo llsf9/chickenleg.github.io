@@ -1,123 +1,371 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search> 
-  
-  
-    
-    <entry>
-      <title>闲谈-关于美术馆拍摄的变形问题</title>
-      <link href="/2022/05/05/%E9%97%B2%E8%B0%88-%E5%85%B3%E4%BA%8E%E7%BE%8E%E6%9C%AF%E9%A6%86%E6%8B%8D%E6%91%84%E7%9A%84%E5%8F%98%E5%BD%A2%E9%97%AE%E9%A2%98/"/>
-      <url>/2022/05/05/%E9%97%B2%E8%B0%88-%E5%85%B3%E4%BA%8E%E7%BE%8E%E6%9C%AF%E9%A6%86%E6%8B%8D%E6%91%84%E7%9A%84%E5%8F%98%E5%BD%A2%E9%97%AE%E9%A2%98/</url>
-      
-        <content type="html"><![CDATA[<p>前几天去艺术馆拍了不少喜欢的画作，本想回来美美做墙纸之类的，结果….<br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h1xc5rlm0hj213y0u0afo.jpg" alt="除去我摄影水平不够导致的没有完美对齐的问题，和红框相比能明显看出来似乎加了鱼眼效果般突出来了点"></p><p><em>除去我摄影水平不够导致的没有完美对齐的问题，和红框相比能明显看出来似乎加了鱼眼效果般突出来了点</em></p><h2 id="镜头变形"><a href="#镜头变形" class="headerlink" title="镜头变形"></a>镜头变形</h2><p><img src="https://i.guancha.cn/bbs/2020/06/21/20200621224008407.png?imageView2/2/w/500/format/png" alt="枕形变形与鼓形变形"></p><blockquote><p>“<em>对于一般的风景画，没有多少直线，对枕形变形不太敏感；但要是以建筑为主体，或者是有较多靠近画框边缘的直线的抽象画，枕形变形就会比较扎眼。如果要把画框拍出来，平直线条紧贴着画面边缘，枕形变形特别容易显出来，佳能红圈20-70/2.8都压不住，慢说任何小数码相机了。这是拍摄绘画的“不利条件”。</em>“</p></blockquote><h2 id="球差（球面収差）"><a href="#球差（球面収差）" class="headerlink" title="球差（球面収差）"></a>球差（球面収差）</h2><p><img src="http://www.kansmemo.com/archives/001/201009/4c99aa26d1e4d.png" alt=""><br>透过镜头外侧的光和透镜片中心(近轴)附近的光,因为焦点位置不同而产生变形。原理上来说，只要镜头为球面镜头这一现象就不可避免。<br>相反,球面收差可以通过使用适当设计——非球面镜头来消除。所以,最近的镜头中非球面镜头开始被普遍使用。<br><img src="http://www.kansmemo.com/archives/001/201009/4c99aa29663c5.png" alt=""></p><h2 id="题外话"><a href="#题外话" class="headerlink" title="题外话"></a>题外话</h2><p>物理学的稀巴烂所以基本还停留在初中学的“凸透镜光线汇聚成一点”，所以其实理解这个费了好大的功夫。一些关于<strong>为什么与教科书不同，凸透镜的焦点并不能完美汇聚于一点</strong>的补充如下：</p><blockquote><p>聚集到一点，需要几个因素<br>1、理想平行光<br>2、理想凸透镜<br>3、理想单一频率<br>4、理想粒子特性(实际上光具有波粒两相性)</p></blockquote><p>[1]<a href="https://www.zhihu.com/question/272102579/answer/1297496356">https://www.zhihu.com/question/272102579/answer/1297496356</a><br>[2]<a href="http://www.kansmemo.com/photo/camera/principles/entry-191.html">http://www.kansmemo.com/photo/camera/principles/entry-191.html</a></p>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> other </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>HexoTags</title>
-      <link href="/2022/05/05/HexoTags/"/>
-      <url>/2022/05/05/HexoTags/</url>
-      
-        <content type="html"><![CDATA[<h2 id="Note"><a href="#Note" class="headerlink" title="Note"></a>Note</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% note [class]%&#125;</span><br><span class="line">Any content (support inline tags too.io).</span><br><span class="line">&#123;% endnote %&#125;</span><br></pre></td></tr></table></figure><ul><li>空白</li><li>default</li><li>primary</li><li>success</li><li>info</li><li>warning</li><li>danger</li></ul><h2 id="Mermaid"><a href="#Mermaid" class="headerlink" title="Mermaid"></a>Mermaid</h2><div class="note modern"><p>使用mermaid标籤可以绘製Flowchart（流程图）、Sequence diagram（时序图 ）、Class Diagram（类别图）、State Diagram（状态图）、Gantt（甘特图）和Pie Chart（圆形图），具体可以查看<a href="https://mermaid-js.github.io/mermaid/#/">Mermaide文档</a></p></div><h2 id="Tabs"><a href="#Tabs" class="headerlink" title="Tabs"></a>Tabs</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;% tabs test1 %&#125;</span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line"><span class="strong">**This is Tab 1.**</span></span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line"><span class="strong">**This is Tab 2.**</span></span><br><span class="line">&lt;!-- endtab --&gt;</span><br></pre></td></tr></table></figure><div class="tabs" id="test1"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#test1-1">表格1</button></li><li class="tab"><button type="button" data-href="#test1-2">表格2</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="test1-1"><p>这是1</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="test1-2"><p>这是2</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div><h2 id="label"><a href="#label" class="headerlink" title="label"></a>label</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% label 我是 %&#125;&#123;% label 什么 blue %&#125;&#123;%label 颜色 red %&#125;</span><br></pre></td></tr></table></figure><mark class="hl-label default">我是</mark> <mark class="hl-label blue">什么</mark> <mark class="hl-label red">颜色</mark> ]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>PRML.md</title>
-      <link href="/2022/05/05/PRML/"/>
-      <url>/2022/05/05/PRML/</url>
-      
-        <content type="html"><![CDATA[<h1 id="Pattern-recognition-and-machine-learning"><a href="#Pattern-recognition-and-machine-learning" class="headerlink" title="Pattern recognition and machine learning"></a>Pattern recognition and machine learning</h1><h2 id="0-Guidance"><a href="#0-Guidance" class="headerlink" title="0. Guidance"></a>0. Guidance</h2><ul><li>English<ol><li>neural network  </li><li>in the past decade</li><li>achieve breakthrough　取得重大进展</li><li>speech recognition 语音识别</li><li>machine translation 机器翻译</li><li>train CNN from scratch 从零开始训练</li><li>afterwards 之后</li><li>ambiguous 不明确的</li><li>classes to be recognized 将要被识别的类</li><li>estimate 评价</li><li>supplemental 补充的</li><li>proceed 继续</li></ol></li></ul><h2 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h2><ul><li>English<ol><li>contribute to 造成；以助于</li><li>emphasize 强调</li><li>tough 难的</li><li>facility 能力</li><li>prebuilt 做好的</li></ol></li></ul><blockquote><p>Perceptual computing in auttumn is advanced content of RP</p></blockquote><h3 id="1-1-what-is-PR"><a href="#1-1-what-is-PR" class="headerlink" title="1.1 what is PR"></a>1.1 what is PR</h3><ul><li>Problem/target of PR:<strong>How to estimate the class of data?</strong></li><li><p>Method / Procedure of PR</p><ol><li>prepare training data(labeled)</li><li>get feature vectors from data</li><li>get distribution of each class from feature vectors</li><li>get distribution of each class</li><li>define class boudary </li><li><p>estimate class</p><p>❓What is difference between PR and classification</p></li></ol><ul><li><p>Pattern recognition is a generic term for the ability to recognize regularities or patterns in data. A more generic one is machine learning. Classification is an example of pattern recognition, where a model devides the data into classes.</p><p>  More specific from left to right: <strong><em>Machine Learning &gt; Pattern Recognition &gt; Classification &gt; Linear Classification &gt; SVM</em></strong></p></li></ul></li></ul><h3 id="SV1-2-Data-driven-feature-extraction"><a href="#SV1-2-Data-driven-feature-extraction" class="headerlink" title="SV1-2 Data-driven feature extraction"></a>SV1-2 Data-driven feature extraction</h3><ul><li>English<ol><li>wind turbine 风轮机</li><li>anomaly detection 异常检出</li><li>large- scale 大规模的</li><li>feasible 可能的，可行的 《=》 infeasible</li><li>adhoc video search 特别录像查询（whether the queried object is shown in video or not）</li><li>-driven 由…主导的<ol><li>data-driven 数据驱动的</li></ol></li><li>discriminative model 識別モデル</li><li>be suitable to 适合于</li><li>CMS：Condition Monitoring System</li><li>GMM:Gaussian Mixture Model</li><li></li></ol></li><li>If we don’t have enough data to train a network when we know it’s similar to another task, we can:  use the <strong>well-developed NN for feature extractor    →</strong> so we can only trian <strong>a part of NN by fewer train data</strong></li><li><p>Anomaly  detection APPROACH</p><ol><li><p>Auto encoder (AE)</p><blockquote><p>エンコードしてからデコードします　→　次元削減、特徴抽出</p><ul><li>教師なし学習、異常データいらない</li><li>仕組み：デコードの時に再構築するため、学習されていないものが元画像とのlossがめちゃくちゃ高くなり、Acnomalyと判定される。<a href="http://www.renom.jp/ja/notebooks/tutorial/clustering/anomaly-detection-using-autoencoder/notebook.html">http://www.renom.jp/ja/notebooks/tutorial/clustering/anomaly-detection-using-autoencoder/notebook.html</a></li><li>Need a great number of Traing DATASET</li></ul></blockquote><pre><code> ![截屏2022-04-06 15.31.18.png](Pattern%20recognition%20and%20machine%20learning%20e1f94fd17812467f8adc1a323302ed35/%E6%88%AA%E5%B1%8F2022-04-06_15.31.18.png) ![截屏2022-04-06 15.33.26.png](Pattern%20recognition%20and%20machine%20learning%20e1f94fd17812467f8adc1a323302ed35/%E6%88%AA%E5%B1%8F2022-04-06_15.33.26.png)</code></pre></li><li><p>DNN (discriminative feature extractor)</p><ul><li><p>need to input <strong>normal data and abnoormal data</strong> to train the model how to discriminate</p><p>  <img src="Pattern%20recognition%20and%20machine%20learning%20e1f94fd17812467f8adc1a323302ed35/%E6%88%AA%E5%B1%8F2022-04-06_15.33.00.png" alt="截屏2022-04-06 15.33.00.png"></p><p>  <img src="Pattern%20recognition%20and%20machine%20learning%20e1f94fd17812467f8adc1a323302ed35/%E6%88%AA%E5%B1%8F2022-04-06_15.33.37.png" alt="截屏2022-04-06 15.33.37.png"></p></li></ul></li></ol></li></ul><h3 id="SV2-Semi-supervised-learning"><a href="#SV2-Semi-supervised-learning" class="headerlink" title="SV2 Semi-supervised learning"></a>SV2 Semi-supervised learning</h3><ul><li>English<ul><li>assign labels ラベルを付与する</li><li>supervised 教師あり</li><li>semi-supervised 半教師あり</li><li>unsupervised 教師なし</li><li>reliable-unreliable 可靠的 - 不可靠的</li><li>exploit 利用</li><li>in terms of 就。。。而言,从。。。观点来看</li><li>engage 使参与；吸引；雇佣</li><li>refer to 称之为</li><li>calve 产子</li><li>exploision 爆炸；突然出现</li><li>sophisticate 使更精确</li><li>threshold 下限；门槛</li><li>intermidiate 中距离</li><li>rotation 旋转</li><li>assimilation 同化，融合</li></ul></li><li><p>Semi-supervise</p><p>  <img src="Pattern%20recognition%20and%20machine%20learning%20e1f94fd17812467f8adc1a323302ed35/%E6%88%AA%E5%B1%8F2022-04-06_15.50.55.png" alt="截屏2022-04-06 15.50.55.png"></p></li><li><p>crowdsourcing</p><p>  Request tasks to unspecified large number of people</p><p>  (E.g. To let them annotation the object(迷惑メール))</p></li></ul><h3 id="SV3-Data-assimilation"><a href="#SV3-Data-assimilation" class="headerlink" title="SV3 Data assimilation"></a>SV3 Data assimilation</h3><ul><li>English<ul><li>oceangraphical 海洋学的</li><li>incorporate 纳入；合并</li><li>in contrast 相反的</li><li>operation 运行，实施，行动</li><li>meteorological 气象学的</li><li>intuition 直觉</li><li>consist of 包括</li><li>induce 劝说，促使</li><li>influx 流入 涌入</li><li>pot 笼子</li><li>emulate 模仿 仿真</li><li>sophiscated 需要经验的</li><li>stochastic 随机的</li><li>fomulation 构想；体系化，公式化</li><li>state equation 状态方程式</li><li>observation equation 观测方程式</li><li>degree 程度，阶段</li><li>dotted line 虚线</li><li>phenomenon 现象</li></ul></li><li>Data Assimilation(データ同化、数据同化)<ul><li>主に<a href="https://ja.wikipedia.org/wiki/%E5%9C%B0%E7%90%83%E7%A7%91%E5%AD%A6">地球科学</a>の分野において数値<a href="https://ja.wikipedia.org/wiki/%E6%95%B0%E7%90%86%E3%83%A2%E3%83%87%E3%83%AB">モデル</a>の再現性を高めるために行われる作業である。簡単に言えば、モデルに実際の観測値を入力してより現実に近い結果が出るようにすることを指す。</li></ul></li><li>GBDT<ul><li>GBDTとは「勾配降下法(Gradient)」と「Boosting(アンサンブル)」、「決定木(Decision Tree)」を組み合わせた手法です。</li></ul></li></ul><blockquote><p>In this case (for forcasting the fish catchs), we get better result in DATA ASSIMILATION but not machine learning .<br>Because we can’t deal with data that not happend in the previous data<br>But in DA,we can incorporate expert’s knowledge when make a model so it can predict very well although we only have a few of data</p></blockquote><h3 id="Summarize"><a href="#Summarize" class="headerlink" title="Summarize"></a>Summarize</h3><p><img src="Pattern%20recognition%20and%20machine%20learning%20e1f94fd17812467f8adc1a323302ed35/%E6%88%AA%E5%B1%8F2022-04-07_17.54.35.png" alt="截屏2022-04-07 17.54.35.png"></p><h2 id="2-Feature-embedding"><a href="#2-Feature-embedding" class="headerlink" title="2. Feature embedding"></a>2. Feature embedding</h2><ul><li>English<ul><li>dimensionality reduction 次元削減</li><li>coordinate 座標</li><li>orthonormal coordinate 正規系座標系</li><li>basis 基底</li><li>subspace 部分空間</li><li>projection function 射影変換</li><li>Principal Component Analysis 主成分分析</li><li>prime　プライム；上标号</li><li>scatter 分散，散布</li><li>axis 轴</li><li>formulate 构想，创建，表达</li><li>notation memo</li><li>constraint 限制</li><li>derivative 导数</li><li>eigenvalue 固有值</li><li>eigenvector 固有向量</li><li>correspond 相符，相当</li><li>consistent 一致的</li></ul></li></ul><h3 id="Dimensionality-Reduction"><a href="#Dimensionality-Reduction" class="headerlink" title="Dimensionality Reduction"></a>Dimensionality Reduction</h3><p><strong>Goal: Reduct dimensions but minimize the loss of information</strong></p><p><img src="Pattern%20recognition%20and%20machine%20learning%20e1f94fd17812467f8adc1a323302ed35/%E6%88%AA%E5%B1%8F2022-04-08_16.36.37.png" alt="截屏2022-04-08 16.36.37.png"></p><p><img src="Pattern%20recognition%20and%20machine%20learning%20e1f94fd17812467f8adc1a323302ed35/%E6%88%AA%E5%B1%8F2022-04-08_16.37.05.png" alt="截屏2022-04-08 16.37.05.png"></p><p>T : a projection function</p><p>x: data will to be reducted</p><p>z: reducted data</p><h3 id="Principal-Component-Analysis-PCA"><a href="#Principal-Component-Analysis-PCA" class="headerlink" title="Principal Component Analysis(PCA)"></a>Principal Component Analysis(PCA)</h3><ul><li><p>Minimum Loss of Information = Maximum Variance</p><p>  <img src="Pattern%20recognition%20and%20machine%20learning%20e1f94fd17812467f8adc1a323302ed35/%E6%88%AA%E5%B1%8F2022-04-08_17.00.14.png" alt="截屏2022-04-08 17.00.14.png"></p><p>  OA is a constant → Minimize error AA’ = Maximize variance OA’</p><pre><code>                              → Sum of errors over all samples would be     </code></pre><p>  minimized.= Variance of all projected samples on subspace<br>  would be maximized.</p></li><li><p>検証</p><p>  <img src="Pattern%20recognition%20and%20machine%20learning%20e1f94fd17812467f8adc1a323302ed35/Untitled.png" alt="Untitled"></p><p>   **射影の分散の平均値を0としています</p></li><li><p>手順：</p><ol><li>sample x の分散共分散行列求める</li><li>固有値、固有ベクトル求める</li><li>固有値の絶対値大きいほど、大きい分散しているを表す。対応のベクトルは第一成分。</li></ol></li><li><p>評価方法</p><ul><li><p>寄与率</p><p>  <img src="Pattern%20recognition%20and%20machine%20learning%20e1f94fd17812467f8adc1a323302ed35/%E6%88%AA%E5%B1%8F2022-04-11_15.30.44.png" alt="截屏2022-04-11 15.30.44.png"></p></li><li><p>累積寄与率</p><p>  <img src="Pattern%20recognition%20and%20machine%20learning%20e1f94fd17812467f8adc1a323302ed35/%E6%88%AA%E5%B1%8F2022-04-11_15.31.50.png" alt="截屏2022-04-11 15.31.50.png"></p></li></ul></li></ul>]]></content>
-      
-      
+<search>
+  <entry>
+    <title>HexoTags</title>
+    <url>/2022/05/05/HexoTags/</url>
+    <content><![CDATA[<h2 id="Note"><a href="#Note" class="headerlink" title="Note"></a>Note</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% note [class]%&#125;</span><br><span class="line">Any content (support inline tags too.io).</span><br><span class="line">&#123;% endnote %&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>空白</li>
+<li>default</li>
+<li>primary</li>
+<li>success</li>
+<li>info</li>
+<li>warning</li>
+<li>danger</li>
+</ul>
+<h2 id="Mermaid"><a href="#Mermaid" class="headerlink" title="Mermaid"></a>Mermaid</h2><div class="note modern"><p>使用mermaid标籤可以绘製Flowchart（流程图）、Sequence diagram（时序图 ）、Class Diagram（类别图）、State Diagram（状态图）、Gantt（甘特图）和Pie Chart（圆形图），具体可以查看<a href="https://mermaid-js.github.io/mermaid/#/">Mermaide文档</a></p>
+</div>
+<h2 id="Tabs"><a href="#Tabs" class="headerlink" title="Tabs"></a>Tabs</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% tabs test1 %&#125;</span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line"><span class="strong">**This is Tab 1.**</span></span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line"><span class="strong">**This is Tab 2.**</span></span><br><span class="line">&lt;!-- endtab --&gt;</span><br></pre></td></tr></table></figure>
+<div class="tabs" id="test1"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#test1-1">表格1</button></li><li class="tab"><button type="button" data-href="#test1-2">表格2</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="test1-1"><p>这是1</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="test1-2"><p>这是2</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+<h2 id="label"><a href="#label" class="headerlink" title="label"></a>label</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% label 我是 %&#125;&#123;% label 什么 blue %&#125;&#123;%label 颜色 red %&#125;</span><br></pre></td></tr></table></figure>
+<mark class="hl-label default">我是</mark> <mark class="hl-label blue">什么</mark> <mark class="hl-label red">颜色</mark> 
+]]></content>
+  </entry>
+  <entry>
+    <title>PRML.md</title>
+    <url>/2022/05/05/PRML/</url>
+    <content><![CDATA[<h1 id="Pattern-recognition-and-machine-learning"><a href="#Pattern-recognition-and-machine-learning" class="headerlink" title="Pattern recognition and machine learning"></a>Pattern recognition and machine learning</h1><h2 id="0-Guidance"><a href="#0-Guidance" class="headerlink" title="0. Guidance"></a>0. Guidance</h2><ul>
+<li>English<ol>
+<li>neural network  </li>
+<li>in the past decade</li>
+<li>achieve breakthrough　取得重大进展</li>
+<li>speech recognition 语音识别</li>
+<li>machine translation 机器翻译</li>
+<li>train CNN from scratch 从零开始训练</li>
+<li>afterwards 之后</li>
+<li>ambiguous 不明确的</li>
+<li>classes to be recognized 将要被识别的类</li>
+<li>estimate 评价</li>
+<li>supplemental 补充的</li>
+<li>proceed 继续</li>
+</ol>
+</li>
+</ul>
+<h2 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h2><ul>
+<li>English<ol>
+<li>contribute to 造成；以助于</li>
+<li>emphasize 强调</li>
+<li>tough 难的</li>
+<li>facility 能力</li>
+<li>prebuilt 做好的</li>
+</ol>
+</li>
+</ul>
+<blockquote>
+<p>Perceptual computing in auttumn is advanced content of RP</p>
+</blockquote>
+<h3 id="1-1-what-is-PR"><a href="#1-1-what-is-PR" class="headerlink" title="1.1 what is PR"></a>1.1 what is PR</h3><ul>
+<li>Problem/target of PR:<strong>How to estimate the class of data?</strong></li>
+<li><p>Method / Procedure of PR</p>
+<ol>
+<li>prepare training data(labeled)</li>
+<li>get feature vectors from data</li>
+<li>get distribution of each class from feature vectors</li>
+<li>get distribution of each class</li>
+<li>define class boudary </li>
+<li><p>estimate class</p>
+<p>❓What is difference between PR and classification</p>
+</li>
+</ol>
+<ul>
+<li><p>Pattern recognition is a generic term for the ability to recognize regularities or patterns in data. A more generic one is machine learning. Classification is an example of pattern recognition, where a model devides the data into classes.</p>
+<p>  More specific from left to right: <strong><em>Machine Learning &gt; Pattern Recognition &gt; Classification &gt; Linear Classification &gt; SVM</em></strong></p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="SV1-2-Data-driven-feature-extraction"><a href="#SV1-2-Data-driven-feature-extraction" class="headerlink" title="SV1-2 Data-driven feature extraction"></a>SV1-2 Data-driven feature extraction</h3><ul>
+<li>English<ol>
+<li>wind turbine 风轮机</li>
+<li>anomaly detection 异常检出</li>
+<li>large- scale 大规模的</li>
+<li>feasible 可能的，可行的 《=》 infeasible</li>
+<li>adhoc video search 特别录像查询（whether the queried object is shown in video or not）</li>
+<li>-driven 由…主导的<ol>
+<li>data-driven 数据驱动的</li>
+</ol>
+</li>
+<li>discriminative model 識別モデル</li>
+<li>be suitable to 适合于</li>
+<li>CMS：Condition Monitoring System</li>
+<li>GMM:Gaussian Mixture Model</li>
+<li></li>
+</ol>
+</li>
+<li>If we don’t have enough data to train a network when we know it’s similar to another task, we can:  use the <strong>well-developed NN for feature extractor    →</strong> so we can only trian <strong>a part of NN by fewer train data</strong></li>
+<li><p>Anomaly  detection APPROACH</p>
+<ol>
+<li><p>Auto encoder (AE)</p>
+<blockquote>
+<p>エンコードしてからデコードします　→　次元削減、特徴抽出</p>
+<ul>
+<li>教師なし学習、異常データいらない</li>
+<li>仕組み：デコードの時に再構築するため、学習されていないものが元画像とのlossがめちゃくちゃ高くなり、Acnomalyと判定される。<a href="http://www.renom.jp/ja/notebooks/tutorial/clustering/anomaly-detection-using-autoencoder/notebook.html">http://www.renom.jp/ja/notebooks/tutorial/clustering/anomaly-detection-using-autoencoder/notebook.html</a></li>
+<li>Need a great number of Traing DATASET</li>
+</ul>
+</blockquote>
+<pre><code> ![截屏2022-04-06 15.31.18.png](Pattern%20recognition%20and%20machine%20learning%20e1f94fd17812467f8adc1a323302ed35/%E6%88%AA%E5%B1%8F2022-04-06_15.31.18.png)
+
+ ![截屏2022-04-06 15.33.26.png](Pattern%20recognition%20and%20machine%20learning%20e1f94fd17812467f8adc1a323302ed35/%E6%88%AA%E5%B1%8F2022-04-06_15.33.26.png)
+</code></pre></li>
+<li><p>DNN (discriminative feature extractor)</p>
+<ul>
+<li><p>need to input <strong>normal data and abnoormal data</strong> to train the model how to discriminate</p>
+<p>  <img src="Pattern%20recognition%20and%20machine%20learning%20e1f94fd17812467f8adc1a323302ed35/%E6%88%AA%E5%B1%8F2022-04-06_15.33.00.png" alt="截屏2022-04-06 15.33.00.png"></p>
+<p>  <img src="Pattern%20recognition%20and%20machine%20learning%20e1f94fd17812467f8adc1a323302ed35/%E6%88%AA%E5%B1%8F2022-04-06_15.33.37.png" alt="截屏2022-04-06 15.33.37.png"></p>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h3 id="SV2-Semi-supervised-learning"><a href="#SV2-Semi-supervised-learning" class="headerlink" title="SV2 Semi-supervised learning"></a>SV2 Semi-supervised learning</h3><ul>
+<li>English<ul>
+<li>assign labels ラベルを付与する</li>
+<li>supervised 教師あり</li>
+<li>semi-supervised 半教師あり</li>
+<li>unsupervised 教師なし</li>
+<li>reliable-unreliable 可靠的 - 不可靠的</li>
+<li>exploit 利用</li>
+<li>in terms of 就。。。而言,从。。。观点来看</li>
+<li>engage 使参与；吸引；雇佣</li>
+<li>refer to 称之为</li>
+<li>calve 产子</li>
+<li>exploision 爆炸；突然出现</li>
+<li>sophisticate 使更精确</li>
+<li>threshold 下限；门槛</li>
+<li>intermidiate 中距离</li>
+<li>rotation 旋转</li>
+<li>assimilation 同化，融合</li>
+</ul>
+</li>
+<li><p>Semi-supervise</p>
+<p>  <img src="Pattern%20recognition%20and%20machine%20learning%20e1f94fd17812467f8adc1a323302ed35/%E6%88%AA%E5%B1%8F2022-04-06_15.50.55.png" alt="截屏2022-04-06 15.50.55.png"></p>
+</li>
+<li><p>crowdsourcing</p>
+<p>  Request tasks to unspecified large number of people</p>
+<p>  (E.g. To let them annotation the object(迷惑メール))</p>
+</li>
+</ul>
+<h3 id="SV3-Data-assimilation"><a href="#SV3-Data-assimilation" class="headerlink" title="SV3 Data assimilation"></a>SV3 Data assimilation</h3><ul>
+<li>English<ul>
+<li>oceangraphical 海洋学的</li>
+<li>incorporate 纳入；合并</li>
+<li>in contrast 相反的</li>
+<li>operation 运行，实施，行动</li>
+<li>meteorological 气象学的</li>
+<li>intuition 直觉</li>
+<li>consist of 包括</li>
+<li>induce 劝说，促使</li>
+<li>influx 流入 涌入</li>
+<li>pot 笼子</li>
+<li>emulate 模仿 仿真</li>
+<li>sophiscated 需要经验的</li>
+<li>stochastic 随机的</li>
+<li>fomulation 构想；体系化，公式化</li>
+<li>state equation 状态方程式</li>
+<li>observation equation 观测方程式</li>
+<li>degree 程度，阶段</li>
+<li>dotted line 虚线</li>
+<li>phenomenon 现象</li>
+</ul>
+</li>
+<li>Data Assimilation(データ同化、数据同化)<ul>
+<li>主に<a href="https://ja.wikipedia.org/wiki/%E5%9C%B0%E7%90%83%E7%A7%91%E5%AD%A6">地球科学</a>の分野において数値<a href="https://ja.wikipedia.org/wiki/%E6%95%B0%E7%90%86%E3%83%A2%E3%83%87%E3%83%AB">モデル</a>の再現性を高めるために行われる作業である。簡単に言えば、モデルに実際の観測値を入力してより現実に近い結果が出るようにすることを指す。</li>
+</ul>
+</li>
+<li>GBDT<ul>
+<li>GBDTとは「勾配降下法(Gradient)」と「Boosting(アンサンブル)」、「決定木(Decision Tree)」を組み合わせた手法です。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>In this case (for forcasting the fish catchs), we get better result in DATA ASSIMILATION but not machine learning .<br>Because we can’t deal with data that not happend in the previous data<br>But in DA,we can incorporate expert’s knowledge when make a model so it can predict very well although we only have a few of data</p>
+</blockquote>
+<h3 id="Summarize"><a href="#Summarize" class="headerlink" title="Summarize"></a>Summarize</h3><p><img src="Pattern%20recognition%20and%20machine%20learning%20e1f94fd17812467f8adc1a323302ed35/%E6%88%AA%E5%B1%8F2022-04-07_17.54.35.png" alt="截屏2022-04-07 17.54.35.png"></p>
+<h2 id="2-Feature-embedding"><a href="#2-Feature-embedding" class="headerlink" title="2. Feature embedding"></a>2. Feature embedding</h2><ul>
+<li>English<ul>
+<li>dimensionality reduction 次元削減</li>
+<li>coordinate 座標</li>
+<li>orthonormal coordinate 正規系座標系</li>
+<li>basis 基底</li>
+<li>subspace 部分空間</li>
+<li>projection function 射影変換</li>
+<li>Principal Component Analysis 主成分分析</li>
+<li>prime　プライム；上标号</li>
+<li>scatter 分散，散布</li>
+<li>axis 轴</li>
+<li>formulate 构想，创建，表达</li>
+<li>notation memo</li>
+<li>constraint 限制</li>
+<li>derivative 导数</li>
+<li>eigenvalue 固有值</li>
+<li>eigenvector 固有向量</li>
+<li>correspond 相符，相当</li>
+<li>consistent 一致的</li>
+</ul>
+</li>
+</ul>
+<h3 id="Dimensionality-Reduction"><a href="#Dimensionality-Reduction" class="headerlink" title="Dimensionality Reduction"></a>Dimensionality Reduction</h3><p><strong>Goal: Reduct dimensions but minimize the loss of information</strong></p>
+<p><img src="Pattern%20recognition%20and%20machine%20learning%20e1f94fd17812467f8adc1a323302ed35/%E6%88%AA%E5%B1%8F2022-04-08_16.36.37.png" alt="截屏2022-04-08 16.36.37.png"></p>
+<p><img src="Pattern%20recognition%20and%20machine%20learning%20e1f94fd17812467f8adc1a323302ed35/%E6%88%AA%E5%B1%8F2022-04-08_16.37.05.png" alt="截屏2022-04-08 16.37.05.png"></p>
+<p>T : a projection function</p>
+<p>x: data will to be reducted</p>
+<p>z: reducted data</p>
+<h3 id="Principal-Component-Analysis-PCA"><a href="#Principal-Component-Analysis-PCA" class="headerlink" title="Principal Component Analysis(PCA)"></a>Principal Component Analysis(PCA)</h3><ul>
+<li><p>Minimum Loss of Information = Maximum Variance</p>
+<p>  <img src="Pattern%20recognition%20and%20machine%20learning%20e1f94fd17812467f8adc1a323302ed35/%E6%88%AA%E5%B1%8F2022-04-08_17.00.14.png" alt="截屏2022-04-08 17.00.14.png"></p>
+<p>  OA is a constant → Minimize error AA’ = Maximize variance OA’</p>
+<pre><code>                              → Sum of errors over all samples would be     
+</code></pre><p>  minimized.= Variance of all projected samples on subspace<br>  would be maximized.</p>
+</li>
+<li><p>検証</p>
+<p>  <img src="Pattern%20recognition%20and%20machine%20learning%20e1f94fd17812467f8adc1a323302ed35/Untitled.png" alt="Untitled"></p>
+<p>   **射影の分散の平均値を0としています</p>
+</li>
+<li><p>手順：</p>
+<ol>
+<li>sample x の分散共分散行列求める</li>
+<li>固有値、固有ベクトル求める</li>
+<li>固有値の絶対値大きいほど、大きい分散しているを表す。対応のベクトルは第一成分。</li>
+</ol>
+</li>
+<li><p>評価方法</p>
+<ul>
+<li><p>寄与率</p>
+<p>  <img src="Pattern%20recognition%20and%20machine%20learning%20e1f94fd17812467f8adc1a323302ed35/%E6%88%AA%E5%B1%8F2022-04-11_15.30.44.png" alt="截屏2022-04-11 15.30.44.png"></p>
+</li>
+<li><p>累積寄与率</p>
+<p>  <img src="Pattern%20recognition%20and%20machine%20learning%20e1f94fd17812467f8adc1a323302ed35/%E6%88%AA%E5%B1%8F2022-04-11_15.31.50.png" alt="截屏2022-04-11 15.31.50.png"></p>
+</li>
+</ul>
+</li>
+</ul>
+]]></content>
       <categories>
-          
-          <category> study </category>
-          
+        <category>study</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> Pattern Recognizition </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Line Search</title>
-      <link href="/2022/05/04/cgo/"/>
-      <url>/2022/05/04/cgo/</url>
-      
-        <content type="html"><![CDATA[<h2 id="2-Line-Search"><a href="#2-Line-Search" class="headerlink" title="2.Line Search"></a>2.Line Search</h2><ul><li>最適化関数</li><li>局所的最小値（極小値）<ul><li>狭義極小値（严格的最小值）：不带等号，必须最小值小于所有值</li></ul></li><li>函数存在最小值的必要条件<ul><li>一阶必要条件（<strong>FIRST-ORDER NECESSARY CONDITIONS</strong>）<ul><li>①函数f(x)在点$x^<em>$可微且②$x^</em>$若是局部极小点，则梯度  ${\nabla f(x^*)=0}$</li></ul></li><li>二阶必要条件<ul><li>①函数f(x)在点$x^<em>$可微且②$x^</em>$若是局部极小点，则梯度  ${\nabla f(x^<em>)=0}$,并且hesse矩阵 ${\nabla^2 f(x^</em>)}$半正定            <blockquote><p>半正定值：<br>  对于所有x不等于0，都有 ${x^TAx≥0}$;且对某个x不等于0，有 ${x^TAx&gt;0}$<br>  则A为半正定</p></blockquote></li></ul></li></ul></li><li><p>最小二乘法（LEAST-SQUARES）</p><ul><li><p>${f<em>0(x)=||Ax-b||^2_2=\sum</em>{i=1}^k({a_i}^Tx-b_i)^2}$</p><blockquote><p>2-范数</p><pre><code>$&#123;||x||_2=(x,x)^&#123;1/2&#125;=\sqrt&#123;\sum_&#123;i=1&#125;^n x_i^2&#125;&#125;$      备注</code></pre></blockquote></li></ul></li></ul><ul><li><p>解最小二乘法</p><ul><li><p>上面的式子可被简化为：</p><p>   ${(A^TA)x = A^Tb}$     →    ${x = (A^TA)^{-1}A^Tb}$</p><pre><code>   代入原式并求hesse矩阵的话</code></pre><p>   ${\nabla^2 ||Ax-b||^2_2=2A^TA}$</p><p>  → 变成了确认 ${2A^TA}$的正定值与否的问题</p></li></ul></li><li><p>补充：最小二乘</p><ul><li>如下二维平面图中有很多个点，假设我们想用一条直线来拟合数据，即期望能找到一条直线能最好地穿过这些数据点。</li><li>一个点就可以构造一个方程，而未知数显然只有两个（直线的斜率和截距），因此这就是一个超定系统，我们是没有办法找到一条完美的直线，使得上述的点都在直线上。因此，我们只能期望找到一条最好的“适配（best fitting line）”直线来拟合这些数据</li><li>有x作为自变量，y表示x对应的真实值，$y^hat$表示由拟合直线对应的预测值</li><li>找一条直线能使得所有点离这个直线的距离平均值最小的这种近似的结果就是回归分析的目标。</li><li>最小二乘法主要包含了两大类方法，一种是线性最小二乘法（Linear Least Squares），一种是非线性最小二乘法（Nonlinear Least Squares）。</li></ul></li></ul>]]></content>
-      
-      
-      
-    </entry>
-    
-    
+      <tags>
+        <tag>Pattern Recognizition</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Line Search</title>
+    <url>/2022/05/04/cgo/</url>
+    <content><![CDATA[<h2 id="2-Line-Search"><a href="#2-Line-Search" class="headerlink" title="2.Line Search"></a>2.Line Search</h2><ul>
+<li>最適化関数</li>
+<li>局所的最小値（極小値）<ul>
+<li>狭義極小値（严格的最小值）：不带等号，必须最小值小于所有值</li>
+</ul>
+</li>
+<li>函数存在最小值的必要条件<ul>
+<li>一阶必要条件（<strong>FIRST-ORDER NECESSARY CONDITIONS</strong>）<ul>
+<li>①函数f(x)在点$x^<em>$可微且②$x^</em>$若是局部极小点，则梯度  ${\nabla f(x^*)=0}$</li>
+</ul>
+</li>
+<li>二阶必要条件<ul>
+<li>①函数f(x)在点$x^<em>$可微且②$x^</em>$若是局部极小点，则梯度  ${\nabla f(x^<em>)=0}$,并且hesse矩阵 ${\nabla^2 f(x^</em>)}$半正定            <blockquote>
+<p>半正定值：<br>  对于所有x不等于0，都有 ${x^TAx≥0}$;且对某个x不等于0，有 ${x^TAx&gt;0}$<br>  则A为半正定</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>最小二乘法（LEAST-SQUARES）</p>
+<ul>
+<li><p>${f<em>0(x)=||Ax-b||^2_2=\sum</em>{i=1}^k({a_i}^Tx-b_i)^2}$</p>
+<blockquote>
+<p>2-范数</p>
+<pre><code>$&#123;||x||_2=(x,x)^&#123;1/2&#125;=\sqrt&#123;\sum_&#123;i=1&#125;^n x_i^2&#125;&#125;$      备注
+</code></pre></blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>解最小二乘法</p>
+<ul>
+<li><p>上面的式子可被简化为：</p>
+<p>   ${(A^TA)x = A^Tb}$     →    ${x = (A^TA)^{-1}A^Tb}$</p>
+<pre><code>   代入原式并求hesse矩阵的话
+</code></pre><p>   ${\nabla^2 ||Ax-b||^2_2=2A^TA}$</p>
+<p>  → 变成了确认 ${2A^TA}$的正定值与否的问题</p>
+</li>
+</ul>
+</li>
+<li><p>补充：最小二乘</p>
+<ul>
+<li>如下二维平面图中有很多个点，假设我们想用一条直线来拟合数据，即期望能找到一条直线能最好地穿过这些数据点。</li>
+<li>一个点就可以构造一个方程，而未知数显然只有两个（直线的斜率和截距），因此这就是一个超定系统，我们是没有办法找到一条完美的直线，使得上述的点都在直线上。因此，我们只能期望找到一条最好的“适配（best fitting line）”直线来拟合这些数据</li>
+<li>有x作为自变量，y表示x对应的真实值，$y^hat$表示由拟合直线对应的预测值</li>
+<li>找一条直线能使得所有点离这个直线的距离平均值最小的这种近似的结果就是回归分析的目标。</li>
+<li>最小二乘法主要包含了两大类方法，一种是线性最小二乘法（Linear Least Squares），一种是非线性最小二乘法（Nonlinear Least Squares）。</li>
+</ul>
+</li>
+</ul>
+]]></content>
+  </entry>
+  <entry>
+    <title>闲谈-关于美术馆拍摄的变形问题</title>
+    <url>/2022/05/05/%E9%97%B2%E8%B0%88-%E5%85%B3%E4%BA%8E%E7%BE%8E%E6%9C%AF%E9%A6%86%E6%8B%8D%E6%91%84%E7%9A%84%E5%8F%98%E5%BD%A2%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<p>前几天去艺术馆拍了不少喜欢的画作，本想回来美美做墙纸之类的，结果….<br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h1xc5rlm0hj213y0u0afo.jpg" alt="除去我摄影水平不够导致的没有完美对齐的问题，和红框相比能明显看出来似乎加了鱼眼效果般突出来了点"></p>
+<p><em>除去我摄影水平不够导致的没有完美对齐的问题，和红框相比能明显看出来似乎加了鱼眼效果般突出来了点</em></p>
+<h2 id="镜头变形"><a href="#镜头变形" class="headerlink" title="镜头变形"></a>镜头变形</h2><p><img src="https://i.guancha.cn/bbs/2020/06/21/20200621224008407.png?imageView2/2/w/500/format/png" alt="枕形变形与鼓形变形"></p>
+<blockquote>
+<p>“<em>对于一般的风景画，没有多少直线，对枕形变形不太敏感；但要是以建筑为主体，或者是有较多靠近画框边缘的直线的抽象画，枕形变形就会比较扎眼。如果要把画框拍出来，平直线条紧贴着画面边缘，枕形变形特别容易显出来，佳能红圈20-70/2.8都压不住，慢说任何小数码相机了。这是拍摄绘画的“不利条件”。</em>“</p>
+</blockquote>
+<h2 id="球差（球面収差）"><a href="#球差（球面収差）" class="headerlink" title="球差（球面収差）"></a>球差（球面収差）</h2><p><img src="http://www.kansmemo.com/archives/001/201009/4c99aa26d1e4d.png" alt=""><br>透过镜头外侧的光和透镜片中心(近轴)附近的光,因为焦点位置不同而产生变形。原理上来说，只要镜头为球面镜头这一现象就不可避免。<br>相反,球面收差可以通过使用适当设计——非球面镜头来消除。所以,最近的镜头中非球面镜头开始被普遍使用。<br><img src="http://www.kansmemo.com/archives/001/201009/4c99aa29663c5.png" alt=""></p>
+<h2 id="题外话"><a href="#题外话" class="headerlink" title="题外话"></a>题外话</h2><p>物理学的稀巴烂所以基本还停留在初中学的“凸透镜光线汇聚成一点”，所以其实理解这个费了好大的功夫。一些关于<strong>为什么与教科书不同，凸透镜的焦点并不能完美汇聚于一点</strong>的补充如下：</p>
+<blockquote>
+<p>聚集到一点，需要几个因素<br>1、理想平行光<br>2、理想凸透镜<br>3、理想单一频率<br>4、理想粒子特性(实际上光具有波粒两相性)</p>
+</blockquote>
+<p>[1]<a href="https://www.zhihu.com/question/272102579/answer/1297496356">https://www.zhihu.com/question/272102579/answer/1297496356</a><br>[2]<a href="http://www.kansmemo.com/photo/camera/principles/entry-191.html">http://www.kansmemo.com/photo/camera/principles/entry-191.html</a></p>
+]]></content>
+      <tags>
+        <tag>other</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>分类</title>
+    <url>/categories/index.html</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>测试</title>
+    <url>//artitalk.html</url>
+    <content><![CDATA[<!-- 引用 artitalk -->
+<script type="text/javascript" src="https://unpkg.com/artitalk"></script>
+<!-- 存放说说的容器 -->
+<div id="artitalk_main"></div>
+<script>
+new Artitalk({
+    appId: 'vjtQHHDmHDs5uaqwCNP3qo5O-MdYXbMMI', // Your LeanCloud appId
+    appKey: 'A8RIm0ol4FRPecB8kswpJwcq' // Your LeanCloud appKey
+})
+</script>]]></content>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/photo/spring2022.html</url>
+    <content><![CDATA[<div class="fj-gallery"><p><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h1wil5g0i6j21hc0u07kd.jpg" alt=""><br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h1wil65uhoj20u00u0tdi.jpg" alt=""><br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h1wil848fnj213y0u07d9.jpg" alt=""><br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h1wil94a2qj21hc0u07h9.jpg" alt=""><br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h1wil9wvqkj21hc0u00z8.jpg" alt=""><br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h1wilbsqlkj213y0u0111.jpg" alt=""><br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h1wildrqo1j213y0u0tbs.jpg" alt=""><br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h1wilef7xyj213y0u0wk3.jpg" alt=""><br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h1wilf6fpvj213y0u041w.jpg" alt=""><br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h1wilfzsluj213y0u0ten.jpg" alt=""><br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h1wilha7m1j213y0u0dmr.jpg" alt=""></p>
+          </div>]]></content>
+  </entry>
+  <entry>
+    <title>Phtograph</title>
+    <url>//photo.html</url>
+    <content><![CDATA[<div class="gallery-group-main">
+
+  <figure class="gallery-group">
+  <img class="gallery-group-img no-lightbox" src='https://tva1.sinaimg.cn/large/e6c9d24egy1h1wib2yljij21hc0u07kd.jpg' alt="Group Image Gallery">
+  <figcaption>
+  <div class="gallery-group-name">2022春</div>
+  <p></p>
+  <a href='/photo/spring2022'></a>
+  </figcaption>
+  </figure>
   
-  
-    
-    
-    <entry>
-      <title>测试</title>
-      <link href="//artitalk.html"/>
-      <url>//artitalk.html</url>
-      
-        <content type="html"><![CDATA[<!-- 引用 artitalk --><script type="text/javascript" src="https://unpkg.com/artitalk"></script><!-- 存放说说的容器 --><div id="artitalk_main"></div><script>new Artitalk({    appId: 'vjtQHHDmHDs5uaqwCNP3qo5O-MdYXbMMI', // Your LeanCloud appId    appKey: 'A8RIm0ol4FRPecB8kswpJwcq' // Your LeanCloud appKey})</script>]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>分类</title>
-      <link href="/categories/index.html"/>
-      <url>/categories/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Phtograph</title>
-      <link href="//photo.html"/>
-      <url>//photo.html</url>
-      
-        <content type="html"><![CDATA[<div class="gallery-group-main">  <figure class="gallery-group">  <img class="gallery-group-img no-lightbox" src='https://tva1.sinaimg.cn/large/e6c9d24egy1h1wib2yljij21hc0u07kd.jpg' alt="Group Image Gallery">  <figcaption>  <div class="gallery-group-name">2022春</div>  <p></p>  <a href='/photo/spring2022'></a>  </figcaption>  </figure>  </div>]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title></title>
-      <link href="/photo/spring2022.html"/>
-      <url>/photo/spring2022.html</url>
-      
-        <content type="html"><![CDATA[<div class="fj-gallery"><p><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h1wil5g0i6j21hc0u07kd.jpg" alt=""><br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h1wil65uhoj20u00u0tdi.jpg" alt=""><br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h1wil848fnj213y0u07d9.jpg" alt=""><br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h1wil94a2qj21hc0u07h9.jpg" alt=""><br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h1wil9wvqkj21hc0u00z8.jpg" alt=""><br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h1wilbsqlkj213y0u0111.jpg" alt=""><br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h1wildrqo1j213y0u0tbs.jpg" alt=""><br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h1wilef7xyj213y0u0wk3.jpg" alt=""><br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h1wilf6fpvj213y0u041w.jpg" alt=""><br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h1wilfzsluj213y0u0ten.jpg" alt=""><br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h1wilha7m1j213y0u0dmr.jpg" alt=""></p>          </div>]]></content>
-      
-    </entry>
-    
-    
-  
+</div>
+]]></content>
+  </entry>
 </search>
