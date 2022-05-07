@@ -1,0 +1,315 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>凸集合与凸函数 | Chicken Leg 's Homepage</title><meta name="keywords" content="optimization"><meta name="author" content="Ann Sue"><meta name="copyright" content="Ann Sue"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="1. convex sets1.1 Line segmentation 直线分割y&#x3D;\theta x_1+(1-\theta)x_2y&#x3D;x_2+\theta(x_1-x_2) $\theta$&#x3D;1时$y&#x3D;x_1$,&#x3D;0时反之，所以称为直线分割  根据式2也可以看做是以x_2为基准。向x_1-x_2延伸的一条线  1.2 affine sets仿射集C上的任意两点连成的直线属于C即 {\theta">
+<meta property="og:type" content="article">
+<meta property="og:title" content="凸集合与凸函数">
+<meta property="og:url" content="https://llsf9.github.io/2022/05/06/%E5%87%B8%E9%9B%86%E5%90%88%E4%B8%8E%E5%87%B8%E5%87%BD%E6%95%B0/index.html">
+<meta property="og:site_name" content="Chicken Leg &#39;s Homepage">
+<meta property="og:description" content="1. convex sets1.1 Line segmentation 直线分割y&#x3D;\theta x_1+(1-\theta)x_2y&#x3D;x_2+\theta(x_1-x_2) $\theta$&#x3D;1时$y&#x3D;x_1$,&#x3D;0时反之，所以称为直线分割  根据式2也可以看做是以x_2为基准。向x_1-x_2延伸的一条线  1.2 affine sets仿射集C上的任意两点连成的直线属于C即 {\theta">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://images.unsplash.com/photo-1545989253-02cc26577f88?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80">
+<meta property="article:published_time" content="2022-05-06T03:45:33.000Z">
+<meta property="article:modified_time" content="2022-05-06T08:38:46.016Z">
+<meta property="article:author" content="Ann Sue">
+<meta property="article:tag" content="optimization">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1545989253-02cc26577f88?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"><link rel="shortcut icon" href="/butterfly/favicon.png"><link rel="canonical" href="https://llsf9.github.io/2022/05/06/%E5%87%B8%E9%9B%86%E5%90%88%E4%B8%8E%E5%87%B8%E5%87%BD%E6%95%B0/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '凸集合与凸函数',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-05-06 17:38:46'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.1.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/butterfly/favicon.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">8</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">5</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/study"><i class="fa-fw fas fa-school"></i><span> 学习</span></a></div><div class="menus_item"><a class="site-page" href="/photo"><i class="fa-fw fas fa-camera-retro"></i><span> 摄影</span></a></div><div class="menus_item"><a class="site-page" href="/categories/blog"><i class="fa-fw fas fa-feather-alt"></i><span> 闲言</span></a></div><div class="menus_item"><a class="site-page" href="/artitalk"><i class="fa-fw far fa-comment-alt"></i><span> 碎语</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://images.unsplash.com/photo-1545989253-02cc26577f88?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1170&amp;q=80')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Chicken Leg 's Homepage</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/study"><i class="fa-fw fas fa-school"></i><span> 学习</span></a></div><div class="menus_item"><a class="site-page" href="/photo"><i class="fa-fw fas fa-camera-retro"></i><span> 摄影</span></a></div><div class="menus_item"><a class="site-page" href="/categories/blog"><i class="fa-fw fas fa-feather-alt"></i><span> 闲言</span></a></div><div class="menus_item"><a class="site-page" href="/artitalk"><i class="fa-fw far fa-comment-alt"></i><span> 碎语</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">凸集合与凸函数</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-05-06T03:45:33.000Z" title="发表于 2022-05-06 12:45:33">2022-05-06</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-05-06T08:38:46.016Z" title="更新于 2022-05-06 17:38:46">2022-05-06</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/study/">study</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>4分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="凸集合与凸函数"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="1-convex-sets"><a href="#1-convex-sets" class="headerlink" title="1. convex sets"></a>1. convex sets</h2><h3 id="1-1-Line-segmentation-直线分割"><a href="#1-1-Line-segmentation-直线分割" class="headerlink" title="1.1 Line segmentation 直线分割"></a>1.1 Line segmentation 直线分割</h3><script type="math/tex; mode=display">y=\theta x_1+(1-\theta)x_2</script><script type="math/tex; mode=display">y=x_2+\theta(x_1-x_2)</script><blockquote>
+<p>$\theta$=1时$y=x_1$,=0时反之，所以称为<strong>直线分割 </strong></p>
+<p>根据式2也可以看做是以x_2为基准。向x_1-x_2延伸的一条线<br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h1ykewxdwij208m048q2r.jpg" alt=""></p>
+</blockquote>
+<h3 id="1-2-affine-sets"><a href="#1-2-affine-sets" class="headerlink" title="1.2 affine sets"></a>1.2 affine sets</h3><p>仿射集C上的任意两点连成的直线属于C<br>即</p>
+<script type="math/tex; mode=display">{\theta x_{1}+(1-\theta) x_{2} \in C, \quad \forall x_{1}, x_{2} \in C, \text { and } \theta \in \mathbb{R}}</script><p>扩展到多点上为</p>
+<script type="math/tex; mode=display">x_1, x_2 ... x_k \in C</script><script type="math/tex; mode=display">\bf{AND} {\theta}_1+{\theta}_2+...+{\theta}_k=1</script><script type="math/tex; mode=display">\bf{THEN} \theta x_{1}+...+\theta_k x_{k} \in C</script><p>其中，对于属于C的子空间是<br>$V=C-x_0=\{x-x_0|x\in C\}$</p>
+<blockquote>
+<p>意味着标量乘积之和是闭合的</p>
+</blockquote>
+<p>子空间维数=仿射集维数</p>
+<h3 id="1-3-affine-hull-仿射包"><a href="#1-3-affine-hull-仿射包" class="headerlink" title="1.3 affine hull 仿射包"></a>1.3 affine hull 仿射包</h3><p>aff$C=\{\theta x_{1}+…+\theta_k x_{k}|x_{1}, x_{2}…x_k\in C, \theta_1+\theta_2+…+\theta_k=1\}$</p>
+<ol>
+<li>C中的所有点的仿射组合组成的集合</li>
+<li>仿射集维数=仿射集子空间的维数</li>
+<li>是包含C的最小仿射集合</li>
+</ol>
+<h3 id="1-4-相对内部-relative-interior"><a href="#1-4-相对内部-relative-interior" class="headerlink" title="1.4 相对内部 relative interior"></a>1.4 相对内部 relative interior</h3><p>如果集合C的仿射维数小于n,那么aff$C\ne R ^n$<br>相对内部relint C定义为<br>$\text { relint } C =\{x \in C \mid B(x, r) \cap \operatorname{aff} C \subseteq C \text { for some } r&gt;0\}$<br>其中$B(x,y)=\{y| |y-x|\le r\}$(任意范数均可)</p>
+<blockquote>
+<p>（呃呃呃开始不说人话了是吧）</p>
+</blockquote>
+<h3 id="1-5-convex-sets-凸集"><a href="#1-5-convex-sets-凸集" class="headerlink" title="1.5 convex sets 凸集"></a>1.5 convex sets 凸集</h3><p>任意两点的线段都在C中<br>$\theta x_{1}+(1-\theta) x_{2} \in C$<br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h1ym9ddkmrj21610aata5.jpg" alt=""><br>所有点的凸组合为凸包（convex hull）<br>conv$C=\{\theta x_{1}+…+\theta_k x_{k}|x_{1}, x_{2}…x_k\in C, \theta_1+\theta_2+…+\theta_k=1, \theta_i\ge 0\}$<br>凸包是包含C的最小凸集<br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h1ym9epnp9j216e0b3jsg.jpg" alt=""></p>
+<h2 id="2-cone-锥"><a href="#2-cone-锥" class="headerlink" title="2. cone 锥"></a>2. cone 锥</h2><p>对与任何x属于C以及$\theta$大于等于0，都有<br>$\theta x\in C$</p>
+<h3 id="2-1-凸锥"><a href="#2-1-凸锥" class="headerlink" title="2.1 凸锥"></a>2.1 凸锥</h3><p>锥且凸，即<br>$\theta_1 x_1 + \theta_2 x_2\in C$<br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h1yme7l34kj21650iddhe.jpg" alt=""></p>
+<h3 id="2-2-锥包"><a href="#2-2-锥包" class="headerlink" title="2.2 锥包"></a>2.2 锥包</h3><p>所有锥组合形成的集合</p>
+<h2 id="3-重要例子"><a href="#3-重要例子" class="headerlink" title="3. 重要例子"></a>3. 重要例子</h2><h3 id="3-1-一些概念"><a href="#3-1-一些概念" class="headerlink" title="3.1 一些概念"></a>3.1 一些概念</h3><ol>
+<li>空集、任意一个点（即单点集）、全空间R”都是Rn的仿射（自然也是凸的)子集。</li>
+<li>任意直线是仿射的。如果直线通过零点，则是子空间，因此，也是凸锥。</li>
+<li>一条线段是凸的，但不是仿射的（除非退化为一个点）。</li>
+<li>一条射线，即具有形式$\{x_0+\theta v|\theta≥0\}$，v≠0的集合，是凸的，但不是仿射的。如果射线的基点$x_0$是0，则它是凸锥。</li>
+<li>任意子空间是仿射的、凸锥（自然是凸的）。</li>
+</ol>
+<h3 id="3-2-超平面"><a href="#3-2-超平面" class="headerlink" title="3.2 超平面"></a>3.2 超平面</h3><p>$\{x|a^Tx=b\}$</p>
+<ul>
+<li>$a\in R^n且不为0, b\in R$</li>
+<li>超平面是关于x的线性方程的解空间（因此是仿射集合）</li>
+</ul>
+<h3 id="3-3-半空间"><a href="#3-3-半空间" class="headerlink" title="3.3 半空间"></a>3.3 半空间</h3><p>$\{x|a^Tx\le b\}$</p>
+<ul>
+<li>线性不等式的解空间</li>
+<li>凸但不仿射</li>
+<li>由超平面切割而成2个半空间</li>
+</ul>
+<h3 id="3-4-Euclid球"><a href="#3-4-Euclid球" class="headerlink" title="3.4 Euclid球"></a>3.4 Euclid球</h3><p>$\begin{aligned}<br>B\left(x_{c}, r\right) &amp;=\left\{x \mid\left|x-x_{c}\right|_{2} \leq r\right\} \\<br>&amp;=\left\{x \mid\left(x-x_{c}\right)^{\top}\left(x-x_{c}\right) \leq r^{2}\right\}<br>\end{aligned}$</p>
+<ul>
+<li>$x_c$为球心</li>
+<li>r是半径</li>
+</ul>
+<h3 id="3-5-多面体"><a href="#3-5-多面体" class="headerlink" title="3.5 多面体"></a>3.5 多面体</h3><p>$\begin{array}{r}<br>\mathcal{P}=\left\{x \mid a_{j}^{\top} x-b_{j} \leq 0, j=1, \ldots, m\right. \\<br>\left.c_{j}^{\top} x-d_{j}=0, j=1, \ldots, p\right\}<br>\end{array}$</p>
+<ul>
+<li>有限个线性等式和不等式的集合（即有限个超平面和半空间的交集）</li>
+<li>凸集</li>
+</ul>
+<h2 id="4-凸集间的保凸运算"><a href="#4-凸集间的保凸运算" class="headerlink" title="4. 凸集间的保凸运算"></a>4. 凸集间的保凸运算</h2><p>凸集之间的运算生成新的凸集</p>
+<h3 id="4-1-交集"><a href="#4-1-交集" class="headerlink" title="4.1 交集"></a>4.1 交集</h3><p>$S=S1 \cap S2 $也为凸</p>
+<h3 id="4-2-仿射函数"><a href="#4-2-仿射函数" class="headerlink" title="4.2 仿射函数"></a>4.2 仿射函数</h3><p>形同$f(x)=Ax+b$，对于任意点s属于凸集S，$f(s)$为凸<br>同样若有f(s)属于凸集S，则原象$f^{-1}(s)$也为凸</p>
+<h3 id="4-3-透视函数"><a href="#4-3-透视函数" class="headerlink" title="4.3 透视函数"></a>4.3 透视函数</h3><p>对于$P(z,t)=z/t$（定义域为dom $P=R^n \times R_{++}$ ）</p>
+<blockquote>
+<p>$R_{++}为正实数$</p>
+</blockquote>
+<p>则对任意x属于凸C，P(x)也为凸</p>
+<h2 id="5-凸函数"><a href="#5-凸函数" class="headerlink" title="5. 凸函数"></a>5. 凸函数</h2><p>$f:R^n \rightarrow R$, 若dom f为凸集，且x,y属于dom f,且$\theta$在0，1之间，则</p>
+<script type="math/tex; mode=display">f(\theta x+(1-\theta) y) \leq \theta f(x)+(1-\theta) f(y)</script><ul>
+<li>严格凸函数：无等号</li>
+<li>凹函数：当-f是凸</li>
+</ul>
+<p>最大值函数就是一个凸函数：<br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h1yqclyw6ij20r207uq3i.jpg" alt=""></p>
+<h3 id="5-1-扩展值延伸-Extended-value-extensions"><a href="#5-1-扩展值延伸-Extended-value-extensions" class="headerlink" title="5.1 扩展值延伸 Extended-value extensions"></a>5.1 扩展值延伸 Extended-value extensions</h3><p>定义：当x不在dom f时，我们认为$f(x)=\infty$</p>
+<h3 id="5-2-一阶条件"><a href="#5-2-一阶条件" class="headerlink" title="5.2 一阶条件"></a>5.2 一阶条件</h3><ol>
+<li>dom f是凸集</li>
+<li>$f(y)\ge f(x)+ \bigtriangledown f(x)^T(y-x) $</li>
+</ol>
+<ul>
+<li>右式为f在点x附近的泰勒近似</li>
+</ul>
+<h3 id="5-3-二阶条件"><a href="#5-3-二阶条件" class="headerlink" title="5.3 二阶条件"></a>5.3 二阶条件</h3><p>$f(x)$的hessian矩阵为半正定，即可认为</p>
+<script type="math/tex; mode=display">\bigtriangledown^2f(x) \succeq 0</script><blockquote>
+<p>$\succeq$指的是矩阵中的不等式</p>
+</blockquote>
+<ul>
+<li>对于在R上的f，我们简单的认为就是二阶导大于等于0</li>
+</ul>
+<h3 id="5-4-凸函数间的保凸运算"><a href="#5-4-凸函数间的保凸运算" class="headerlink" title="5.4 凸函数间的保凸运算"></a>5.4 凸函数间的保凸运算</h3><ul>
+<li><p>非负加权求和</p>
+<script type="math/tex; mode=display">f=w_1f_1+w_2f_2+...+w_kf_k(w非负，f凸函数)</script></li>
+<li><p>复合仿射映射</p>
+<script type="math/tex; mode=display">g(x)=f(Ax+b)</script><p>f凸时，g凸</p>
+</li>
+</ul>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/optimization/">optimization</a></div><div class="post_share"><div class="social-share" data-image="https://images.unsplash.com/photo-1545989253-02cc26577f88?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1170&amp;q=80" data-sites="twitter,wechat,weibo"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/05/06/%E5%87%B8%E4%BC%98%E5%8C%96%E9%97%AE%E9%A2%98/"><img class="prev-cover" src="https://images.unsplash.com/photo-1605845872108-b733db1f2663?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1170&amp;q=80" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">凸优化问题</div></div></a></div><div class="next-post pull-right"><a href="/2022/05/05/%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E9%97%AE%E9%A2%98/"><img class="next-cover" src="https://images.unsplash.com/photo-1516416715870-0e59baaef47a?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1170&amp;q=80" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">最小二乘问题</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/05/06/%E5%87%B8%E4%BC%98%E5%8C%96%E9%97%AE%E9%A2%98/" title="凸优化问题"><img class="cover" src="https://images.unsplash.com/photo-1605845872108-b733db1f2663?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-06</div><div class="title">凸优化问题</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/butterfly/favicon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Ann Sue</div><div class="author-info__description">我偏要用粉色！</div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">8</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">5</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/llsf9" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:baihe2333@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-convex-sets"><span class="toc-number">1.</span> <span class="toc-text">1. convex sets</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-Line-segmentation-%E7%9B%B4%E7%BA%BF%E5%88%86%E5%89%B2"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 Line segmentation 直线分割</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-affine-sets"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 affine sets</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-affine-hull-%E4%BB%BF%E5%B0%84%E5%8C%85"><span class="toc-number">1.3.</span> <span class="toc-text">1.3 affine hull 仿射包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-%E7%9B%B8%E5%AF%B9%E5%86%85%E9%83%A8-relative-interior"><span class="toc-number">1.4.</span> <span class="toc-text">1.4 相对内部 relative interior</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-5-convex-sets-%E5%87%B8%E9%9B%86"><span class="toc-number">1.5.</span> <span class="toc-text">1.5 convex sets 凸集</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-cone-%E9%94%A5"><span class="toc-number">2.</span> <span class="toc-text">2. cone 锥</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E5%87%B8%E9%94%A5"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 凸锥</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E9%94%A5%E5%8C%85"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 锥包</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E9%87%8D%E8%A6%81%E4%BE%8B%E5%AD%90"><span class="toc-number">3.</span> <span class="toc-text">3. 重要例子</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E4%B8%80%E4%BA%9B%E6%A6%82%E5%BF%B5"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 一些概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E8%B6%85%E5%B9%B3%E9%9D%A2"><span class="toc-number">3.2.</span> <span class="toc-text">3.2 超平面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E5%8D%8A%E7%A9%BA%E9%97%B4"><span class="toc-number">3.3.</span> <span class="toc-text">3.3 半空间</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-Euclid%E7%90%83"><span class="toc-number">3.4.</span> <span class="toc-text">3.4 Euclid球</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-%E5%A4%9A%E9%9D%A2%E4%BD%93"><span class="toc-number">3.5.</span> <span class="toc-text">3.5 多面体</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%87%B8%E9%9B%86%E9%97%B4%E7%9A%84%E4%BF%9D%E5%87%B8%E8%BF%90%E7%AE%97"><span class="toc-number">4.</span> <span class="toc-text">4. 凸集间的保凸运算</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E4%BA%A4%E9%9B%86"><span class="toc-number">4.1.</span> <span class="toc-text">4.1 交集</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E4%BB%BF%E5%B0%84%E5%87%BD%E6%95%B0"><span class="toc-number">4.2.</span> <span class="toc-text">4.2 仿射函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-%E9%80%8F%E8%A7%86%E5%87%BD%E6%95%B0"><span class="toc-number">4.3.</span> <span class="toc-text">4.3 透视函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E5%87%B8%E5%87%BD%E6%95%B0"><span class="toc-number">5.</span> <span class="toc-text">5. 凸函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-%E6%89%A9%E5%B1%95%E5%80%BC%E5%BB%B6%E4%BC%B8-Extended-value-extensions"><span class="toc-number">5.1.</span> <span class="toc-text">5.1 扩展值延伸 Extended-value extensions</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-%E4%B8%80%E9%98%B6%E6%9D%A1%E4%BB%B6"><span class="toc-number">5.2.</span> <span class="toc-text">5.2 一阶条件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-%E4%BA%8C%E9%98%B6%E6%9D%A1%E4%BB%B6"><span class="toc-number">5.3.</span> <span class="toc-text">5.3 二阶条件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-%E5%87%B8%E5%87%BD%E6%95%B0%E9%97%B4%E7%9A%84%E4%BF%9D%E5%87%B8%E8%BF%90%E7%AE%97"><span class="toc-number">5.4.</span> <span class="toc-text">5.4 凸函数间的保凸运算</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/05/06/Colorization%20using%20Optimization/" title="Optimization"><img src="https://images.unsplash.com/photo-1516416715870-0e59baaef47a?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1170&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Optimization"/></a><div class="content"><a class="title" href="/2022/05/06/Colorization%20using%20Optimization/" title="Optimization">Optimization</a><time datetime="2022-05-06T08:45:15.000Z" title="发表于 2022-05-06 17:45:15">2022-05-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/05/06/%E5%87%B8%E4%BC%98%E5%8C%96%E9%97%AE%E9%A2%98/" title="凸优化问题"><img src="https://images.unsplash.com/photo-1605845872108-b733db1f2663?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1170&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="凸优化问题"/></a><div class="content"><a class="title" href="/2022/05/06/%E5%87%B8%E4%BC%98%E5%8C%96%E9%97%AE%E9%A2%98/" title="凸优化问题">凸优化问题</a><time datetime="2022-05-06T08:07:18.000Z" title="发表于 2022-05-06 17:07:18">2022-05-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/05/06/%E5%87%B8%E9%9B%86%E5%90%88%E4%B8%8E%E5%87%B8%E5%87%BD%E6%95%B0/" title="凸集合与凸函数"><img src="https://images.unsplash.com/photo-1545989253-02cc26577f88?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1170&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="凸集合与凸函数"/></a><div class="content"><a class="title" href="/2022/05/06/%E5%87%B8%E9%9B%86%E5%90%88%E4%B8%8E%E5%87%B8%E5%87%BD%E6%95%B0/" title="凸集合与凸函数">凸集合与凸函数</a><time datetime="2022-05-06T03:45:33.000Z" title="发表于 2022-05-06 12:45:33">2022-05-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/05/05/%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E9%97%AE%E9%A2%98/" title="最小二乘问题"><img src="https://images.unsplash.com/photo-1516416715870-0e59baaef47a?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1170&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="最小二乘问题"/></a><div class="content"><a class="title" href="/2022/05/05/%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E9%97%AE%E9%A2%98/" title="最小二乘问题">最小二乘问题</a><time datetime="2022-05-05T12:38:28.000Z" title="发表于 2022-05-05 21:38:28">2022-05-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/05/05/%E9%97%B2%E8%B0%88-%E5%85%B3%E4%BA%8E%E7%BE%8E%E6%9C%AF%E9%A6%86%E6%8B%8D%E6%91%84%E7%9A%84%E5%8F%98%E5%BD%A2%E9%97%AE%E9%A2%98/" title="闲谈-关于美术馆拍摄的变形问题"><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h1xc5rlm0hj213y0u0afo.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="闲谈-关于美术馆拍摄的变形问题"/></a><div class="content"><a class="title" href="/2022/05/05/%E9%97%B2%E8%B0%88-%E5%85%B3%E4%BA%8E%E7%BE%8E%E6%9C%AF%E9%A6%86%E6%8B%8D%E6%91%84%E7%9A%84%E5%8F%98%E5%BD%A2%E9%97%AE%E9%A2%98/" title="闲谈-关于美术馆拍摄的变形问题">闲谈-关于美术馆拍摄的变形问题</a><time datetime="2022-05-05T02:45:28.000Z" title="发表于 2022-05-05 11:45:28">2022-05-05</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://images.unsplash.com/photo-1545989253-02cc26577f88?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1170&amp;q=80')"><div id="footer-wrap"><div class="copyright">&copy;2022 By Ann Sue</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'omFH1UxI30hsl2zXfNeMW6w5-MdYXbMMI',
+      appKey: 'VlTbgpsggvEnNJxLunar4zMe',
+      avatar: 'retro',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
