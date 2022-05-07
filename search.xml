@@ -1,6 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Colorization using Optimization</title>
+    <url>/2022/05/06/Colorization%20using%20Optimization/</url>
+    <content><![CDATA[<p><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h205yxz28gj216j0dt776.jpg" alt=""></p>
+<h2 id="论文概述"><a href="#论文概述" class="headerlink" title="论文概述"></a>论文概述</h2><blockquote>
+<p>在本文中，我们提出了一种简单的着色方法:基于一个简单前提：时空中具有相似强度(intensity:Y)的<strong>相邻像素应该具有相似的颜色</strong>。 我们使用次成本函数形式化这个前提，并获得一个可以使用标准技术有效解决的优化问题。</p>
+</blockquote>
+<h3 id="目标函数"><a href="#目标函数" class="headerlink" title="目标函数"></a>目标函数</h3><p>Y可以通过gray图像作为已知信息，因此我们需要通过临近像素的推测U和V<br>MINIMIZE</p>
+<script type="math/tex; mode=display">J(U) = \sum_r \left( U(r) - \sum_{s \in N(r)} w_{rs} U(s) \right)^2</script><script type="math/tex; mode=display">J(V) = \sum_r \left( V(r) - \sum_{s \in N(r)} w_{rs} V(s) \right)^2</script><ul>
+<li>r: 目标像素 N(r):临近像素</li>
+<li>$w_{rs}$的条件<ul>
+<li>两像素间Y越相似，w越大；两像素间Y差值越大，w越小</li>
+<li>和为1</li>
+</ul>
+</li>
+</ul>
+<h3 id="约束条件"><a href="#约束条件" class="headerlink" title="约束条件"></a>约束条件</h3><p>相邻像素具有相似Y时应该具有相似的U和V</p>
+<h3 id="权重函数"><a href="#权重函数" class="headerlink" title="权重函数"></a>权重函数</h3><script type="math/tex; mode=display">w_{rs} \propto \exp \left( \frac{-\left(Y(r)-Y(s)\right)^2}{2 \sigma_r^2} \right)</script><ul>
+<li>$\sigma_r^2$为包含r的临近像素的variance</li>
+</ul>
+<h2 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h2><ol>
+<li>二乘问题的目的函数转换为解线性方程组Ax=b的问题<ul>
+<li>如果按照稠密矩阵构造A就需要使用$(A^TA)^{-1}A^Tb$计算，将会十分庞大；如果用稀疏矩阵则会大大减少计算量<blockquote>
+<p>呃呃搞明白以后思路就是如此简单。。。。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><h3 id="import库"><a href="#import库" class="headerlink" title="import库"></a>import库</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 依赖库 </span></span><br><span class="line">%matplotlib inline</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"><span class="keyword">from</span> skimage <span class="keyword">import</span> color</span><br><span class="line"><span class="keyword">from</span> scipy.sparse <span class="keyword">import</span> csr_matrix</span><br><span class="line"><span class="keyword">from</span> scipy.sparse.linalg <span class="keyword">import</span> spsolve</span><br></pre></td></tr></table></figure>
+<h3 id="图像预处理"><a href="#图像预处理" class="headerlink" title="图像预处理"></a>图像预处理</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Load the images</span></span><br><span class="line"><span class="comment"># 打开图片转换为RGB再转换为YUV</span></span><br><span class="line">img_in   = color.rgb2yuv( np.array( Image.<span class="built_in">open</span>( <span class="string">&#x27;baby.png&#x27;</span> ).convert(<span class="string">&quot;RGB&quot;</span>), dtype=<span class="built_in">float</span> ) / <span class="number">255</span> )</span><br><span class="line">img_edit = color.rgb2yuv( np.array( Image.<span class="built_in">open</span>( <span class="string">&#x27;baby_marked.png&#x27;</span> ).convert(<span class="string">&quot;RGB&quot;</span>), dtype=<span class="built_in">float</span> ) / <span class="number">255</span> )</span><br><span class="line">img_hint = np.zeros( img_edit.shape )</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过图片像素相减提取hint</span></span><br><span class="line"><span class="comment"># </span></span><br><span class="line">idx = (np.<span class="built_in">abs</span>((img_in-img_edit).<span class="built_in">sum</span>(<span class="number">2</span>)) &gt; <span class="number">1e-4</span>)</span><br><span class="line">img_hint[ idx ] = img_edit[ idx ]</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>Image.open()</code>：返回一个image的对象(shape=(w,h))<ul>
+<li><code>Image.open().convert(&quot;RGB&quot;)</code>：返回一个image的RGB对象(shape=(w,h,c))</li>
+</ul>
+</li>
+<li><code>sum(n)</code>：沿n维的sum</li>
+</ul>
+<h3 id="生成稀疏矩阵A"><a href="#生成稀疏矩阵A" class="headerlink" title="生成稀疏矩阵A"></a>生成稀疏矩阵A</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Create the optimization problem</span></span><br><span class="line">w = img_edit.shape[<span class="number">0</span>]</span><br><span class="line">h = img_edit.shape[<span class="number">1</span>]</span><br><span class="line"><span class="comment"># window size</span></span><br><span class="line">wpx = <span class="number">1</span> </span><br><span class="line"><span class="comment"># u和v：只放入已确定颜色的像素id的uv值</span></span><br><span class="line">b_u = np.zeros( (w*h,) )</span><br><span class="line">b_v = b_u.copy()</span><br><span class="line"><span class="comment"># Sparse matrix，一对(row,col)代表一对邻居关系的像素，dat内存储权重</span></span><br><span class="line">row = []</span><br><span class="line">col = []</span><br><span class="line">dat = []</span><br><span class="line"></span><br><span class="line"><span class="comment"># 遍历 w * h = n</span></span><br><span class="line"><span class="keyword">for</span> v <span class="keyword">in</span> <span class="built_in">range</span>(h):</span><br><span class="line">    <span class="keyword">for</span> u <span class="keyword">in</span> <span class="built_in">range</span>(w):</span><br><span class="line">        <span class="comment"># （w，v）to index</span></span><br><span class="line">        i = v*w + u</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Add first entry U(r) for both  channels</span></span><br><span class="line">        <span class="comment"># 像素本身等于自身，因此稀疏矩阵A的对角均为1</span></span><br><span class="line">        row.append( i )</span><br><span class="line">        col.append( i )</span><br><span class="line">        dat.append( <span class="number">1.</span> )</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Skip coloured areas,</span></span><br><span class="line">        <span class="comment"># 已经在给的hint里上色的区域就跳过</span></span><br><span class="line">        <span class="keyword">if</span> idx[u,v]:</span><br><span class="line">            b_u[i] = img_edit[u,v,<span class="number">1</span>]</span><br><span class="line">            b_v[i] = img_edit[u,v,<span class="number">2</span>]</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 求r的neighbour范围</span></span><br><span class="line">        umin = <span class="built_in">max</span>(<span class="number">0</span>,u-wpx)</span><br><span class="line">        umax = <span class="built_in">min</span>(w,u+wpx+<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        vmin = <span class="built_in">max</span>(<span class="number">0</span>,v-wpx)</span><br><span class="line">        vmax = <span class="built_in">min</span>(h,v+wpx+<span class="number">1</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 求neighbour范围内的variance</span></span><br><span class="line">        patch = img_in[ umin:umax, vmin:vmax, <span class="number">0</span> ]</span><br><span class="line">        mu_r = np.mean( patch )</span><br><span class="line">        sigma_r = np.var( patch )</span><br><span class="line">        sigma_r = <span class="built_in">max</span>( sigma_r, <span class="number">1e-6</span> )</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 求r的Y</span></span><br><span class="line">        Yr = img_in[u,v,<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Go over neighbours</span></span><br><span class="line">        <span class="comment"># 遍历neighbour，求各自的w</span></span><br><span class="line">        N = []</span><br><span class="line">        wrs = []</span><br><span class="line">        <span class="keyword">for</span> nu <span class="keyword">in</span> <span class="built_in">range</span>( umin, umax ):</span><br><span class="line">            <span class="keyword">for</span> nv <span class="keyword">in</span> <span class="built_in">range</span>( vmin, vmax ):</span><br><span class="line">                j = nv*w + nu</span><br><span class="line">                <span class="keyword">if</span> i==j:</span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line">                Ys = img_in[nu,nv,<span class="number">0</span>]</span><br><span class="line">                wrs.append(np.exp(-<span class="number">1</span>*(Yr-Ys)*(Yr-Ys)/ <span class="number">2</span> / sigma_r))</span><br><span class="line">                N.append(j)</span><br><span class="line">        wrs = np.array( wrs )</span><br><span class="line">        <span class="comment"># 对w的约束条件：和必须为1</span></span><br><span class="line">        wrs /= wrs.<span class="built_in">sum</span>()</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 根据求出的w完善矩阵</span></span><br><span class="line">        <span class="keyword">for</span> k,j <span class="keyword">in</span> <span class="built_in">enumerate</span>(N):</span><br><span class="line">            row.append(i)</span><br><span class="line">            col.append(j)</span><br><span class="line">            dat.append(wrs[k])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 最终生成一个大小为(wh,wh)的，包含所有点与点之间的权重的矩阵</span></span><br><span class="line">A = csr_matrix( (dat, (row,col)) )</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>csr_matrix( (data, (row_index,col_index)) )</code>:  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">csr_matrix( ([<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>], ([<span class="number">1</span>,<span class="number">3</span>,<span class="number">3</span>],[<span class="number">0</span>,<span class="number">1</span>,<span class="number">3</span>])) ).toarray()</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>array([[<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">   [<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">   [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">   [<span class="number">0</span>, <span class="number">2</span>, <span class="number">0</span>, <span class="number">1</span>]], dtype=int64)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="解方程组生成目标图像"><a href="#解方程组生成目标图像" class="headerlink" title="解方程组生成目标图像"></a>解方程组生成目标图像</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Solve the optimization and display results</span></span><br><span class="line">Y = img_in[:,:,<span class="number">0</span>:<span class="number">1</span>]</span><br><span class="line">U = spsolve(A, b_u).reshape( h, w, <span class="number">1</span> ).transpose( (<span class="number">1</span>,<span class="number">0</span>,<span class="number">2</span>) )</span><br><span class="line">V = spsolve(A, b_v).reshape( h, w, <span class="number">1</span> ).transpose( (<span class="number">1</span>,<span class="number">0</span>,<span class="number">2</span>) )</span><br><span class="line"></span><br><span class="line">img_out = np.concatenate( (Y,U,V), axis=<span class="number">2</span> )</span><br><span class="line">plt.imshow( color.yuv2rgb(img_out) )</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>study</category>
+      </categories>
+      <tags>
+        <tag>optimization</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>HexoTags</title>
+    <url>/2022/05/05/HexoTags/</url>
+    <content><![CDATA[<h2 id="Note"><a href="#Note" class="headerlink" title="Note"></a>Note</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% note [class]%&#125;</span><br><span class="line">Any content (support inline tags too.io).</span><br><span class="line">&#123;% endnote %&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>空白</li>
+<li>default</li>
+<li>primary</li>
+<li>success</li>
+<li>info</li>
+<li>warning</li>
+<li>danger</li>
+</ul>
+<h2 id="Mermaid"><a href="#Mermaid" class="headerlink" title="Mermaid"></a>Mermaid</h2><div class="note modern"><p>使用mermaid标籤可以绘製Flowchart（流程图）、Sequence diagram（时序图 ）、Class Diagram（类别图）、State Diagram（状态图）、Gantt（甘特图）和Pie Chart（圆形图），具体可以查看<a href="https://mermaid-js.github.io/mermaid/#/">Mermaide文档</a></p>
+</div>
+<h2 id="Tabs"><a href="#Tabs" class="headerlink" title="Tabs"></a>Tabs</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% tabs test1 %&#125;</span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line"><span class="strong">**This is Tab 1.**</span></span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line"><span class="strong">**This is Tab 2.**</span></span><br><span class="line">&lt;!-- endtab --&gt;</span><br></pre></td></tr></table></figure>
+<div class="tabs" id="test1"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#test1-1">表格1</button></li><li class="tab"><button type="button" data-href="#test1-2">表格2</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="test1-1"><p>这是1</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="test1-2"><p>这是2</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+<h2 id="label"><a href="#label" class="headerlink" title="label"></a>label</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% label 我是 %&#125;&#123;% label 什么 blue %&#125;&#123;%label 颜色 red %&#125;</span><br></pre></td></tr></table></figure>
+<mark class="hl-label default">我是</mark> <mark class="hl-label blue">什么</mark> <mark class="hl-label red">颜色</mark> 
+]]></content>
+      <categories>
+        <category>study</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>PRML</title>
     <url>/2022/05/05/PRML/</url>
     <content><![CDATA[<h1 id="Pattern-recognition-and-machine-learning"><a href="#Pattern-recognition-and-machine-learning" class="headerlink" title="Pattern recognition and machine learning"></a>Pattern recognition and machine learning</h1><h2 id="0-Guidance"><a href="#0-Guidance" class="headerlink" title="0. Guidance"></a>0. Guidance</h2><ul>
@@ -229,55 +308,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Optimization</title>
-    <url>/2022/05/06/Colorization%20using%20Optimization/</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
-    <title>无约束最优化</title>
-    <url>/2022/05/04/%E6%97%A0%E7%BA%A6%E6%9D%9F%E6%9C%80%E4%BC%98%E5%8C%96/</url>
-    <content><![CDATA[<h2 id="1-Minizer"><a href="#1-Minizer" class="headerlink" title="1. Minizer"></a>1. Minizer</h2><ol>
-<li>全局最小值 Global Minizer</li>
-<li>局部最小值 Local Minizer<ul>
-<li>weak </li>
-<li>strict</li>
-<li>孤立的局部最小值isolated local minimizer <div class="note success modern"><p>对于凸函数，局部最小值立即成为全局最小值</p>
-</div>
-</li>
-</ul>
-</li>
-</ol>
-<h2 id="2-局部最小值条件"><a href="#2-局部最小值条件" class="headerlink" title="2. 局部最小值条件"></a>2. 局部最小值条件</h2><ol>
-<li>一阶必要条件（FIRST-ORDER NECESSARY CONDITIONS）<ol>
-<li>函数$f(x)$在点$x^*$可微</li>
-<li>梯度${\nabla f(x^*)=0}$</li>
-</ol>
-</li>
-<li>二阶必要条件<ol>
-<li>满足一阶</li>
-<li>hesse矩阵${\nabla^2 f(x^*)}$半正定   </li>
-</ol>
-</li>
-</ol>
-<div class="tabs" id="1"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#1-1">海塞矩阵</button></li><li class="tab"><button type="button" data-href="#1-2">半正定值</button></li><li class="tab"><button type="button" data-href="#1-3">海塞矩阵的半正定值</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="1-1"><p><img src="https://ds055uzetaobb.cloudfront.net/brioche/uploads/gVN1lN1A28-hessian.png?width=1200" alt=""></p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="1-2"><p>半正定值：</p>
-<ol>
-<li>对于所有x不等于0，都有 ${x^TAx≥0}$</li>
-<li>且对某个x不等于0,有 ${x^TAx&gt;0}$</li>
-</ol><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="1-3"><p>因为hesse矩阵是对称矩阵所以有以下性质：（仅限于对称矩阵！！）<br>半正定：所有特征值都大于等于0<br>正定：所有特征值都大于0<br>负定：所有特征值都小于0</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
-<mark class="hl-label red">现在虽然知道了确认某点是否为最小值的算法，但是对于如何找到这个点我们还无从得知（总不能把所有点都算一遍吧）</mark> 
-<h2 id="3-直线探索策略-line-search-strategy"><a href="#3-直线探索策略-line-search-strategy" class="headerlink" title="3. 直线探索策略 line search strategy"></a>3. 直线探索策略 line search strategy</h2><ol>
-<li>Line Serch<br> 设在某点$x_k$，寻找方向$p_k$和步长$\alpha$使得min$f(x_k+\alpha p_k)$<br> <strong>需求值：方向和步长</strong></li>
-<li>Trust Region<br> 对于点x_k上的近似函数求最小值：min$m_k(x_k+p_k)$。同时，近似函数是有限的，所以可信赖区间需要被确定。<br> <strong>需求值：近似函数和可信赖区间p</strong></li>
-</ol>
-]]></content>
-      <categories>
-        <category>study</category>
-      </categories>
-      <tags>
-        <tag>Optimizition</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>凸优化问题</title>
     <url>/2022/05/06/%E5%87%B8%E4%BC%98%E5%8C%96%E9%97%AE%E9%A2%98/</url>
     <content><![CDATA[<script type="math/tex; mode=display">\text{minimize }f_0(x)</script><script type="math/tex; mode=display">\text{subject to } f_i(x)\le 0, i=1...m</script><script type="math/tex; mode=display">h(x)=0, i=1...p</script><ul>
@@ -405,30 +435,47 @@
       </tags>
   </entry>
   <entry>
-    <title>HexoTags</title>
-    <url>/2022/05/05/HexoTags/</url>
-    <content><![CDATA[<h2 id="Note"><a href="#Note" class="headerlink" title="Note"></a>Note</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% note [class]%&#125;</span><br><span class="line">Any content (support inline tags too.io).</span><br><span class="line">&#123;% endnote %&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>空白</li>
-<li>default</li>
-<li>primary</li>
-<li>success</li>
-<li>info</li>
-<li>warning</li>
-<li>danger</li>
-</ul>
-<h2 id="Mermaid"><a href="#Mermaid" class="headerlink" title="Mermaid"></a>Mermaid</h2><div class="note modern"><p>使用mermaid标籤可以绘製Flowchart（流程图）、Sequence diagram（时序图 ）、Class Diagram（类别图）、State Diagram（状态图）、Gantt（甘特图）和Pie Chart（圆形图），具体可以查看<a href="https://mermaid-js.github.io/mermaid/#/">Mermaide文档</a></p>
+    <title>无约束最优化</title>
+    <url>/2022/05/04/%E6%97%A0%E7%BA%A6%E6%9D%9F%E6%9C%80%E4%BC%98%E5%8C%96/</url>
+    <content><![CDATA[<h2 id="1-Minizer"><a href="#1-Minizer" class="headerlink" title="1. Minizer"></a>1. Minizer</h2><ol>
+<li>全局最小值 Global Minizer</li>
+<li>局部最小值 Local Minizer<ul>
+<li>weak </li>
+<li>strict</li>
+<li>孤立的局部最小值isolated local minimizer <div class="note success modern"><p>对于凸函数，局部最小值立即成为全局最小值</p>
 </div>
-<h2 id="Tabs"><a href="#Tabs" class="headerlink" title="Tabs"></a>Tabs</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% tabs test1 %&#125;</span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line"><span class="strong">**This is Tab 1.**</span></span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line"><span class="strong">**This is Tab 2.**</span></span><br><span class="line">&lt;!-- endtab --&gt;</span><br></pre></td></tr></table></figure>
-<div class="tabs" id="test1"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#test1-1">表格1</button></li><li class="tab"><button type="button" data-href="#test1-2">表格2</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="test1-1"><p>这是1</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="test1-2"><p>这是2</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
-<h2 id="label"><a href="#label" class="headerlink" title="label"></a>label</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% label 我是 %&#125;&#123;% label 什么 blue %&#125;&#123;%label 颜色 red %&#125;</span><br></pre></td></tr></table></figure>
-<mark class="hl-label default">我是</mark> <mark class="hl-label blue">什么</mark> <mark class="hl-label red">颜色</mark> 
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="2-局部最小值条件"><a href="#2-局部最小值条件" class="headerlink" title="2. 局部最小值条件"></a>2. 局部最小值条件</h2><ol>
+<li>一阶必要条件（FIRST-ORDER NECESSARY CONDITIONS）<ol>
+<li>函数$f(x)$在点$x^*$可微</li>
+<li>梯度${\nabla f(x^*)=0}$</li>
+</ol>
+</li>
+<li>二阶必要条件<ol>
+<li>满足一阶</li>
+<li>hesse矩阵${\nabla^2 f(x^*)}$半正定   </li>
+</ol>
+</li>
+</ol>
+<div class="tabs" id="1"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#1-1">海塞矩阵</button></li><li class="tab"><button type="button" data-href="#1-2">半正定值</button></li><li class="tab"><button type="button" data-href="#1-3">海塞矩阵的半正定值</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="1-1"><p><img src="https://ds055uzetaobb.cloudfront.net/brioche/uploads/gVN1lN1A28-hessian.png?width=1200" alt=""></p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="1-2"><p>半正定值：</p>
+<ol>
+<li>对于所有x不等于0，都有 ${x^TAx≥0}$</li>
+<li>且对某个x不等于0,有 ${x^TAx&gt;0}$</li>
+</ol><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="1-3"><p>因为hesse矩阵是对称矩阵所以有以下性质：（仅限于对称矩阵！！）<br>半正定：所有特征值都大于等于0<br>正定：所有特征值都大于0<br>负定：所有特征值都小于0</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+<mark class="hl-label red">现在虽然知道了确认某点是否为最小值的算法，但是对于如何找到这个点我们还无从得知（总不能把所有点都算一遍吧）</mark> 
+<h2 id="3-直线探索策略-line-search-strategy"><a href="#3-直线探索策略-line-search-strategy" class="headerlink" title="3. 直线探索策略 line search strategy"></a>3. 直线探索策略 line search strategy</h2><ol>
+<li>Line Serch<br> 设在某点$x_k$，寻找方向$p_k$和步长$\alpha$使得min$f(x_k+\alpha p_k)$<br> <strong>需求值：方向和步长</strong></li>
+<li>Trust Region<br> 对于点x_k上的近似函数求最小值：min$m_k(x_k+p_k)$。同时，近似函数是有限的，所以可信赖区间需要被确定。<br> <strong>需求值：近似函数和可信赖区间p</strong></li>
+</ol>
 ]]></content>
       <categories>
         <category>study</category>
       </categories>
       <tags>
-        <tag>hexo</tag>
+        <tag>optimization</tag>
       </tags>
   </entry>
   <entry>
@@ -451,7 +498,7 @@
         <category>study</category>
       </categories>
       <tags>
-        <tag>Optimizition</tag>
+        <tag>optimization</tag>
       </tags>
   </entry>
   <entry>
