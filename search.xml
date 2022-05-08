@@ -1,6 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>HexoTags</title>
+    <url>/2022/05/05/HexoTags/</url>
+    <content><![CDATA[<h2 id="Note"><a href="#Note" class="headerlink" title="Note"></a>Note</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% note [class]%&#125;</span><br><span class="line">Any content (support inline tags too.io).</span><br><span class="line">&#123;% endnote %&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>空白</li>
+<li>default</li>
+<li>primary</li>
+<li>success</li>
+<li>info</li>
+<li>warning</li>
+<li>danger</li>
+</ul>
+<h2 id="Mermaid"><a href="#Mermaid" class="headerlink" title="Mermaid"></a>Mermaid</h2><div class="note modern"><p>使用mermaid标籤可以绘製Flowchart（流程图）、Sequence diagram（时序图 ）、Class Diagram（类别图）、State Diagram（状态图）、Gantt（甘特图）和Pie Chart（圆形图），具体可以查看<a href="https://mermaid-js.github.io/mermaid/#/">Mermaide文档</a></p>
+</div>
+<h2 id="Tabs"><a href="#Tabs" class="headerlink" title="Tabs"></a>Tabs</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% tabs test1 %&#125;</span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line"><span class="strong">**This is Tab 1.**</span></span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line"><span class="strong">**This is Tab 2.**</span></span><br><span class="line">&lt;!-- endtab --&gt;</span><br></pre></td></tr></table></figure>
+<div class="tabs" id="test1"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#test1-1">表格1</button></li><li class="tab"><button type="button" data-href="#test1-2">表格2</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="test1-1"><p>这是1</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="test1-2"><p>这是2</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+<h2 id="label"><a href="#label" class="headerlink" title="label"></a>label</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% label 我是 %&#125;&#123;% label 什么 blue %&#125;&#123;%label 颜色 red %&#125;</span><br></pre></td></tr></table></figure>
+<mark class="hl-label default">我是</mark> <mark class="hl-label blue">什么</mark> <mark class="hl-label red">颜色</mark> 
+]]></content>
+      <categories>
+        <category>study</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Colorization using Optimization</title>
     <url>/2022/05/06/Colorization%20using%20Optimization/</url>
     <content><![CDATA[<p><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h205yxz28gj216j0dt776.jpg" alt=""></p>
@@ -50,33 +77,6 @@
       </categories>
       <tags>
         <tag>optimization</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>HexoTags</title>
-    <url>/2022/05/05/HexoTags/</url>
-    <content><![CDATA[<h2 id="Note"><a href="#Note" class="headerlink" title="Note"></a>Note</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% note [class]%&#125;</span><br><span class="line">Any content (support inline tags too.io).</span><br><span class="line">&#123;% endnote %&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>空白</li>
-<li>default</li>
-<li>primary</li>
-<li>success</li>
-<li>info</li>
-<li>warning</li>
-<li>danger</li>
-</ul>
-<h2 id="Mermaid"><a href="#Mermaid" class="headerlink" title="Mermaid"></a>Mermaid</h2><div class="note modern"><p>使用mermaid标籤可以绘製Flowchart（流程图）、Sequence diagram（时序图 ）、Class Diagram（类别图）、State Diagram（状态图）、Gantt（甘特图）和Pie Chart（圆形图），具体可以查看<a href="https://mermaid-js.github.io/mermaid/#/">Mermaide文档</a></p>
-</div>
-<h2 id="Tabs"><a href="#Tabs" class="headerlink" title="Tabs"></a>Tabs</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% tabs test1 %&#125;</span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line"><span class="strong">**This is Tab 1.**</span></span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line"><span class="strong">**This is Tab 2.**</span></span><br><span class="line">&lt;!-- endtab --&gt;</span><br></pre></td></tr></table></figure>
-<div class="tabs" id="test1"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#test1-1">表格1</button></li><li class="tab"><button type="button" data-href="#test1-2">表格2</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="test1-1"><p>这是1</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="test1-2"><p>这是2</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
-<h2 id="label"><a href="#label" class="headerlink" title="label"></a>label</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% label 我是 %&#125;&#123;% label 什么 blue %&#125;&#123;%label 颜色 red %&#125;</span><br></pre></td></tr></table></figure>
-<mark class="hl-label default">我是</mark> <mark class="hl-label blue">什么</mark> <mark class="hl-label red">颜色</mark> 
-]]></content>
-      <categories>
-        <category>study</category>
-      </categories>
-      <tags>
-        <tag>hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -452,29 +452,6 @@
       </tags>
   </entry>
   <entry>
-    <title>闲谈-关于美术馆拍摄的变形问题</title>
-    <url>/2022/05/05/%E9%97%B2%E8%B0%88-%E5%85%B3%E4%BA%8E%E7%BE%8E%E6%9C%AF%E9%A6%86%E6%8B%8D%E6%91%84%E7%9A%84%E5%8F%98%E5%BD%A2%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<p>前几天去艺术馆拍了不少喜欢的画作，本想回来美美做墙纸之类的，结果….<br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h1xc5rlm0hj213y0u0afo.jpg" alt="除去我摄影水平不够导致的没有完美对齐的问题，和红框相比能明显看出来似乎加了鱼眼效果般突出来了点"></p>
-<p><em>除去我摄影水平不够导致的没有完美对齐的问题，和红框相比能明显看出来似乎加了鱼眼效果般突出来了点</em></p>
-<h2 id="镜头变形"><a href="#镜头变形" class="headerlink" title="镜头变形"></a>镜头变形</h2><p><img src="https://i.guancha.cn/bbs/2020/06/21/20200621224008407.png?imageView2/2/w/500/format/png" alt="枕形变形与鼓形变形"></p>
-<blockquote>
-<p>“<em>对于一般的风景画，没有多少直线，对枕形变形不太敏感；但要是以建筑为主体，或者是有较多靠近画框边缘的直线的抽象画，枕形变形就会比较扎眼。如果要把画框拍出来，平直线条紧贴着画面边缘，枕形变形特别容易显出来，佳能红圈20-70/2.8都压不住，慢说任何小数码相机了。这是拍摄绘画的“不利条件”。</em>“</p>
-</blockquote>
-<h2 id="球差（球面収差）"><a href="#球差（球面収差）" class="headerlink" title="球差（球面収差）"></a>球差（球面収差）</h2><p><img src="http://www.kansmemo.com/archives/001/201009/4c99aa26d1e4d.png" alt=""><br>透过镜头外侧的光和透镜片中心(近轴)附近的光,因为焦点位置不同而产生变形。原理上来说，只要镜头为球面镜头这一现象就不可避免。<br>相反,球面收差可以通过使用适当设计——非球面镜头来消除。所以,最近的镜头中非球面镜头开始被普遍使用。<br><img src="http://www.kansmemo.com/archives/001/201009/4c99aa29663c5.png" alt=""></p>
-<h2 id="题外话"><a href="#题外话" class="headerlink" title="题外话"></a>题外话</h2><p>物理学的稀巴烂所以基本还停留在初中学的“凸透镜光线汇聚成一点”，所以其实理解这个费了好大的功夫。一些关于<strong>为什么与教科书不同，凸透镜的焦点并不能完美汇聚于一点</strong>的补充如下：</p>
-<blockquote>
-<p>聚集到一点，需要几个因素<br>1、理想平行光<br>2、理想凸透镜<br>3、理想单一频率<br>4、理想粒子特性(实际上光具有波粒两相性)</p>
-</blockquote>
-<p>[1]<a href="https://www.zhihu.com/question/272102579/answer/1297496356">https://www.zhihu.com/question/272102579/answer/1297496356</a><br>[2]<a href="http://www.kansmemo.com/photo/camera/principles/entry-191.html">http://www.kansmemo.com/photo/camera/principles/entry-191.html</a></p>
-]]></content>
-      <categories>
-        <category>blog</category>
-      </categories>
-      <tags>
-        <tag>other</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>最小二乘问题</title>
     <url>/2022/05/05/%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E9%97%AE%E9%A2%98/</url>
     <content><![CDATA[<h2 id="最小二乘（LEAST-SQUARES）问题定义"><a href="#最小二乘（LEAST-SQUARES）问题定义" class="headerlink" title="最小二乘（LEAST-SQUARES）问题定义"></a>最小二乘（LEAST-SQUARES）问题定义</h2><p>${f_0(x)=||Ax-b||^2_2<br>        =\sum_{i=1}^k({a_i}^Tx-b_i)^2}$</p>
@@ -495,6 +472,29 @@
       </categories>
       <tags>
         <tag>optimization</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>闲谈-关于美术馆拍摄的变形问题</title>
+    <url>/2022/05/05/%E9%97%B2%E8%B0%88-%E5%85%B3%E4%BA%8E%E7%BE%8E%E6%9C%AF%E9%A6%86%E6%8B%8D%E6%91%84%E7%9A%84%E5%8F%98%E5%BD%A2%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<p>前几天去艺术馆拍了不少喜欢的画作，本想回来美美做墙纸之类的，结果….<br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h1xc5rlm0hj213y0u0afo.jpg" alt="除去我摄影水平不够导致的没有完美对齐的问题，和红框相比能明显看出来似乎加了鱼眼效果般突出来了点"></p>
+<p><em>除去我摄影水平不够导致的没有完美对齐的问题，和红框相比能明显看出来似乎加了鱼眼效果般突出来了点</em></p>
+<h2 id="镜头变形"><a href="#镜头变形" class="headerlink" title="镜头变形"></a>镜头变形</h2><p><img src="https://i.guancha.cn/bbs/2020/06/21/20200621224008407.png?imageView2/2/w/500/format/png" alt="枕形变形与鼓形变形"></p>
+<blockquote>
+<p>“<em>对于一般的风景画，没有多少直线，对枕形变形不太敏感；但要是以建筑为主体，或者是有较多靠近画框边缘的直线的抽象画，枕形变形就会比较扎眼。如果要把画框拍出来，平直线条紧贴着画面边缘，枕形变形特别容易显出来，佳能红圈20-70/2.8都压不住，慢说任何小数码相机了。这是拍摄绘画的“不利条件”。</em>“</p>
+</blockquote>
+<h2 id="球差（球面収差）"><a href="#球差（球面収差）" class="headerlink" title="球差（球面収差）"></a>球差（球面収差）</h2><p><img src="http://www.kansmemo.com/archives/001/201009/4c99aa26d1e4d.png" alt=""><br>透过镜头外侧的光和透镜片中心(近轴)附近的光,因为焦点位置不同而产生变形。原理上来说，只要镜头为球面镜头这一现象就不可避免。<br>相反,球面收差可以通过使用适当设计——非球面镜头来消除。所以,最近的镜头中非球面镜头开始被普遍使用。<br><img src="http://www.kansmemo.com/archives/001/201009/4c99aa29663c5.png" alt=""></p>
+<h2 id="题外话"><a href="#题外话" class="headerlink" title="题外话"></a>题外话</h2><p>物理学的稀巴烂所以基本还停留在初中学的“凸透镜光线汇聚成一点”，所以其实理解这个费了好大的功夫。一些关于<strong>为什么与教科书不同，凸透镜的焦点并不能完美汇聚于一点</strong>的补充如下：</p>
+<blockquote>
+<p>聚集到一点，需要几个因素<br>1、理想平行光<br>2、理想凸透镜<br>3、理想单一频率<br>4、理想粒子特性(实际上光具有波粒两相性)</p>
+</blockquote>
+<p>[1]<a href="https://www.zhihu.com/question/272102579/answer/1297496356">https://www.zhihu.com/question/272102579/answer/1297496356</a><br>[2]<a href="http://www.kansmemo.com/photo/camera/principles/entry-191.html">http://www.kansmemo.com/photo/camera/principles/entry-191.html</a></p>
+]]></content>
+      <categories>
+        <category>blog</category>
+      </categories>
+      <tags>
+        <tag>other</tag>
       </tags>
   </entry>
   <entry>
