@@ -1,33 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>HexoTags</title>
-    <url>/2022/05/05/HexoTags/</url>
-    <content><![CDATA[<h2 id="Note"><a href="#Note" class="headerlink" title="Note"></a>Note</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% note [class]%&#125;</span><br><span class="line">Any content (support inline tags too.io).</span><br><span class="line">&#123;% endnote %&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>空白</li>
-<li>default</li>
-<li>primary</li>
-<li>success</li>
-<li>info</li>
-<li>warning</li>
-<li>danger</li>
-</ul>
-<h2 id="Mermaid"><a href="#Mermaid" class="headerlink" title="Mermaid"></a>Mermaid</h2><div class="note modern"><p>使用mermaid标籤可以绘製Flowchart（流程图）、Sequence diagram（时序图 ）、Class Diagram（类别图）、State Diagram（状态图）、Gantt（甘特图）和Pie Chart（圆形图），具体可以查看<a href="https://mermaid-js.github.io/mermaid/#/">Mermaide文档</a></p>
-</div>
-<h2 id="Tabs"><a href="#Tabs" class="headerlink" title="Tabs"></a>Tabs</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% tabs test1 %&#125;</span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line"><span class="strong">**This is Tab 1.**</span></span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line"><span class="strong">**This is Tab 2.**</span></span><br><span class="line">&lt;!-- endtab --&gt;</span><br></pre></td></tr></table></figure>
-<div class="tabs" id="test1"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#test1-1">表格1</button></li><li class="tab"><button type="button" data-href="#test1-2">表格2</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="test1-1"><p>这是1</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="test1-2"><p>这是2</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
-<h2 id="label"><a href="#label" class="headerlink" title="label"></a>label</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% label 我是 %&#125;&#123;% label 什么 blue %&#125;&#123;%label 颜色 red %&#125;</span><br></pre></td></tr></table></figure>
-<mark class="hl-label default">我是</mark> <mark class="hl-label blue">什么</mark> <mark class="hl-label red">颜色</mark> 
-]]></content>
-      <categories>
-        <category>study</category>
-      </categories>
-      <tags>
-        <tag>hexo</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Colorization using Optimization</title>
     <url>/2022/05/06/Colorization%20using%20Optimization/</url>
     <content><![CDATA[<p><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h205yxz28gj216j0dt776.jpg" alt=""></p>
@@ -65,7 +38,7 @@
 </li>
 <li><code>sum(n)</code>：沿n维的sum</li>
 </ul>
-<h3 id="生成稀疏矩阵A"><a href="#生成稀疏矩阵A" class="headerlink" title="生成稀疏矩阵A"></a>生成稀疏矩阵A</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Create the optimization problem</span></span><br><span class="line">w = img_edit.shape[<span class="number">0</span>]</span><br><span class="line">h = img_edit.shape[<span class="number">1</span>]</span><br><span class="line"><span class="comment"># window size</span></span><br><span class="line">wpx = <span class="number">1</span> </span><br><span class="line"><span class="comment"># u和v：只放入已确定颜色的像素id的uv值</span></span><br><span class="line">b_u = np.zeros( (w*h,) )</span><br><span class="line">b_v = b_u.copy()</span><br><span class="line"><span class="comment"># Sparse matrix，一对(row,col)代表一对邻居关系的像素，dat内存储权重</span></span><br><span class="line">row = []</span><br><span class="line">col = []</span><br><span class="line">dat = []</span><br><span class="line"></span><br><span class="line"><span class="comment"># 遍历 w * h = n</span></span><br><span class="line"><span class="keyword">for</span> v <span class="keyword">in</span> <span class="built_in">range</span>(h):</span><br><span class="line">    <span class="keyword">for</span> u <span class="keyword">in</span> <span class="built_in">range</span>(w):</span><br><span class="line">        <span class="comment"># （w，v）to index</span></span><br><span class="line">        i = v*w + u</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Add first entry U(r) for both  channels</span></span><br><span class="line">        <span class="comment"># 像素本身等于自身，因此稀疏矩阵A的对角均为1</span></span><br><span class="line">        row.append( i )</span><br><span class="line">        col.append( i )</span><br><span class="line">        dat.append( <span class="number">1.</span> )</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Skip coloured areas,</span></span><br><span class="line">        <span class="comment"># 已经在给的hint里上色的区域就跳过</span></span><br><span class="line">        <span class="keyword">if</span> idx[u,v]:</span><br><span class="line">            b_u[i] = img_edit[u,v,<span class="number">1</span>]</span><br><span class="line">            b_v[i] = img_edit[u,v,<span class="number">2</span>]</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 求r的neighbour范围</span></span><br><span class="line">        umin = <span class="built_in">max</span>(<span class="number">0</span>,u-wpx)</span><br><span class="line">        umax = <span class="built_in">min</span>(w,u+wpx+<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        vmin = <span class="built_in">max</span>(<span class="number">0</span>,v-wpx)</span><br><span class="line">        vmax = <span class="built_in">min</span>(h,v+wpx+<span class="number">1</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 求neighbour范围内的variance</span></span><br><span class="line">        patch = img_in[ umin:umax, vmin:vmax, <span class="number">0</span> ]</span><br><span class="line">        mu_r = np.mean( patch )</span><br><span class="line">        sigma_r = np.var( patch )</span><br><span class="line">        sigma_r = <span class="built_in">max</span>( sigma_r, <span class="number">1e-6</span> )</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 求r的Y</span></span><br><span class="line">        Yr = img_in[u,v,<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Go over neighbours</span></span><br><span class="line">        <span class="comment"># 遍历neighbour，求各自的w</span></span><br><span class="line">        N = []</span><br><span class="line">        wrs = []</span><br><span class="line">        <span class="keyword">for</span> nu <span class="keyword">in</span> <span class="built_in">range</span>( umin, umax ):</span><br><span class="line">            <span class="keyword">for</span> nv <span class="keyword">in</span> <span class="built_in">range</span>( vmin, vmax ):</span><br><span class="line">                j = nv*w + nu</span><br><span class="line">                <span class="keyword">if</span> i==j:</span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line">                Ys = img_in[nu,nv,<span class="number">0</span>]</span><br><span class="line">                wrs.append(np.exp(-<span class="number">1</span>*(Yr-Ys)*(Yr-Ys)/ <span class="number">2</span> / sigma_r))</span><br><span class="line">                N.append(j)</span><br><span class="line">        wrs = np.array( wrs )</span><br><span class="line">        <span class="comment"># 对w的约束条件：和必须为1</span></span><br><span class="line">        wrs /= wrs.<span class="built_in">sum</span>()</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 根据求出的w完善矩阵</span></span><br><span class="line">        <span class="keyword">for</span> k,j <span class="keyword">in</span> <span class="built_in">enumerate</span>(N):</span><br><span class="line">            row.append(i)</span><br><span class="line">            col.append(j)</span><br><span class="line">            dat.append(wrs[k])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 最终生成一个大小为(wh,wh)的，包含所有点与点之间的权重的矩阵</span></span><br><span class="line">A = csr_matrix( (dat, (row,col)) )</span><br></pre></td></tr></table></figure>
+<h3 id="生成稀疏矩阵A"><a href="#生成稀疏矩阵A" class="headerlink" title="生成稀疏矩阵A"></a>生成稀疏矩阵A</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Create the optimization problem</span></span><br><span class="line">w = img_edit.shape[<span class="number">0</span>]</span><br><span class="line">h = img_edit.shape[<span class="number">1</span>]</span><br><span class="line"><span class="comment"># window size</span></span><br><span class="line">wpx = <span class="number">1</span> </span><br><span class="line"><span class="comment"># u和v：只放入已确定颜色的像素id的uv值</span></span><br><span class="line">b_u = np.zeros( (w*h,) )</span><br><span class="line">b_v = b_u.copy()</span><br><span class="line"><span class="comment"># Sparse matrix，一对(row,col)代表一对邻居关系的像素，dat内存储权重</span></span><br><span class="line">row = []</span><br><span class="line">col = []</span><br><span class="line">dat = []</span><br><span class="line"></span><br><span class="line"><span class="comment"># 遍历 w * h = n</span></span><br><span class="line"><span class="keyword">for</span> v <span class="keyword">in</span> <span class="built_in">range</span>(h):</span><br><span class="line">    <span class="keyword">for</span> u <span class="keyword">in</span> <span class="built_in">range</span>(w):</span><br><span class="line">        <span class="comment"># （w，v）to index</span></span><br><span class="line">        i = v*w + u</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Add first entry U(r) for both  channels</span></span><br><span class="line">        <span class="comment"># 像素本身等于自身，因此稀疏矩阵A的对角均为1</span></span><br><span class="line">        row.append( i )</span><br><span class="line">        col.append( i )</span><br><span class="line">        dat.append( <span class="number">1.</span> )</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Skip coloured areas,</span></span><br><span class="line">        <span class="comment"># 已经在给的hint里上色的区域就跳过</span></span><br><span class="line">        <span class="keyword">if</span> idx[u,v]:</span><br><span class="line">            b_u[i] = img_edit[u,v,<span class="number">1</span>]</span><br><span class="line">            b_v[i] = img_edit[u,v,<span class="number">2</span>]</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 求r的neighbour范围</span></span><br><span class="line">        umin = <span class="built_in">max</span>(<span class="number">0</span>,u-wpx)</span><br><span class="line">        umax = <span class="built_in">min</span>(w,u+wpx+<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        vmin = <span class="built_in">max</span>(<span class="number">0</span>,v-wpx)</span><br><span class="line">        vmax = <span class="built_in">min</span>(h,v+wpx+<span class="number">1</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 求neighbour范围内的variance</span></span><br><span class="line">        patch = img_in[ umin:umax, vmin:vmax, <span class="number">0</span> ]</span><br><span class="line">        mu_r = np.mean( patch )</span><br><span class="line">        sigma_r = np.var( patch )</span><br><span class="line">        sigma_r = <span class="built_in">max</span>( sigma_r, <span class="number">1e-6</span> )</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 求r的Y</span></span><br><span class="line">        Yr = img_in[u,v,<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Go over neighbours</span></span><br><span class="line">        <span class="comment"># 遍历neighbour，求各自的w</span></span><br><span class="line">        N = []</span><br><span class="line">        wrs = []</span><br><span class="line">        <span class="keyword">for</span> nu <span class="keyword">in</span> <span class="built_in">range</span>( umin, umax ):</span><br><span class="line">            <span class="keyword">for</span> nv <span class="keyword">in</span> <span class="built_in">range</span>( vmin, vmax ):</span><br><span class="line">                j = nv*w + nu</span><br><span class="line">                <span class="keyword">if</span> i==j:</span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line">                Ys = img_in[nu,nv,<span class="number">0</span>]</span><br><span class="line">                wrs.append(np.exp(-<span class="number">1</span>*(Yr-Ys)*(Yr-Ys)/ <span class="number">2</span> / sigma_r))</span><br><span class="line">                N.append(j)</span><br><span class="line">        wrs = np.array( wrs )</span><br><span class="line">        <span class="comment"># 对w的约束条件：和必须为1</span></span><br><span class="line">        wrs /= wrs.<span class="built_in">sum</span>()</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 根据求出的w完善矩阵</span></span><br><span class="line">        <span class="keyword">for</span> k,j <span class="keyword">in</span> <span class="built_in">enumerate</span>(N):</span><br><span class="line">            row.append(i)</span><br><span class="line">            col.append(j)</span><br><span class="line">            dat.append(-wrs[k])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 最终生成一个大小为(wh,wh)的，包含所有点与点之间的权重的矩阵</span></span><br><span class="line">A = csr_matrix( (dat, (row,col)) )</span><br></pre></td></tr></table></figure>
 <ul>
 <li><code>csr_matrix( (data, (row_index,col_index)) )</code>:  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">csr_matrix( ([<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>], ([<span class="number">1</span>,<span class="number">3</span>,<span class="number">3</span>],[<span class="number">0</span>,<span class="number">1</span>,<span class="number">3</span>])) ).toarray()</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>array([[<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">   [<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">   [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">   [<span class="number">0</span>, <span class="number">2</span>, <span class="number">0</span>, <span class="number">1</span>]], dtype=int64)</span><br></pre></td></tr></table></figure>
 </li>
@@ -78,6 +51,53 @@
       <tags>
         <tag>optimization</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>HexoTags</title>
+    <url>/2022/05/05/HexoTags/</url>
+    <content><![CDATA[<h2 id="Note"><a href="#Note" class="headerlink" title="Note"></a>Note</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% note [class]%&#125;</span><br><span class="line">Any content (support inline tags too.io).</span><br><span class="line">&#123;% endnote %&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>空白</li>
+<li>default</li>
+<li>primary</li>
+<li>success</li>
+<li>info</li>
+<li>warning</li>
+<li>danger</li>
+</ul>
+<h2 id="Mermaid"><a href="#Mermaid" class="headerlink" title="Mermaid"></a>Mermaid</h2><div class="note modern"><p>使用mermaid标籤可以绘製Flowchart（流程图）、Sequence diagram（时序图 ）、Class Diagram（类别图）、State Diagram（状态图）、Gantt（甘特图）和Pie Chart（圆形图），具体可以查看<a href="https://mermaid-js.github.io/mermaid/#/">Mermaide文档</a></p>
+</div>
+<h2 id="Tabs"><a href="#Tabs" class="headerlink" title="Tabs"></a>Tabs</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% tabs test1 %&#125;</span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line"><span class="strong">**This is Tab 1.**</span></span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line"><span class="strong">**This is Tab 2.**</span></span><br><span class="line">&lt;!-- endtab --&gt;</span><br></pre></td></tr></table></figure>
+<div class="tabs" id="test1"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#test1-1">表格1</button></li><li class="tab"><button type="button" data-href="#test1-2">表格2</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="test1-1"><p>这是1</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="test1-2"><p>这是2</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+<h2 id="label"><a href="#label" class="headerlink" title="label"></a>label</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% label 我是 %&#125;&#123;% label 什么 blue %&#125;&#123;%label 颜色 red %&#125;</span><br></pre></td></tr></table></figure>
+<mark class="hl-label default">我是</mark> <mark class="hl-label blue">什么</mark> <mark class="hl-label red">颜色</mark> 
+]]></content>
+      <categories>
+        <category>study</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SIFT</title>
+    <url>/2022/05/13/SIFT/</url>
+    <content><![CDATA[<h2 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h2><p>这篇文章帮助我们从图片中提取出图像特征，能满足即使当这个图片中某一事物或场景发生了失真，视角偏移，噪点增添或是光线改变时，也能将图片间的相关点进行对应。而且他它们是易于区分的特征，即使是从庞大的特征库中也能利用它们找到对应的真正的物体或场景。</p>
+<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><p>分为以下三步</p>
+<ol>
+<li>尺度空间的极值提取</li>
+<li>关键点定位</li>
+<li>方向分配</li>
+<li>关键点描述</li>
+</ol>
+<p>这一系列的方法称作为SIFT,即尺度不变的特征转换。</p>
+<h3 id="尺度空间的极值提取"><a href="#尺度空间的极值提取" class="headerlink" title="尺度空间的极值提取"></a>尺度空间的极值提取</h3><h4 id="生成高斯图像、尺度空间"><a href="#生成高斯图像、尺度空间" class="headerlink" title="生成高斯图像、尺度空间"></a>生成高斯图像、尺度空间</h4><p>极值提取的计算式，将使用DoG进行计算。首先我们已经知道唯一可行的尺度空间核就是高斯核，因此我们使用高斯函数对图像进行卷积从而得到尺度空间。其次，Lindebeg在1994年提出了LoG是对于尺度不变检测的必要算子。并且，Mikolajczyk提出利用LoG的最小值和最大值之差可以求出图片的稳定特征。而DoG正好可以近似于LoG。</p>
+<p>对于每个尺度空间，通过将原始图像与高斯核不断卷积，并将临近的生成图像相减形成高斯差值图像。之后，对图像进行下采样，再进行同样的工作。这样保证采样精度不变的情况下，计算量大大下降。</p>
+<h4 id="局部极值提取"><a href="#局部极值提取" class="headerlink" title="局部极值提取"></a>局部极值提取</h4><p>每个点将会和坐标空间上的8个临近点，以及尺度空间上的18个点，共计26个点进行比较。只有在27个点中是最小或最大才会被定义为极值。由于我们可以进行一些前处理筛选掉大部分的点，所以极值验证的过程并不会花费很大。</p>
+<p>明显的是，采样频率关系到极值的选择。但不幸的是并没有确定的采样频率能使我们一定能找到所需的极值。因此我们使用实验的方法来决定最优频率。</p>
+<h5 id="尺度上的采样频率"><a href="#尺度上的采样频率" class="headerlink" title="尺度上的采样频率"></a>尺度上的采样频率</h5><p>我们测试了当改变尺度空间上的采样时，重现率和关键点检测数量的改变趋势。结果表明，当采样频率增加时，重现率有下降趋势，这有可能因为即使找到了更多的极值，但他们不够稳定；并且，随着频率增加，更多的关键点被检测出来，虽然他们有助于物体检测，但运算量也大大上升，因此我们折中选择了3这个尺度空间的采样频率。</p>
+<h5 id="空间上的采样频率"><a href="#空间上的采样频率" class="headerlink" title="空间上的采样频率"></a>空间上的采样频率</h5><p>通过测试预平滑的采样频率与重现率的关系我们发现，当频率越大重现率也越大，但为了保证运行的效率，我们选择了1.6这个值。</p>
+]]></content>
   </entry>
   <entry>
     <title>PRML</title>
@@ -308,6 +328,272 @@
       </tags>
   </entry>
   <entry>
+    <title>无约束优化</title>
+    <url>/2022/05/11/Unconstrained%20minimization/</url>
+    <content><![CDATA[<h2 id="1-问题定义"><a href="#1-问题定义" class="headerlink" title="1 问题定义"></a>1 问题定义</h2><script type="math/tex; mode=display">\text{minimize } f(x)</script><ul>
+<li>二次可微凸函数</li>
+<li>$p^*$为最优值（最优解的y值）</li>
+</ul>
+<h3 id="1-2-初始点"><a href="#1-2-初始点" class="headerlink" title="1.2 初始点"></a>1.2 初始点</h3><p>以下方法需要初始点$x^{(0)} \in domf$，且下水平集必须为闭集，即：</p>
+<script type="math/tex; mode=display">S={x \in dom f | f(x)\le f(x^{(0)})}</script><h3 id="1-3-例子"><a href="#1-3-例子" class="headerlink" title="1.3 例子"></a>1.3 例子</h3><ul>
+<li>二次优化</li>
+<li>无约束几何规划</li>
+<li>线性不等式的解析中心</li>
+</ul>
+<h2 id="2-强凸性"><a href="#2-强凸性" class="headerlink" title="2. 强凸性"></a>2. 强凸性</h2><p>假设目标函数在S上是强凸的，指$\exist m&gt;0$使得</p>
+<script type="math/tex; mode=display">\nabla^2 f(x) \succeq mI</script><p>对$\forall x \in S$成立</p>
+<p>并且，对于$x,y\in S$有</p>
+<script type="math/tex; mode=display">f(y)=f(x)+\nabla f(x)^T(y-x)+\frac{1}{2}(y-x)^T\nabla^2f(z)(y-x)</script><p>其中z属于[x,y]的线段。根据强凸性条件，可推出</p>
+<script type="math/tex; mode=display">f(y)\geq f(x)+\nabla f(x)^T(y-x)+\frac{m}{2}||y-x||^2_2</script><ul>
+<li>m=0时，就是描述凸性的基本不等式</li>
+</ul>
+<div class="note info modern"><p>并且可以通过此式推出$f(x)和p^*$的关系</p>
+</div>
+<p>将右式看作关于y的二次函数，则对y求导后=0时的y为最优解，即$\hat{y}=x-(1/m)\nabla f(x)$<br>则</p>
+<script type="math/tex; mode=display">f(y)\geq f(x)+\nabla f(x)^T(\hat{y}-x)+\frac{m}{2}||\hat{y}-x||^2_2</script><script type="math/tex; mode=display">=f(x)-\frac{1}{2m}||\nabla f(x)||^2_2</script><p>因为这个不等式将对任何f(y)都成立，因此对于最优值也有：</p>
+<script type="math/tex; mode=display">p^*\geq f(x)-\frac{1}{2m}||\nabla f(x)||^2_2</script><h3 id="2-1-二次导的上界"><a href="#2-1-二次导的上界" class="headerlink" title="2.1 二次导的上界"></a>2.1 二次导的上界</h3><p>由上式知S所包含的所有下水平集都有界，因此对于$\nabla^2f(x)$应该也是有界的，即</p>
+<script type="math/tex; mode=display">\nabla^2f(x)\preceq MI</script><p>对所有$x\in S$ 成立。<br>这个上界意味着对于所有$x,y\in S$有</p>
+<script type="math/tex; mode=display">f(y)\leq f(x)+\nabla f(x)^T(y-x)+\frac{M}{2}||y-x||^2_2</script><blockquote>
+<p>注意与强凸推导的式1之类似</p>
+</blockquote>
+<p>上式求极小后得</p>
+<script type="math/tex; mode=display">p^*\leq f(x)-\frac{1}{2M}||\nabla f(x)||^2_2</script><h3 id="2-2-下水平集的条件数"><a href="#2-2-下水平集的条件数" class="headerlink" title="2.2 下水平集的条件数"></a>2.2 下水平集的条件数</h3><p>上界和下界为</p>
+<script type="math/tex; mode=display">mI\preceq \nabla^2f(x)\preceq MI</script><p>因此$k=M/m$是$\nabla^2f(x)$的条件数(condition number)（即最大特征值和最小特征值的比值）</p>
+<p>根据这个，可以用来决定停止条件(stopping condition)。如果我们在 ${||\nabla f(x^{(k)})||_2\leq \eta}$时终止算法，其中$\eta$是小于$(m\epsilon)^{1/2}$的充分小的数，那我们就能得到一个</p>
+<script type="math/tex; mode=display">{f(x^{(k)})-p^*\leq \epsilon}</script><h2 id="3-下降方法"><a href="#3-下降方法" class="headerlink" title="3 下降方法"></a>3 下降方法</h2><p>本章描述的算法将生成一系列的优化点，其中</p>
+<script type="math/tex; mode=display">x^{(k+1)}=x^{(k)}+t^{(k)}\Delta x^{(k)}</script><ul>
+<li>$\Delta x^{(k)} \in R^n$为步径(step)或搜索方向(search direction)</li>
+<li>$t^{(k)}\geq 0$为步进(step size)或步长(step length)</li>
+<li>只要$x^{(k)}$还不是最优解$x^*$，就一定$t^{(k)}&gt; 0$</li>
+</ul>
+<h4 id="3-1-下降的限制条件"><a href="#3-1-下降的限制条件" class="headerlink" title="3.1 下降的限制条件"></a>3.1 下降的限制条件</h4><p>既然被称为下降方法，很容易想到</p>
+<script type="math/tex; mode=display">f(x^{(k+1)})<f(x^{(k)})</script><h4 id="3-2-搜索方向条件"><a href="#3-2-搜索方向条件" class="headerlink" title="3.2 搜索方向条件"></a>3.2 搜索方向条件</h4><p>并且由凸性一阶条件可知$f(y)\geq f(x^{(k)})$，因此搜索方向必须满足</p>
+<script type="math/tex; mode=display">\nabla f(x^{(k)})^T\Delta x^{(k)}<0</script><h4 id="3-3-通用下降方法-General-descent-method"><a href="#3-3-通用下降方法-General-descent-method" class="headerlink" title="3.3 通用下降方法(General descent method)"></a>3.3 通用下降方法(General descent method)</h4><ol>
+<li>给定初始点$x\in dom f$</li>
+<li>LOOP<ol>
+<li>确定下降方向</li>
+<li>直线搜索，选择步长t</li>
+<li>更新x</li>
+</ol>
+</li>
+<li>STOP 满足停止准则</li>
+</ol>
+<h4 id="3-4-下降方法例子"><a href="#3-4-下降方法例子" class="headerlink" title="3.4 下降方法例子"></a>3.4 下降方法例子</h4><ol>
+<li>精确直线搜索（exact line search）</li>
+<li>回溯直线搜索 (backtracking line search)</li>
+</ol>
+<h2 id="4-梯度下降法-Gradient-descent-method）"><a href="#4-梯度下降法-Gradient-descent-method）" class="headerlink" title="4 梯度下降法(Gradient descent method）"></a>4 梯度下降法(Gradient descent method）</h2><ol>
+<li>给定初始点$x\in dom f$</li>
+<li>LOOP<ol>
+<li>$\Delta x:=-\nabla f(x)$</li>
+<li>直线搜索，通过精确或回溯法确定t</li>
+<li>更新x</li>
+</ol>
+</li>
+<li>STOP 满足停止准则</li>
+</ol>
+<ul>
+<li>停止准则一般取$||\nabla f(x)||_2\leq \eta$, $\eta$为极小的正数</li>
+</ul>
+<h2 id="5-收敛性分析（convergence-analysis）"><a href="#5-收敛性分析（convergence-analysis）" class="headerlink" title="5 收敛性分析（convergence analysis）"></a>5 收敛性分析（convergence analysis）</h2><blockquote>
+<p>NOTE</p>
+<ul>
+<li>$x^+=x+t\Delta x$表示更新</li>
+<li>$\Delta x=-\nabla f(x)$</li>
+</ul>
+</blockquote>
+<p>假设f为强凸函数，并定义$\hat{f}(t)=f(x-\nabla f(x))$为关于步长t的函数（可以看做是测试当t变化时f(x)有什么影响的函数？）</p>
+<p>将$y=x-\nabla f(x)$代入到“二次导的上界”的推导式1中可得</p>
+<script type="math/tex; mode=display">\hat{f}(t)\leq f(x)-t||\nabla f(x)^||^2_2+\frac{Mt^2}{2}||\nabla f(x)^||^2_2</script><h3 id="5-1-精确直线搜索的分析"><a href="#5-1-精确直线搜索的分析" class="headerlink" title="5.1 精确直线搜索的分析"></a>5.1 精确直线搜索的分析</h3><h3 id="5-2-回溯直线搜索的分析"><a href="#5-2-回溯直线搜索的分析" class="headerlink" title="5.2 回溯直线搜索的分析"></a>5.2 回溯直线搜索的分析</h3><h3 id="5-3-例：-R-2-空间的二次问题"><a href="#5-3-例：-R-2-空间的二次问题" class="headerlink" title="5.3 例：$R^2$空间的二次问题"></a>5.3 例：$R^2$空间的二次问题</h3><div class="note info modern"><p>结论：</p>
+</div>
+<h2 id="6-最速下降法-steepest-descent-method"><a href="#6-最速下降法-steepest-descent-method" class="headerlink" title="6 最速下降法(steepest descent method)"></a>6 最速下降法(steepest descent method)</h2><h3 id="6-1-下降方向"><a href="#6-1-下降方向" class="headerlink" title="6.1 下降方向"></a>6.1 下降方向</h3><p>对$f(x+v)$在x处进行一阶泰勒展开</p>
+<script type="math/tex; mode=display">f(x+v)\approx \hat{f}(x+v)=f(x)+\nabla f(x)^Tv</script><ul>
+<li>其中右边$\nabla f(x)^Tv$为f在x处沿方向v的方向导数(directional derivative)</li>
+<li>方向导数近似表示了f沿小步径v会发生的变化</li>
+</ul>
+<h3 id="6-2-规范化的最速下降方向-normalized-steepest-descent"><a href="#6-2-规范化的最速下降方向-normalized-steepest-descent" class="headerlink" title="6.2 规范化的最速下降方向(normalized steepest descent )"></a>6.2 规范化的最速下降方向(normalized steepest descent )</h3><p>为了限制v的大小，我们定义一个规范化的最速下降方向。其中||*||是$R^n$上的任意范数</p>
+<script type="math/tex; mode=display">\Delta x_{nsd}=argmin\{\nabla f(x)^Tv|\|v\|=1\}</script><h3 id="6-3-最速下降法算法"><a href="#6-3-最速下降法算法" class="headerlink" title="6.3 最速下降法算法"></a>6.3 最速下降法算法</h3><ol>
+<li>给定初始点$x\in dom f$</li>
+<li>LOOP<ol>
+<li>计算最速下降方向$\Delta x_{nsd}$</li>
+<li>直线搜索，通过精确或回溯法确定t</li>
+<li>更新x</li>
+</ol>
+</li>
+<li>STOP 满足停止准则</li>
+</ol>
+<h3 id="6-4-不同范数下的最速下降"><a href="#6-4-不同范数下的最速下降" class="headerlink" title="6.4 不同范数下的最速下降"></a>6.4 不同范数下的最速下降</h3><h4 id="6-4-1-Eclid范数（EUCLIDEAN-NORM）"><a href="#6-4-1-Eclid范数（EUCLIDEAN-NORM）" class="headerlink" title="6.4.1 Eclid范数（EUCLIDEAN NORM）"></a>6.4.1 Eclid范数（EUCLIDEAN NORM）</h4><p>取Euclid范数时</p>
+<script type="math/tex; mode=display">\Delta x_{sd}=-\nabla f(x)</script><h4 id="6-4-2-二次范数（quadratic-norm）"><a href="#6-4-2-二次范数（quadratic-norm）" class="headerlink" title="6.4.2 二次范数（quadratic norm）"></a>6.4.2 二次范数（quadratic norm）</h4><p>二次范数</p>
+<script type="math/tex; mode=display">||z||_p=(z^TPz)^{1/2}=||P^{1/2}z||_2</script><p>其中$P\in S_{++}^n$.<br>规范化的最速下降方向为</p>
+<script type="math/tex; mode=display">\Delta x_{sd}=-(\nabla f(x)^TP^{-1}\nabla f(x))^{-1/2}P^{-1}\nabla f(x)</script><p>并且对偶范数为$||z||_<em>=||-P^{-1}\nabla f(x)||$,因此采用$||</em>||_P$的最速下降步径为</p>
+<script type="math/tex; mode=display">\Delta x_{sd}=-P^{-1}\nabla f(x)</script><blockquote>
+<p>基于坐标变换</p>
+</blockquote>
+<h4 id="6-4-3-范数选择"><a href="#6-4-3-范数选择" class="headerlink" title="6.4.3 范数选择"></a>6.4.3 范数选择</h4>]]></content>
+      <categories>
+        <category>study</category>
+      </categories>
+      <tags>
+        <tag>CGO</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>detection</title>
+    <url>/2022/05/10/corner%20detection/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>study</category>
+      </categories>
+      <tags>
+        <tag>CV</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>edge detection</title>
+    <url>/2022/05/09/edge%20detection/</url>
+    <content><![CDATA[<h1 id="1-Feature-detection"><a href="#1-Feature-detection" class="headerlink" title="1 Feature detection"></a>1 Feature detection</h1><blockquote>
+<ul>
+<li>Containing vast information</li>
+</ul>
+</blockquote>
+<p>SO it’s important to <mark class="hl-label red">determine</mark> </p>
+<ol>
+<li><p>WHERE</p>
+<ul>
+<li><strong>concentrate on a part</strong> and <strong>ignore others</strong></li>
+<li>e.g. Object recognition: Ignore background</li>
+</ul>
+</li>
+<li><p>WHAT</p>
+<ul>
+<li>Feature can be located<ul>
+<li>edge</li>
+<li>feature points</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h1 id="2-Edge-detection"><a href="#2-Edge-detection" class="headerlink" title="2 Edge detection"></a>2 Edge detection</h1><h2 id="2-1-Feature"><a href="#2-1-Feature" class="headerlink" title="2.1 Feature"></a>2.1 Feature</h2><ol>
+<li>Brightness (value) changes <strong>rapidly</strong></li>
+<li>Differentiation (近傍ピクセルとの微分処理 ) </li>
+<li>Important feature for object recognition </li>
+<li>Weak to noise(Because it is differentiation)</li>
+</ol>
+<h2 id="2-2-Kinds"><a href="#2-2-Kinds" class="headerlink" title="2.2 Kinds"></a>2.2 Kinds</h2><p><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h22h9p2btmj211z0n2abr.jpg" alt=""></p>
+<h2 id="2-3-Differentiation"><a href="#2-3-Differentiation" class="headerlink" title="2.3 Differentiation"></a>2.3 Differentiation</h2><ul>
+<li><p>Grandient</p>
+<script type="math/tex; mode=display">\nabla I=(\frac{\partial I}{\partial x}, \frac{\partial I}{\partial y})</script><ul>
+<li>Represents the<strong> direction and the speed</strong> of the <strong>change in brightness </strong></li>
+</ul>
+</li>
+<li><p>Laplacian</p>
+<script type="math/tex; mode=display">\nabla^2 I=(\frac{\partial^2 I}{\partial x^2}, \frac{\partial^2 I}{\partial y^2})</script></li>
+</ul>
+<div class="note info modern"><p>边缘就是明暗剧烈变化的地方，所以我们可以通过一次微分的极值或二次微分的变曲点确定edge</p>
+</div>
+<p><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h231usx1ugj20sl0gd764.jpg" alt=""></p>
+<h1 id="3-edge-operator"><a href="#3-edge-operator" class="headerlink" title="3 edge operator"></a>3 edge operator</h1><blockquote>
+<p>为了计算微分，我们通过edge operator——即一种filter来实现</p>
+</blockquote>
+<h2 id="3-1-一次微分"><a href="#3-1-一次微分" class="headerlink" title="3.1 一次微分"></a>3.1 一次微分</h2><p>对于一个形同$[[I_{i,j+1}, I_{i+1,j+1}],[I_{i,j}, I_{i+1,j}]]$的2*2 window内的像素，我们可以将微分转换为</p>
+<script type="math/tex; mode=display">\frac{\partial I}{\partial x} \approx \frac{1}{2\varepsilon}((I_{i+1,j+1}-I_{i,j+1})+(I_{i+1,j}-I_{i,j}))</script><script type="math/tex; mode=display">\frac{\partial I}{\partial y} \approx \frac{1}{2\varepsilon}((I_{i,j+1}-I_{i,j})+(I_{i+1,j+1}-I_{i+1,j}))</script><p>表现为filter即为</p>
+<p><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h231ypgyluj20vp0audgc.jpg" alt=""></p>
+<p>分别求出两个方向的edge后合并才能生成总的edge图</p>
+<ul>
+<li>Location more precise</li>
+<li>Weak to noise </li>
+<li>Low detection power<br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h231uu19ctj20ut0gu40l.jpg" alt=""><script type="math/tex; mode=display">对噪声的优化很弱的后果...处处都是边缘！</script></li>
+</ul>
+<h2 id="3-2-二次微分"><a href="#3-2-二次微分" class="headerlink" title="3.2 二次微分"></a>3.2 二次微分</h2><p><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h231utawi2j20cg0aeq3b.jpg" alt=""></p>
+<script type="math/tex; mode=display">\frac{\partial^2 I}{\partial x^2} \approx \frac{1}{\varepsilon^2}(I_{i-1,j}-2I_{i,j}+I_{i+1,j})</script><script type="math/tex; mode=display">\frac{\partial^2 I}{\partial y^2} \approx \frac{1}{\varepsilon^2}(I_{i,j-1}-2I_{i,j}+I_{i,j+1})</script><p><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h231utl5ycj210q08xq3v.jpg" alt=""></p>
+<h2 id="3-3-算法"><a href="#3-3-算法" class="headerlink" title="3.3 算法"></a>3.3 算法</h2><ul>
+<li>Roberts</li>
+<li>Prewitt<ul>
+<li>先ほどのカーネルではノイズの影響が非常に強く出てしまうので、平滑化処理を加えた形</li>
+</ul>
+</li>
+<li><p>Sobel</p>
+<ul>
+<li>Location imprecise </li>
+<li>Robust to noise </li>
+<li>High detection power </li>
+</ul>
+</li>
+<li><p>LoG<br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h231uui5vej20xn0pbjuq.jpg" alt=""></p>
+<ul>
+<li>用于平滑化</li>
+<li>近似于DOG（倒不如说有时候用DOG会更方便所以可以近似）</li>
+</ul>
+</li>
+<li>Canny<ul>
+<li>通过将一系列的检出算法合并的强力检出工具<ol>
+<li>Blur image I with 2D Gaussian</li>
+<li>Find the edge‐normal direction at each pixel:</li>
+<li>Calculate the strength of the edge</li>
+<li>Find the maximal strength in the edge‐normal direction as the zero‐crossing in that direction (this step is called non‐maximum suppression)</li>
+</ol>
+</li>
+<li>改变参数$\sigma$可以提取各种各样不同的特征 </li>
+</ul>
+</li>
+</ul>
+<h1 id="4-Corner-detection"><a href="#4-Corner-detection" class="headerlink" title="4. Corner detection"></a>4. Corner detection</h1><blockquote>
+<p>除了通过微分求出练成线的轮廓线，我们还可以通过求物体“角点”确认物体的位置</p>
+</blockquote>
+<h2 id="4-1-Susan"><a href="#4-1-Susan" class="headerlink" title="4.1 Susan"></a>4.1 Susan</h2><ol>
+<li>window作为一个圆形对图片遍历，圈内与圆心相同亮度的部分称为USAN</li>
+<li>若USAN的面积小于某个阈值即认为这个点是角点（就是在圆内占比极低）<blockquote>
+<p>想象一个比例为1:3的饼状统计图…那1/4是不是就是个正方形的角？</p>
+</blockquote>
+</li>
+<li>USAN面积排行<ol>
+<li>圆内全部为相同亮度（即在一个物体内部时）面积最大</li>
+<li>圆内只有一半左右为相同亮度（即边缘）面积次大</li>
+<li>圆内只有小部分为相同亮度时（即角）面积最小<br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h232kivengj20iw0ck75h.jpg" alt=""></li>
+</ol>
+</li>
+</ol>
+<h2 id="4-2-harris"><a href="#4-2-harris" class="headerlink" title="4.2 harris"></a>4.2 harris</h2><p>Detect a point where the sum of square changes<br>of the image is largest when shifted slightly</p>
+<ul>
+<li>Points easily distinguishable from nearby points</li>
+</ul>
+]]></content>
+      <categories>
+        <category>study</category>
+      </categories>
+      <tags>
+        <tag>CV</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>凸优化问题</title>
+    <url>/2022/05/06/%E5%87%B8%E4%BC%98%E5%8C%96%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<script type="math/tex; mode=display">\text{minimize }f_0(x)</script><script type="math/tex; mode=display">\text{subject to } f_i(x)\le 0, i=1...m</script><script type="math/tex; mode=display">h(x)=0, i=1...p</script><ul>
+<li>目标函数(objective f)必须为凸(convex)</li>
+<li>不等式(inequality constraint f)约束函数必须为凸</li>
+<li>等式约束函数必须为仿射(affine)</li>
+<li>定义域是m个凸的下水平集($f_i(x)$)和p个超平面($h(x)$)的交集</li>
+<li>我们其实是在一个凸集上极小化一个凸的目标函数</li>
+<li>局部最优解自动成为全局最优解</li>
+</ul>
+<h2 id="最优值与最优解-optimal-value-and-optimal-point"><a href="#最优值与最优解-optimal-value-and-optimal-point" class="headerlink" title="最优值与最优解 optimal value and optimal point"></a>最优值与最优解 optimal value and optimal point</h2><div class="note warning modern"><p>最优值为最优解对应的y值</p>
+</div>
+<p><strong>最优值</strong>定义为</p>
+<script type="math/tex; mode=display">p^*=inf\{f_0(x)|满足约束条件\}</script><ul>
+<li>当没有可行点（没有点满足约束条件）时，p为不可行（infeasible）且等于$\infty$</li>
+<li>如果$p^*=-\infty$，则称这个问题无下界（unbounded below）</li>
+</ul>
+<p>当$x^{*}$可行并且$f_0(x^*)=p^{*}$时称之为<strong>最优解</strong></p>
+]]></content>
+      <categories>
+        <category>study</category>
+      </categories>
+      <tags>
+        <tag>optimization</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>凸集合与凸函数</title>
     <url>/2022/05/06/%E5%87%B8%E9%9B%86%E5%90%88%E4%B8%8E%E5%87%B8%E5%87%BD%E6%95%B0/</url>
     <content><![CDATA[<h2 id="1-convex-sets"><a href="#1-convex-sets" class="headerlink" title="1. convex sets"></a>1. convex sets</h2><h3 id="1-1-Line-segmentation-直线分割"><a href="#1-1-Line-segmentation-直线分割" class="headerlink" title="1.1 Line segmentation 直线分割"></a>1.1 Line segmentation 直线分割</h3><script type="math/tex; mode=display">y=\theta x_1+(1-\theta)x_2</script><script type="math/tex; mode=display">y=x_2+\theta(x_1-x_2)</script><blockquote>
@@ -495,33 +781,6 @@
       </categories>
       <tags>
         <tag>other</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>凸优化问题</title>
-    <url>/2022/05/06/%E5%87%B8%E4%BC%98%E5%8C%96%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<script type="math/tex; mode=display">\text{minimize }f_0(x)</script><script type="math/tex; mode=display">\text{subject to } f_i(x)\le 0, i=1...m</script><script type="math/tex; mode=display">h(x)=0, i=1...p</script><ul>
-<li>目标函数(objective f)必须为凸(convex)</li>
-<li>不等式(inequality constraint f)约束函数必须为凸</li>
-<li>等式约束函数必须为仿射(affine)</li>
-<li>定义域是m个凸的下水平集($f_i(x)$)和p个超平面($h(x)$)的交集</li>
-<li>我们其实是在一个凸集上极小化一个凸的目标函数</li>
-<li>局部最优解自动成为全局最优解</li>
-</ul>
-<h2 id="最优值与最优解-optimal-value-and-optimal-point"><a href="#最优值与最优解-optimal-value-and-optimal-point" class="headerlink" title="最优值与最优解 optimal value and optimal point"></a>最优值与最优解 optimal value and optimal point</h2><div class="note warning modern"><p>最优值为最优解对应的y值</p>
-</div>
-<p><strong>最优值</strong>定义为</p>
-<script type="math/tex; mode=display">p^*=inf\{f_0(x)|满足约束条件\}</script><ul>
-<li>当没有可行点（没有点满足约束条件）时，p为不可行（infeasible）且等于$\infty$</li>
-<li>如果$p^*=-\infty$，则称这个问题无下界（unbounded below）</li>
-</ul>
-<p>当$x^{*}$可行并且$f_0(x^*)=p^{*}$时称之为<strong>最优解</strong></p>
-]]></content>
-      <categories>
-        <category>study</category>
-      </categories>
-      <tags>
-        <tag>optimization</tag>
       </tags>
   </entry>
 </search>
