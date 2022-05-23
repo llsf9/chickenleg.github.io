@@ -53,33 +53,6 @@
       </tags>
   </entry>
   <entry>
-    <title>HexoTags</title>
-    <url>/2022/05/05/HexoTags/</url>
-    <content><![CDATA[<h2 id="Note"><a href="#Note" class="headerlink" title="Note"></a>Note</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% note [class]%&#125;</span><br><span class="line">Any content (support inline tags too.io).</span><br><span class="line">&#123;% endnote %&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>空白</li>
-<li>default</li>
-<li>primary</li>
-<li>success</li>
-<li>info</li>
-<li>warning</li>
-<li>danger</li>
-</ul>
-<h2 id="Mermaid"><a href="#Mermaid" class="headerlink" title="Mermaid"></a>Mermaid</h2><div class="note modern"><p>使用mermaid标籤可以绘製Flowchart（流程图）、Sequence diagram（时序图 ）、Class Diagram（类别图）、State Diagram（状态图）、Gantt（甘特图）和Pie Chart（圆形图），具体可以查看<a href="https://mermaid-js.github.io/mermaid/#/">Mermaide文档</a></p>
-</div>
-<h2 id="Tabs"><a href="#Tabs" class="headerlink" title="Tabs"></a>Tabs</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% tabs test1 %&#125;</span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line"><span class="strong">**This is Tab 1.**</span></span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line"><span class="strong">**This is Tab 2.**</span></span><br><span class="line">&lt;!-- endtab --&gt;</span><br></pre></td></tr></table></figure>
-<div class="tabs" id="test1"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#test1-1">表格1</button></li><li class="tab"><button type="button" data-href="#test1-2">表格2</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="test1-1"><p>这是1</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="test1-2"><p>这是2</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
-<h2 id="label"><a href="#label" class="headerlink" title="label"></a>label</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% label 我是 %&#125;&#123;% label 什么 blue %&#125;&#123;%label 颜色 red %&#125;</span><br></pre></td></tr></table></figure>
-<mark class="hl-label default">我是</mark> <mark class="hl-label blue">什么</mark> <mark class="hl-label red">颜色</mark> 
-]]></content>
-      <categories>
-        <category>study</category>
-      </categories>
-      <tags>
-        <tag>hexo</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>PRML</title>
     <url>/2022/05/05/PRML/</url>
     <content><![CDATA[<h1 id="Pattern-recognition-and-machine-learning"><a href="#Pattern-recognition-and-machine-learning" class="headerlink" title="Pattern recognition and machine learning"></a>Pattern recognition and machine learning</h1><h2 id="0-Guidance"><a href="#0-Guidance" class="headerlink" title="0. Guidance"></a>0. Guidance</h2><ul>
@@ -308,6 +281,33 @@
       </tags>
   </entry>
   <entry>
+    <title>HexoTags</title>
+    <url>/2022/05/05/HexoTags/</url>
+    <content><![CDATA[<h2 id="Note"><a href="#Note" class="headerlink" title="Note"></a>Note</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% note [class]%&#125;</span><br><span class="line">Any content (support inline tags too.io).</span><br><span class="line">&#123;% endnote %&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>空白</li>
+<li>default</li>
+<li>primary</li>
+<li>success</li>
+<li>info</li>
+<li>warning</li>
+<li>danger</li>
+</ul>
+<h2 id="Mermaid"><a href="#Mermaid" class="headerlink" title="Mermaid"></a>Mermaid</h2><div class="note modern"><p>使用mermaid标籤可以绘製Flowchart（流程图）、Sequence diagram（时序图 ）、Class Diagram（类别图）、State Diagram（状态图）、Gantt（甘特图）和Pie Chart（圆形图），具体可以查看<a href="https://mermaid-js.github.io/mermaid/#/">Mermaide文档</a></p>
+</div>
+<h2 id="Tabs"><a href="#Tabs" class="headerlink" title="Tabs"></a>Tabs</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% tabs test1 %&#125;</span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line"><span class="strong">**This is Tab 1.**</span></span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line"><span class="strong">**This is Tab 2.**</span></span><br><span class="line">&lt;!-- endtab --&gt;</span><br></pre></td></tr></table></figure>
+<div class="tabs" id="test1"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#test1-1">表格1</button></li><li class="tab"><button type="button" data-href="#test1-2">表格2</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="test1-1"><p>这是1</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="test1-2"><p>这是2</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+<h2 id="label"><a href="#label" class="headerlink" title="label"></a>label</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% label 我是 %&#125;&#123;% label 什么 blue %&#125;&#123;%label 颜色 red %&#125;</span><br></pre></td></tr></table></figure>
+<mark class="hl-label default">我是</mark> <mark class="hl-label blue">什么</mark> <mark class="hl-label red">颜色</mark> 
+]]></content>
+      <categories>
+        <category>study</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>无约束优化</title>
     <url>/2022/05/11/Unconstrained%20minimization/</url>
     <content><![CDATA[<h2 id="1-问题定义"><a href="#1-问题定义" class="headerlink" title="1 问题定义"></a>1 问题定义</h2><script type="math/tex; mode=display">\text{minimize } f(x)</script><ul>
@@ -421,8 +421,9 @@
     <title>SIFT</title>
     <url>/2022/05/13/SIFT/</url>
     <content><![CDATA[<h2 id="SIFT究竟在做什么？"><a href="#SIFT究竟在做什么？" class="headerlink" title="SIFT究竟在做什么？"></a>SIFT究竟在做什么？</h2><h3 id="WHAT"><a href="#WHAT" class="headerlink" title="WHAT"></a>WHAT</h3><p>SIFT属于传统特征提取方式，与通过深度学习的反复学习提取出的特征值不同，传统特征提取方式需要通过人工计算和模拟实验找到所需要的特征点。一个好的特征量应该具有尺度不变的性质，本文就是在解释通过怎样的计算步骤能找到这样的特征量。</p>
-<h3 id="WHY"><a href="#WHY" class="headerlink" title="WHY"></a>WHY</h3><p>特征量往往被用在物体识别，物体</p>
-<h3 id="HOW"><a href="#HOW" class="headerlink" title="HOW"></a>HOW</h3><h2 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h2><p>这篇文章帮助我们从图片中提取出图像特征，能满足即使当这个图片中某一事物或场景发生了失真，视角偏移，噪点增添或是光线改变时，也能将图片间的相关点进行对应。而且他它们是易于区分的特征，即使是从庞大的特征库中也能利用它们找到对应的真正的物体或场景。</p>
+<h3 id="WHY"><a href="#WHY" class="headerlink" title="WHY"></a>WHY</h3><p>特征量往往被用在物体识别，并且应该是分辨度高的，以区分于杂乱的背景和庞大的数据库。</p>
+<h3 id="HOW"><a href="#HOW" class="headerlink" title="HOW"></a>HOW</h3><p>我们主要使用四个步骤：1.尺度空间的极值检测，2.关键点的定位，3. 方向分配 4. 关键点描述，来提取我们所需要的特征量。</p>
+<h2 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h2><p>这篇文章帮助我们从图片中提取出图像特征，能满足即使当这个图片中某一事物或场景发生了失真，视角偏移，噪点增添或是光线改变时，也能将图片间的相关点进行对应。而且他它们是易于区分的特征，即使是从庞大的特征库中也能利用它们找到对应的真正的物体或场景。</p>
 <h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><p>分为以下三步</p>
 <ol>
 <li>尺度空间的极值提取</li>
@@ -449,17 +450,6 @@
 <h3 id="霍夫变换聚类"><a href="#霍夫变换聚类" class="headerlink" title="霍夫变换聚类"></a>霍夫变换聚类</h3><p>为了提高对小物体和被遮挡物体的识别问题，我们希望即使少类的特征也能识别出物体。而通过霍夫变换将特征值聚类的方法能提升这一可能性。</p>
 <p>[1] <a href="https://blog.csdn.net/lavender19/article/details/120396145">https://blog.csdn.net/lavender19/article/details/120396145</a><br>[2]<a href="https://blog.csdn.net/shiyongraow/article/details/78296710">https://blog.csdn.net/shiyongraow/article/details/78296710</a><br>[3]<a href="https://www.cnblogs.com/shine-lee/p/10950963.html">https://www.cnblogs.com/shine-lee/p/10950963.html</a> 仿射变换</p>
 ]]></content>
-      <categories>
-        <category>study</category>
-      </categories>
-      <tags>
-        <tag>CV</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>detection</title>
-    <url>/2022/05/10/corner%20detection/</url>
-    <content><![CDATA[]]></content>
       <categories>
         <category>study</category>
       </categories>
@@ -586,6 +576,17 @@
       </tags>
   </entry>
   <entry>
+    <title>detection</title>
+    <url>/2022/05/10/corner%20detection/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>study</category>
+      </categories>
+      <tags>
+        <tag>CV</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>凸优化问题</title>
     <url>/2022/05/06/%E5%87%B8%E4%BC%98%E5%8C%96%E9%97%AE%E9%A2%98/</url>
     <content><![CDATA[<script type="math/tex; mode=display">\text{minimize }f_0(x)</script><script type="math/tex; mode=display">\text{subject to } f_i(x)\le 0, i=1...m</script><script type="math/tex; mode=display">h(x)=0, i=1...p</script><ul>
@@ -610,6 +611,73 @@
       </categories>
       <tags>
         <tag>optimization</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>无约束最优化</title>
+    <url>/2022/05/04/%E6%97%A0%E7%BA%A6%E6%9D%9F%E6%9C%80%E4%BC%98%E5%8C%96/</url>
+    <content><![CDATA[<h2 id="1-Minizer"><a href="#1-Minizer" class="headerlink" title="1. Minizer"></a>1. Minizer</h2><ol>
+<li>全局最小值 Global Minizer</li>
+<li>局部最小值 Local Minizer<ul>
+<li>weak </li>
+<li>strict</li>
+<li>孤立的局部最小值isolated local minimizer <div class="note success modern"><p>对于凸函数，局部最小值立即成为全局最小值</p>
+</div>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="2-局部最小值条件"><a href="#2-局部最小值条件" class="headerlink" title="2. 局部最小值条件"></a>2. 局部最小值条件</h2><ol>
+<li>一阶必要条件（FIRST-ORDER NECESSARY CONDITIONS）<ol>
+<li>函数$f(x)$在点$x^*$可微</li>
+<li>梯度${\nabla f(x^*)=0}$</li>
+</ol>
+</li>
+<li>二阶必要条件<ol>
+<li>满足一阶</li>
+<li>hesse矩阵${\nabla^2 f(x^*)}$半正定   </li>
+</ol>
+</li>
+</ol>
+<div class="tabs" id="1"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#1-1">海塞矩阵</button></li><li class="tab"><button type="button" data-href="#1-2">半正定值</button></li><li class="tab"><button type="button" data-href="#1-3">海塞矩阵的半正定值</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="1-1"><p><img src="https://ds055uzetaobb.cloudfront.net/brioche/uploads/gVN1lN1A28-hessian.png?width=1200" alt=""></p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="1-2"><p>半正定值：</p>
+<ol>
+<li>对于所有x不等于0，都有 ${x^TAx≥0}$</li>
+<li>且对某个x不等于0,有 ${x^TAx&gt;0}$</li>
+</ol><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="1-3"><p>因为hesse矩阵是对称矩阵所以有以下性质：（仅限于对称矩阵！！）<br>半正定：所有特征值都大于等于0<br>正定：所有特征值都大于0<br>负定：所有特征值都小于0</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+<mark class="hl-label red">现在虽然知道了确认某点是否为最小值的算法，但是对于如何找到这个点我们还无从得知（总不能把所有点都算一遍吧）</mark> 
+<h2 id="3-直线探索策略-line-search-strategy"><a href="#3-直线探索策略-line-search-strategy" class="headerlink" title="3. 直线探索策略 line search strategy"></a>3. 直线探索策略 line search strategy</h2><ol>
+<li>Line Serch<br> 设在某点$x_k$，寻找方向$p_k$和步长$\alpha$使得min$f(x_k+\alpha p_k)$<br> <strong>需求值：方向和步长</strong></li>
+<li>Trust Region<br> 对于点x_k上的近似函数求最小值：min$m_k(x_k+p_k)$。同时，近似函数是有限的，所以可信赖区间需要被确定。<br> <strong>需求值：近似函数和可信赖区间p</strong></li>
+</ol>
+]]></content>
+      <categories>
+        <category>study</category>
+      </categories>
+      <tags>
+        <tag>optimization</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>闲谈-关于美术馆拍摄的变形问题</title>
+    <url>/2022/05/05/%E9%97%B2%E8%B0%88-%E5%85%B3%E4%BA%8E%E7%BE%8E%E6%9C%AF%E9%A6%86%E6%8B%8D%E6%91%84%E7%9A%84%E5%8F%98%E5%BD%A2%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<p>前几天去艺术馆拍了不少喜欢的画作，本想回来美美做墙纸之类的，结果….<br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h1xc5rlm0hj213y0u0afo.jpg" alt="除去我摄影水平不够导致的没有完美对齐的问题，和红框相比能明显看出来似乎加了鱼眼效果般突出来了点"></p>
+<p><em>除去我摄影水平不够导致的没有完美对齐的问题，和红框相比能明显看出来似乎加了鱼眼效果般突出来了点</em></p>
+<h2 id="镜头变形"><a href="#镜头变形" class="headerlink" title="镜头变形"></a>镜头变形</h2><p><img src="https://i.guancha.cn/bbs/2020/06/21/20200621224008407.png?imageView2/2/w/500/format/png" alt="枕形变形与鼓形变形"></p>
+<blockquote>
+<p>“<em>对于一般的风景画，没有多少直线，对枕形变形不太敏感；但要是以建筑为主体，或者是有较多靠近画框边缘的直线的抽象画，枕形变形就会比较扎眼。如果要把画框拍出来，平直线条紧贴着画面边缘，枕形变形特别容易显出来，佳能红圈20-70/2.8都压不住，慢说任何小数码相机了。这是拍摄绘画的“不利条件”。</em>“</p>
+</blockquote>
+<h2 id="球差（球面収差）"><a href="#球差（球面収差）" class="headerlink" title="球差（球面収差）"></a>球差（球面収差）</h2><p><img src="http://www.kansmemo.com/archives/001/201009/4c99aa26d1e4d.png" alt=""><br>透过镜头外侧的光和透镜片中心(近轴)附近的光,因为焦点位置不同而产生变形。原理上来说，只要镜头为球面镜头这一现象就不可避免。<br>相反,球面收差可以通过使用适当设计——非球面镜头来消除。所以,最近的镜头中非球面镜头开始被普遍使用。<br><img src="http://www.kansmemo.com/archives/001/201009/4c99aa29663c5.png" alt=""></p>
+<h2 id="题外话"><a href="#题外话" class="headerlink" title="题外话"></a>题外话</h2><p>物理学的稀巴烂所以基本还停留在初中学的“凸透镜光线汇聚成一点”，所以其实理解这个费了好大的功夫。一些关于<strong>为什么与教科书不同，凸透镜的焦点并不能完美汇聚于一点</strong>的补充如下：</p>
+<blockquote>
+<p>聚集到一点，需要几个因素<br>1、理想平行光<br>2、理想凸透镜<br>3、理想单一频率<br>4、理想粒子特性(实际上光具有波粒两相性)</p>
+</blockquote>
+<p>[1]<a href="https://www.zhihu.com/question/272102579/answer/1297496356">https://www.zhihu.com/question/272102579/answer/1297496356</a><br>[2]<a href="http://www.kansmemo.com/photo/camera/principles/entry-191.html">http://www.kansmemo.com/photo/camera/principles/entry-191.html</a></p>
+]]></content>
+      <categories>
+        <category>blog</category>
+      </categories>
+      <tags>
+        <tag>other</tag>
       </tags>
   </entry>
   <entry>
@@ -710,73 +778,6 @@
       </categories>
       <tags>
         <tag>optimization</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>无约束最优化</title>
-    <url>/2022/05/04/%E6%97%A0%E7%BA%A6%E6%9D%9F%E6%9C%80%E4%BC%98%E5%8C%96/</url>
-    <content><![CDATA[<h2 id="1-Minizer"><a href="#1-Minizer" class="headerlink" title="1. Minizer"></a>1. Minizer</h2><ol>
-<li>全局最小值 Global Minizer</li>
-<li>局部最小值 Local Minizer<ul>
-<li>weak </li>
-<li>strict</li>
-<li>孤立的局部最小值isolated local minimizer <div class="note success modern"><p>对于凸函数，局部最小值立即成为全局最小值</p>
-</div>
-</li>
-</ul>
-</li>
-</ol>
-<h2 id="2-局部最小值条件"><a href="#2-局部最小值条件" class="headerlink" title="2. 局部最小值条件"></a>2. 局部最小值条件</h2><ol>
-<li>一阶必要条件（FIRST-ORDER NECESSARY CONDITIONS）<ol>
-<li>函数$f(x)$在点$x^*$可微</li>
-<li>梯度${\nabla f(x^*)=0}$</li>
-</ol>
-</li>
-<li>二阶必要条件<ol>
-<li>满足一阶</li>
-<li>hesse矩阵${\nabla^2 f(x^*)}$半正定   </li>
-</ol>
-</li>
-</ol>
-<div class="tabs" id="1"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#1-1">海塞矩阵</button></li><li class="tab"><button type="button" data-href="#1-2">半正定值</button></li><li class="tab"><button type="button" data-href="#1-3">海塞矩阵的半正定值</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="1-1"><p><img src="https://ds055uzetaobb.cloudfront.net/brioche/uploads/gVN1lN1A28-hessian.png?width=1200" alt=""></p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="1-2"><p>半正定值：</p>
-<ol>
-<li>对于所有x不等于0，都有 ${x^TAx≥0}$</li>
-<li>且对某个x不等于0,有 ${x^TAx&gt;0}$</li>
-</ol><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="1-3"><p>因为hesse矩阵是对称矩阵所以有以下性质：（仅限于对称矩阵！！）<br>半正定：所有特征值都大于等于0<br>正定：所有特征值都大于0<br>负定：所有特征值都小于0</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
-<mark class="hl-label red">现在虽然知道了确认某点是否为最小值的算法，但是对于如何找到这个点我们还无从得知（总不能把所有点都算一遍吧）</mark> 
-<h2 id="3-直线探索策略-line-search-strategy"><a href="#3-直线探索策略-line-search-strategy" class="headerlink" title="3. 直线探索策略 line search strategy"></a>3. 直线探索策略 line search strategy</h2><ol>
-<li>Line Serch<br> 设在某点$x_k$，寻找方向$p_k$和步长$\alpha$使得min$f(x_k+\alpha p_k)$<br> <strong>需求值：方向和步长</strong></li>
-<li>Trust Region<br> 对于点x_k上的近似函数求最小值：min$m_k(x_k+p_k)$。同时，近似函数是有限的，所以可信赖区间需要被确定。<br> <strong>需求值：近似函数和可信赖区间p</strong></li>
-</ol>
-]]></content>
-      <categories>
-        <category>study</category>
-      </categories>
-      <tags>
-        <tag>optimization</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>闲谈-关于美术馆拍摄的变形问题</title>
-    <url>/2022/05/05/%E9%97%B2%E8%B0%88-%E5%85%B3%E4%BA%8E%E7%BE%8E%E6%9C%AF%E9%A6%86%E6%8B%8D%E6%91%84%E7%9A%84%E5%8F%98%E5%BD%A2%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<p>前几天去艺术馆拍了不少喜欢的画作，本想回来美美做墙纸之类的，结果….<br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h1xc5rlm0hj213y0u0afo.jpg" alt="除去我摄影水平不够导致的没有完美对齐的问题，和红框相比能明显看出来似乎加了鱼眼效果般突出来了点"></p>
-<p><em>除去我摄影水平不够导致的没有完美对齐的问题，和红框相比能明显看出来似乎加了鱼眼效果般突出来了点</em></p>
-<h2 id="镜头变形"><a href="#镜头变形" class="headerlink" title="镜头变形"></a>镜头变形</h2><p><img src="https://i.guancha.cn/bbs/2020/06/21/20200621224008407.png?imageView2/2/w/500/format/png" alt="枕形变形与鼓形变形"></p>
-<blockquote>
-<p>“<em>对于一般的风景画，没有多少直线，对枕形变形不太敏感；但要是以建筑为主体，或者是有较多靠近画框边缘的直线的抽象画，枕形变形就会比较扎眼。如果要把画框拍出来，平直线条紧贴着画面边缘，枕形变形特别容易显出来，佳能红圈20-70/2.8都压不住，慢说任何小数码相机了。这是拍摄绘画的“不利条件”。</em>“</p>
-</blockquote>
-<h2 id="球差（球面収差）"><a href="#球差（球面収差）" class="headerlink" title="球差（球面収差）"></a>球差（球面収差）</h2><p><img src="http://www.kansmemo.com/archives/001/201009/4c99aa26d1e4d.png" alt=""><br>透过镜头外侧的光和透镜片中心(近轴)附近的光,因为焦点位置不同而产生变形。原理上来说，只要镜头为球面镜头这一现象就不可避免。<br>相反,球面收差可以通过使用适当设计——非球面镜头来消除。所以,最近的镜头中非球面镜头开始被普遍使用。<br><img src="http://www.kansmemo.com/archives/001/201009/4c99aa29663c5.png" alt=""></p>
-<h2 id="题外话"><a href="#题外话" class="headerlink" title="题外话"></a>题外话</h2><p>物理学的稀巴烂所以基本还停留在初中学的“凸透镜光线汇聚成一点”，所以其实理解这个费了好大的功夫。一些关于<strong>为什么与教科书不同，凸透镜的焦点并不能完美汇聚于一点</strong>的补充如下：</p>
-<blockquote>
-<p>聚集到一点，需要几个因素<br>1、理想平行光<br>2、理想凸透镜<br>3、理想单一频率<br>4、理想粒子特性(实际上光具有波粒两相性)</p>
-</blockquote>
-<p>[1]<a href="https://www.zhihu.com/question/272102579/answer/1297496356">https://www.zhihu.com/question/272102579/answer/1297496356</a><br>[2]<a href="http://www.kansmemo.com/photo/camera/principles/entry-191.html">http://www.kansmemo.com/photo/camera/principles/entry-191.html</a></p>
-]]></content>
-      <categories>
-        <category>blog</category>
-      </categories>
-      <tags>
-        <tag>other</tag>
       </tags>
   </entry>
   <entry>
