@@ -124,6 +124,46 @@
       </tags>
   </entry>
   <entry>
+    <title>SIFT</title>
+    <url>/2022/05/13/SIFT/</url>
+    <content><![CDATA[<h2 id="SIFT究竟在做什么？"><a href="#SIFT究竟在做什么？" class="headerlink" title="SIFT究竟在做什么？"></a>SIFT究竟在做什么？</h2><h3 id="WHAT"><a href="#WHAT" class="headerlink" title="WHAT"></a>WHAT</h3><p>SIFT属于传统特征提取方式，与通过深度学习的反复学习提取出的特征值不同，传统特征提取方式需要通过人工计算和模拟实验找到所需要的特征点。一个好的特征量应该具有尺度不变的性质，本文就是在解释通过怎样的计算步骤能找到这样的特征量。</p>
+<h3 id="WHY"><a href="#WHY" class="headerlink" title="WHY"></a>WHY</h3><p>特征量往往被用在物体识别，并且应该是分辨度高的，以区分于杂乱的背景和庞大的数据库。</p>
+<h3 id="HOW"><a href="#HOW" class="headerlink" title="HOW"></a>HOW</h3><p>我们主要使用四个步骤：1.尺度空间的极值检测，2.关键点的定位，3. 方向分配 4. 关键点描述，来提取我们所需要的特征量。</p>
+<h2 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h2><p>这篇文章帮助我们从图片中提取出图像特征，能满足即使当这个图片中某一事物或场景发生了失真，视角偏移，噪点增添或是光线改变时，也能将图片间的相关点进行对应。而且他它们是易于区分的特征，即使是从庞大的特征库中也能利用它们找到对应的真正的物体或场景。</p>
+<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><p>分为以下三步</p>
+<ol>
+<li>尺度空间的极值提取</li>
+<li>关键点定位</li>
+<li>方向分配</li>
+<li>关键点描述</li>
+</ol>
+<p>这一系列的方法称作为SIFT,即尺度不变的特征转换。</p>
+<h3 id="1-尺度空间的极值提取"><a href="#1-尺度空间的极值提取" class="headerlink" title="1. 尺度空间的极值提取"></a>1. 尺度空间的极值提取</h3><h4 id="生成高斯图像、尺度空间"><a href="#生成高斯图像、尺度空间" class="headerlink" title="生成高斯图像、尺度空间"></a>生成高斯图像、尺度空间</h4><p>极值提取的计算式，将使用DoG进行计算。首先我们已经知道唯一可行的尺度空间核就是高斯核，因此我们使用高斯函数对图像进行卷积从而得到尺度空间。其次，Lindebeg在1994年提出了LoG是对于尺度不变检测的必要算子。并且，Mikolajczyk提出利用LoG的最小值和最大值之差可以求出图片的稳定特征。而DoG正好可以近似于LoG。</p>
+<p>对于每个尺度空间，通过将原始图像与高斯核不断卷积，并将临近的生成图像相减形成高斯差值图像。之后，对图像进行下采样，再进行同样的工作。这样保证采样精度不变的情况下，计算量大大下降。</p>
+<h4 id="局部极值提取"><a href="#局部极值提取" class="headerlink" title="局部极值提取"></a>局部极值提取</h4><p>每个点将会和坐标空间上的8个临近点，以及尺度空间上的18个点，共计26个点进行比较。只有在27个点中是最小或最大才会被定义为极值。由于我们可以进行一些前处理筛选掉大部分的点，所以极值验证的过程并不会花费很大。</p>
+<p>明显的是，采样频率关系到极值的选择。但不幸的是并没有确定的采样频率能使我们一定能找到所需的极值。因此我们使用实验的方法来决定最优频率。</p>
+<h5 id="尺度上的采样频率"><a href="#尺度上的采样频率" class="headerlink" title="尺度上的采样频率"></a>尺度上的采样频率</h5><p>我们测试了当改变尺度空间上的采样时，重现率和关键点检测数量的改变趋势。结果表明，当采样频率增加时，重现率有下降趋势，这有可能因为即使找到了更多的极值，但他们不够稳定；并且，随着频率增加，更多的关键点被检测出来，虽然他们有助于物体检测，但运算量也大大上升，因此我们折中选择了3这个尺度空间的采样频率。</p>
+<h5 id="空间上的采样频率"><a href="#空间上的采样频率" class="headerlink" title="空间上的采样频率"></a>空间上的采样频率</h5><p>通过测试预平滑的采样频率与重现率的关系我们发现，当频率越大重现率也越大，但为了保证运行的效率，我们选择了1.6这个值。</p>
+<h3 id="2-精确的关键点定位"><a href="#2-精确的关键点定位" class="headerlink" title="2. 精确的关键点定位"></a>2. 精确的关键点定位</h3><p>上个步骤中我们找到了离散空间的极值候选者，但不一定是真正的连续函数上的极值。本章通过对取样点的D(x)求导得出偏移量，以寻找真正的极值。首先，如果偏移值大于0.5则认为极值在相邻的采样点。其次，如果有极值点的D(x)是小于0.03的我们认为它是不稳定的，因此也会被舍弃。</p>
+<h4 id="消除边缘响应"><a href="#消除边缘响应" class="headerlink" title="消除边缘响应"></a>消除边缘响应</h4><p>当主曲率过大时我们认为这是边缘上的点，由于边缘点并不稳定我们需要去除。通过计算，我们只要通过计算海塞矩阵的对角和行列式的比值就能求出特征值之比，这大大减少了计算量。本文将特征值的比值阈值设为10，大于10的将被去除。</p>
+<h3 id="3-方向分配"><a href="#3-方向分配" class="headerlink" title="3. 方向分配"></a>3. 方向分配</h3><p>对于每个关键点，我们通过统计临近区域的点的向量和角度来确定关键点的方向。通过直方图的形式统计被分配在各个角度的临近点的数量，取最多的为关键点的方向。此外，若有其他方向的统计值高于最高值的80%，我们将其认定为第二方向。</p>
+<h3 id="4-特征点描述"><a href="#4-特征点描述" class="headerlink" title="4. 特征点描述"></a>4. 特征点描述</h3><p>我们已经知道使用神经元模型，即计算出特定方向和空间次数的梯度可以得到非常稳定的特征量，可以用于视角改变和亮度改变的问题。</p>
+<h4 id="特征量表现"><a href="#特征量表现" class="headerlink" title="特征量表现"></a>特征量表现</h4><p>通过计算和统计关键点周围像素的向量方向分布，对关键点进行描述。本文中我们将对16<em>16的范围的区域分成4\</em>4的格子，来对它们的8个向量方向进行统计。<br>此外，为了对光照变化具有不变性，我们还要对向量归一化。这样能减少光亮变化而产生的对梯度带来的线性变化。其次，为向量长度设置阈值，减小值较大的向量的重要度，以减少对非线性光照变化的敏感度。</p>
+<h4 id="对仿射变换的敏感性"><a href="#对仿射变换的敏感性" class="headerlink" title="对仿射变换的敏感性"></a>对仿射变换的敏感性</h4><p>根据实验，当仿射度上升时匹配度大幅度下降。但实际上在3D图像上的可旋转范围较小，仿射不变性并不是那么重要。而如果在平面图片上时，我们可以使用xx的方法生成额外的SIFT特征量，使得最终生成标准特征库三倍量的特征。</p>
+<h4 id="对大数据集的对比"><a href="#对大数据集的对比" class="headerlink" title="对大数据集的对比"></a>对大数据集的对比</h4><p>更多是因为初始特征的位置和方向的分配问题而不是特征的可区分度造成的</p>
+<h2 id="对物体识别的应用"><a href="#对物体识别的应用" class="headerlink" title="对物体识别的应用"></a>对物体识别的应用</h2><h3 id="1-关键点匹配"><a href="#1-关键点匹配" class="headerlink" title="1. 关键点匹配"></a>1. 关键点匹配</h3><p>我们对每个关键点与数据库中的特征进行匹配，得到欧几里得距离最近的候选项。但是实际上许多特征来自于杂乱的背景或对于这个物体的识别并没有帮助。因此我们通过一个高效的手法剔除掉这些无用的特征。这个方法就是对比与最近的正确图像的距离，和最近的错误图像的距离之比。当这个比值大于0.8时（即错误图像的距离高于正确图像的距离的80%时），我们就淘汰这个特征。</p>
+<h3 id="有效的最近邻法"><a href="#有效的最近邻法" class="headerlink" title="有效的最近邻法"></a>有效的最近邻法</h3><p>我们使用BBF算法来搜索最近的点。这个算法对于我们的特征值最有效，考虑原因可能是上章提到我们只需要探索距离比值小于0.8的特征点。</p>
+<h3 id="霍夫变换聚类"><a href="#霍夫变换聚类" class="headerlink" title="霍夫变换聚类"></a>霍夫变换聚类</h3><p>为了提高对小物体和被遮挡物体的识别问题，我们希望即使少类的特征也能识别出物体。而通过霍夫变换将特征值聚类的方法能提升这一可能性。</p>
+<p>[1] <a href="https://blog.csdn.net/lavender19/article/details/120396145">https://blog.csdn.net/lavender19/article/details/120396145</a><br>[2]<a href="https://blog.csdn.net/shiyongraow/article/details/78296710">https://blog.csdn.net/shiyongraow/article/details/78296710</a><br>[3]<a href="https://www.cnblogs.com/shine-lee/p/10950963.html">https://www.cnblogs.com/shine-lee/p/10950963.html</a> 仿射变换</p>
+]]></content>
+      <categories>
+        <category>study</category>
+      </categories>
+      <tags>
+        <tag>CV</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>PRML</title>
     <url>/2022/05/05/PRML/</url>
     <content><![CDATA[<h1 id="Pattern-recognition-and-machine-learning"><a href="#Pattern-recognition-and-machine-learning" class="headerlink" title="Pattern recognition and machine learning"></a>Pattern recognition and machine learning</h1><h2 id="0-Guidance"><a href="#0-Guidance" class="headerlink" title="0. Guidance"></a>0. Guidance</h2><ul>
@@ -462,73 +502,6 @@
       </tags>
   </entry>
   <entry>
-    <title>SIFT</title>
-    <url>/2022/05/13/SIFT/</url>
-    <content><![CDATA[<h2 id="SIFT究竟在做什么？"><a href="#SIFT究竟在做什么？" class="headerlink" title="SIFT究竟在做什么？"></a>SIFT究竟在做什么？</h2><h3 id="WHAT"><a href="#WHAT" class="headerlink" title="WHAT"></a>WHAT</h3><p>SIFT属于传统特征提取方式，与通过深度学习的反复学习提取出的特征值不同，传统特征提取方式需要通过人工计算和模拟实验找到所需要的特征点。一个好的特征量应该具有尺度不变的性质，本文就是在解释通过怎样的计算步骤能找到这样的特征量。</p>
-<h3 id="WHY"><a href="#WHY" class="headerlink" title="WHY"></a>WHY</h3><p>特征量往往被用在物体识别，并且应该是分辨度高的，以区分于杂乱的背景和庞大的数据库。</p>
-<h3 id="HOW"><a href="#HOW" class="headerlink" title="HOW"></a>HOW</h3><p>我们主要使用四个步骤：1.尺度空间的极值检测，2.关键点的定位，3. 方向分配 4. 关键点描述，来提取我们所需要的特征量。</p>
-<h2 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h2><p>这篇文章帮助我们从图片中提取出图像特征，能满足即使当这个图片中某一事物或场景发生了失真，视角偏移，噪点增添或是光线改变时，也能将图片间的相关点进行对应。而且他它们是易于区分的特征，即使是从庞大的特征库中也能利用它们找到对应的真正的物体或场景。</p>
-<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><p>分为以下三步</p>
-<ol>
-<li>尺度空间的极值提取</li>
-<li>关键点定位</li>
-<li>方向分配</li>
-<li>关键点描述</li>
-</ol>
-<p>这一系列的方法称作为SIFT,即尺度不变的特征转换。</p>
-<h3 id="1-尺度空间的极值提取"><a href="#1-尺度空间的极值提取" class="headerlink" title="1. 尺度空间的极值提取"></a>1. 尺度空间的极值提取</h3><h4 id="生成高斯图像、尺度空间"><a href="#生成高斯图像、尺度空间" class="headerlink" title="生成高斯图像、尺度空间"></a>生成高斯图像、尺度空间</h4><p>极值提取的计算式，将使用DoG进行计算。首先我们已经知道唯一可行的尺度空间核就是高斯核，因此我们使用高斯函数对图像进行卷积从而得到尺度空间。其次，Lindebeg在1994年提出了LoG是对于尺度不变检测的必要算子。并且，Mikolajczyk提出利用LoG的最小值和最大值之差可以求出图片的稳定特征。而DoG正好可以近似于LoG。</p>
-<p>对于每个尺度空间，通过将原始图像与高斯核不断卷积，并将临近的生成图像相减形成高斯差值图像。之后，对图像进行下采样，再进行同样的工作。这样保证采样精度不变的情况下，计算量大大下降。</p>
-<h4 id="局部极值提取"><a href="#局部极值提取" class="headerlink" title="局部极值提取"></a>局部极值提取</h4><p>每个点将会和坐标空间上的8个临近点，以及尺度空间上的18个点，共计26个点进行比较。只有在27个点中是最小或最大才会被定义为极值。由于我们可以进行一些前处理筛选掉大部分的点，所以极值验证的过程并不会花费很大。</p>
-<p>明显的是，采样频率关系到极值的选择。但不幸的是并没有确定的采样频率能使我们一定能找到所需的极值。因此我们使用实验的方法来决定最优频率。</p>
-<h5 id="尺度上的采样频率"><a href="#尺度上的采样频率" class="headerlink" title="尺度上的采样频率"></a>尺度上的采样频率</h5><p>我们测试了当改变尺度空间上的采样时，重现率和关键点检测数量的改变趋势。结果表明，当采样频率增加时，重现率有下降趋势，这有可能因为即使找到了更多的极值，但他们不够稳定；并且，随着频率增加，更多的关键点被检测出来，虽然他们有助于物体检测，但运算量也大大上升，因此我们折中选择了3这个尺度空间的采样频率。</p>
-<h5 id="空间上的采样频率"><a href="#空间上的采样频率" class="headerlink" title="空间上的采样频率"></a>空间上的采样频率</h5><p>通过测试预平滑的采样频率与重现率的关系我们发现，当频率越大重现率也越大，但为了保证运行的效率，我们选择了1.6这个值。</p>
-<h3 id="2-精确的关键点定位"><a href="#2-精确的关键点定位" class="headerlink" title="2. 精确的关键点定位"></a>2. 精确的关键点定位</h3><p>上个步骤中我们找到了离散空间的极值候选者，但不一定是真正的连续函数上的极值。本章通过对取样点的D(x)求导得出偏移量，以寻找真正的极值。首先，如果偏移值大于0.5则认为极值在相邻的采样点。其次，如果有极值点的D(x)是小于0.03的我们认为它是不稳定的，因此也会被舍弃。</p>
-<h4 id="消除边缘响应"><a href="#消除边缘响应" class="headerlink" title="消除边缘响应"></a>消除边缘响应</h4><p>当主曲率过大时我们认为这是边缘上的点，由于边缘点并不稳定我们需要去除。通过计算，我们只要通过计算海塞矩阵的对角和行列式的比值就能求出特征值之比，这大大减少了计算量。本文将特征值的比值阈值设为10，大于10的将被去除。</p>
-<h3 id="3-方向分配"><a href="#3-方向分配" class="headerlink" title="3. 方向分配"></a>3. 方向分配</h3><p>对于每个关键点，我们通过统计临近区域的点的向量和角度来确定关键点的方向。通过直方图的形式统计被分配在各个角度的临近点的数量，取最多的为关键点的方向。此外，若有其他方向的统计值高于最高值的80%，我们将其认定为第二方向。</p>
-<h3 id="4-特征点描述"><a href="#4-特征点描述" class="headerlink" title="4. 特征点描述"></a>4. 特征点描述</h3><p>我们已经知道使用神经元模型，即计算出特定方向和空间次数的梯度可以得到非常稳定的特征量，可以用于视角改变和亮度改变的问题。</p>
-<h4 id="特征量表现"><a href="#特征量表现" class="headerlink" title="特征量表现"></a>特征量表现</h4><p>通过计算和统计关键点周围像素的向量方向分布，对关键点进行描述。本文中我们将对16<em>16的范围的区域分成4\</em>4的格子，来对它们的8个向量方向进行统计。<br>此外，为了对光照变化具有不变性，我们还要对向量归一化。这样能减少光亮变化而产生的对梯度带来的线性变化。其次，为向量长度设置阈值，减小值较大的向量的重要度，以减少对非线性光照变化的敏感度。</p>
-<h4 id="对仿射变换的敏感性"><a href="#对仿射变换的敏感性" class="headerlink" title="对仿射变换的敏感性"></a>对仿射变换的敏感性</h4><p>根据实验，当仿射度上升时匹配度大幅度下降。但实际上在3D图像上的可旋转范围较小，仿射不变性并不是那么重要。而如果在平面图片上时，我们可以使用xx的方法生成额外的SIFT特征量，使得最终生成标准特征库三倍量的特征。</p>
-<h4 id="对大数据集的对比"><a href="#对大数据集的对比" class="headerlink" title="对大数据集的对比"></a>对大数据集的对比</h4><p>更多是因为初始特征的位置和方向的分配问题而不是特征的可区分度造成的</p>
-<h2 id="对物体识别的应用"><a href="#对物体识别的应用" class="headerlink" title="对物体识别的应用"></a>对物体识别的应用</h2><h3 id="1-关键点匹配"><a href="#1-关键点匹配" class="headerlink" title="1. 关键点匹配"></a>1. 关键点匹配</h3><p>我们对每个关键点与数据库中的特征进行匹配，得到欧几里得距离最近的候选项。但是实际上许多特征来自于杂乱的背景或对于这个物体的识别并没有帮助。因此我们通过一个高效的手法剔除掉这些无用的特征。这个方法就是对比与最近的正确图像的距离，和最近的错误图像的距离之比。当这个比值大于0.8时（即错误图像的距离高于正确图像的距离的80%时），我们就淘汰这个特征。</p>
-<h3 id="有效的最近邻法"><a href="#有效的最近邻法" class="headerlink" title="有效的最近邻法"></a>有效的最近邻法</h3><p>我们使用BBF算法来搜索最近的点。这个算法对于我们的特征值最有效，考虑原因可能是上章提到我们只需要探索距离比值小于0.8的特征点。</p>
-<h3 id="霍夫变换聚类"><a href="#霍夫变换聚类" class="headerlink" title="霍夫变换聚类"></a>霍夫变换聚类</h3><p>为了提高对小物体和被遮挡物体的识别问题，我们希望即使少类的特征也能识别出物体。而通过霍夫变换将特征值聚类的方法能提升这一可能性。</p>
-<p>[1] <a href="https://blog.csdn.net/lavender19/article/details/120396145">https://blog.csdn.net/lavender19/article/details/120396145</a><br>[2]<a href="https://blog.csdn.net/shiyongraow/article/details/78296710">https://blog.csdn.net/shiyongraow/article/details/78296710</a><br>[3]<a href="https://www.cnblogs.com/shine-lee/p/10950963.html">https://www.cnblogs.com/shine-lee/p/10950963.html</a> 仿射变换</p>
-]]></content>
-      <categories>
-        <category>study</category>
-      </categories>
-      <tags>
-        <tag>CV</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>凸优化问题</title>
-    <url>/2022/05/06/%E5%87%B8%E4%BC%98%E5%8C%96%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<script type="math/tex; mode=display">\text{minimize }f_0(x)</script><script type="math/tex; mode=display">\text{subject to } f_i(x)\le 0, i=1...m</script><script type="math/tex; mode=display">h(x)=0, i=1...p</script><ul>
-<li>目标函数(objective f)必须为凸(convex)</li>
-<li>不等式(inequality constraint f)约束函数必须为凸</li>
-<li>等式约束函数必须为仿射(affine)</li>
-<li>定义域是m个凸的下水平集($f_i(x)$)和p个超平面($h(x)$)的交集</li>
-<li>我们其实是在一个凸集上极小化一个凸的目标函数</li>
-<li>局部最优解自动成为全局最优解</li>
-</ul>
-<h2 id="最优值与最优解-optimal-value-and-optimal-point"><a href="#最优值与最优解-optimal-value-and-optimal-point" class="headerlink" title="最优值与最优解 optimal value and optimal point"></a>最优值与最优解 optimal value and optimal point</h2><div class="note warning modern"><p>最优值为最优解对应的y值</p>
-</div>
-<p><strong>最优值</strong>定义为</p>
-<script type="math/tex; mode=display">p^*=inf\{f_0(x)|满足约束条件\}</script><ul>
-<li>当没有可行点（没有点满足约束条件）时，p为不可行（infeasible）且等于$\infty$</li>
-<li>如果$p^*=-\infty$，则称这个问题无下界（unbounded below）</li>
-</ul>
-<p>当$x^{*}$可行并且$f_0(x^*)=p^{*}$时称之为<strong>最优解</strong></p>
-]]></content>
-      <categories>
-        <category>study</category>
-      </categories>
-      <tags>
-        <tag>optimization</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>edge detection</title>
     <url>/2022/05/09/edge%20detection/</url>
     <content><![CDATA[<h1 id="1-Feature-detection"><a href="#1-Feature-detection" class="headerlink" title="1 Feature detection"></a>1 Feature detection</h1><blockquote>
@@ -647,6 +620,76 @@
       </tags>
   </entry>
   <entry>
+    <title>queue theory</title>
+    <url>/2022/06/05/queue-theory/</url>
+    <content><![CDATA[<h2 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h2><p>对于某个服务大厅，已知（1）单位时间内会来的客人数（2）服务客人需要的平均时间</p>
+<ul>
+<li>下一个客人什么时候来？（=t时间内来客人的概率为？）</li>
+<li>t时间后，队伍会排多长？</li>
+</ul>
+<h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><ul>
+<li>客人到达</li>
+<li>排队</li>
+<li>窗口服务</li>
+<li>离开</li>
+</ul>
+<h2 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h2><p>两个重要初始化概念：1. 客人到达时间的概率分布 2. 服务时长的概率分布<br>这两个定下来后排队所需时间和客人离开时间就固定下来了</p>
+<ul>
+<li>M/M/1：到达时间和服务时长满足泊松分布，且只有一个服务窗口</li>
+<li>M/D/1：到达时间满足泊松分布，服务时长满足固定分布，且只有一个服务窗口</li>
+</ul>
+<h2 id="泊松分布（负指数分布）"><a href="#泊松分布（负指数分布）" class="headerlink" title="泊松分布（负指数分布）"></a>泊松分布（负指数分布）</h2><p>性质</p>
+<ul>
+<li>无记忆性（马尔科夫模型）</li>
+</ul>
+<p>泊松分布就是描述某段时间内，事件具体的发生概率。<br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h2x5941bvnj20oc04waa0.jpg" alt=""></p>
+<ul>
+<li>P：概率 </li>
+<li>N： 某种函数关系，</li>
+<li>t：时间</li>
+<li>n：数量，1小时内出生3个婴儿的概率，就表示为 P(N(1) = 3) 。</li>
+<li>λ：表示事件的平均频率（如已知一小时内平均畜生5个婴儿则λ=5）</li>
+</ul>
+<h2 id="模拟"><a href="#模拟" class="headerlink" title="模拟"></a>模拟</h2><figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line"><span class="comment">% M/M/1 シミュレーション</span></span><br><span class="line"><span class="comment">% イベント駆動型</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%シミュレーションの時間</span></span><br><span class="line">T = <span class="number">100000</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">%客数</span></span><br><span class="line">N = <span class="number">10000</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">% 客の構造体の定義と初期化</span></span><br><span class="line">s.arrivalTime_ = <span class="number">-1</span>;</span><br><span class="line">s.departureTime_ = <span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">% repmatは配列のコピーをするコマンド</span></span><br><span class="line"><span class="comment">% repmat(s, N, 1) により，sの値を持つＮ×1行列ができる</span></span><br><span class="line"><span class="comment">% 存储客人的到达时间和离开时间S(N*2)</span></span><br><span class="line">S = <span class="built_in">repmat</span>(s, N, <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">% 乱数</span></span><br><span class="line">[rndArrival, rndDeparture] = RandStream.create(<span class="string">&#x27;mrg32k3a&#x27;</span>,<span class="string">&#x27;NumStreams&#x27;</span>, <span class="number">2</span>, <span class="string">&#x27;seed&#x27;</span>,seed);</span><br><span class="line"></span><br><span class="line"><span class="comment">% 最初の到着時刻</span></span><br><span class="line">numArrivals = <span class="number">0</span>;</span><br><span class="line">curTime = expRandom(rndArrival, lambda);</span><br><span class="line"></span><br><span class="line">nextEvent = <span class="string">&#x27;arrival&#x27;</span>;</span><br><span class="line">nextArrivalTime = T;</span><br><span class="line">nextDepartureTime = T;</span><br><span class="line"></span><br><span class="line">numDepartures = <span class="number">0</span>;</span><br><span class="line">queueLength = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">%出力用</span></span><br><span class="line">queueTrace = <span class="built_in">zeros</span>(N, <span class="number">2</span>);</span><br><span class="line">qnum = <span class="number">0</span>;</span><br><span class="line">numEvent = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(curTime &lt; T &amp;&amp; numArrivals &lt;= N)</span><br><span class="line">    </span><br><span class="line">    numEvent = numEvent + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(strcmp(nextEvent, <span class="string">&#x27;arrival&#x27;</span>))</span><br><span class="line">        <span class="comment">%到着時のキュー長の累積値を増やす</span></span><br><span class="line">        qnum = qnum + queueLength;</span><br><span class="line">        <span class="comment">%到着した客数の累積値を一つ増やす</span></span><br><span class="line">        numArrivals = numArrivals + <span class="number">1</span>;</span><br><span class="line">        <span class="comment">%客の到着時刻を構造体に記録</span></span><br><span class="line">        S(numArrivals, <span class="number">1</span>).arrivalTime_ = curTime;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">%空のキューに到着した客ならば出発時刻を決める</span></span><br><span class="line">        <span class="keyword">if</span>(queueLength == <span class="number">0</span>)</span><br><span class="line">        	<span class="comment">% 如果需要M/D/1模型就把这个expRandom()改成加常数</span></span><br><span class="line">            nextDepartureTime = curTime + expRandom(rndDeparture, mu);</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        <span class="comment">%キュー長を1つ増加</span></span><br><span class="line">        queueLength = queueLength + <span class="number">1</span>;</span><br><span class="line">        <span class="comment">%次の到着時刻を決める</span></span><br><span class="line">        nextArrivalTime = curTime + expRandom(rndArrival, lambda);</span><br><span class="line">        </span><br><span class="line">    <span class="keyword">elseif</span>(strcmp(nextEvent, <span class="string">&#x27;departure&#x27;</span>))</span><br><span class="line">        </span><br><span class="line">        <span class="comment">%出発した客数の累積値を増加</span></span><br><span class="line">        numDepartures = numDepartures + <span class="number">1</span>;</span><br><span class="line">        <span class="comment">%出発時刻を構造体に記録</span></span><br><span class="line">        S(numDepartures, <span class="number">1</span>).departureTime_ = curTime;</span><br><span class="line">        <span class="comment">%キュー長を一つ減らす</span></span><br><span class="line">        queueLength = queueLength - <span class="number">1</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">%キュー長が正ならば次の出発時刻を決める</span></span><br><span class="line">        <span class="keyword">if</span>(queueLength &gt; <span class="number">0</span>)</span><br><span class="line">            nextDepartureTime = curTime + expRandom(rndDeparture, mu);</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="comment">%キュー長が0ならばシミュレーション終了時刻を出発時刻とする</span></span><br><span class="line">            nextDepartureTime = T;</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        </span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    </span><br><span class="line">    queueTrace(numEvent, <span class="number">1</span>) = curTime;</span><br><span class="line">    queueTrace(numEvent, <span class="number">2</span>) = queueLength;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(nextArrivalTime &lt;= nextDepartureTime)</span><br><span class="line">        nextEvent = <span class="string">&#x27;arrival&#x27;</span>;</span><br><span class="line">        curTime = nextArrivalTime;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        nextEvent = <span class="string">&#x27;departure&#x27;</span>;</span><br><span class="line">        curTime = nextDepartureTime;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">sumQueue = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>: numEvent - <span class="number">1</span></span><br><span class="line">    sumQueue = sumQueue + (queueTrace(<span class="built_in">i</span> + <span class="number">1</span>, <span class="number">1</span>) - queueTrace(<span class="built_in">i</span>, <span class="number">1</span>)) * queueTrace(<span class="built_in">i</span>, <span class="number">2</span>);</span><br><span class="line">    </span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">totalTime = queueTrace(numEvent, <span class="number">1</span>) - queueTrace(<span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line">timeAvgQueue = sumQueue/totalTime;</span><br><span class="line">avgQueue = qnum/numArrivals;</span><br><span class="line"></span><br><span class="line">delays = <span class="built_in">zeros</span>(numDepartures,<span class="number">1</span>);</span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>: numDepartures</span><br><span class="line">    delays(<span class="built_in">i</span>, <span class="number">1</span>) = S(<span class="built_in">i</span>).departureTime_ - S(<span class="built_in">i</span>).arrivalTime_;</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<h2 id="关于平均值的t检定"><a href="#关于平均值的t检定" class="headerlink" title="关于平均值的t检定"></a>关于平均值的t检定</h2><ul>
+<li>两个样本的母分散不同时的t检定<br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h2x5hs8q8jj20ie0jtaby.jpg" alt=""></li>
+</ul>
+]]></content>
+      <categories>
+        <category>study</category>
+      </categories>
+      <tags>
+        <tag>OR</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>凸优化问题</title>
+    <url>/2022/05/06/%E5%87%B8%E4%BC%98%E5%8C%96%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<script type="math/tex; mode=display">\text{minimize }f_0(x)</script><script type="math/tex; mode=display">\text{subject to } f_i(x)\le 0, i=1...m</script><script type="math/tex; mode=display">h(x)=0, i=1...p</script><ul>
+<li>目标函数(objective f)必须为凸(convex)</li>
+<li>不等式(inequality constraint f)约束函数必须为凸</li>
+<li>等式约束函数必须为仿射(affine)</li>
+<li>定义域是m个凸的下水平集($f_i(x)$)和p个超平面($h(x)$)的交集</li>
+<li>我们其实是在一个凸集上极小化一个凸的目标函数</li>
+<li>局部最优解自动成为全局最优解</li>
+</ul>
+<h2 id="最优值与最优解-optimal-value-and-optimal-point"><a href="#最优值与最优解-optimal-value-and-optimal-point" class="headerlink" title="最优值与最优解 optimal value and optimal point"></a>最优值与最优解 optimal value and optimal point</h2><div class="note warning modern"><p>最优值为最优解对应的y值</p>
+</div>
+<p><strong>最优值</strong>定义为</p>
+<script type="math/tex; mode=display">p^*=inf\{f_0(x)|满足约束条件\}</script><ul>
+<li>当没有可行点（没有点满足约束条件）时，p为不可行（infeasible）且等于$\infty$</li>
+<li>如果$p^*=-\infty$，则称这个问题无下界（unbounded below）</li>
+</ul>
+<p>当$x^{*}$可行并且$f_0(x^*)=p^{*}$时称之为<strong>最优解</strong></p>
+]]></content>
+      <categories>
+        <category>study</category>
+      </categories>
+      <tags>
+        <tag>optimization</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>凸集合与凸函数</title>
     <url>/2022/05/06/%E5%87%B8%E9%9B%86%E5%90%88%E4%B8%8E%E5%87%B8%E5%87%BD%E6%95%B0/</url>
     <content><![CDATA[<h2 id="1-convex-sets"><a href="#1-convex-sets" class="headerlink" title="1. convex sets"></a>1. convex sets</h2><h3 id="1-1-Line-segmentation-直线分割"><a href="#1-1-Line-segmentation-直线分割" class="headerlink" title="1.1 Line segmentation 直线分割"></a>1.1 Line segmentation 直线分割</h3><script type="math/tex; mode=display">y=\theta x_1+(1-\theta)x_2</script><script type="math/tex; mode=display">y=x_2+\theta(x_1-x_2)</script><blockquote>
@@ -747,29 +790,6 @@
       </tags>
   </entry>
   <entry>
-    <title>最小二乘问题</title>
-    <url>/2022/05/05/%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<h2 id="最小二乘（LEAST-SQUARES）问题定义"><a href="#最小二乘（LEAST-SQUARES）问题定义" class="headerlink" title="最小二乘（LEAST-SQUARES）问题定义"></a>最小二乘（LEAST-SQUARES）问题定义</h2><p>${f_0(x)=||Ax-b||^2_2<br>        =\sum_{i=1}^k({a_i}^Tx-b_i)^2}$</p>
-<blockquote>
-<p>2-范数<br>${||x||_2=(x,x)^{1/2}=\sqrt{\sum_{i=1}^n x_i^2}}$</p>
-</blockquote>
-<h2 id="最小二乘法"><a href="#最小二乘法" class="headerlink" title="最小二乘法"></a>最小二乘法</h2><p>上面的式子可被简化为：<br>${(A^TA)x = A^Tb}$     →    ${x = (A^TA)^{-1}A^Tb}$<br>代入原式并求hesse矩阵的话<br>${\nabla^2 ||Ax-b||^2_2=2A^TA}$<br>→ 变成了确认 ${2A^TA}$的正定值与否的问题</p>
-<h2 id="补充：最小二乘"><a href="#补充：最小二乘" class="headerlink" title="补充：最小二乘"></a>补充：最小二乘</h2><ul>
-<li>如下二维平面图中有很多个点，假设我们想用一条直线来拟合数据，即期望能找到一条直线能最好地穿过这些数据点。</li>
-<li>一个点就可以构造一个方程，而未知数显然只有两个（直线的斜率和截距），因此这就是一个超定系统，我们是没有办法找到一条完美的直线，使得上述的点都在直线上。因此，我们只能期望找到一条最好的“适配（best fitting line）”直线来拟合这些数据</li>
-<li>有x作为自变量，y表示x对应的真实值，$y^hat$表示由拟合直线对应的预测值</li>
-<li>找一条直线能使得所有点离这个直线的距离平均值最小的这种近似的结果就是回归分析的目标。</li>
-<li>最小二乘法主要包含了两大类方法，一种是线性最小二乘法（Linear Least Squares），一种是非线性最小二乘法（Nonlinear Least Squares）。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>study</category>
-      </categories>
-      <tags>
-        <tag>optimization</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>无约束最优化</title>
     <url>/2022/05/04/%E6%97%A0%E7%BA%A6%E6%9D%9F%E6%9C%80%E4%BC%98%E5%8C%96/</url>
     <content><![CDATA[<h2 id="1-Minizer"><a href="#1-Minizer" class="headerlink" title="1. Minizer"></a>1. Minizer</h2><ol>
@@ -805,6 +825,29 @@
 <li>Line Serch<br> 设在某点$x_k$，寻找方向$p_k$和步长$\alpha$使得min$f(x_k+\alpha p_k)$<br> <strong>需求值：方向和步长</strong></li>
 <li>Trust Region<br> 对于点x_k上的近似函数求最小值：min$m_k(x_k+p_k)$。同时，近似函数是有限的，所以可信赖区间需要被确定。<br> <strong>需求值：近似函数和可信赖区间p</strong></li>
 </ol>
+]]></content>
+      <categories>
+        <category>study</category>
+      </categories>
+      <tags>
+        <tag>optimization</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>最小二乘问题</title>
+    <url>/2022/05/05/%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<h2 id="最小二乘（LEAST-SQUARES）问题定义"><a href="#最小二乘（LEAST-SQUARES）问题定义" class="headerlink" title="最小二乘（LEAST-SQUARES）问题定义"></a>最小二乘（LEAST-SQUARES）问题定义</h2><p>${f_0(x)=||Ax-b||^2_2<br>        =\sum_{i=1}^k({a_i}^Tx-b_i)^2}$</p>
+<blockquote>
+<p>2-范数<br>${||x||_2=(x,x)^{1/2}=\sqrt{\sum_{i=1}^n x_i^2}}$</p>
+</blockquote>
+<h2 id="最小二乘法"><a href="#最小二乘法" class="headerlink" title="最小二乘法"></a>最小二乘法</h2><p>上面的式子可被简化为：<br>${(A^TA)x = A^Tb}$     →    ${x = (A^TA)^{-1}A^Tb}$<br>代入原式并求hesse矩阵的话<br>${\nabla^2 ||Ax-b||^2_2=2A^TA}$<br>→ 变成了确认 ${2A^TA}$的正定值与否的问题</p>
+<h2 id="补充：最小二乘"><a href="#补充：最小二乘" class="headerlink" title="补充：最小二乘"></a>补充：最小二乘</h2><ul>
+<li>如下二维平面图中有很多个点，假设我们想用一条直线来拟合数据，即期望能找到一条直线能最好地穿过这些数据点。</li>
+<li>一个点就可以构造一个方程，而未知数显然只有两个（直线的斜率和截距），因此这就是一个超定系统，我们是没有办法找到一条完美的直线，使得上述的点都在直线上。因此，我们只能期望找到一条最好的“适配（best fitting line）”直线来拟合这些数据</li>
+<li>有x作为自变量，y表示x对应的真实值，$y^hat$表示由拟合直线对应的预测值</li>
+<li>找一条直线能使得所有点离这个直线的距离平均值最小的这种近似的结果就是回归分析的目标。</li>
+<li>最小二乘法主要包含了两大类方法，一种是线性最小二乘法（Linear Least Squares），一种是非线性最小二乘法（Nonlinear Least Squares）。</li>
+</ul>
 ]]></content>
       <categories>
         <category>study</category>
