@@ -53,6 +53,66 @@
       </tags>
   </entry>
   <entry>
+    <title>Collection of CGO</title>
+    <url>/2022/05/28/Collection-of-CGO/</url>
+    <content><![CDATA[<h1 id="Collections"><a href="#Collections" class="headerlink" title="Collections"></a>Collections</h1><ul>
+<li><a href="https://github.com/ericjang/awesome-graphics#games">https://github.com/ericjang/awesome-graphics#games</a></li>
+<li><a href="https://kesen.realtimerendering.com">https://kesen.realtimerendering.com</a></li>
+</ul>
+<h1 id="Image-based-Editing-and-Reconstruction"><a href="#Image-based-Editing-and-Reconstruction" class="headerlink" title="Image-based Editing and Reconstruction"></a>Image-based Editing and Reconstruction</h1><ul>
+<li>Image stitch / photomontage<ul>
+<li><a href="http://grail.cs.washington.edu/projects/photomontage/">http://grail.cs.washington.edu/projects/photomontage/</a> Interactive Digital Photomontage</li>
+<li><a href="http://cs.brown.edu/courses/cs129/results/proj2/taox/">http://cs.brown.edu/courses/cs129/results/proj2/taox/</a> Gradient Domain Fusion Using Poisson Blending</li>
+</ul>
+</li>
+</ul>
+<h1 id="Course"><a href="#Course" class="headerlink" title="Course"></a>Course</h1><p>Not only the slides of courses but also lots of useful learning materials.</p>
+<ul>
+<li><a href="http://graphics.cs.cmu.edu/courses/15-463/2012_fall/463.html">http://graphics.cs.cmu.edu/courses/15-463/2012_fall/463.html</a> Computational Photography</li>
+<li><a href="http://cs.brown.edu/courses/cs129/">http://cs.brown.edu/courses/cs129/</a> Computational Photography and Image Manipulation</li>
+</ul>
+<h1 id="book"><a href="#book" class="headerlink" title="book"></a>book</h1><ul>
+<li><a href="http://szeliski.org/Book/">http://szeliski.org/Book/</a> Computer Vision: Algorithms and Applications(also contain lots of useful courses links)</li>
+</ul>
+<h1 id="Interpolation"><a href="#Interpolation" class="headerlink" title="Interpolation"></a>Interpolation</h1><ul>
+<li>what is interpolation<br><a href="https://www.geeksforgeeks.org/interpolation-methods-in-computer-graphics/">https://www.geeksforgeeks.org/interpolation-methods-in-computer-graphics/</a></li>
+<li>application in shading<br><a href="https://user.numazu-ct.ac.jp/~fujio/personal/jp/kougi/zukei/slide/Shading.pdf">https://user.numazu-ct.ac.jp/~fujio/personal/jp/kougi/zukei/slide/Shading.pdf</a></li>
+</ul>
+<h1 id="Dense-correspondence"><a href="#Dense-correspondence" class="headerlink" title="Dense correspondence"></a>Dense correspondence</h1><ul>
+<li><a href="http://blog.yoqi.me/wp/2118.html">http://blog.yoqi.me/wp/2118.html</a> 无监督的Dense Correspondence学习方法</li>
+</ul>
+<h1 id="Shape-Generation"><a href="#Shape-Generation" class="headerlink" title="Shape Generation"></a>Shape Generation</h1><ul>
+<li>GAN</li>
+<li>Flow</li>
+<li><p>Diffusion</p>
+</li>
+<li><p><a href="https://dl.acm.org/doi/pdf/10.1145/3450626.3459766">https://dl.acm.org/doi/pdf/10.1145/3450626.3459766</a> SP-GAN: Sphere-Guided 3D Shape Generation and Manipulation</p>
+<ul>
+<li>3D shape generation: </li>
+</ul>
+</li>
+</ul>
+<h1 id="Seam-carving"><a href="#Seam-carving" class="headerlink" title="Seam carving"></a>Seam carving</h1><ul>
+<li><a href="https://zhuanlan.zhihu.com/p/109428038">https://zhuanlan.zhihu.com/p/109428038</a> Seam Carving算法</li>
+</ul>
+<h1 id="genetic-algorithms"><a href="#genetic-algorithms" class="headerlink" title="genetic algorithms"></a>genetic algorithms</h1><ul>
+<li><a href="https://zhuanlan.zhihu.com/p/100337680">https://zhuanlan.zhihu.com/p/100337680</a></li>
+<li><a href="https://esslab.jp/~ess/teaching/2022/cgo/11/">https://esslab.jp/~ess/teaching/2022/cgo/11/</a></li>
+<li><a href="https://blog.csdn.net/u011001084/article/details/49308289">https://blog.csdn.net/u011001084/article/details/49308289</a></li>
+<li><a href="https://blog.csdn.net/qq_16236875/article/details/100888969">https://blog.csdn.net/qq_16236875/article/details/100888969</a></li>
+</ul>
+<h1 id="Other"><a href="#Other" class="headerlink" title="Other"></a>Other</h1><ul>
+<li><a href="https://blog.csdn.net/Little_White_9/article/details/124435560">https://blog.csdn.net/Little_White_9/article/details/124435560</a> diffusion model</li>
+</ul>
+]]></content>
+      <categories>
+        <category>study</category>
+      </categories>
+      <tags>
+        <tag>CGO</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>HexoTags</title>
     <url>/2022/05/05/HexoTags/</url>
     <content><![CDATA[<h2 id="Note"><a href="#Note" class="headerlink" title="Note"></a>Note</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% note [class]%&#125;</span><br><span class="line">Any content (support inline tags too.io).</span><br><span class="line">&#123;% endnote %&#125;</span><br></pre></td></tr></table></figure>
@@ -121,46 +181,6 @@
       </categories>
       <tags>
         <tag>PRML</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SIFT</title>
-    <url>/2022/05/13/SIFT/</url>
-    <content><![CDATA[<h2 id="SIFT究竟在做什么？"><a href="#SIFT究竟在做什么？" class="headerlink" title="SIFT究竟在做什么？"></a>SIFT究竟在做什么？</h2><h3 id="WHAT"><a href="#WHAT" class="headerlink" title="WHAT"></a>WHAT</h3><p>SIFT属于传统特征提取方式，与通过深度学习的反复学习提取出的特征值不同，传统特征提取方式需要通过人工计算和模拟实验找到所需要的特征点。一个好的特征量应该具有尺度不变的性质，本文就是在解释通过怎样的计算步骤能找到这样的特征量。</p>
-<h3 id="WHY"><a href="#WHY" class="headerlink" title="WHY"></a>WHY</h3><p>特征量往往被用在物体识别，并且应该是分辨度高的，以区分于杂乱的背景和庞大的数据库。</p>
-<h3 id="HOW"><a href="#HOW" class="headerlink" title="HOW"></a>HOW</h3><p>我们主要使用四个步骤：1.尺度空间的极值检测，2.关键点的定位，3. 方向分配 4. 关键点描述，来提取我们所需要的特征量。</p>
-<h2 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h2><p>这篇文章帮助我们从图片中提取出图像特征，能满足即使当这个图片中某一事物或场景发生了失真，视角偏移，噪点增添或是光线改变时，也能将图片间的相关点进行对应。而且他它们是易于区分的特征，即使是从庞大的特征库中也能利用它们找到对应的真正的物体或场景。</p>
-<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><p>分为以下三步</p>
-<ol>
-<li>尺度空间的极值提取</li>
-<li>关键点定位</li>
-<li>方向分配</li>
-<li>关键点描述</li>
-</ol>
-<p>这一系列的方法称作为SIFT,即尺度不变的特征转换。</p>
-<h3 id="1-尺度空间的极值提取"><a href="#1-尺度空间的极值提取" class="headerlink" title="1. 尺度空间的极值提取"></a>1. 尺度空间的极值提取</h3><h4 id="生成高斯图像、尺度空间"><a href="#生成高斯图像、尺度空间" class="headerlink" title="生成高斯图像、尺度空间"></a>生成高斯图像、尺度空间</h4><p>极值提取的计算式，将使用DoG进行计算。首先我们已经知道唯一可行的尺度空间核就是高斯核，因此我们使用高斯函数对图像进行卷积从而得到尺度空间。其次，Lindebeg在1994年提出了LoG是对于尺度不变检测的必要算子。并且，Mikolajczyk提出利用LoG的最小值和最大值之差可以求出图片的稳定特征。而DoG正好可以近似于LoG。</p>
-<p>对于每个尺度空间，通过将原始图像与高斯核不断卷积，并将临近的生成图像相减形成高斯差值图像。之后，对图像进行下采样，再进行同样的工作。这样保证采样精度不变的情况下，计算量大大下降。</p>
-<h4 id="局部极值提取"><a href="#局部极值提取" class="headerlink" title="局部极值提取"></a>局部极值提取</h4><p>每个点将会和坐标空间上的8个临近点，以及尺度空间上的18个点，共计26个点进行比较。只有在27个点中是最小或最大才会被定义为极值。由于我们可以进行一些前处理筛选掉大部分的点，所以极值验证的过程并不会花费很大。</p>
-<p>明显的是，采样频率关系到极值的选择。但不幸的是并没有确定的采样频率能使我们一定能找到所需的极值。因此我们使用实验的方法来决定最优频率。</p>
-<h5 id="尺度上的采样频率"><a href="#尺度上的采样频率" class="headerlink" title="尺度上的采样频率"></a>尺度上的采样频率</h5><p>我们测试了当改变尺度空间上的采样时，重现率和关键点检测数量的改变趋势。结果表明，当采样频率增加时，重现率有下降趋势，这有可能因为即使找到了更多的极值，但他们不够稳定；并且，随着频率增加，更多的关键点被检测出来，虽然他们有助于物体检测，但运算量也大大上升，因此我们折中选择了3这个尺度空间的采样频率。</p>
-<h5 id="空间上的采样频率"><a href="#空间上的采样频率" class="headerlink" title="空间上的采样频率"></a>空间上的采样频率</h5><p>通过测试预平滑的采样频率与重现率的关系我们发现，当频率越大重现率也越大，但为了保证运行的效率，我们选择了1.6这个值。</p>
-<h3 id="2-精确的关键点定位"><a href="#2-精确的关键点定位" class="headerlink" title="2. 精确的关键点定位"></a>2. 精确的关键点定位</h3><p>上个步骤中我们找到了离散空间的极值候选者，但不一定是真正的连续函数上的极值。本章通过对取样点的D(x)求导得出偏移量，以寻找真正的极值。首先，如果偏移值大于0.5则认为极值在相邻的采样点。其次，如果有极值点的D(x)是小于0.03的我们认为它是不稳定的，因此也会被舍弃。</p>
-<h4 id="消除边缘响应"><a href="#消除边缘响应" class="headerlink" title="消除边缘响应"></a>消除边缘响应</h4><p>当主曲率过大时我们认为这是边缘上的点，由于边缘点并不稳定我们需要去除。通过计算，我们只要通过计算海塞矩阵的对角和行列式的比值就能求出特征值之比，这大大减少了计算量。本文将特征值的比值阈值设为10，大于10的将被去除。</p>
-<h3 id="3-方向分配"><a href="#3-方向分配" class="headerlink" title="3. 方向分配"></a>3. 方向分配</h3><p>对于每个关键点，我们通过统计临近区域的点的向量和角度来确定关键点的方向。通过直方图的形式统计被分配在各个角度的临近点的数量，取最多的为关键点的方向。此外，若有其他方向的统计值高于最高值的80%，我们将其认定为第二方向。</p>
-<h3 id="4-特征点描述"><a href="#4-特征点描述" class="headerlink" title="4. 特征点描述"></a>4. 特征点描述</h3><p>我们已经知道使用神经元模型，即计算出特定方向和空间次数的梯度可以得到非常稳定的特征量，可以用于视角改变和亮度改变的问题。</p>
-<h4 id="特征量表现"><a href="#特征量表现" class="headerlink" title="特征量表现"></a>特征量表现</h4><p>通过计算和统计关键点周围像素的向量方向分布，对关键点进行描述。本文中我们将对16<em>16的范围的区域分成4\</em>4的格子，来对它们的8个向量方向进行统计。<br>此外，为了对光照变化具有不变性，我们还要对向量归一化。这样能减少光亮变化而产生的对梯度带来的线性变化。其次，为向量长度设置阈值，减小值较大的向量的重要度，以减少对非线性光照变化的敏感度。</p>
-<h4 id="对仿射变换的敏感性"><a href="#对仿射变换的敏感性" class="headerlink" title="对仿射变换的敏感性"></a>对仿射变换的敏感性</h4><p>根据实验，当仿射度上升时匹配度大幅度下降。但实际上在3D图像上的可旋转范围较小，仿射不变性并不是那么重要。而如果在平面图片上时，我们可以使用xx的方法生成额外的SIFT特征量，使得最终生成标准特征库三倍量的特征。</p>
-<h4 id="对大数据集的对比"><a href="#对大数据集的对比" class="headerlink" title="对大数据集的对比"></a>对大数据集的对比</h4><p>更多是因为初始特征的位置和方向的分配问题而不是特征的可区分度造成的</p>
-<h2 id="对物体识别的应用"><a href="#对物体识别的应用" class="headerlink" title="对物体识别的应用"></a>对物体识别的应用</h2><h3 id="1-关键点匹配"><a href="#1-关键点匹配" class="headerlink" title="1. 关键点匹配"></a>1. 关键点匹配</h3><p>我们对每个关键点与数据库中的特征进行匹配，得到欧几里得距离最近的候选项。但是实际上许多特征来自于杂乱的背景或对于这个物体的识别并没有帮助。因此我们通过一个高效的手法剔除掉这些无用的特征。这个方法就是对比与最近的正确图像的距离，和最近的错误图像的距离之比。当这个比值大于0.8时（即错误图像的距离高于正确图像的距离的80%时），我们就淘汰这个特征。</p>
-<h3 id="有效的最近邻法"><a href="#有效的最近邻法" class="headerlink" title="有效的最近邻法"></a>有效的最近邻法</h3><p>我们使用BBF算法来搜索最近的点。这个算法对于我们的特征值最有效，考虑原因可能是上章提到我们只需要探索距离比值小于0.8的特征点。</p>
-<h3 id="霍夫变换聚类"><a href="#霍夫变换聚类" class="headerlink" title="霍夫变换聚类"></a>霍夫变换聚类</h3><p>为了提高对小物体和被遮挡物体的识别问题，我们希望即使少类的特征也能识别出物体。而通过霍夫变换将特征值聚类的方法能提升这一可能性。</p>
-<p>[1] <a href="https://blog.csdn.net/lavender19/article/details/120396145">https://blog.csdn.net/lavender19/article/details/120396145</a><br>[2]<a href="https://blog.csdn.net/shiyongraow/article/details/78296710">https://blog.csdn.net/shiyongraow/article/details/78296710</a><br>[3]<a href="https://www.cnblogs.com/shine-lee/p/10950963.html">https://www.cnblogs.com/shine-lee/p/10950963.html</a> 仿射变换</p>
-]]></content>
-      <categories>
-        <category>study</category>
-      </categories>
-      <tags>
-        <tag>CV</tag>
       </tags>
   </entry>
   <entry>
@@ -389,6 +409,46 @@
       </categories>
       <tags>
         <tag>PR</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SIFT</title>
+    <url>/2022/05/13/SIFT/</url>
+    <content><![CDATA[<h2 id="SIFT究竟在做什么？"><a href="#SIFT究竟在做什么？" class="headerlink" title="SIFT究竟在做什么？"></a>SIFT究竟在做什么？</h2><h3 id="WHAT"><a href="#WHAT" class="headerlink" title="WHAT"></a>WHAT</h3><p>SIFT属于传统特征提取方式，与通过深度学习的反复学习提取出的特征值不同，传统特征提取方式需要通过人工计算和模拟实验找到所需要的特征点。一个好的特征量应该具有尺度不变的性质，本文就是在解释通过怎样的计算步骤能找到这样的特征量。</p>
+<h3 id="WHY"><a href="#WHY" class="headerlink" title="WHY"></a>WHY</h3><p>特征量往往被用在物体识别，并且应该是分辨度高的，以区分于杂乱的背景和庞大的数据库。</p>
+<h3 id="HOW"><a href="#HOW" class="headerlink" title="HOW"></a>HOW</h3><p>我们主要使用四个步骤：1.尺度空间的极值检测，2.关键点的定位，3. 方向分配 4. 关键点描述，来提取我们所需要的特征量。</p>
+<h2 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h2><p>这篇文章帮助我们从图片中提取出图像特征，能满足即使当这个图片中某一事物或场景发生了失真，视角偏移，噪点增添或是光线改变时，也能将图片间的相关点进行对应。而且他它们是易于区分的特征，即使是从庞大的特征库中也能利用它们找到对应的真正的物体或场景。</p>
+<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><p>分为以下三步</p>
+<ol>
+<li>尺度空间的极值提取</li>
+<li>关键点定位</li>
+<li>方向分配</li>
+<li>关键点描述</li>
+</ol>
+<p>这一系列的方法称作为SIFT,即尺度不变的特征转换。</p>
+<h3 id="1-尺度空间的极值提取"><a href="#1-尺度空间的极值提取" class="headerlink" title="1. 尺度空间的极值提取"></a>1. 尺度空间的极值提取</h3><h4 id="生成高斯图像、尺度空间"><a href="#生成高斯图像、尺度空间" class="headerlink" title="生成高斯图像、尺度空间"></a>生成高斯图像、尺度空间</h4><p>极值提取的计算式，将使用DoG进行计算。首先我们已经知道唯一可行的尺度空间核就是高斯核，因此我们使用高斯函数对图像进行卷积从而得到尺度空间。其次，Lindebeg在1994年提出了LoG是对于尺度不变检测的必要算子。并且，Mikolajczyk提出利用LoG的最小值和最大值之差可以求出图片的稳定特征。而DoG正好可以近似于LoG。</p>
+<p>对于每个尺度空间，通过将原始图像与高斯核不断卷积，并将临近的生成图像相减形成高斯差值图像。之后，对图像进行下采样，再进行同样的工作。这样保证采样精度不变的情况下，计算量大大下降。</p>
+<h4 id="局部极值提取"><a href="#局部极值提取" class="headerlink" title="局部极值提取"></a>局部极值提取</h4><p>每个点将会和坐标空间上的8个临近点，以及尺度空间上的18个点，共计26个点进行比较。只有在27个点中是最小或最大才会被定义为极值。由于我们可以进行一些前处理筛选掉大部分的点，所以极值验证的过程并不会花费很大。</p>
+<p>明显的是，采样频率关系到极值的选择。但不幸的是并没有确定的采样频率能使我们一定能找到所需的极值。因此我们使用实验的方法来决定最优频率。</p>
+<h5 id="尺度上的采样频率"><a href="#尺度上的采样频率" class="headerlink" title="尺度上的采样频率"></a>尺度上的采样频率</h5><p>我们测试了当改变尺度空间上的采样时，重现率和关键点检测数量的改变趋势。结果表明，当采样频率增加时，重现率有下降趋势，这有可能因为即使找到了更多的极值，但他们不够稳定；并且，随着频率增加，更多的关键点被检测出来，虽然他们有助于物体检测，但运算量也大大上升，因此我们折中选择了3这个尺度空间的采样频率。</p>
+<h5 id="空间上的采样频率"><a href="#空间上的采样频率" class="headerlink" title="空间上的采样频率"></a>空间上的采样频率</h5><p>通过测试预平滑的采样频率与重现率的关系我们发现，当频率越大重现率也越大，但为了保证运行的效率，我们选择了1.6这个值。</p>
+<h3 id="2-精确的关键点定位"><a href="#2-精确的关键点定位" class="headerlink" title="2. 精确的关键点定位"></a>2. 精确的关键点定位</h3><p>上个步骤中我们找到了离散空间的极值候选者，但不一定是真正的连续函数上的极值。本章通过对取样点的D(x)求导得出偏移量，以寻找真正的极值。首先，如果偏移值大于0.5则认为极值在相邻的采样点。其次，如果有极值点的D(x)是小于0.03的我们认为它是不稳定的，因此也会被舍弃。</p>
+<h4 id="消除边缘响应"><a href="#消除边缘响应" class="headerlink" title="消除边缘响应"></a>消除边缘响应</h4><p>当主曲率过大时我们认为这是边缘上的点，由于边缘点并不稳定我们需要去除。通过计算，我们只要通过计算海塞矩阵的对角和行列式的比值就能求出特征值之比，这大大减少了计算量。本文将特征值的比值阈值设为10，大于10的将被去除。</p>
+<h3 id="3-方向分配"><a href="#3-方向分配" class="headerlink" title="3. 方向分配"></a>3. 方向分配</h3><p>对于每个关键点，我们通过统计临近区域的点的向量和角度来确定关键点的方向。通过直方图的形式统计被分配在各个角度的临近点的数量，取最多的为关键点的方向。此外，若有其他方向的统计值高于最高值的80%，我们将其认定为第二方向。</p>
+<h3 id="4-特征点描述"><a href="#4-特征点描述" class="headerlink" title="4. 特征点描述"></a>4. 特征点描述</h3><p>我们已经知道使用神经元模型，即计算出特定方向和空间次数的梯度可以得到非常稳定的特征量，可以用于视角改变和亮度改变的问题。</p>
+<h4 id="特征量表现"><a href="#特征量表现" class="headerlink" title="特征量表现"></a>特征量表现</h4><p>通过计算和统计关键点周围像素的向量方向分布，对关键点进行描述。本文中我们将对16<em>16的范围的区域分成4\</em>4的格子，来对它们的8个向量方向进行统计。<br>此外，为了对光照变化具有不变性，我们还要对向量归一化。这样能减少光亮变化而产生的对梯度带来的线性变化。其次，为向量长度设置阈值，减小值较大的向量的重要度，以减少对非线性光照变化的敏感度。</p>
+<h4 id="对仿射变换的敏感性"><a href="#对仿射变换的敏感性" class="headerlink" title="对仿射变换的敏感性"></a>对仿射变换的敏感性</h4><p>根据实验，当仿射度上升时匹配度大幅度下降。但实际上在3D图像上的可旋转范围较小，仿射不变性并不是那么重要。而如果在平面图片上时，我们可以使用xx的方法生成额外的SIFT特征量，使得最终生成标准特征库三倍量的特征。</p>
+<h4 id="对大数据集的对比"><a href="#对大数据集的对比" class="headerlink" title="对大数据集的对比"></a>对大数据集的对比</h4><p>更多是因为初始特征的位置和方向的分配问题而不是特征的可区分度造成的</p>
+<h2 id="对物体识别的应用"><a href="#对物体识别的应用" class="headerlink" title="对物体识别的应用"></a>对物体识别的应用</h2><h3 id="1-关键点匹配"><a href="#1-关键点匹配" class="headerlink" title="1. 关键点匹配"></a>1. 关键点匹配</h3><p>我们对每个关键点与数据库中的特征进行匹配，得到欧几里得距离最近的候选项。但是实际上许多特征来自于杂乱的背景或对于这个物体的识别并没有帮助。因此我们通过一个高效的手法剔除掉这些无用的特征。这个方法就是对比与最近的正确图像的距离，和最近的错误图像的距离之比。当这个比值大于0.8时（即错误图像的距离高于正确图像的距离的80%时），我们就淘汰这个特征。</p>
+<h3 id="有效的最近邻法"><a href="#有效的最近邻法" class="headerlink" title="有效的最近邻法"></a>有效的最近邻法</h3><p>我们使用BBF算法来搜索最近的点。这个算法对于我们的特征值最有效，考虑原因可能是上章提到我们只需要探索距离比值小于0.8的特征点。</p>
+<h3 id="霍夫变换聚类"><a href="#霍夫变换聚类" class="headerlink" title="霍夫变换聚类"></a>霍夫变换聚类</h3><p>为了提高对小物体和被遮挡物体的识别问题，我们希望即使少类的特征也能识别出物体。而通过霍夫变换将特征值聚类的方法能提升这一可能性。</p>
+<p>[1] <a href="https://blog.csdn.net/lavender19/article/details/120396145">https://blog.csdn.net/lavender19/article/details/120396145</a><br>[2]<a href="https://blog.csdn.net/shiyongraow/article/details/78296710">https://blog.csdn.net/shiyongraow/article/details/78296710</a><br>[3]<a href="https://www.cnblogs.com/shine-lee/p/10950963.html">https://www.cnblogs.com/shine-lee/p/10950963.html</a> 仿射变换</p>
+]]></content>
+      <categories>
+        <category>study</category>
+      </categories>
+      <tags>
+        <tag>CV</tag>
       </tags>
   </entry>
   <entry>
