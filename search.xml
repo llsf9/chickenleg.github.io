@@ -225,6 +225,25 @@
       </tags>
   </entry>
   <entry>
+    <title>Conten-aware image resizing</title>
+    <url>/2022/07/20/content-aware-image-resizing/</url>
+    <content><![CDATA[<h1 id="项目报告"><a href="#项目报告" class="headerlink" title="项目报告"></a>项目报告</h1><p><a href="/butterfly/cgo.pdf">pdflink<a><br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h5vwpmg0ttj20zf07sgnu.jpg" alt=""></p>
+<h1 id="项目描述"><a href="#项目描述" class="headerlink" title="项目描述"></a>项目描述</h1><p>对于图片缩放，我们希望在缩放时却不影响主体的变换。一般来说，缩放技术有基于离散和连续的两种方法，本项目基于Seam Carving [1]和 Image Warping [2]的论文进行代码的复现和结果的比较。</p>
+<h1 id="方法概述"><a href="#方法概述" class="headerlink" title="方法概述"></a>方法概述</h1><h2 id="遗传算法"><a href="#遗传算法" class="headerlink" title="遗传算法"></a>遗传算法</h2><ul>
+<li>进化算法的一种，优化方式属于随机优化</li>
+<li>受生物遗传算法的启发</li>
+<li>常用于1. 非连续，非凸，非可微，非线性等难以定义的目标函数 2. 或当搜索空间过大难以使用普通优化方式的问题</li>
+</ul>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><p>[1] Saulo AF Oliveira, Francisco N Bezerra, and Ajalmar R Rocha Neto. 2015. Genetic<br>seam carving: A genetic algorithm approach for content-aware image retargeting.<br>In Iberian Conference on Pattern Recognition and Image Analysis. Springer, 700–707.<br>[2] Yu-Shuen Wang, Chiew-Lan Tai, Olga Sorkine, and Tong-Yee Lee. 2008. Optimized<br>scale-and-stretch for image resizing. In ACM SIGGRAPH Asia 2008 papers. 1–8.</p>
+]]></content>
+      <categories>
+        <category>project</category>
+      </categories>
+      <tags>
+        <tag>CGO</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Edge Detection</title>
     <url>/2022/05/09/edge%20detection/</url>
     <content><![CDATA[<h1 id="1-Feature-detection"><a href="#1-Feature-detection" class="headerlink" title="1 Feature detection"></a>1 Feature detection</h1><blockquote>
@@ -513,7 +532,7 @@
       </tags>
   </entry>
   <entry>
-    <title>剑指Offer - 1</title>
+    <title>剑指Offer-1（队列，栈，链表）</title>
     <url>/2022/10/11/%E5%89%91%E6%8C%87Offer%20-%201/</url>
     <content><![CDATA[<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><h3 id="栈：先进后出"><a href="#栈：先进后出" class="headerlink" title="栈：先进后出"></a>栈：先进后出</h3><ul>
 <li>栈顶，栈底，进栈，出栈</li>
@@ -731,18 +750,6 @@
       </categories>
       <tags>
         <tag>optimization</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>考虑内容的图片重建</title>
-    <url>/2022/07/20/%E8%80%83%E8%99%91%E5%86%85%E5%AE%B9%E7%9A%84%E5%9B%BE%E7%89%87%E9%87%8D%E5%BB%BA/</url>
-    <content><![CDATA[<p><a href="/butterfly/cgo.pdf">pdflink<a><br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h5vwpmg0ttj20zf07sgnu.jpg" alt=""></p>
-]]></content>
-      <categories>
-        <category>project</category>
-      </categories>
-      <tags>
-        <tag>CGO</tag>
       </tags>
   </entry>
   <entry>
