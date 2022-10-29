@@ -225,22 +225,1067 @@
       </tags>
   </entry>
   <entry>
-    <title>Conten-aware image resizing</title>
+    <title>Content-aware image resizing</title>
     <url>/2022/07/20/content-aware-image-resizing/</url>
     <content><![CDATA[<h1 id="项目报告"><a href="#项目报告" class="headerlink" title="项目报告"></a>项目报告</h1><p><a href="/butterfly/cgo.pdf">pdflink<a><br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h5vwpmg0ttj20zf07sgnu.jpg" alt=""></p>
-<h1 id="项目描述"><a href="#项目描述" class="headerlink" title="项目描述"></a>项目描述</h1><p>对于图片缩放，我们希望在缩放时却不影响主体的变换。一般来说，缩放技术有基于离散和连续的两种方法，本项目基于Seam Carving [1]和 Image Warping [2]的论文进行代码的复现和结果的比较。</p>
-<h1 id="方法概述"><a href="#方法概述" class="headerlink" title="方法概述"></a>方法概述</h1><h2 id="遗传算法"><a href="#遗传算法" class="headerlink" title="遗传算法"></a>遗传算法</h2><ul>
+<h1 id="项目描述"><a href="#项目描述" class="headerlink" title="项目描述"></a>项目描述</h1><p>对于图片缩放，我们希望在缩放时却不影响主体的变换。一般来说，缩放技术有基于离散和连续的两种方法，离散型通常是迭代地寻找一排（或者一列）最小能量的像素，以删除在原图片中无效的像素点；连续型则通过形变等手法改变整个图片的比例。本项目基于Seam Carving [1]和 Image Warping [2]的论文进行代码的复现和结果的比较。</p>
+<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><h2 id="遗传算法"><a href="#遗传算法" class="headerlink" title="遗传算法"></a>遗传算法</h2><ul>
 <li>进化算法的一种，优化方式属于随机优化</li>
 <li>受生物遗传算法的启发</li>
 <li>常用于1. 非连续，非凸，非可微，非线性等难以定义的目标函数 2. 或当搜索空间过大难以使用普通优化方式的问题</li>
 </ul>
+<h3 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h3><ol>
+<li>随机生成一批个体(individual)，这一批个体形成了一个群落(population)<ul>
+<li>每个个体其实就是一个解(solution)</li>
+</ul>
+</li>
+<li>每个个体具有一个适应度(fitness)的评判值，代表着它对于目标问题的分数</li>
+<li>根据适应度的高低，高适应度的个体会相互繁衍(crossover)产生后代（下一个个体），并且会进行复制(reproduce)（在迭代中被留下）；低适应度的则在下一次进化中被淘汰(discard)</li>
+<li>在产生个体时，还会有一定的几率发生突变(mutation)；突变的发生与适应度无关</li>
+<li>重复以上的进化过程直到结束</li>
+</ol>
+<h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>在图片缩放问题中，遗传算法中的每个个体就是要找的最小影响的路线$s^v$，并且为了不改变原图片的结构，我们限制路线的最大跨度不能超过1（即只能在九宫格内移动），可以如下式表示：<br><img src="https://tva1.sinaimg.cn/large/008vxvgGgy1h7ix9s6wu0j308y02gmx1.jpg" alt=""></p>
+<p>最终我们要寻找的最优路线$s^{v*}$，我们希望它能够达到是图片中影响力最小（能量值最小）的一条路线。即：<br><img src="https://tva1.sinaimg.cn/large/008vxvgGgy1h7ixb7khaij30d702ht8l.jpg" alt=""></p>
+<p><strong>注</strong>：除了遗传算法这种随机算法，一般使用动态算法(Dynamic Programming)来解决该问题。由于我们想找到最小能量的路线，因此在探索路线时遵循以下的转换方程式：<br><img src="https://tva1.sinaimg.cn/large/008vxvgGgy1h7ixsbu3zyj30am02wa9z.jpg" alt=""></p>
+<h1 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h1><h2 id="能量函数（能量图）"><a href="#能量函数（能量图）" class="headerlink" title="能量函数（能量图）"></a>能量函数（能量图）</h2><h3 id="Backward"><a href="#Backward" class="headerlink" title="Backward"></a>Backward</h3><p>最普通的图片能量计算方式——求偏导。利用有限差分求出gradient maltitude能量图。</p>
+<h3 id="Forward"><a href="#Forward" class="headerlink" title="Forward"></a>Forward</h3><p>作者认为在寻找Seam的问题中，我们不仅要考虑删除后对原图像的影响(即backward),还要考虑当删除后产生的新的“伪影”的影响。因此Forward的目的是找到产生“伪影”最少的能量图。</p>
 <h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><p>[1] Saulo AF Oliveira, Francisco N Bezerra, and Ajalmar R Rocha Neto. 2015. Genetic<br>seam carving: A genetic algorithm approach for content-aware image retargeting.<br>In Iberian Conference on Pattern Recognition and Image Analysis. Springer, 700–707.<br>[2] Yu-Shuen Wang, Chiew-Lan Tai, Olga Sorkine, and Tong-Yee Lee. 2008. Optimized<br>scale-and-stretch for image resizing. In ACM SIGGRAPH Asia 2008 papers. 1–8.</p>
 ]]></content>
       <categories>
-        <category>project</category>
+        <category>study</category>
       </categories>
       <tags>
         <tag>CGO</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CSS总结</title>
+    <url>/2020/03/10/css-memo/</url>
+    <content><![CDATA[<h2 id="一-基础属性"><a href="#一-基础属性" class="headerlink" title="一 基础属性"></a>一 基础属性</h2><h3 id="连接css"><a href="#连接css" class="headerlink" title="连接css"></a>连接css</h3><ul>
+<li>内联式<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">style</span>=<span class="string">&quot;color:red;font-size:12px;&quot;</span>&gt;</span>...<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>嵌入式<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">  <span class="selector-tag">a</span>&#123;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">color</span>:red;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">font-size</span>:<span class="number">12px</span>;</span></span><br><span class="line"><span class="language-css">  &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>外部式<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">href</span>=<span class="string">&quot;base.css&quot;</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<em>一般写在head</em></li>
+</ul>
+<p><u>优先级：内联式 &gt; 嵌入式 &gt; 外部式</u></p>
+<hr>
+<h3 id="选择器"><a href="#选择器" class="headerlink" title="选择器"></a>选择器</h3><h4 id="1-基本选择器"><a href="#1-基本选择器" class="headerlink" title="1. 基本选择器"></a>1. 基本选择器</h4><ul>
+<li><p>标签选择器：选出所有相同的标签。但无法差异化选择。</p>
+</li>
+<li><p>:star: 类选择器：class。最常用的选择器。多个元素可以用一个class，一个元素也可以有多个class</p>
+<ol>
+<li><p>多类名</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;red font20&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>可以在同个class属性中写多个类名，但中间要用空格隔开</p>
+<p><em>应用场景：共通的样式可以放到同个class，然后再设置各自单独的class，从而方便修改。</em></p>
+</li>
+</ol>
+</li>
+<li><p>id选择器：只能使用一次。</p>
+</li>
+</ul>
+<h4 id="2-复合选择器"><a href="#2-复合选择器" class="headerlink" title="2. 复合选择器"></a>2. 复合选择器</h4><ul>
+<li><p>后代选择器</p>
+<p><code>元素1 元素2</code></p>
+<p>空格。选择所有后代。不只是第一代。</p>
+</li>
+<li><p>子代选择器</p>
+<p><code>元素1&gt;元素2</code><br>大于符号(&gt;),用于选择指定标签元素的第一代子元素。</p>
+<p>（第一代子元素：指定标签中包含的直系子元素。）</p>
+</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">	<span class="selector-class">.first</span>&gt;<span class="selector-tag">span</span>&#123;</span></span><br><span class="line"><span class="language-css">		<span class="attribute">border</span>:<span class="number">1px</span> solid red;</span></span><br><span class="line"><span class="language-css">	&#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">...</span><br><span class="line"><span class="comment">&lt;!--例 1--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;first&quot;</span>&gt;</span>三年级时，<span class="tag">&lt;<span class="name">span</span>&gt;</span>我还是一个<span class="tag">&lt;<span class="name">span</span>&gt;</span>胆小如鼠<span class="tag">&lt;/<span class="name">span</span>&gt;</span>的小女孩<span class="tag">&lt;/<span class="name">span</span>&gt;</span>，上课从来不敢</span><br><span class="line">回答老师提出的问题。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--此例虽有两个span，但为包含关系，第二个span为第二代子元素。因此只    对第一个span起作用。即结果为“我</span></span><br><span class="line"><span class="comment">还是一个胆小如鼠的小女孩”被框选--&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--例 2--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;first&quot;</span>&gt;</span>三年级时，<span class="tag">&lt;<span class="name">span</span>&gt;</span>我还是一个<span class="tag">&lt;/<span class="name">span</span>&gt;</span>胆小如鼠<span class="tag">&lt;<span class="name">span</span>&gt;</span>的小女孩<span class="tag">&lt;/<span class="name">span</span>&gt;</span>，上课从来不敢</span><br><span class="line">回答老师提出的问题。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--此例也有两个span，但为独立关系，两个span均为第一代子元素。因此两个span均起作用。即结果为“我</span></span><br><span class="line"><span class="comment">还是一个”和“的小女孩”被框选--&gt;</span> </span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>包含选择器<br>即加入空格,用于选择指定标签元素下的后辈元素。<br>如子选择器的例1，如果改为包含选择器，则“我还是一个胆小如鼠的小女孩”和“胆小如鼠”均被框选。</p>
+</li>
+<li><p>通配符选择器<br>使用一个（<em>）号指定，它的作用是匹配html中所有标签元素。<br>**用\</em>会消耗CPU，因为浏览器需要找出所有标签，并给它们都加上修饰。**</p>
+</li>
+<li><p>伪类选择器</p>
+<ol>
+<li><p>链接伪类选择器</p>
+<ul>
+<li>a:link：选择所有未被访问的链接</li>
+<li>a:visited：选择所有已被访问的链接</li>
+<li>a:hover：选择鼠标指针位于上面的链接</li>
+<li>a:active：选择活动链接（鼠标按下还未弹起的链接）</li>
+</ul>
+<p>注意事项：</p>
+<ol>
+<li>为保证效果，按照link-visited-hover-active的顺序声明（LVHA）</li>
+<li>链接与标题类似，要单独设置样式</li>
+<li>平时一般只定义a的颜色和a:hover的颜色，其他不常用</li>
+</ol>
+</li>
+<li><p>表单伪类选择器</p>
+<ol>
+<li>input:focus：选择获取了焦点（光标）的input表单元素</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>并集选择器<br>使用逗号<code>,</code>，为多个标签元素设置同一个样式。</p>
+<ol>
+<li>摒弃选择器的语法规范：竖着写</li>
+</ol>
+</li>
+</ul>
+<hr>
+<h3 id="字体属性"><a href="#字体属性" class="headerlink" title="字体属性"></a>字体属性</h3><h4 id="1-属性总结"><a href="#1-属性总结" class="headerlink" title="1. 属性总结"></a>1. 属性总结</h4><ul>
+<li><p>font-size: 字号</p>
+<ol>
+<li>标题文字比较特殊，需要单独设置大小</li>
+<li>各浏览器默认文字大小不同，尽量指定准确像素值</li>
+</ol>
+</li>
+<li><p>font-weight: 字体粗细</p>
+<ol>
+<li><p>bold: 加粗 </p>
+</li>
+<li><p>:star: 直接写不带单位的数字，可以自定义粗体效果700=bold</p>
+<p>400=normal</p>
+</li>
+</ol>
+</li>
+<li><p>font-family: 字体样式</p>
+<ol>
+<li>不同字体样式用逗号分隔</li>
+<li>中文或有空格的英文要引号包起来</li>
+</ol>
+</li>
+<li><p>font-style: 文字样式</p>
+<ol>
+<li>italic: 斜体</li>
+<li>normal: 默认标准样式</li>
+<li>主要不是用来加斜体，而是让斜体变为默认</li>
+</ol>
+</li>
+</ul>
+<h4 id="2-复合写法"><a href="#2-复合写法" class="headerlink" title="2. 复合写法"></a>2. 复合写法</h4><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="attribute">font</span>: font-style font-weight font-size/line-height font-family;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>绝对不能颠倒顺序<ol>
+<li>中间用空格间隔</li>
+<li>不需要的属性可以省略，但是font-size和font-family必须保留，否则将不起作用。</li>
+</ol>
+</li>
+</ol>
+<hr>
+<h3 id="文本属性"><a href="#文本属性" class="headerlink" title="文本属性"></a>文本属性</h3><h4 id="1-属性总结-1"><a href="#1-属性总结-1" class="headerlink" title="1. 属性总结"></a>1. 属性总结</h4><ul>
+<li><p>color: 文本颜色</p>
+<ol>
+<li>:star: 十六进制: #➕颜色代码</li>
+<li>预定义的颜色值: 英文颜色名</li>
+<li>RGB代码: rgb()</li>
+</ol>
+</li>
+<li><p>text-align: 对齐文本</p>
+<ol>
+<li>只能水平对齐</li>
+<li>本质是让盒子里的文字在盒子里居中对齐。因此对齐效果取决于盒子的大小。</li>
+</ol>
+</li>
+<li><p>text-decoration: 装饰文本</p>
+<ol>
+<li><p>none: 默认无装饰线（最常用，用来给a标签去掉默认的下划线）</p>
+</li>
+<li><p>underline: 下划线（常用）</p>
+</li>
+<li><p>line-through: 删除线（不常用）</p>
+</li>
+<li>overline: 上划线（几乎不用）</li>
+</ol>
+</li>
+<li><p>text-indent: 文本缩进</p>
+<ol>
+<li>“数字+px”，缩进规定像素</li>
+<li>:star: “数字+em”，缩进相对当前文字大小的文字个数</li>
+</ol>
+</li>
+<li><p>line-height: 行间距</p>
+<ol>
+<li><strong>行间距=上间距+文本高度+下间距</strong>。当行间距设置为26且文本为默认大小时，26-16=10，上间距+下间距=10</li>
+<li>“数字+px”</li>
+</ol>
+</li>
+<li><p>letter-spacing 字母间距（中文文字间距）</p>
+<ol>
+<li>后接“数字+px”</li>
+</ol>
+</li>
+<li><p>word-spacing 单词间距</p>
+<ol>
+<li>后接“数字+px”</li>
+</ol>
+</li>
+</ul>
+<h4 id="2-文字单位"><a href="#2-文字单位" class="headerlink" title="2. 文字单位"></a>2. 文字单位</h4><p><em>px, em ,%均为相对单位</em></p>
+<ul>
+<li><p>px:相对屏幕像素点</p>
+</li>
+<li><p>em:</p>
+<ol>
+<li>相对此元素的font-size。如此时字体为14px，那么首行缩进若设置2em即缩进2个14px的大小。即1em=14px。</li>
+<li>若将em应用于font-size，那么是相对于父元素的的font-size。</li>
+</ol>
+</li>
+<li><p>%:相对此元素的font-size。</p>
+</li>
+</ul>
+<hr>
+<h3 id="背景样式"><a href="#背景样式" class="headerlink" title="背景样式"></a>背景样式</h3><h4 id="1-背景颜色"><a href="#1-背景颜色" class="headerlink" title="1. 背景颜色"></a>1. 背景颜色</h4><p><code>background-color</code></p>
+<ul>
+<li>默认属性值为transparent，透明色</li>
+</ul>
+<h4 id="2-背景图片"><a href="#2-背景图片" class="headerlink" title="2. 背景图片"></a>2. 背景图片</h4><p><code>background-image</code></p>
+<ul>
+<li><p>常用于logo和装饰性图片，或者是超大的背景图</p>
+</li>
+<li><p>比起img直接插入，背景图更加易于控制位置</p>
+</li>
+<li><p>背景图片和背景颜色可以同时存在，但是图片会压着颜色</p>
+</li>
+<li><p>属性值：</p>
+<ul>
+<li>none（默认）</li>
+<li>url()</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="attribute">background-image</span>:<span class="built_in">url</span>(<span class="string">images/logo.jpg</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="3-背景平铺"><a href="#3-背景平铺" class="headerlink" title="3. 背景平铺"></a>3. 背景平铺</h4><p><code>background-repeat</code></p>
+<ul>
+<li>属性值：<ul>
+<li>repeat（默认）</li>
+<li>no-repeat</li>
+<li>repeat-x（只在横向平铺）</li>
+<li>repeat-y（只在纵向平铺）</li>
+</ul>
+</li>
+</ul>
+<h4 id="4-背景图片位置"><a href="#4-背景图片位置" class="headerlink" title="4. 背景图片位置"></a>4. 背景图片位置</h4><p><code>background-position</code></p>
+<ul>
+<li><p>属性值</p>
+<ul>
+<li><p>方位名词，如：</p>
+<ol>
+<li>center right（右中）</li>
+<li>left top（左上）</li>
+<li>top center（上中）</li>
+</ol>
+<p>注意：</p>
+<ol>
+<li>两个方位都写的话无顺序要求</li>
+<li>只写一个方位时，另一个方位默认居中</li>
+</ol>
+</li>
+<li><p>精确单位</p>
+<ol>
+<li>x,y的顺序不能颠倒</li>
+<li>如果只指定一个数值，那一定是x值，y为居中</li>
+<li>坐标原点为左上角</li>
+</ol>
+</li>
+<li><p>混合单位</p>
+<ol>
+<li>x,y的顺序不能颠倒</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="5-背景图像固定（背景附着）"><a href="#5-背景图像固定（背景附着）" class="headerlink" title="5. 背景图像固定（背景附着）"></a>5. 背景图像固定（背景附着）</h4><p><code>background-attachment</code></p>
+<ul>
+<li>属性值<ul>
+<li>scroll(默认)：随着滚轮滚动背景图</li>
+<li>fixed:固定背景图</li>
+</ul>
+</li>
+</ul>
+<h4 id="6-star-背景复合写法"><a href="#6-star-背景复合写法" class="headerlink" title="6.:star: 背景复合写法"></a>6.:star: 背景复合写法</h4><p><code>background</code></p>
+<ul>
+<li>无强制要求书写顺序</li>
+<li>:star: 约定俗成的顺序为：颜色-图片地址-平铺-图像固定-图片位置</li>
+<li>中间用空格隔开</li>
+</ul>
+<h4 id="7-背景颜色半透明-CSS3"><a href="#7-背景颜色半透明-CSS3" class="headerlink" title="7. 背景颜色半透明(CSS3)"></a>7. 背景颜色半透明(CSS3)</h4><p><code>background:rgba(0,0,0,0.3);</code></p>
+<ul>
+<li>最后一个参数为阿尔法透明度，取值范围为0~1，0为完全透明，1为完全不透明</li>
+<li>前面的颜色rgb不一定为0可以自己改</li>
+<li>不影响盒子里的内容</li>
+</ul>
+<hr>
+<h3 id="CSS三大特性"><a href="#CSS三大特性" class="headerlink" title="CSS三大特性"></a>CSS三大特性</h3><h4 id="1-继承"><a href="#1-继承" class="headerlink" title="1. 继承"></a>1. 继承</h4><p>样式不仅应用于某个特定html标签元素，而且应用于其后代（包含的所有元素)。</p>
+<ul>
+<li>文字样式都能继承</li>
+<li>高度宽度等盒子样式一般不会继承</li>
+</ul>
+<p>行间距的继承：</p>
+<ul>
+<li>父元素行间距设置为24px或者2em等带单位时，后代元素即使更改了字体大小，仍然是按父元素的字体大小比例计算</li>
+<li>父元素行间距设置为2，不带单位时，后代元素即使更改了字体大小，也会按照自己的字体大小比例计算</li>
+<li><u>结论；当想让子元素根据自身的字体大小自动调整行高时，父元素的行间距不要带单位</u></li>
+</ul>
+<h4 id="2-权值"><a href="#2-权值" class="headerlink" title="2. 权值"></a>2. 权值</h4><p>浏览器根据权值来判断使用哪种css样式的，权值高的就使用哪种css样式。<br>权值如下：</p>
+<ul>
+<li>继承或者是*；0,0,0,0</li>
+<li>元素选择器：0,0,0,1</li>
+<li>类选择器，伪类选择器：0,0,1,0</li>
+<li>ID选择器：0,1,0,0</li>
+<li>行内样式style：1,0,0,0</li>
+<li>!important：约等于无穷大</li>
+</ul>
+<p>权值叠加：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">p</span>&#123;<span class="attribute">color</span>:red;&#125; <span class="comment">/*权值为1*/</span></span><br><span class="line"><span class="selector-tag">p</span> <span class="selector-tag">span</span>&#123;<span class="attribute">color</span>:green;&#125; <span class="comment">/*权值为1+1=2*/</span></span><br><span class="line"><span class="selector-class">.warning</span>&#123;<span class="attribute">color</span>:white;&#125; <span class="comment">/*权值为10*/</span></span><br><span class="line"><span class="selector-tag">p</span> <span class="selector-tag">span</span><span class="selector-class">.warning</span>&#123;<span class="attribute">color</span>:purple;&#125; <span class="comment">/*权值为1+1+10=12*/</span></span><br><span class="line"><span class="selector-id">#footer</span> <span class="selector-class">.note</span> <span class="selector-tag">p</span>&#123;<span class="attribute">color</span>:yellow;&#125; <span class="comment">/*权值为100+10+1=111*/</span></span><br></pre></td></tr></table></figure>
+<p>注意：</p>
+<ol>
+<li>权值永远不会进位（类选择器再叠加也不会超过ID选择器的权重）</li>
+<li>等级判断从左往右，如果某一位数值相同，则判断下一位数值</li>
+<li>浏览器默认的样式相当于元素选择器，权重大于继承。因此对于链接和标题这种有默认样式的我们必须单独设置。</li>
+</ol>
+<h4 id="3-层叠"><a href="#3-层叠" class="headerlink" title="3. 层叠"></a>3. 层叠</h4><p>对于同一个元素有多个css样式存在时</p>
+<ol>
+<li>样式权重相同时，用靠后的</li>
+<li>相同的样式才会层叠，如果其中有不冲突的样式依旧正常执行</li>
+</ol>
+<h4 id="4-important"><a href="#4-important" class="headerlink" title="4. important"></a>4. important</h4><p><code>!important</code>为某些样式设置具有最高权值。<br><strong>一般样式优先级为：浏览器默认的样式 &lt; 网页制作者样式 &lt; 用户自己设置的样式，但!important优先级样式会使权值高于用户自己设置的样式，因此要谨慎使用。</strong></p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">p</span>&#123;<span class="attribute">color</span>:red<span class="meta">!important</span>;&#125;<span class="comment">/*注意：!important要写在分号的前面*/</span></span><br></pre></td></tr></table></figure></h2><h3 id="元素分类"><a href="#元素分类" class="headerlink" title="元素分类"></a>元素分类</h3><h4 id="1-块级元素"><a href="#1-块级元素" class="headerlink" title="1. 块级元素"></a>1. 块级元素</h4><p><strong>例如</strong>：\<div>,\<p>、\<h1>、\<form>、\<ul> 和 \<li></p>
+<p>特点：</p>
+<ol>
+<li><p>独占一行</p>
+</li>
+<li><p>元素的高度、宽度、行高以及顶和底边距都可设置。</p>
+<ol>
+<li>元素宽度默认是它本身父容器的100%（和父元素的宽度一致）</li>
+</ol>
+</li>
+<li>是一个容器或合资<ol>
+<li>文字类里不能再放块级元素</li>
+<li>:star:<strong>转换</strong>：将内联元素转换为块状元素<br><code>a&#123;display:block;&#125;</code></li>
+</ol>
+</li>
+</ol>
+<h4 id="2-内联元素（行内元素）"><a href="#2-内联元素（行内元素）" class="headerlink" title="2. 内联元素（行内元素）"></a>2. 内联元素（行内元素）</h4><p>  <strong>例如</strong>：\<span>、\<a>、\<label>、 \<strong> 和\<em><br>  <strong>特点</strong>：</p>
+<ol>
+<li>和其他元素都在一行上；</li>
+<li>元素的高度、宽度及顶部和底部边距不可设置；</li>
+<li>元素的默认宽度就是它包含的文字或图片的宽度，不可改变。</li>
+<li>行内元素只能容纳文本或者其他行内元素。只有a特殊可以放块级元素。</li>
+<li><strong>转换</strong>:将元素div转换为内联块状元素<br><code>display:inline;</code></li>
+</ol>
+<h4 id="3-内联块状元素"><a href="#3-内联块状元素" class="headerlink" title="3. 内联块状元素"></a>3. 内联块状元素</h4><p>  <strong>例如</strong>：\<img>、\<input><br>  <strong>特点</strong>：</p>
+<ol>
+<li>和其他元素都在一行上。中间有空白缝隙。</li>
+<li>默认宽度为包含内容的宽度。</li>
+<li>元素的高度、宽度、行高以及顶和底边距都可设置。</li>
+<li><strong>转换</strong>:将元素div转换为内联块状元素<ol>
+<li>:star:<code>display:inline-block;</code></li>
+<li>float和position：absolute会隐形改变任何元素为内联块状元素</li>
+</ol>
+</li>
+</ol>
+<hr>
+<h3 id="水平居中"><a href="#水平居中" class="headerlink" title="水平居中"></a>水平居中</h3><h4 id="1-内联元素"><a href="#1-内联元素" class="headerlink" title="1. 内联元素"></a>1. 内联元素</h4><ul>
+<li>给父元素设置 <code>text-align:center</code></li>
+</ul>
+<h4 id="2-块状元素"><a href="#2-块状元素" class="headerlink" title="2. 块状元素"></a>2. 块状元素</h4><ul>
+<li><p>利用外边距让盒子水平居中</p>
+<p>前提条件：</p>
+<ol>
+<li>已设置了宽度</li>
+</ol>
+<p>方法：</p>
+<ol>
+<li>让左右margin设置为auto</li>
+</ol>
+</li>
+</ul>
+<ul>
+<li>不定宽块状元素<br>1.放入table标签中。将table的margin属性设为auto。（因table有自动调节功能）<br>2.利用display转换为内联元素，利用内联元素的居中方法。<br>3.通过给父元素设置float，然后给父元素设置 position:relative和 left:50%（此时父元素左侧正好位于页面中轴线），子元素设置 position:relative 和 left: -50% 来实现水平居中（利用父元素和子元素宽度相同，使子元素中轴线在父元素最左侧，即子元素的中轴线与页面中轴线重合）。<a href="https://www.imooc.com/qadetail/296850">不理解如何达到居中效果</a></li>
+</ul>
+<hr>
+<h3 id="垂直居中"><a href="#垂直居中" class="headerlink" title="垂直居中"></a>垂直居中</h3><h4 id="1-父元素高度确定的单行文本"><a href="#1-父元素高度确定的单行文本" class="headerlink" title="1. 父元素高度确定的单行文本"></a>1. 父元素高度确定的单行文本</h4><p>通过设置父元素的 height 和line-height（行间距）高度一致</p>
+<p>原理：</p>
+<p>​    行间距=上间距+文字高度+下间距，一旦等于盒子高度，上下间距正好相同，文字就垂直居中了</p>
+<p>同理，如果想稍微偏上居中，可以把行间距略小于盒子高度</p>
+<h4 id="2-父元素高度确定的多行文本"><a href="#2-父元素高度确定的多行文本" class="headerlink" title="2. 父元素高度确定的多行文本"></a>2. 父元素高度确定的多行文本</h4><ol>
+<li>利用table.同时设置 vertical-align：middle。（因td默认不用设置）<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">  <span class="selector-tag">table</span> <span class="selector-tag">td</span>&#123;<span class="attribute">height</span>:<span class="number">500px</span>;<span class="attribute">background</span>:<span class="number">#ccc</span>&#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">table</span>&gt;</span><span class="tag">&lt;<span class="name">tbody</span>&gt;</span><span class="tag">&lt;<span class="name">tr</span>&gt;</span><span class="tag">&lt;<span class="name">td</span> <span class="attr">class</span>=<span class="string">&quot;wrap&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>看我是否可以居中。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;/<span class="name">tr</span>&gt;</span><span class="tag">&lt;/<span class="name">tbody</span>&gt;</span><span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>设置块级元素的 display 为 table-cell（设置为表格单元显示），并设置vertical-align 属性。（此方法会将块级元素隐形改变为内联元素）。</li>
+</ol>
+<hr>
+<h2 id="二-盒子模型"><a href="#二-盒子模型" class="headerlink" title="二 盒子模型"></a>二 盒子模型</h2><h3 id="边框"><a href="#边框" class="headerlink" title="边框"></a>边框</h3><h4 id="1-边框粗细"><a href="#1-边框粗细" class="headerlink" title="1. 边框粗细"></a>1. 边框粗细</h4><p><code>border-width</code></p>
+<ul>
+<li>一般用px单位</li>
+</ul>
+<h4 id="2-边框样式"><a href="#2-边框样式" class="headerlink" title="2. 边框样式"></a>2. 边框样式</h4><p><code>border-style</code></p>
+<p>属性值</p>
+<ul>
+<li>solid：实线边框</li>
+<li>dashed：虚线边框</li>
+<li>dotted：点状边框</li>
+</ul>
+<h4 id="3-边框颜色"><a href="#3-边框颜色" class="headerlink" title="3. 边框颜色"></a>3. 边框颜色</h4><p><code>border-color</code></p>
+<h4 id="4-复合写法"><a href="#4-复合写法" class="headerlink" title="4. 复合写法"></a>4. 复合写法</h4><ol>
+<li><p>综合写法</p>
+<p><code>border:border-width border-style border-color</code></p>
+<ul>
+<li>无强制要求顺序</li>
+<li>约定俗成的顺序为粗细-样式-颜色</li>
+</ul>
+</li>
+<li><p>单独写法</p>
+<ul>
+<li><code>border-top</code></li>
+<li><code>border-right</code></li>
+<li><code>border-bottom</code></li>
+<li><code>border-left</code></li>
+</ul>
+</li>
+</ol>
+<h4 id="5-边框合并"><a href="#5-边框合并" class="headerlink" title="5. 边框合并"></a>5. 边框合并</h4><p><code>border-collapse</code></p>
+<p>属性值：</p>
+<ul>
+<li>collapse:将相邻的边框合并</li>
+</ul>
+<h4 id="6-边框相关注意事项"><a href="#6-边框相关注意事项" class="headerlink" title="6.边框相关注意事项"></a>6.边框相关注意事项</h4><ol>
+<li>边框会影响盒子的大小：在盒子外包了一层边框，因此盒子会变大</li>
+</ol>
+<hr>
+<h3 id="内边距"><a href="#内边距" class="headerlink" title="内边距"></a>内边距</h3><p><code>padding</code></p>
+<p>边框与内容的距离</p>
+<ol>
+<li><p>属性总结：</p>
+<ul>
+<li><code>padding-top</code></li>
+<li><code>padding-right</code></li>
+<li><code>padding-bottom</code></li>
+<li><code>padding-left</code></li>
+</ul>
+</li>
+<li><p>复合属性</p>
+<ol>
+<li><p>1个值：上下左右都为一个值</p>
+<p><code>padding=5px;</code></p>
+</li>
+<li><p>2个值：上下一个值 左右一个值</p>
+<p><code>padding=5px 10px;</code></p>
+</li>
+<li><p>3个值：上一个值 左右一个值 下一个值</p>
+<p><code>padding=5px 10px 20px;</code></p>
+</li>
+<li><p>4个值：上一个值 右一个值 下一个值 左一个值</p>
+<p><code>padding=5px 10px 20px 30px;</code></p>
+</li>
+</ol>
+</li>
+<li><p>注意事项</p>
+<ol>
+<li><p>指定高宽时会影响盒子大小，撑大盒子</p>
+<p>解决方法：减小盒子的宽和高</p>
+</li>
+<li><p>不指定高宽时不会影响盒子大小</p>
+</li>
+</ol>
+</li>
+</ol>
+<hr>
+<h3 id="外边距"><a href="#外边距" class="headerlink" title="外边距"></a>外边距</h3><p><code>margin</code></p>
+<p>外边距。盒子和盒子的距离。</p>
+<ol>
+<li><p>属性总结</p>
+<ul>
+<li><p><code>margin-top</code></p>
+</li>
+<li><p><code>margin-right</code></p>
+</li>
+<li><p><code>margin-bottom</code></p>
+</li>
+<li><p><code>margin-left</code></p>
+</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li><p>复合属性</p>
+<p>和padding复合属性完全相同</p>
+</li>
+</ol>
+<ol>
+<li><p>利用外边距让盒子水平居中</p>
+<p>前提条件：</p>
+<ol>
+<li>已设置了宽度</li>
+</ol>
+<p>方法：</p>
+<ol>
+<li>让左右margin设置为auto</li>
+</ol>
+</li>
+</ol>
+<ol>
+<li><p>外边距合并</p>
+<ol>
+<li><p>相邻块元素垂直外边距的合并</p>
+<p>效果：取两值较大者</p>
+<blockquote>
+<p>如上面有个块元素1，下面有个块元素2，为垂直关系。块元素1的下margin为100，而块元素2的上margin为200时，两个块元素间的距离为200</p>
+</blockquote>
+<p>解决方法：尽量只给一个盒子添加margin</p>
+</li>
+<li><p>嵌套块元素垂直外边距的塌陷</p>
+<p>效果：取两值较大者</p>
+<blockquote>
+<p>如有个父块元素，里面有个子块元素，为父子关系。父块元素的上margin为50，而子块元素的上margin为100时，两个块元素间的距离为100</p>
+</blockquote>
+<p>解决方法：</p>
+<ol>
+<li>为父元素添加一个边框（为保证效果可以做成transparent边框）</li>
+<li>为父元素添加padding</li>
+<li>为父元素添加overflow:hidden</li>
+<li>子盒子增加浮动</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>清除内外边距</p>
+<p>不同浏览器默认内外边距不同，因此我们布局前要先清除内外边距。一般使用通配符*</p>
+<p>注意：</p>
+<p>行内元素为照顾兼容性只设置左右外边距。但是块元素和行内块元素可以随意设置。 </p>
+</li>
+</ol>
+<hr>
+<h3 id="CSS3新增样式"><a href="#CSS3新增样式" class="headerlink" title="CSS3新增样式"></a>CSS3新增样式</h3><h4 id="1-圆角边框"><a href="#1-圆角边框" class="headerlink" title="1. 圆角边框"></a>1. 圆角边框</h4><p><code>border-radius</code></p>
+<ul>
+<li><p>属性值：</p>
+<ul>
+<li>px为单位的数值</li>
+<li>百分比</li>
+</ul>
+</li>
+<li><p>原理：</p>
+<p>​    调出四个数值同大小半径的圆，与矩形结合。因此数值越大，弧度越明显</p>
+</li>
+<li><p>使用：</p>
+<ol>
+<li>圆形：<ol>
+<li>数值=正方形的边长的一半</li>
+<li>百分比=50%</li>
+</ol>
+</li>
+<li>圆角矩形：<ol>
+<li>数值=矩形高度的一半</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>复合写法</p>
+<ol>
+<li><p>四个数值</p>
+<p><code>border-radius：左上角 右上角 右下角 左下角</code></p>
+</li>
+<li><p>两个数值</p>
+<p><code>border-radius:左上角及其对角 右上角及其对角</code></p>
+</li>
+</ol>
+</li>
+<li><p>单独写法</p>
+<ul>
+<li><code>border-top-left-radius</code></li>
+<li><code>border-top-right-radius</code></li>
+<li><code>border-bottom-left-radius</code></li>
+<li><code>border-bottom-right-radius</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="2-盒子阴影"><a href="#2-盒子阴影" class="headerlink" title="2. 盒子阴影"></a>2. 盒子阴影</h4><p><code>box-shadow：h-shadow v-shadow blur spread color inset</code></p>
+<ul>
+<li><p>属性：</p>
+<ul>
+<li>h-shadow:必须，水平阴影的位置，允许负值。以左上角为坐标原点，正为右，负为左。</li>
+<li>v-shadow:必须，水平阴影的位置，允许负值。正为下，负为上。</li>
+<li>blur:可选。模糊距离。越大边缘阴影越模糊。</li>
+<li>spread:可选，阴影尺寸。影子大小。</li>
+<li>color:可选。阴影颜色。一般用rgba(0,0,0,0.3)，黑色半透明。</li>
+<li>inset:可选。改为内阴影。</li>
+</ul>
+</li>
+<li><p>注意：</p>
+<ol>
+<li>盒子阴影不占用空间。</li>
+</ol>
+</li>
+<li><p>使用：</p>
+<ol>
+<li><p>鼠标经过出现影子效果</p>
+<p>:hover</p>
+<p>不只是链接元素，盒子元素（div等）也可以使用</p>
+</li>
+</ol>
+</li>
+</ul>
+<h4 id="3-文字阴影"><a href="#3-文字阴影" class="headerlink" title="3. 文字阴影"></a>3. 文字阴影</h4><p><code>text-shadow:h-shadow v-shadow blur color</code></p>
+<ul>
+<li>属性：<ul>
+<li>h-shadow:必须，水平阴影的位置，允许负值。以左上角为坐标原点，正为右，负为左。</li>
+<li>v-shadow:必须，水平阴影的位置，允许负值。正为下，负为上。</li>
+<li>blur:可选。模糊距离。越大边缘阴影越模糊。</li>
+<li>color:可选。阴影颜色。  </li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="三-浮动"><a href="#三-浮动" class="headerlink" title="三 浮动"></a>三 浮动</h2><h3 id="1-传统网页布局的三种方式"><a href="#1-传统网页布局的三种方式" class="headerlink" title="1. 传统网页布局的三种方式"></a>1. 传统网页布局的三种方式</h3><blockquote>
+<p>实际开发中，一个网页基本都要用到这三个布局</p>
+</blockquote>
+<ol>
+<li><p>标准流（普通流/文档流）</p>
+<p><u>标签按照规定好的默认方式排列</u></p>
+<ul>
+<li><p>特性：</p>
+<ol>
+<li><p>块级元素独占一行，从上到下按顺序排列</p>
+</li>
+<li><p>行内元素从左到右按顺序排列</p>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li><p>浮动（float）</p>
+<p><code>float</code></p>
+<p>创建浮动框，使其移动到一边，直到左边缘或者右边缘触及包含块或另一个浮动框的边缘</p>
+<ul>
+<li><p>属性值</p>
+<ul>
+<li>none：不浮动</li>
+<li>left：左浮动</li>
+<li>right：右浮动</li>
+</ul>
+</li>
+<li><p>特性</p>
+<ol>
+<li>浮动的元素会脱离标准流（脱标）</li>
+<li>浮动的盒子不再保留原先的位置（后面的标准流会上来顶上位置）</li>
+<li>浮动的盒子只会影响浮动盒子后面的标准流，不会影响前面的标准流（虽然后面的标准流会上来被压在浮动下，浮动却无法飘到上面的标准流上）</li>
+<li>如果多个盒子都设置了浮动，则他们会按照属性值一行内显示并且顶端对齐</li>
+<li>如果父元素宽度放不下，对出来的会自动换行</li>
+<li>浮动元素会有行内块元素的特点（与原元素无关）：1.可以设置宽高 2.显示</li>
+<li>与行内块不同之处：行内块之间会有缝隙，浮动元素没有</li>
+</ol>
+</li>
+<li><p>注意</p>
+<ol>
+<li><p>浮动元素经常和标准流父级搭配使用：</p>
+<p>为了约束浮动元素的位置，我们一般先用标准流的父元素排列上下位置，之后内部子元素采取浮动排列左右位置</p>
+</li>
+<li><p>一个元素浮动了，理论上其余的兄弟元素也要浮动，以防出现问题</p>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>定位</p>
+</li>
+</ol>
+<h3 id="2-网页布局准则"><a href="#2-网页布局准则" class="headerlink" title="2. 网页布局准则"></a>2. 网页布局准则</h3><ol>
+<li>多个块级元素纵向排列找标准流，多个块级元素横向排列找浮动</li>
+<li>先设置盒子大小，再设置盒子的位置</li>
+</ol>
+<h3 id="3-清除浮动"><a href="#3-清除浮动" class="headerlink" title="3. 清除浮动"></a>3. 清除浮动</h3><h4 id="1-原因"><a href="#1-原因" class="headerlink" title="1. 原因"></a>1. 原因</h4><p>父级盒子很多情况下不方便给高度，但是盒子浮动不占用位置，会导致</p>
+<ol>
+<li>父级盒子高度为0</li>
+<li>影响下面的标准流盒子</li>
+</ol>
+<h4 id="2-本质"><a href="#2-本质" class="headerlink" title="2. 本质"></a>2. 本质</h4><ol>
+<li>清除浮动元素造成的影响</li>
+<li>如果父级本身有高度，则不需要清除浮动</li>
+</ol>
+<h4 id="3-使用"><a href="#3-使用" class="headerlink" title="3. 使用"></a>3. 使用</h4><p><code>clear</code></p>
+<ul>
+<li><p>属性值</p>
+<ul>
+<li>left：清除左浮动的影响</li>
+<li>right：清除右浮动的影响</li>
+<li>both：清除左右浮动的影响</li>
+</ul>
+</li>
+<li><p>注意</p>
+<ol>
+<li>实际开发中几乎只用both</li>
+<li>策略为闭合浮动</li>
+</ol>
+</li>
+<li><p>使用</p>
+<ol>
+<li><p>额外标签法</p>
+<p><code>&lt;div style=&quot;clear:both;&quot;&gt;&lt;/div&gt;</code></p>
+<p>在浮动元素末尾添加一个空块级标签</p>
+<ol>
+<li>优点：通俗易懂</li>
+<li>缺点：添加无意义标签，结构性差</li>
+</ol>
+</li>
+<li><p>父级添加overflow</p>
+<p><code>overflow:hidden|auto|scroll</code></p>
+<p>为父级添加overflow任意属性值，<u>开发中常用的是hidden</u></p>
+<ol>
+<li>优点：代码简洁</li>
+<li>缺点：无法显示子元素溢出部分</li>
+</ol>
+</li>
+<li><p>:after伪元素法</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.clearfix</span><span class="selector-pseudo">:after</span> &#123;</span><br><span class="line">  <span class="attribute">content</span>:<span class="string">&quot;&quot;</span>;</span><br><span class="line">  <span class="attribute">display</span>:block;</span><br><span class="line">  <span class="attribute">height</span>:<span class="number">0</span>;</span><br><span class="line">  <span class="attribute">clear</span>:both;</span><br><span class="line">  <span class="attribute">visibility</span>:hidden;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.clearfix</span> &#123;<span class="comment">/*IE6，7专有*/</span></span><br><span class="line">  *zoom:<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>clearfix为父盒子的class名</p>
+<ol>
+<li>优点：没有增加标签，结构简单</li>
+<li>缺点：需要照顾低版本</li>
+</ol>
+</li>
+<li><p>双伪元素法</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.clearfix</span><span class="selector-class">.before</span>, <span class="selector-class">.clearfix</span><span class="selector-pseudo">:after</span> &#123;</span><br><span class="line">  <span class="attribute">content</span>:<span class="string">&quot;&quot;</span>;</span><br><span class="line">  <span class="attribute">display</span>:table;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.clearfix</span><span class="selector-pseudo">:after</span> &#123;</span><br><span class="line">  <span class="attribute">clear</span>:both;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.clearfix</span> &#123;</span><br><span class="line">  *zoom:<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>clearfix为父盒子的class名</p>
+<ol>
+<li>优点：代码更简洁了</li>
+<li>缺点：需要照顾低版本</li>
+</ol>
+</li>
+</ol>
+</li>
+</ul>
+<h4 id="4-使用场景"><a href="#4-使用场景" class="headerlink" title="4. 使用场景"></a>4. 使用场景</h4><ol>
+<li>父元素没有高度</li>
+<li>子盒子浮动了</li>
+<li>影响下面布局了</li>
+</ol>
+<h2 id="四-定位"><a href="#四-定位" class="headerlink" title="四 定位"></a>四 定位</h2><h2 id="五-PS切图"><a href="#五-PS切图" class="headerlink" title="五 PS切图"></a>五 PS切图</h2><h3 id="1-图层切图"><a href="#1-图层切图" class="headerlink" title="1. 图层切图"></a>1. 图层切图</h3><ol>
+<li>导出图片</li>
+<li>合并图层</li>
+</ol>
+<h3 id="2-切片切图"><a href="#2-切片切图" class="headerlink" title="2. 切片切图"></a>2. 切片切图</h3><ol>
+<li>导出图片</li>
+<li>导出透明图片：关闭背景-选中png格式</li>
+</ol>
+<h3 id="3-插件切图Cutterman"><a href="#3-插件切图Cutterman" class="headerlink" title="3. 插件切图Cutterman"></a>3. 插件切图Cutterman</h3><ol>
+<li>导出图片</li>
+<li>合并图层</li>
+<li>导出选区</li>
+</ol>
+<h2 id="六-书写相关"><a href="#六-书写相关" class="headerlink" title="六 书写相关"></a>六 书写相关</h2><h3 id="CSS属性书写顺序"><a href="#CSS属性书写顺序" class="headerlink" title="CSS属性书写顺序"></a>CSS属性书写顺序</h3><ol>
+<li>布局定位属性</li>
+<li>自身属性</li>
+<li>文本属性</li>
+<li>其他属性</li>
+</ol>
+<h5 id="流动模型（flow）"><a href="#流动模型（flow）" class="headerlink" title="流动模型（flow）"></a>流动模型（flow）</h5><p>默认的网页布局模式。</p>
+<ol>
+<li>块级元素垂直分布</li>
+<li>内联元素水平分布<h5 id="浮动模型（float）"><a href="#浮动模型（float）" class="headerlink" title="浮动模型（float）"></a>浮动模型（float）</h5>使块级元素脱离默认的流动模型，浮于其他块级元素的上层。其他元素不受影响继续按照流动模型排版。但不会影响内联元素，内联元素依旧被挤走。因此可实现<strong>文字环绕图片效果</strong>。<a href="https://blog.csdn.net/huhaha24/article/details/79680556">关于float浮动的通俗理解</a></li>
+</ol>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">div</span>&#123;<span class="attribute">float</span><span class="selector-pseudo">:left</span>;&#125;//左浮动</span><br><span class="line"><span class="selector-tag">div</span>&#123;<span class="attribute">float</span><span class="selector-pseudo">:right</span>;&#125;//右浮动</span><br></pre></td></tr></table></figure>
+<h5 id="层模型"><a href="#层模型" class="headerlink" title="层模型"></a>层模型</h5><p>1.绝对定位<br>相对于其最接近的一个具有定位属性的父包含块进行绝对定位。如果不存在这样的包含块，则相对于body元素，即相对于浏览器窗口。<br>绝对定位将块级元素从默认模型拉出来，使其位于默认模型和浮动模型之上。<br>  <figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">div</span>&#123;</span><br><span class="line">  <span class="attribute">position</span>:absolute;</span><br><span class="line">  <span class="attribute">top</span>:;</span><br><span class="line">  <span class="attribute">right</span>:;</span><br><span class="line">  <span class="attribute">left</span>:;</span><br><span class="line">  <span class="attribute">bottom</span>:;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><img src="http://img.mukewang.com/53a00b130001e86707360547.jpg" alt="绝对定位"><br>2.相对定位<br>首先按static(float)方式生成一个元素(并且元素像层一样浮动了起来)，然后相对于以前的位置移动，移动的方向和幅度由left、right、top、bottom属性确定，偏移前的位置保留不动。</p>
+<ul>
+<li><code>position:relative</code></li>
+<li>相对于以前的位置移动：属性确定的是以移动后的元素为主体，观察以前的位置。如<code>right:50px</code>会把块级元素向左移动50px，因为浏览器观察到以前的元素是在右边50px。<br><strong><em>（个人理解：relative属性相当于形成了一个以此元素为原点的坐标系）</em></strong></li>
+<li>偏移前的位置保留不动：虽然div元素相对于以前的位置产生了偏移，但是div元素以前的位置还是保留着，所以后面的span元素是显示在了div元素以前位置的后面。<br><img src="http://img.mukewang.com/53a00d2b00015c4b06190509.jpg" alt="相对定位"><br>3.固定定位<br>小广告定位：相对移动的坐标是视图（屏幕内的网页窗口）本身。会浮于默认模型上。<br><code>position:fixed</code><h5 id="组合使用"><a href="#组合使用" class="headerlink" title="组合使用"></a>组合使用</h5>1.absolute+relative<br>将前辈元素加上absolute属性<br>想移动的元素加上relative<br>此时以前辈元素形成一个坐标系，可以相对前辈元素改变位置。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>study</category>
+      </categories>
+      <tags>
+        <tag>css</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>HTML基础总结</title>
+    <url>/2020/03/10/html-memo/</url>
+    <content><![CDATA[<blockquote>
+<p><strong><em>“标签存在的意义不仅是他们呈现出来的样式，而是让浏览器更好的阅读”</em></strong></p>
+</blockquote>
+<h2 id="共通标签"><a href="#共通标签" class="headerlink" title="共通标签"></a>共通标签</h2><h3 id="HTML骨架"><a href="#HTML骨架" class="headerlink" title="HTML骨架"></a>HTML骨架</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">    &lt;head&gt;...&lt;/head&gt;</span><br><span class="line">    &lt;body&gt;...&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>\<html\>\&lt;/html>称为根标签，所有的网页标签都在\<html\>\&lt;/html>中。</li>
+<li>\<head\> 标签用于定义文档的头部，它是所有头部元素的容器。头部元素有\<title\>、\<script\>、\<style\>、\<link\>、 \<meta\>等标签，头部标签在下一小节中会有详细介绍。</li>
+<li>在\<body\>和\</body>标签之间的内容是网页的主要内容，如\<h1>、\<p>、\<a>、\<img>等网页内容标签，在这里的标签中的内容会在浏览器中显示出来。</li>
+</ol>
+<hr>
+<h3 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h3><ul>
+<li><p>ul…li<br><strong>无序列表</strong>。</p>
+<p><u>ul元素中不能放除li的其他标签。但li元素里可以放其他标签</u></p>
+</li>
+</ul>
+<ul>
+<li>ol…li<br><strong>有序列表</strong>。默认从1开始。</li>
+</ul>
+<ul>
+<li><p>dl…dt…dd</p>
+<p>自定义列表</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dl</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dt</span>&gt;</span>概念<span class="tag">&lt;/<span class="name">dt</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dd</span>&gt;</span>定义1<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">dd</span>&gt;</span>定义2<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dl</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>网页底部的帮助中心，服务支持列表多为自定义列表</p>
+</li>
+</ul>
+<hr>
+<h3 id="逻辑板块"><a href="#逻辑板块" class="headerlink" title="逻辑板块"></a>逻辑板块</h3><ul>
+<li>div<br>划分独立的逻辑板块。</li>
+<li>span</li>
+</ul>
+<hr>
+<h3 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h3> <figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">table</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">caption</span>&gt;</span>标题<span class="tag">&lt;/<span class="name">caption</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"> <span class="tag">&lt;<span class="name">thead</span>&gt;</span></span><br><span class="line"> 	<span class="tag">&lt;<span class="name">tr</span>&gt;</span>                      //分割每列</span><br><span class="line">  	<span class="tag">&lt;<span class="name">th</span>&gt;</span>表头<span class="tag">&lt;/<span class="name">th</span>&gt;</span>           //表头默认居中粗体</span><br><span class="line">  <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">thead</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"> <span class="tag">&lt;<span class="name">tbody</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">td</span>&gt;</span>表格<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">tbody</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"><span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>tr里只能有td或th标签，但td和th里可以放其他标签</p>
+<p> html属性表格默认无表格线。可通过css添加。</p>
+<p>属性  </p>
+<ul>
+<li>summary：table属性。表格摘要。语义化属性。</li>
+<li>border：设置边框宽度。默认为0</li>
+<li>cellspacing:设置单元格与单元格边框之间的空白间距。默认为2。</li>
+<li>cellpadding：单元格内容和单元格边框之间的空白边距。默认为1。</li>
+<li>width</li>
+<li>height</li>
+<li>align：表格在网页中的水平对齐方式<br>合并属性</li>
+</ul>
+<ul>
+<li>rowspan：跨行合并。参数为共有几格合并一起。</li>
+<li>colspan：跨列合并。参数为共有几格合并一起。</li>
+</ul>
+<hr>
+<h3 id="超链接"><a href="#超链接" class="headerlink" title="超链接 \"></a>超链接 \<a></h3><ol>
+<li>属性<ul>
+<li>href：链接地址。</li>
+<li>title:此超链接事件的目的。语义化属性。   </li>
+<li>target:链接打开方式。默认直接在本窗口打开（self）。<ol>
+<li>_blank：打开新窗口。<ol>
+<li>view_frame:在制定框架打开。</li>
+<li>self:本窗口打开</li>
+</ol>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<h5 id="href自动打开默认邮箱的方法"><a href="#href自动打开默认邮箱的方法" class="headerlink" title="href自动打开默认邮箱的方法"></a>href自动打开默认邮箱的方法</h5><p><a href="https://imgchr.com/i/8ikETJ"><img src="https://s2.ax1x.com/2020/03/10/8ikETJ.png" alt="8ikETJ.png"></a><br>1.如果mailto后面同时有多个参数的话，第一个参数必须以“?”开头，后面的参数每一个都以“&amp;”分隔。<br>2.仔细观察可发现，只有mailto后面是加冒号，其余均是等号。</p>
+<ol>
+<li>锚点定位</li>
+</ol>
+</blockquote>
+<p>实现点击链接后快速跳转到本页面的某内容</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#id&quot;</span>&gt;</span>内部跳转链接<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">......</span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">&quot;id&quot;</span>&gt;</span>想要跳转到的内容<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">---</span><br><span class="line">### base标签\<span class="tag">&lt;<span class="name">base</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">设置整体链接的默认行为。必须在head元素中。</span><br><span class="line"></span><br><span class="line">​```html</span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">base</span> <span class="attr">target</span>=<span class="string">&quot;_blank&quot;</span> /&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--所有链接默认新窗口打开--&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>属性</p>
+<ul>
+<li>href：规定所有链接的默认链接</li>
+<li>target：规定所有链接默认打开方式</li>
+</ul>
+<hr>
+<h3 id="图片"><a href="#图片" class="headerlink" title="图片 \"></a>图片 \<img /></h3><p>属性</p>
+<ul>
+<li><p>单标签</p>
+</li>
+<li><p>src：图片链接。</p>
+</li>
+<li>alt：指定图像的描述性文本，当图像不可见时（下载不成功时），可看到该属性指定的文本。</li>
+<li>title：提供在图像可见时对图像的描述(鼠标滑过图片时显示的文本)。</li>
+<li>border：边框</li>
+</ul>
+<hr>
+<h3 id="表单域"><a href="#表单域" class="headerlink" title="表单域"></a>表单域<form></h3><p>把浏览者输入的数据传送到服务器端*<br>属性 </p>
+<ul>
+<li>action ：浏览者输入的数据被传送到的地方,比如一个PHP页面(save.php)。<ul>
+<li>method ： 数据传送的方式（get/post）。<ul>
+<li>get:快速但不安全。会显示在地址栏</li>
+<li>post：速度慢但较安全<br>注意<br>所有表单控件（文本框、文本域、按钮、单选框、复选框等）都必须放在 \<form>\</form> 标签之间（否则用户输入的信息提交不到服务器上）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="表单控件"><a href="#表单控件" class="headerlink" title="表单控件"></a>表单控件</h3><ul>
+<li><p>\<input /><br>属性</p>
+<ul>
+<li><p>type：text（文本输入框），button（提交按钮），password（密码输入框），checkbox（复选框），更多点击<a href="https://www.w3cschool.cn/htmltags/att-input-type.html">type属性</a>。</p>
+</li>
+<li><p>name:为文本框/选择框命名，以对同类的单选框/复选框分组。以备后台程序使用。</p>
+</li>
+<li><p>value：1.为文本输入框/按钮设置默认文字。2.为选择框提交数据到服务器的值。</p>
+</li>
+<li><p>checked:选择框使用。当设置 checked=”checked” 时，该选项被默认选中。</p>
+</li>
+<li><p>size：控件宽度</p>
+</li>
+<li><p>maxlength:规定输入最多字符数 </p>
+</li>
+<li><p>reset；重置该表单的所有内容 </p>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code>&lt;u&gt;同类单选框的name要用一样的才能起到效果&lt;/u&gt;
+</code></pre><ul>
+<li>\<textarea><br>属性<ul>
+<li>cols ：多行输入域的列数。</li>
+<li>rows ：多行输入域的行数。<br><em>这两个属性可用css样式的width和height来代替</em></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>\<label><br>\<label> 标签为 input 元素定义标注。如果您在 label 元素内点击文本，就会触发此控件。</li>
+</ul>
+<p>  属性</p>
+<ul>
+<li><p>for:规定 label 与哪个表单元素绑定(需绑定id）。</p>
+<p>方法1:直接包裹input</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">label</span>&gt;</span></span><br><span class="line">  输入账号：</span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<pre><code>          方法2:for固定
+</code></pre><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">&quot;two&quot;</span>&gt;</span></span><br><span class="line">  输入账号：</span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> /&gt;</span></span><br><span class="line">  输入密码：</span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">id</span> =<span class="string">&quot;two&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>下拉菜单\<select></p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">option</span>&gt;</span>显示文字<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">option</span>&gt;</span>显示文字<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>属性</p>
+<ul>
+<li><p>value：option属性。向服务器发送值。  </p>
+</li>
+<li><p>selected：option属性。设置selected=”selected”属性，则该选项就被默认选中。</p>
+</li>
+<li><p>multiple：select属性。设置multiple=”multiple”时，可以多选。</p>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="文字类"><a href="#文字类" class="headerlink" title="文字类"></a>文字类</h3><ul>
+<li>p（段落标签）<br>段落。段落之间会有空白。可用css改变。</li>
+<li>hx（标题标签）<br>共有六个等级。h1一般用于网页总标题。</li>
+</ul>
+<ul>
+<li><p>em<br>表示强调。默认为斜体。</p>
+</li>
+<li><p>i</p>
+<p>倾斜字体</p>
+<p><u>推荐使用em，有强调的语义</u></p>
+</li>
+</ul>
+<ul>
+<li><p>strong<br>表示更加强调。默认为粗体。</p>
+</li>
+<li><p>b</p>
+<p>加粗。</p>
+<p><u>推荐使用strong，有强调的语义</u></p>
+</li>
+</ul>
+<ul>
+<li><p>del</p>
+<p>表示强调。默认为删除线。</p>
+</li>
+<li><p>s</p>
+<p>删除线</p>
+<p><u>推荐使用del，有强调的语义</u></p>
+</li>
+</ul>
+<ul>
+<li><p>ins</p>
+<p>表示强调。默认为下划线。</p>
+</li>
+<li><p>u</p>
+<p>下划线</p>
+<p><u>推荐使用ins，有强调的语义</u></p>
+</li>
+</ul>
+<ul>
+<li>span<br>无语义。为了设置css样式而存在。（比如既想设一个单独的style又不想让浏览器将它阅读为段落，强调等意思时。）</li>
+<li>q<br>引用。浏览器会为其自动加上双引号。</li>
+<li>blockquote<br>长段引用。无引号。前后缩进。</li>
+<li>address<br>地址信息。也可以定义一个地址（比如电子邮件地址）、签名或者文档的作者身份。默认换行和斜体。</li>
+<li>code<br>一行代码。</li>
+<li>pre<br>保留源代码的空格和换行符。常见应用于长段代码。</li>
+</ul>
+<hr>
+<h3 id="文字分割类"><a href="#文字分割类" class="headerlink" title="文字分割类"></a>文字分割类</h3><ul>
+<li>br（换行标签）<br>单标签。换行。</li>
+<li><code>&amp;nbsp;</code><br>空格</li>
+<li>hr（水平线标签）<br>单标签。分割线/水平线</li>
+</ul>
+<hr>
+<h3 id="特殊字符标签"><a href="#特殊字符标签" class="headerlink" title="特殊字符标签"></a>特殊字符标签</h3><p><img src="https://s2.ax1x.com/2020/03/09/89ijFx.png" alt="89ijFx.png"></p>
+<hr>
+<h2 id="HTML5新增标签"><a href="#HTML5新增标签" class="headerlink" title="HTML5新增标签"></a>HTML5新增标签</h2><h3 id="1-常用新增标签"><a href="#1-常用新增标签" class="headerlink" title="1.常用新增标签"></a>1.常用新增标签</h3><p>逻辑类</p>
+<ul>
+<li>header：页面头部</li>
+<li>footer：页面底部</li>
+<li>nav：导航栏</li>
+<li>article：文章</li>
+<li>section：区域</li>
+<li>aside：侧边栏</li>
+</ul>
+<p>表单类</p>
+<ul>
+<li><p>datalist:定义选项列表，与input搭配</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">list</span>=<span class="string">&quot;data&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">datalist</span> <span class="attr">id</span>=<span class="string">&quot;data&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">option</span>&gt;</span>刘德华<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">option</span>&gt;</span>刘若英<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">option</span>&gt;</span>郭富城<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">datalist</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>datalist不仅具有select下拉菜单的特性（点击下拉按钮会出现列表），还能实现输入字符时有提示列表（类似搜索引擎的那种列表）。在这个代码中，若我输入刘，就会出来刘德华和刘若英。</p>
+</li>
+<li><p>fieldest:将表单内容包裹起来</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">fieldset</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">legend</span>&gt;</span>用户登录<span class="tag">&lt;/<span class="name">legend</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">p</span>&gt;</span>用户名:<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">p</span>&gt;</span>密<span class="symbol">&amp;nbsp;</span><span class="symbol">&amp;nbsp;</span><span class="symbol">&amp;nbsp;</span>码:<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;password&quot;</span> <span class="attr">name</span>=<span class="string">&quot;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">fieldset</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><a href="https://imgchr.com/i/8PhMse"><img src="https://s2.ax1x.com/2020/03/10/8PhMse.png" alt="8PhMse.png"></a></p>
+<blockquote>
+<p>legend：为fieldest元素定义标题</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="2-input-type新增属性值"><a href="#2-input-type新增属性值" class="headerlink" title="2.input type新增属性值"></a>2.input type新增属性值</h3><ul>
+<li>email:定义输入邮箱格式。若无@提交时会提醒</li>
+<li>tel：定义输入手机格式。手机端会弹出数字键盘。</li>
+<li>number：定义输入数字格式。只能输入数字。</li>
+<li>url：定义输入网址格式。如果不是网址提交时会提醒。</li>
+<li>search：搜索框。输入框后面有一键删除的小叉号。</li>
+<li>range：滑块控件。</li>
+<li>time:时间输入框。</li>
+<li>date：日期输入框。</li>
+<li>month：年月输入框。</li>
+<li>week：年周输入框。</li>
+<li>color：颜色提取框。</li>
+</ul>
+<h3 id="3-input新增属性"><a href="#3-input新增属性" class="headerlink" title="3.input新增属性"></a>3.input新增属性</h3><ul>
+<li>placeholder：占位符。可用来定义输入框内的自带文字，但不影响输入。（与value对比）</li>
+<li>autofocus：自动聚焦。用户进入该页面光标自动聚焦该表单控件。</li>
+<li>multiple：支持上传多文件。</li>
+<li>autocomplete:自动完成已记录内容（提交过一次的）。但是1.必须要有提交按钮2.此表单控件的name值不得为空。</li>
+<li>requierd：必填项。聚焦一次后仍为空的话会有提醒。</li>
+<li>accesskey：规定快捷键。采用alt+字母的格式。如access=“s”，则快捷键为alt+s。</li>
+</ul>
+<h3 id="4-多媒体标签"><a href="#4-多媒体标签" class="headerlink" title="4.多媒体标签"></a>4.多媒体标签</h3><ul>
+<li><p>embed：网络视频导入常用方法</p>
+</li>
+<li><p>audio：</p>
+<p>属性：</p>
+<ul>
+<li>autoplay：自动播放</li>
+<li>controls：是否显示控件</li>
+<li>loop：定义循环播放几次。无限时等于-1</li>
+<li>src:路径</li>
+</ul>
+</li>
+<li><p>source:提供不同路径的文件，使浏览器选择可以播放的音频/视频文件。与audio/video搭配使用。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">audio</span> <span class="attr">controls</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">source</span> <span class="attr">src</span>=<span class="string">&quot;horse.ogg&quot;</span> <span class="attr">type</span>=<span class="string">&quot;audio/ogg&quot;</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">source</span> <span class="attr">src</span>=<span class="string">&quot;horse.mp3&quot;</span> <span class="attr">type</span>=<span class="string">&quot;audio/mpeg&quot;</span>&gt;</span></span><br><span class="line"> Your browser does not support the audio element.</span><br><span class="line"><span class="tag">&lt;/<span class="name">audio</span>&gt;</span> </span><br></pre></td></tr></table></figure>
+</li>
+<li><p>video:本地视频播放。支持格式：oog,mp4,webm</p>
+<p>属性：</p>
+<ul>
+<li>autoplay：自动播放</li>
+<li>controls：是否显示控件</li>
+<li>loop：定义循环播放几次。无限时等于-1</li>
+<li>src:路径</li>
+<li>width:宽度</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>study</category>
+      </categories>
+      <tags>
+        <tag>html</tag>
       </tags>
   </entry>
   <entry>
@@ -359,6 +1404,264 @@
       </categories>
       <tags>
         <tag>CV</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>JavaScript总结</title>
+    <url>/2020/03/10/js-memo/</url>
+    <content><![CDATA[<blockquote>
+<p>《JavaScript DOM编程艺术》</p>
+</blockquote>
+<h2 id="第二章-准备"><a href="#第二章-准备" class="headerlink" title="第二章 准备"></a>第二章 准备</h2><h3 id="2-1-准备工作"><a href="#2-1-准备工作" class="headerlink" title="2.1 准备工作"></a>2.1 准备工作</h3><ul>
+<li>插入方法<br>1.将js代码放到文档<head>中的<script>标签中<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+2.放到文档最后，&lt;/body&gt;之前<strong>（推荐：能使网页加载更快）</strong><blockquote>
+<p><script>标签中已经不需要传统的type=”text/javascript”。因为默认即为js。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="2-2-语法"><a href="#2-2-语法" class="headerlink" title="2.2 语法"></a>2.2 语法</h3><h4 id="2-2-3-变量"><a href="#2-2-3-变量" class="headerlink" title="2.2.3 变量"></a>2.2.3 变量</h4><p>1.变量的声明<br><code>var mood;</code><br>2.变量的赋值<br><code>mood=13;</code></p>
+<h4 id="2-2-4-数据类型"><a href="#2-2-4-数据类型" class="headerlink" title="2.2.4 数据类型"></a>2.2.4 数据类型</h4><blockquote>
+<p>js是弱类型语言，因此不需要声明变量的数据类型。以下的数据类型的变量的声明和赋值语法均相同。</p>
+</blockquote>
+<p>1.字符串（单引号和双引号均可）<br>2.数值<br>3.布尔值（false或true。不需要引号）<br>4.数组</p>
+<ul>
+<li>声明<br>1.<code>var sue=Array();</code><br>2.<code>var sue=[];</code></li>
+<li>赋值<br>1<code>.var sue=Array(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;);</code><br>2.<code>var sue=[&quot;a&quot;, &quot;b&quot;, &quot;c&quot;];</code><br>3.（已声明的）<code>sue[0]=&quot;a&quot;;</code></li>
+<li>关联数组（不推荐使用）<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> arr=<span class="title class_">Array</span>();</span><br><span class="line">arr[a]=<span class="string">&quot;a&quot;</span>;</span><br><span class="line">arr[b]=<span class="number">1997</span>;</span><br><span class="line">arr[c]=<span class="literal">false</span>;</span><br></pre></td></tr></table></figure>
+给Array类型的对象添加了三个属性-&gt;应该使用通用对象Object</li>
+</ul>
+<p>5.对象<br>将关联数组改为<br><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*obeject第一种创建方式*/</span></span><br><span class="line"><span class="keyword">var</span> arr=<span class="title class_">Object</span>();</span><br><span class="line">arr.<span class="property">a</span>=<span class="string">&quot;a&quot;</span>;</span><br><span class="line">arr.<span class="property">b</span>=<span class="number">1997</span>;</span><br><span class="line">arr.<span class="property">c</span>=<span class="literal">false</span>;</span><br></pre></td></tr></table></figure><br>或<strong>花括号创建法</strong><br><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*object第二种创建方式*/</span></span><br><span class="line"><span class="keyword">var</span> arr=&#123;<span class="attr">a</span>:<span class="string">&quot;a&quot;</span>, <span class="attr">b</span>:<span class="number">1997</span>, c=<span class="literal">false</span>&#125;;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>用对象来替代传统数组的意味是可以通过文字而不是数字来引用它们。这大大提高了脚本的可读性。</p>
+</blockquote>
+<h3 id="2-3-操作"><a href="#2-3-操作" class="headerlink" title="2.3 操作"></a>2.3 操作</h3><ul>
+<li>+<br>加号不仅用于运算，也用于字符串的拼接<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="title class_">Hello</span> = <span class="string">&quot;Good&quot;</span> + <span class="string">&quot;morning&quot;</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="2-6-函数"><a href="#2-6-函数" class="headerlink" title="2.6 函数"></a>2.6 函数</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">multiply</span>(<span class="params">num1, num2</span>)&#123;</span><br><span class="line">  <span class="keyword">var</span> total=num1*num2;</span><br><span class="line">  <span class="title function_">alert</span>(total);</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">multiply</span>(<span class="number">10</span>,<span class="number">2</span>);</span><br></pre></td></tr></table></figure>
+<h5 id="变量的作用域"><a href="#变量的作用域" class="headerlink" title="变量的作用域"></a>变量的作用域</h5><em>如果某个函数中使用了var，则变量被视为局部变量，只存在于函数中；反之没有使用var，变量会被视为全局变量。且若脚本里已存在一个与之同名的全局变量，这个函数的行为会改变这个全局变量</em></li>
+</ul>
+<h3 id="2-7-对象"><a href="#2-7-对象" class="headerlink" title="2.7 对象"></a>2.7 对象</h3><ul>
+<li>属性：隶属于某个特定对象的变量<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="title class_">Person</span>.<span class="property">age</span>;</span><br></pre></td></tr></table></figure></li>
+<li>方法：只有某个特定对象才能调用的函数<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="title class_">Person</span>.<span class="title function_">walk</span>();</span><br></pre></td></tr></table></figure></li>
+<li>实例：对象的具体个体（<strong>new</strong>关键词）<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> jenny=<span class="keyword">new</span> <span class="title class_">Person</span>;</span><br><span class="line">jenny.<span class="property">age</span>;</span><br><span class="line">jenny.<span class="title function_">walk</span>();</span><br></pre></td></tr></table></figure>
+<h4 id="2-7-1-内建对象"><a href="#2-7-1-内建对象" class="headerlink" title="2.7.1 内建对象"></a>2.7.1 内建对象</h4><h4 id="2-7-2-宿主对象"><a href="#2-7-2-宿主对象" class="headerlink" title="2.7.2 宿主对象"></a>2.7.2 宿主对象</h4></li>
+</ul>
+<h2 id="第三章-节点"><a href="#第三章-节点" class="headerlink" title="第三章 节点"></a>第三章 节点</h2><h3 id="3-4-节点"><a href="#3-4-节点" class="headerlink" title="3.4 节点"></a>3.4 节点</h3><h4 id="3-4-1-元素节点"><a href="#3-4-1-元素节点" class="headerlink" title="3.4.1 元素节点"></a>3.4.1 元素节点</h4><p>网页文档中的一切元素例如<html><head><body></p>
+<h4 id="3-4-2-文本节点"><a href="#3-4-2-文本节点" class="headerlink" title="3.4.2 文本节点"></a>3.4.2 文本节点</h4><p>包含有文本的元素节点，其中文本的具体内容称为文本节点。<strong>并非所有元素节点具有文本节点，但所有文本节点一定被包含在元素节点中</strong>。</p>
+<h4 id="3-4-3-属性节点"><a href="#3-4-3-属性节点" class="headerlink" title="3.4.3 属性节点"></a>3.4.3 属性节点</h4><p>包含有属性的元素节点，其中属性的具体内容称为属性节点。<strong>并非所有元素节点具有属性节点，但所有属性节点一定被包含在元素节点中</strong>。</p>
+<h4 id="3-4-5-获取元素"><a href="#3-4-5-获取元素" class="headerlink" title="3.4.5 获取元素"></a>3.4.5 获取元素</h4><p>1.<strong>getElementById</strong><br>document对象的特有函数。getElementById方法内有一个参数，就是你想获得的元素的id值，这个id值必须放在单引号或双引号内<br><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*例*/</span></span><br><span class="line"><span class="variable language_">document</span>. <span class="title function_">getElementById</span>(<span class="string">&quot;purchases&quot;</span>);</span><br></pre></td></tr></table></figure><br>这个调用将返回一个对象，这个对象对应着document对象里一个独一无二的元素。</p>
+<blockquote>
+<p>事实上，文档中的每一个元素都是一个对象</p>
+</blockquote>
+<p>2.<strong>getElementsByTagName</strong><br><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*例*/</span></span><br><span class="line"><span class="variable language_">document</span>. <span class="title function_">getElementsByTagName</span>(<span class="string">&quot;li&quot;</span>);</span><br></pre></td></tr></table></figure><br>这个调用将返回一个对象数组，每个对象分别对应着document对象中的有着给定标签的一个元素。使用中括号便可分别调用每个对象。<br><strong>特殊</strong>：getElementsByTagName允许把一个通配符作为参数。例如<br><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> items = <span class="variable language_">document</span>.<span class="title function_">getElementsByTagName</span>(<span class="string">&quot;*&quot;</span>);</span><br></pre></td></tr></table></figure><br>items数组将包含文档中的所有元素节点</p>
+<p>3.<strong>getElementsByClassName</strong><br><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*例*/</span></span><br><span class="line"><span class="variable language_">document</span>.<span class="title function_">getElementsByClassName</span>(<span class="string">&quot;sale&quot;</span>);</span><br></pre></td></tr></table></figure><br>返回具有相同类名的元素的数组<br><strong>特殊</strong>：可以查找带有多个类名的元素。只要在字符串参数中用空格分割类名即可。（无序匹配）<br><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*例*/</span></span><br><span class="line"><span class="variable language_">document</span>.<span class="title function_">getElementsByClassName</span>(<span class="string">&quot;sale important&quot;</span>);</span><br></pre></td></tr></table></figure></p>
+<h3 id="3-5-获取和设置属性"><a href="#3-5-获取和设置属性" class="headerlink" title="3.5 获取和设置属性"></a>3.5 获取和设置属性</h3><h4 id="3-5-1-getAttribute"><a href="#3-5-1-getAttribute" class="headerlink" title="3.5.1 getAttribute"></a>3.5.1 getAttribute</h4><p>getAttribute方法不属于document对象，它只能通过元素节点调用。<br><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*例*/</span></span><br><span class="line"><span class="keyword">var</span> paras = <span class="variable language_">document</span>.<span class="title function_">getElementsByTagName</span>(<span class="string">&quot;p&quot;</span>);</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i =<span class="number">0</span>;i&lt;paras.<span class="property">length</span>;i++)&#123;</span><br><span class="line">  <span class="title function_">alert</span>(paras[i].<span class="title function_">getAttribute</span>(<span class="string">&quot;title&quot;</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>返回对象的指定属性内容</p>
+<h4 id="3-5-3-setAttribut"><a href="#3-5-3-setAttribut" class="headerlink" title="3.5.3 setAttribut"></a>3.5.3 setAttribut</h4><p>setAttribute()允许我们对属性节点的值作出修改<br><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/*例*/</span><br><span class="line">var shopping=document.getElementById(&quot;purchases&quot;);</span><br><span class="line">shopping.setAttribute(&quot;title&quot;,&quot;a list of goods&quot;);</span><br></pre></td></tr></table></figure><br>若属性本身并不存在，setAttribute实际完成了两项操作：先创建这个属性，然后设置它的值；如果用于本身就有这个属性的元素节点上，这个属性的值就会被覆盖掉。</p>
+<blockquote>
+<p>通过setAttribute对文档进行修改后，用浏览器的查看源代码看到的仍然是改变前的属性值。也就是说setAttribute做出的修改并不会反映在文档本身的源代码中。<br>这源于DOM的工作方式：先加载文档的静态内容，再动态刷新，动态刷新并不影响文档的静态内容。</p>
+</blockquote>
+<h2 id="第五章-最佳实践"><a href="#第五章-最佳实践" class="headerlink" title="第五章 最佳实践"></a>第五章 最佳实践</h2><h3 id="5-2-平稳退化"><a href="#5-2-平稳退化" class="headerlink" title="5.2 平稳退化"></a>5.2 平稳退化</h3><h3 id="5-3-向css学习"><a href="#5-3-向css学习" class="headerlink" title="5.3 向css学习"></a>5.3 向css学习</h3><h4 id="5-3-2-渐进增强"><a href="#5-3-2-渐进增强" class="headerlink" title="5.3.2 渐进增强"></a>5.3.2 渐进增强</h4><h3 id="5-4-分离JavaScript"><a href="#5-4-分离JavaScript" class="headerlink" title="5.4 分离JavaScript"></a>5.4 分离JavaScript</h3><p>类似于使用style属性，在html文档里使用诸如onclick之类的属性也是一种<u>既没效率又容易引发问题的做法</u></p>
+<p>我们可以在外部Js文件里把一个事件添加到html文档中的某个元素上：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*例*/</span></span><br><span class="line"><span class="title function_">getElementById</span>(id).<span class="property">event</span>=action;</span><br></pre></td></tr></table></figure>
+<p>当我们想让一个链接从新窗口打开，我们可以用onclick和open（）配合，并阻止浏览器的默认行为：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*例*/</span></span><br><span class="line"><span class="keyword">var</span> links= <span class="variable language_">document</span>.<span class="title function_">getElementsByTagName</span>(<span class="string">&quot;a&quot;</span>);</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;links.<span class="property">length</span>;i++)&#123;</span><br><span class="line">	<span class="keyword">if</span> (links[i].<span class="title function_">getAttribute</span>(<span class="string">&quot;class&quot;</span>)==<span class="string">&quot;popup&quot;</span>)&#123;</span><br><span class="line">		links[i].<span class="property">onclick</span>=<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">			<span class="title function_">popup</span>(<span class="variable language_">this</span>.<span class="title function_">getAttribute</span>(<span class="string">&quot;href&quot;</span>));</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">pop</span>(<span class="params">winURL</span>)&#123;</span><br><span class="line">	<span class="variable language_">window</span>.<span class="title function_">open</span>(winURL,<span class="string">&quot;popup&quot;</span>,<span class="string">&quot;width=320,height=480&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>还有个问题需要解决：如果把这段代码放入外部文件，他们将无法正常运行，因为它很可能在文档加载完成前被加载。没有完整的DOM,getElementById等方法就不能正常工作。</p>
+<p>必须让这些代码在HTML文档全部加载到浏览器之后马上开始执行：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*例*/</span></span><br><span class="line"><span class="variable language_">window</span>.<span class="property">onload</span>=prepareLinks;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">prepareLinks</span>(<span class="params"></span>)&#123;</span><br><span class="line">  <span class="keyword">var</span> links= <span class="variable language_">document</span>.<span class="title function_">getElementsByTagName</span>(<span class="string">&quot;a&quot;</span>);</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;links.<span class="property">length</span>;i++)&#123;</span><br><span class="line">    <span class="keyword">if</span> (links[i].<span class="title function_">getAttribute</span>(<span class="string">&quot;class&quot;</span>)==<span class="string">&quot;popup&quot;</span>)&#123;</span><br><span class="line">      links[i].<span class="property">onclick</span>=<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="title function_">popup</span>(<span class="variable language_">this</span>.<span class="title function_">getAttribute</span>(<span class="string">&quot;href&quot;</span>));</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">pop</span>(<span class="params">winURL</span>)&#123;</span><br><span class="line">	<span class="variable language_">window</span>.<span class="title function_">open</span>(winURL,<span class="string">&quot;popup&quot;</span>,<span class="string">&quot;width=320,height=480&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="5-5-向后兼容"><a href="#5-5-向后兼容" class="headerlink" title="5.5 向后兼容"></a>5.5 向后兼容</h3><h4 id="5-5-1-对象检测"><a href="#5-5-1-对象检测" class="headerlink" title="5.5.1 对象检测"></a>5.5.1 对象检测</h4><p>针对浏览器不支持js的问题，最简单的解决方法是检测浏览器对js的支持程度：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">myFunction</span>(<span class="params"></span>)&#123;</span><br><span class="line">	<span class="keyword">if</span> (<span class="variable language_">document</span>.<span class="property">getElementbyId</span>)&#123;</span><br><span class="line">		statement using getElementById</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意：在使用对象检测时，方法后面的圆括号一定要删掉</p>
+</blockquote>
+<p>如此一来造成的后果是我们会增加一对花括号，为了方便阅读和理解，将测试条件改为”如果你不理解请离开”更为易懂</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*例*/</span></span><br><span class="line"><span class="variable language_">window</span>.<span class="property">onload</span>=prepareLinks;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">prepareLinks</span>(<span class="params"></span>)&#123;</span><br><span class="line">	<span class="keyword">if</span>(!<span class="variable language_">document</span>.<span class="property">getElementByTagName</span>)&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">  <span class="keyword">var</span> links= <span class="variable language_">document</span>.<span class="title function_">getElementsByTagName</span>(<span class="string">&quot;a&quot;</span>);</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;links.<span class="property">length</span>;i++)&#123;</span><br><span class="line">    <span class="keyword">if</span> (links[i].<span class="title function_">getAttribute</span>(<span class="string">&quot;class&quot;</span>)==<span class="string">&quot;popup&quot;</span>)&#123;</span><br><span class="line">      links[i].<span class="property">onclick</span>=<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="title function_">popup</span>(<span class="variable language_">this</span>.<span class="title function_">getAttribute</span>(<span class="string">&quot;href&quot;</span>));</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">pop</span>(<span class="params">winURL</span>)&#123;</span><br><span class="line">	<span class="variable language_">window</span>.<span class="title function_">open</span>(winURL,<span class="string">&quot;popup&quot;</span>,<span class="string">&quot;width=320,height=480&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="5-6-性能考虑"><a href="#5-6-性能考虑" class="headerlink" title="5.6 性能考虑"></a>5.6 性能考虑</h3><h4 id="5-6-1-尽量少访问DOM和尽量减少标记"><a href="#5-6-1-尽量少访问DOM和尽量减少标记" class="headerlink" title="5.6.1 尽量少访问DOM和尽量减少标记"></a>5.6.1 尽量少访问DOM和尽量减少标记</h4><p>1.避免重复用DOM函数做同一件事，更好的处理方法是使用变量储存他们</p>
+<p>2.避免在文档中做太多标记，增加DOM搜索的工作量</p>
+<h4 id="5-6-2-合并和放置脚本"><a href="#5-6-2-合并和放置脚本" class="headerlink" title="5.6.2 合并和放置脚本"></a>5.6.2 合并和放置脚本</h4><p>1.尽量把多个js文件合并成一个文件，减少请求数量</p>
+<p>2.把脚本放置于&lt;/body&gt;前，加快文档加载</p>
+<h4 id="5-6-3-压缩脚本"><a href="#5-6-3-压缩脚本" class="headerlink" title="5.6.3 压缩脚本"></a>5.6.3 压缩脚本</h4><p>利用软件删除不必要的注释空格，缩短变量名。</p>
+<ul>
+<li>优点：减小文件大小</li>
+<li>缺点：大大降低可读性</li>
+<li>解决方法：准备两个版本，精简版本上传，正常版本本地修改</li>
+</ul>
+<h2 id="第七章-动态创建标记"><a href="#第七章-动态创建标记" class="headerlink" title="第七章 动态创建标记"></a>第七章 动态创建标记</h2><h3 id="7-1-一些传统方法"><a href="#7-1-一些传统方法" class="headerlink" title="7.1 一些传统方法"></a>7.1 一些传统方法</h3><h4 id="7-1-1-document-write"><a href="#7-1-1-document-write" class="headerlink" title="7.1.1 document.write"></a>7.1.1 document.write</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-handlebars"><span class="language-xml"></span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">		documrnt.write(&quot;<span class="tag">&lt;<span class="name">p</span>&gt;</span>This is inserted.<span class="tag">&lt;/<span class="name">p</span>&gt;</span>&quot;)</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">	</span></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>document.write最大的缺点是他违背了行为应该与表现分离的原则。我们应该避免使用它。</p>
+<h4 id="7-1-2-innerHTML属性"><a href="#7-1-2-innerHTML属性" class="headerlink" title="7.1.2 innerHTML属性"></a>7.1.2 innerHTML属性</h4><p>当想插入文档一段话时就可以使用：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">testdiv.<span class="property">innerHTML</span>=<span class="string">&quot;&lt;p&gt;I inserted &lt;em&gt;this&lt;/em&gt; 	content.&lt;/p&gt;&quot;</span>;</span><br></pre></td></tr></table></figure>
+<p>但是这个技术无法区分插入一段内容和修改一段内容。即使原文档有内容，最终效果也是一样的。</p>
+<p>而DOM就可以提供更为精确的方法和属性。</p>
+<h3 id="7-2-DOM方法"><a href="#7-2-DOM方法" class="headerlink" title="7.2 DOM方法"></a>7.2 DOM方法</h3><blockquote>
+<p>在DOM看来，一个文档就是一棵节点树。你并不是在创建标记，而实在改变DOM节点树。</p>
+</blockquote>
+<h4 id="7-2-1-createElement方法"><a href="#7-2-1-createElement方法" class="headerlink" title="7.2.1 createElement方法"></a>7.2.1 createElement方法</h4><p>当我们想在testdiv中添加一个p元素节点时，我们要做两件事</p>
+<p>1.创建一个新的元素</p>
+<p>2.把这个新元素插入节点树</p>
+<p>创建元素由creatElement完成：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> para=<span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;p&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>现在pare包含一个指向刚创建的元素的引用。这个p虽然已经存在了，但它还不是任何一棵DOM节点树的组成，它只是游荡在JavaScript世界里的一个孤儿。这种情况被称为<strong><em>文档碎片</em></strong>，还无法显示在浏览器的窗口画面里。</p>
+<h4 id="7-2-2-appendChild方法"><a href="#7-2-2-appendChild方法" class="headerlink" title="7.2.2 appendChild方法"></a>7.2.2 appendChild方法</h4><p>把新创建的节点插入到元素节点的子节点中；</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> para=<span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;p&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> testdiv = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;testdiv&quot;</span>);</span><br><span class="line">testdiv.<span class="title function_">appendChild</span>(<span class="string">&quot;para&quot;</span>);</span><br></pre></td></tr></table></figure>
+<h4 id="7-2-3-creatTextNode方法"><a href="#7-2-3-creatTextNode方法" class="headerlink" title="7.2.3 creatTextNode方法"></a>7.2.3 creatTextNode方法</h4><p>现在我们想把一些文本放入到p元素中，但creatElement方法帮不上忙，它只能创建元素节点。你需要创建一个文本节点，createTextNode可以做到:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> txt=<span class="variable language_">document</span>.<span class="title function_">creatTextNode</span>(<span class="string">&quot;Hello World&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>与creatElement的性质一样，现在变量txt包含指向新创建的文本节点的引用。这个节点现在也是js世界的一个孤儿，它还未被插入到任何一个文档的节点树。</p>
+<p>appendChild依然可以帮我们插入它到p元素节点中：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">para.<span class="title function_">appendChild</span>(txt);</span><br></pre></td></tr></table></figure>
+<h4 id="7-2-4-一个更复杂的组合"><a href="#7-2-4-一个更复杂的组合" class="headerlink" title="7.2.4 一个更复杂的组合"></a>7.2.4 一个更复杂的组合</h4><p><img src="https://s2.ax1x.com/2020/02/13/1qTZgH.png" alt="思路"></p>
+<p>根据上述步骤编写出来的js代码</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="variable language_">window</span>.<span class="property">onload</span>=<span class="keyword">function</span> (<span class="params"></span>)&#123;</span><br><span class="line">	<span class="keyword">var</span> para=<span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;p&quot;</span>);</span><br><span class="line">	<span class="keyword">var</span> txt1=<span class="variable language_">document</span>.<span class="title function_">createTextNode</span>(<span class="string">&quot;This is &quot;</span>);</span><br><span class="line">	<span class="keyword">var</span> emphasis=<span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;em&quot;</span>);</span><br><span class="line">	<span class="keyword">var</span> txt2=<span class="variable language_">document</span>.<span class="title function_">createTextNode</span>(<span class="string">&quot;my &quot;</span>);</span><br><span class="line">	<span class="keyword">var</span> txt3=<span class="variable language_">document</span>.<span class="title function_">createTextNode</span>(<span class="string">&quot;content.&quot;</span>);</span><br><span class="line">	para.<span class="title function_">appendChild</span>(txt1);</span><br><span class="line">	emphasis.<span class="title function_">appendChild</span>(txt2);</span><br><span class="line">	para.<span class="title function_">appendChild</span>(emphasis);</span><br><span class="line">	para.<span class="title function_">appendChild</span>(txt3);</span><br><span class="line">	<span class="keyword">var</span> testdiv=<span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;testdiv&quot;</span>);</span><br><span class="line">	testdiv.<span class="title function_">appendChild</span>(para);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="7-4-Ajax"><a href="#7-4-Ajax" class="headerlink" title="7.4 Ajax"></a>7.4 Ajax</h3><p>Ajax可以只更新页面的一部分内容，而不会打断用户的浏览体验</p>
+<h4 id="7-4-1-XMLHttpRequest对象"><a href="#7-4-1-XMLHttpRequest对象" class="headerlink" title="7.4.1 XMLHttpRequest对象"></a>7.4.1 XMLHttpRequest对象</h4><p>没看懂</p>
+<h4 id="7-4-3-Hijax"><a href="#7-4-3-Hijax" class="headerlink" title="7.4.3 Hijax"></a>7.4.3 Hijax</h4><h2 id="第八章-充实文档的内容（explanation）"><a href="#第八章-充实文档的内容（explanation）" class="headerlink" title="第八章 充实文档的内容（explanation）"></a>第八章 充实文档的内容（explanation）</h2><h3 id="8-1-不应该做什么"><a href="#8-1-不应该做什么" class="headerlink" title="8.1 不应该做什么"></a>8.1 不应该做什么</h3><p>不要用js把一些重要的内容添加在网页上。那些缺乏js的用户永远看不到，而且搜索引擎的机器人也检测不到js内容。</p>
+<h3 id="8-3-内容"><a href="#8-3-内容" class="headerlink" title="8.3 内容"></a>8.3 内容</h3><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>Test<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">h1</span>&gt;</span>What is the Document Object Model&gt;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">p</span>&gt;</span>The <span class="tag">&lt;<span class="name">abbr</span> <span class="attr">title</span>=<span class="string">&quot;World Wide Web Consortium&quot;</span>&gt;</span>W3C<span class="tag">&lt;/<span class="name">abbr</span>&gt;</span> defines the <span class="tag">&lt;<span class="name">abbr</span> <span class="attr">title</span>=<span class="string">&quot;Document Object Model&quot;</span>&gt;</span>DOM<span class="tag">&lt;/<span class="name">abbr</span>&gt;</span> as :<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">blockquote</span> <span class="attr">cite</span>=<span class="string">&quot;http://www.w3.org/DOM/&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">p</span>&gt;</span>A platform- and language-neutral interface that will allow programs and scripts to dynamically access and update the content,structure and style of documents.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;/<span class="name">blockquote</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">p</span>&gt;</span>It is an <span class="tag">&lt;<span class="name">abbr</span> <span class="attr">title</span>=<span class="string">&quot;Application Programming Interface&quot;</span>&gt;</span>API<span class="tag">&lt;/<span class="name">abbr</span>&gt;</span> that can be used to navigate <span class="tag">&lt;<span class="name">abbr</span> <span class="attr">title</span>=<span class="string">&quot;Hypertext Markup Language&quot;</span>&gt;</span>HTML<span class="tag">&lt;/<span class="name">abbr</span>&gt;</span> and <span class="tag">&lt;<span class="name">abbr</span> <span class="attr">title</span>=<span class="string">&quot;eXtensible Markup Language&quot;</span>&gt;</span>XML<span class="tag">&lt;/<span class="name">abbr</span>&gt;</span> documents.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span> <span class="attr">src</span>=<span class="string">&quot;./test.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><abbr></p>
+<p>缩略语</p>
+</blockquote>
+<h4 id="8-3-2-css"><a href="#8-3-2-css" class="headerlink" title="8.3.2 css"></a>8.3.2 css</h4><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">body</span>&#123;</span><br><span class="line">	<span class="attribute">font-family</span>: <span class="string">&quot;Helvetica&quot;</span>,<span class="string">&quot;Arial&quot;</span>,sans-serif;</span><br><span class="line">	<span class="attribute">font-size</span>: <span class="number">10pt</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">abbr</span>&#123;</span><br><span class="line">	<span class="attribute">text-decoration</span>: none;</span><br><span class="line">	<span class="attribute">border</span>: <span class="number">0</span>;</span><br><span class="line">	<span class="attribute">font-style</span>: normal;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="8-4-显示缩略语列表"><a href="#8-4-显示缩略语列表" class="headerlink" title="8.4 显示缩略语列表"></a>8.4 显示缩略语列表</h3><p><img src="https://s2.ax1x.com/2020/02/14/1X4RWF.png" alt="1X4RWF.png"></p>
+<p>1.遍历这份文档中的所有abbr元素</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> abbreviations=<span class="variable language_">document</span>.<span class="title function_">getElementsByTagName</span>(<span class="string">&quot;abbr&quot;</span>);</span><br><span class="line"><span class="keyword">if</span>(abbreviations.<span class="property">length</span>&lt;<span class="number">1</span>)&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>不一定所有文档都有缩略语，当没有缩略语时立刻停止这个函数</p>
+<p>2.3.保存每个abbr元素的title和包含的文本</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> defs=<span class="keyword">new</span> <span class="title class_">Array</span>();</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;abbreviations.<span class="property">length</span>;i++)&#123;</span><br><span class="line">	<span class="keyword">var</span> definition=abbreviations[i].<span class="title function_">getAttribute</span>(<span class="string">&quot;title&quot;</span>);</span><br><span class="line">	<span class="keyword">var</span> key=abbreviations[i].<span class="property">lastChild</span>.<span class="property">nodeValue</span>;</span><br><span class="line">	defs[key]=definition;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>书中方法将title和文本形成了关联数组。</p>
+<p>而关于文本部分，根据缩略语的特性，前端很可能将它放在<em></em>中来做提示，因此用lastChild比较保险</p>
+<p>4.创建一个定义列表元素</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> dlist=<span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;dl&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>5.6.7.8.9.10.11</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(key <span class="keyword">in</span> defs)&#123;</span><br><span class="line">	<span class="keyword">var</span> definition=defs[key];</span><br><span class="line">	<span class="keyword">var</span> dtitle=<span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;dt&quot;</span>);</span><br><span class="line">	<span class="keyword">var</span> dtitle_text=<span class="variable language_">document</span>.<span class="title function_">createTextNode</span>(key);</span><br><span class="line">	dtitle.<span class="title function_">appendChild</span>(dtitle_text);</span><br><span class="line">	<span class="keyword">var</span> ddesc=<span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;dd&quot;</span>);</span><br><span class="line">	<span class="keyword">var</span> ddesc_text=<span class="variable language_">document</span>.<span class="title function_">createTextNode</span>(definition);</span><br><span class="line">	ddesc.<span class="title function_">appendChild</span>(ddesc_text);</span><br><span class="line">	dlist.<span class="title function_">appendChild</span>(dtitle);</span><br><span class="line">	dlist.<span class="title function_">appendChild</span>(ddesc);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>for/in循环：</p>
+<p>遍历关联数组/对象的每个属性。</p>
+</blockquote>
+<p>12.插入这个列表元素</p>
+<p>直接插入有些突兀，我们可以在他之前先加一个h2标题：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> header=<span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;h2&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> header_text=<span class="variable language_">document</span>.<span class="title function_">createTextNode</span>(<span class="string">&quot;Abbreviations&quot;</span>);</span><br><span class="line">header.<span class="title function_">appendChild</span>(header_text);</span><br><span class="line"><span class="variable language_">document</span>.<span class="property">body</span>.<span class="title function_">appendChild</span>(header);</span><br><span class="line"><span class="variable language_">document</span>.<span class="property">body</span>.<span class="title function_">appendChild</span>(dlist);</span><br></pre></td></tr></table></figure>
+<p>至此，按照步骤这个函数已经初步完成：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">displayAbbreviations</span>(<span class="params"></span>)&#123;</span><br><span class="line">	<span class="keyword">var</span> abbreviations=<span class="variable language_">document</span>.<span class="title function_">getElementsByTagName</span>(<span class="string">&quot;abbr&quot;</span>);</span><br><span class="line">	<span class="keyword">if</span>(abbreviations.<span class="property">length</span>&lt;<span class="number">1</span>)&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">var</span> defs=<span class="keyword">new</span> <span class="title class_">Array</span>();</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;abbreviations.<span class="property">length</span>;i++)&#123;</span><br><span class="line">		<span class="keyword">var</span> definition=abbreviations[i].<span class="title function_">getAttribute</span>(<span class="string">&quot;title&quot;</span>);</span><br><span class="line">		<span class="keyword">var</span> key=abbreviations[i].<span class="property">lastChild</span>.<span class="property">nodeValue</span>;</span><br><span class="line">		defs[key]=definition;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">var</span> dlist=<span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;dl&quot;</span>);</span><br><span class="line">	<span class="keyword">for</span>(key <span class="keyword">in</span> defs)&#123;</span><br><span class="line">		<span class="keyword">var</span> definition=defs[key];</span><br><span class="line">		<span class="keyword">var</span> dtitle=<span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;dt&quot;</span>);</span><br><span class="line">		<span class="keyword">var</span> dtitle_text=<span class="variable language_">document</span>.<span class="title function_">createTextNode</span>(key);</span><br><span class="line">		dtitle.<span class="title function_">appendChild</span>(dtitle_text);</span><br><span class="line">		<span class="keyword">var</span> ddesc=<span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;dd&quot;</span>);</span><br><span class="line">		<span class="keyword">var</span> ddesc_text=<span class="variable language_">document</span>.<span class="title function_">createTextNode</span>(definition);</span><br><span class="line">		ddesc.<span class="title function_">appendChild</span>(ddesc_text);</span><br><span class="line">		dlist.<span class="title function_">appendChild</span>(dtitle);</span><br><span class="line">		dlist.<span class="title function_">appendChild</span>(ddesc);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">var</span> header=<span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;h2&quot;</span>);</span><br><span class="line">	<span class="keyword">var</span> header_text=<span class="variable language_">document</span>.<span class="title function_">createTextNode</span>(<span class="string">&quot;Abbreviations&quot;</span>);</span><br><span class="line">	header.<span class="title function_">appendChild</span>(header_text);</span><br><span class="line">	<span class="variable language_">document</span>.<span class="property">body</span>.<span class="title function_">appendChild</span>(header);</span><br><span class="line">	<span class="variable language_">document</span>.<span class="property">body</span>.<span class="title function_">appendChild</span>(dlist);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但这个函数还有需要改进的部分</p>
+<ul>
+<li><p>检查兼容性</p>
+<p>1.DOM方法存在性的检测</p>
+<p>2.添加注释</p>
+<p>3.添加addEvent.js文件</p>
+<p>4.将两个js文件关联到文档中</p>
+</li>
+</ul>
+<p>完成以上步骤后最终函数为（addLoadEvent文件省略）：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">displayAbbreviations</span>(<span class="params"></span>)&#123;</span><br><span class="line">	<span class="comment">//对象检测</span></span><br><span class="line">	<span class="keyword">if</span>(!<span class="variable language_">document</span>.<span class="property">getElementsByTagName</span> || !<span class="variable language_">document</span>.<span class="property">createElement</span> </span><br><span class="line">		|| !<span class="variable language_">document</span>.<span class="property">createTextNode</span>)&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//遍历abbr及存在性</span></span><br><span class="line">	<span class="keyword">var</span> abbreviations=<span class="variable language_">document</span>.<span class="title function_">getElementsByTagName</span>(<span class="string">&quot;abbr&quot;</span>);</span><br><span class="line">	<span class="keyword">if</span>(abbreviations.<span class="property">length</span>&lt;<span class="number">1</span>)&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//存储title和文本内容</span></span><br><span class="line">	<span class="keyword">var</span> defs=<span class="keyword">new</span> <span class="title class_">Array</span>();</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;abbreviations.<span class="property">length</span>;i++)&#123;</span><br><span class="line">		<span class="keyword">var</span> definition=abbreviations[i].<span class="title function_">getAttribute</span>(<span class="string">&quot;title&quot;</span>);</span><br><span class="line">		<span class="keyword">var</span> key=abbreviations[i].<span class="property">lastChild</span>.<span class="property">nodeValue</span>;</span><br><span class="line">		defs[key]=definition;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//创建列表，插入文本内容</span></span><br><span class="line">	<span class="keyword">var</span> dlist=<span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;dl&quot;</span>);</span><br><span class="line">	<span class="keyword">for</span>(key <span class="keyword">in</span> defs)&#123;</span><br><span class="line">		<span class="keyword">var</span> definition=defs[key];</span><br><span class="line">		<span class="keyword">var</span> dtitle=<span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;dt&quot;</span>);</span><br><span class="line">		<span class="keyword">var</span> dtitle_text=<span class="variable language_">document</span>.<span class="title function_">createTextNode</span>(key);</span><br><span class="line">		dtitle.<span class="title function_">appendChild</span>(dtitle_text);</span><br><span class="line">		<span class="keyword">var</span> ddesc=<span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;dd&quot;</span>);</span><br><span class="line">		<span class="keyword">var</span> ddesc_text=<span class="variable language_">document</span>.<span class="title function_">createTextNode</span>(definition);</span><br><span class="line">		ddesc.<span class="title function_">appendChild</span>(ddesc_text);</span><br><span class="line">		dlist.<span class="title function_">appendChild</span>(dtitle);</span><br><span class="line">		dlist.<span class="title function_">appendChild</span>(ddesc);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//向文档插入标题和列表</span></span><br><span class="line">	<span class="keyword">var</span> header=<span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;h2&quot;</span>);</span><br><span class="line">	<span class="keyword">var</span> header_text=<span class="variable language_">document</span>.<span class="title function_">createTextNode</span>(<span class="string">&quot;Abbreviations&quot;</span>);</span><br><span class="line">	header.<span class="title function_">appendChild</span>(header_text);</span><br><span class="line">	<span class="variable language_">document</span>.<span class="property">body</span>.<span class="title function_">appendChild</span>(header);</span><br><span class="line">	<span class="variable language_">document</span>.<span class="property">body</span>.<span class="title function_">appendChild</span>(dlist);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以下是没有用书本的关联数组的我自己的写法：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="variable language_">window</span>.<span class="property">onload</span>=<span class="keyword">function</span> <span class="title function_">displayAbbreviations</span>(<span class="params"></span>)&#123;</span><br><span class="line">	<span class="keyword">var</span> abbr=<span class="variable language_">document</span>.<span class="title function_">getElementsByTagName</span>(<span class="string">&quot;abbr&quot;</span>);</span><br><span class="line">	<span class="keyword">var</span> defs=<span class="keyword">new</span> <span class="title class_">Array</span>();</span><br><span class="line">	<span class="keyword">var</span> key=<span class="keyword">new</span> <span class="title class_">Array</span>();</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;abbr.<span class="property">length</span>;i++)&#123;</span><br><span class="line">		defs[i]=abbr[i].<span class="title function_">getAttribute</span>(<span class="string">&quot;title&quot;</span>);</span><br><span class="line">		key[i]=abbr[i].<span class="property">firstChild</span>.<span class="property">nodeValue</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">var</span> dl=<span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;dl&quot;</span>);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;abbr.<span class="property">length</span>;i++)&#123;</span><br><span class="line">		<span class="keyword">var</span> dt=<span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;dt&quot;</span>);</span><br><span class="line">		<span class="keyword">var</span> dt_title=<span class="variable language_">document</span>.<span class="title function_">createTextNode</span>(key[i]);</span><br><span class="line">		dt.<span class="title function_">appendChild</span>(dt_title);</span><br><span class="line">		<span class="keyword">var</span> dd=<span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;dd&quot;</span>);</span><br><span class="line">		<span class="keyword">var</span> dd_title=<span class="variable language_">document</span>.<span class="title function_">createTextNode</span>(defs[i]);</span><br><span class="line">		dd.<span class="title function_">appendChild</span>(dd_title);</span><br><span class="line">		dl.<span class="title function_">appendChild</span>(dt);</span><br><span class="line">		dl.<span class="title function_">appendChild</span>(dd);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="variable language_">document</span>.<span class="property">body</span>.<span class="title function_">appendChild</span>(dl);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="8-4-3-一个浏览器的地雷"><a href="#8-4-3-一个浏览器的地雷" class="headerlink" title="8.4.3 一个浏览器的地雷"></a>8.4.3 一个浏览器的地雷</h4><p>在IE7之前是不支持abbr文法的，因此js无法获取abbr元素节点。</p>
+<p>我们应该实现函数的平稳退化。</p>
+<p>由于IE浏览器在统计abbr元素的子节点个数时总会返回一个错误值—-0。因此我们添加：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;abbreviations.<span class="property">length</span>;i++)&#123;</span><br><span class="line">	<span class="keyword">if</span>(abbreviations[i].<span class="property">childNodes</span>.<span class="property">length</span>&lt;<span class="number">1</span>)&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">continue</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">var</span> definition=abbreviations[i].<span class="title function_">getAttribute</span>(<span class="string">&quot;title&quot;</span>);</span><br><span class="line">	<span class="keyword">var</span> key=abbreviations[i].<span class="property">lastChild</span>.<span class="property">nodeValue</span>;</span><br><span class="line">	defs[key]=definition;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>因为要检测abbr元素的子节点个数，而不是数组的子节点，因此要在for文中检测。并且要保证所有的abbr元素节点都不存在，才是真的在ie前期版本中。因此这里用的是continue而不是false。</p>
+<p>以及在第二个for文后：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(dlist.<span class="property">childNodes</span>.<span class="property">length</span>&lt;<span class="number">1</span>)&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>如果所有abbr元素节点都不存在，那第二个for文根本无法执行（defs为空），因此如果dlist中没有子节点，则结束函数，说明这个浏览器真的不支持abbr。</p>
+<p>最终完成函数：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">displayAbbreviations</span>(<span class="params"></span>)&#123;</span><br><span class="line">	<span class="comment">//对象检测</span></span><br><span class="line">	<span class="keyword">if</span>(!<span class="variable language_">document</span>.<span class="property">getElementsByTagName</span> || !<span class="variable language_">document</span>.<span class="property">createElement</span> </span><br><span class="line">		|| !<span class="variable language_">document</span>.<span class="property">createTextNode</span>)&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//遍历abbr及存在性</span></span><br><span class="line">	<span class="keyword">var</span> abbreviations=<span class="variable language_">document</span>.<span class="title function_">getElementsByTagName</span>(<span class="string">&quot;abbr&quot;</span>);</span><br><span class="line">	<span class="keyword">if</span>(abbreviations.<span class="property">length</span>&lt;<span class="number">1</span>)&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//存储title和文本内容</span></span><br><span class="line">	<span class="keyword">var</span> defs=<span class="keyword">new</span> <span class="title class_">Array</span>();</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;abbreviations.<span class="property">length</span>;i++)&#123;</span><br><span class="line">		<span class="keyword">if</span>(abbreviations[i].<span class="property">childNodes</span>.<span class="property">length</span>&lt;<span class="number">1</span>)&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">continue</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">var</span> definition=abbreviations[i].<span class="title function_">getAttribute</span>(<span class="string">&quot;title&quot;</span>);</span><br><span class="line">		<span class="keyword">var</span> key=abbreviations[i].<span class="property">lastChild</span>.<span class="property">nodeValue</span>;</span><br><span class="line">		defs[key]=definition;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//创建列表，插入文本内容</span></span><br><span class="line">	<span class="keyword">var</span> dlist=<span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;dl&quot;</span>);</span><br><span class="line">	<span class="keyword">for</span>(key <span class="keyword">in</span> defs)&#123;</span><br><span class="line">		<span class="keyword">var</span> definition=defs[key];</span><br><span class="line">		<span class="keyword">var</span> dtitle=<span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;dt&quot;</span>);</span><br><span class="line">		<span class="keyword">var</span> dtitle_text=<span class="variable language_">document</span>.<span class="title function_">createTextNode</span>(key);</span><br><span class="line">		dtitle.<span class="title function_">appendChild</span>(dtitle_text);</span><br><span class="line">		<span class="keyword">var</span> ddesc=<span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;dd&quot;</span>);</span><br><span class="line">		<span class="keyword">var</span> ddesc_text=<span class="variable language_">document</span>.<span class="title function_">createTextNode</span>(definition);</span><br><span class="line">		ddesc.<span class="title function_">appendChild</span>(ddesc_text);</span><br><span class="line">		dlist.<span class="title function_">appendChild</span>(dtitle);</span><br><span class="line">		dlist.<span class="title function_">appendChild</span>(ddesc);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(dlist.<span class="property">childNodes</span>.<span class="property">length</span>&lt;<span class="number">1</span>)&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//向文档插入标题和列表</span></span><br><span class="line">	<span class="keyword">var</span> header=<span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;h2&quot;</span>);</span><br><span class="line">	<span class="keyword">var</span> header_text=<span class="variable language_">document</span>.<span class="title function_">createTextNode</span>(<span class="string">&quot;Abbreviations&quot;</span>);</span><br><span class="line">	header.<span class="title function_">appendChild</span>(header_text);</span><br><span class="line">	<span class="variable language_">document</span>.<span class="property">body</span>.<span class="title function_">appendChild</span>(header);</span><br><span class="line">	<span class="variable language_">document</span>.<span class="property">body</span>.<span class="title function_">appendChild</span>(dlist);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="8-5-显示文献来源链接表"><a href="#8-5-显示文献来源链接表" class="headerlink" title="8.5 显示文献来源链接表"></a>8.5 显示文献来源链接表</h3><p>1.查找你的元素</p>
+<p>查找blackquote元素很简单。以及当这个blackquote没有给出链接时，我们就不必显示链接表：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> quotes=<span class="variable language_">document</span>.<span class="title function_">getElementsByTagName</span>(<span class="string">&quot;blockquote&quot;</span>);</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;quotes.<span class="property">length</span>;i++)&#123;</span><br><span class="line">	<span class="keyword">if</span>(!quotes[i].<span class="title function_">getAttribute</span>(<span class="string">&quot;cite&quot;</span>))&#123;</span><br><span class="line">		<span class="keyword">continue</span>;</span><br><span class="line">	&#125;</span><br><span class="line">   <span class="keyword">var</span> url=quotes[i].<span class="title function_">getAttribute</span>(<span class="string">&quot;cite&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>还有一个问题；我们想把链接显示在引用文献的后面。而blackquote里面还有p元素，我们要把他调用出来。但是在这两个元素之间还有换行符，它也属于节点之一，我们无法直接使用firstchild或lastchild。我们可以先把所有元素找出来，再选取最后一个。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> quotesElements=quotes[i].<span class="title function_">getElementsByTagName</span>(<span class="string">&quot;*&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> elem=quotesElements[quotesElements.<span class="property">length</span>-<span class="number">1</span>];</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>2.创建链接</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> links=<span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;a&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> links_text=<span class="variable language_">document</span>.<span class="title function_">createTextNode</span>(<span class="string">&quot;source&quot;</span>);</span><br><span class="line">links.<span class="title function_">appendChild</span>(links_text);</span><br><span class="line">links.<span class="title function_">setAttribute</span>(<span class="string">&quot;href&quot;</span>,url);</span><br></pre></td></tr></table></figure>
+<p>3.插入链接</p>
+<p>我们可以再插入一个<sup>上标元素，让链接看起来更舒服；</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> superscript=<span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;sup&quot;</span>);</span><br><span class="line">superscript.<span class="title function_">appendChild</span>(links);</span><br><span class="line">elem.<span class="title function_">appendChild</span>(superscript);</span><br></pre></td></tr></table></figure>
+<p>最后的完整函数：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">displayCitations</span>(<span class="params"></span>)&#123;</span><br><span class="line">	<span class="keyword">var</span> quotes=<span class="variable language_">document</span>.<span class="title function_">getElementsByTagName</span>(<span class="string">&quot;blockquote&quot;</span>);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;quotes.<span class="property">length</span>;i++)&#123;</span><br><span class="line">		<span class="comment">//DOM对象检测</span></span><br><span class="line">		<span class="keyword">if</span>(!<span class="variable language_">document</span>.<span class="property">getElementsByTagName</span> || !<span class="variable language_">document</span>.<span class="property">createElement</span> </span><br><span class="line">		|| !<span class="variable language_">document</span>.<span class="property">createTextNode</span>)&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//cite属性存在性检测</span></span><br><span class="line">		<span class="keyword">if</span>(!quotes[i].<span class="title function_">getAttribute</span>(<span class="string">&quot;cite&quot;</span>))&#123;</span><br><span class="line">			<span class="keyword">continue</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//调用cite属性</span></span><br><span class="line">		<span class="keyword">var</span> url=quotes[i].<span class="title function_">getAttribute</span>(<span class="string">&quot;cite&quot;</span>);</span><br><span class="line">		<span class="comment">//调用p元素</span></span><br><span class="line">		<span class="keyword">var</span> quotesElements=quotes[i].<span class="title function_">getElementsByTagName</span>(<span class="string">&quot;*&quot;</span>);</span><br><span class="line">		<span class="keyword">var</span> elem=quotesElements[quotesElements.<span class="property">length</span>-<span class="number">1</span>];</span><br><span class="line">		<span class="comment">//创建链接</span></span><br><span class="line">		<span class="keyword">var</span> links=<span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;a&quot;</span>);</span><br><span class="line">		<span class="keyword">var</span> links_text=<span class="variable language_">document</span>.<span class="title function_">createTextNode</span>(<span class="string">&quot;source&quot;</span>);</span><br><span class="line">		links.<span class="title function_">appendChild</span>(links_text);</span><br><span class="line">		links.<span class="title function_">setAttribute</span>(<span class="string">&quot;href&quot;</span>,url);</span><br><span class="line">		<span class="comment">//插入链接</span></span><br><span class="line">		<span class="keyword">var</span> superscript=<span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;sup&quot;</span>);</span><br><span class="line">		superscript.<span class="title function_">appendChild</span>(links);</span><br><span class="line">		elem.<span class="title function_">appendChild</span>(superscript);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">addLoadEvent</span>(displayCitations);</span><br></pre></td></tr></table></figure>
+<p><img src="https://s2.ax1x.com/2020/02/15/1x9Qyj.png" alt="1x9Qyj.png"></p>
+<h2 id="第九章-CSS-DOM"><a href="#第九章-CSS-DOM" class="headerlink" title="第九章 CSS-DOM"></a>第九章 CSS-DOM</h2><h3 id="9-1-三位一体的网页"><a href="#9-1-三位一体的网页" class="headerlink" title="9.1 三位一体的网页"></a>9.1 三位一体的网页</h3><ul>
+<li><p>结构层</p>
+<p>HTML，XHTML</p>
+</li>
+<li><p>表示层</p>
+<p>CSS</p>
+</li>
+<li><p>行为层</p>
+<p>Js，DOM</p>
+</li>
+</ul>
+<h3 id="9-2-style属性"><a href="#9-2-style属性" class="headerlink" title="9.2 style属性"></a>9.2 style属性</h3><p>每个元素节点都有一个属性style。style属性包含着元素的样式，查询style属性不会返回一个简单的字符串而是一个对象。往事都被存放在这个style对象里。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">element.<span class="property">style</span>.<span class="property">property</span></span><br></pre></td></tr></table></figure>
+<p>例如：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">para.<span class="property">style</span>.<span class="property">color</span></span><br></pre></td></tr></table></figure>
+<p>而当样式名由连字符时，不管有多少个，都将他们后面的字母变成驼峰命名法。如font-family:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">para.<span class="property">style</span>.<span class="property">fontFamily</span></span><br></pre></td></tr></table></figure>
+<p>同样的，background-color对应着backgroundColor，margin-top-width对应着marginTopWidth．</p>
+<p>DOM在表示样式属性时采用的单位大部分和css样式表里的设置相同。</p>
+<h4 id="内嵌样式"><a href="#内嵌样式" class="headerlink" title="内嵌样式"></a>内嵌样式</h4><p>在外部样式表里生命的样式不会进入style对象，在文档<head>部分里声明的样式也是如此。DOM无法提取到他们的属性。</p>
+<h4 id="9-2-2-设置样式"><a href="#9-2-2-设置样式" class="headerlink" title="9.2.2 设置样式"></a>9.2.2 设置样式</h4><p>style对象不仅可以用来调用，还可以设置：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">para.<span class="property">style</span>.<span class="property">color</span>=<span class="string">&quot;black&quot;</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="9-3-何时该用DOM脚本设置样式"><a href="#9-3-何时该用DOM脚本设置样式" class="headerlink" title="9.3 何时该用DOM脚本设置样式"></a>9.3 何时该用DOM脚本设置样式</h3><h4 id="9-3-1-根据元素在节点树里的位置来设置样式（getNextElement）"><a href="#9-3-1-根据元素在节点树里的位置来设置样式（getNextElement）" class="headerlink" title="9.3.1 根据元素在节点树里的位置来设置样式（getNextElement）"></a>9.3.1 根据元素在节点树里的位置来设置样式（getNextElement）</h4><p>比如想找到每个h1元素后面的元素，并改变他的样式：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> headers=<span class="variable language_">document</span>.<span class="title function_">getElementByTagName</span>(<span class="string">&quot;h1&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>nextSibling只能找到下一个节点，但不一定是元素节点，我们可以写一个判断函数:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">getNextElement</span>(<span class="params">node</span>)&#123;</span><br><span class="line">	<span class="comment">//如果这个节点就是元素节点，直接返回</span></span><br><span class="line">	<span class="keyword">if</span>(node.<span class="property">nodeType</span>==<span class="number">1</span>)&#123;</span><br><span class="line">		<span class="keyword">return</span> node;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//如果存在下一个节点且不为元素节点，继续递归下一个</span></span><br><span class="line">	<span class="keyword">if</span>(node.<span class="property">nextSibling</span>)&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="title function_">getNextElement</span>(node.<span class="property">nextSibling</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//下一个节点不存在</span></span><br><span class="line">	<span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> elem=<span class="title function_">getNextElement</span>(headers[i].<span class="property">nextSibling</span>);</span><br></pre></td></tr></table></figure>
+<p>这样我们就可以设置h1后面的元素elem的样式了：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">elem.<span class="property">style</span>.<span class="property">fontWeight</span>=<span class="string">&quot;bold&quot;</span>;</span><br><span class="line">elem.<span class="property">style</span>.<span class="property">fontSize</span>=<span class="string">&quot;1.2em&quot;</span>;</span><br></pre></td></tr></table></figure>
+<h4 id="9-3-2-根据某种条件反复设置某种样式"><a href="#9-3-2-根据某种条件反复设置某种样式" class="headerlink" title="9.3.2 根据某种条件反复设置某种样式"></a>9.3.2 根据某种条件反复设置某种样式</h4><p>js非常擅长利用for遍历所有元素。</p>
+<h4 id="9-3-3-响应事件"><a href="#9-3-3-响应事件" class="headerlink" title="9.3.3 响应事件"></a>9.3.3 响应事件</h4><p>CSS中有许多伪属性使我们可以进行时间（:hover等），但不同浏览器对他们的支持程度不一，但却对js完美支持。这种情况我们应该考虑：</p>
+<ul>
+<li>这个问题最简单的解决方案是什么</li>
+<li>哪种解决方案会得到更多浏览器的支持</li>
+</ul>
+<h3 id="9-4-className属性"><a href="#9-4-className属性" class="headerlink" title="9.4 className属性"></a>9.4 className属性</h3><p>比如之前的修改h1标题后的元素节点：我们可以有更简单的方式：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.intro</span>&#123;</span><br><span class="line">	<span class="attribute">font-weight</span>:bold;</span><br><span class="line">	<span class="attribute">font-size</span>:<span class="number">1.2em</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">elem.<span class="title function_">setAttribute</span>(<span class="string">&quot;class&quot;</span>,<span class="string">&quot;intro&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>就可以达到同样的效果。</p>
+<p>而还有更简单的方法是更新className属性。这是个可读可写的属性，凡是元素节点就有这个属性。上面的语法可以写成：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">elem.<span class="property">className</span>=<span class="string">&quot;intro&quot;</span>;</span><br></pre></td></tr></table></figure>
+<p>如果我们想保留原class的样式，可以变为(请注意，第一个字符为空格)：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">elem.<span class="property">className</span>+=<span class="string">&quot; intro&quot;</span>;</span><br></pre></td></tr></table></figure>
+<p>以上，我们可以封装一个函数addClass：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">addClass</span>(<span class="params">element,value</span>)&#123;</span><br><span class="line">	<span class="keyword">if</span>(element.<span class="property">className</span>==<span class="variable constant_">NULL</span>)&#123;</span><br><span class="line">		element.<span class="property">className</span>=value;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span>&#123;</span><br><span class="line">		element.<span class="property">className</span>+=<span class="string">&quot; &quot;</span>;</span><br><span class="line">		element.<span class="property">className</span>+=value;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这确保了表示层和行为层分离的更加彻底。</p>
+<h4 id="对函数进行抽象"><a href="#对函数进行抽象" class="headerlink" title="对函数进行抽象"></a>对函数进行抽象</h4><p>再如刚才的对h1后面元素的样式进行改变的函数，与其让他们定死为h1和intro，不如将他们封装为函数，这样以后同样的操作时我们也能使用。</p>
+<h2 id="第十章-用JavaScript实现动画效果"><a href="#第十章-用JavaScript实现动画效果" class="headerlink" title="第十章 用JavaScript实现动画效果"></a>第十章 用JavaScript实现动画效果</h2><h4 id="10-1-1-位置"><a href="#10-1-1-位置" class="headerlink" title="10.1.1 位置"></a>10.1.1 位置</h4><p>首先设置一个元素的位置：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">positionMessage</span>(<span class="params"></span>)&#123;</span><br><span class="line">	<span class="keyword">if</span>(!<span class="variable language_">document</span>.<span class="property">getElementById</span> || !<span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;message&quot;</span>))&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">var</span> elem=<span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;message&quot;</span>);</span><br><span class="line">	elem.<span class="property">style</span>.<span class="property">position</span>=<span class="string">&quot;absolute&quot;</span>;</span><br><span class="line">	elem.<span class="property">style</span>.<span class="property">left</span>=<span class="string">&quot;50px&quot;</span>;</span><br><span class="line">	elem.<span class="property">style</span>.<span class="property">top</span>=<span class="string">&quot;100px&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>想去移动也很简单</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">moveMessage</span>(<span class="params"></span>)&#123;</span><br><span class="line">	<span class="keyword">if</span>(!<span class="variable language_">document</span>.<span class="property">getElementById</span> || !<span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;message&quot;</span>))&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">var</span> elem=<span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;message&quot;</span>);</span><br><span class="line">	elem.<span class="property">style</span>.<span class="property">left</span>=<span class="string">&quot;200px&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">addLoadEvent</span>(positionMessage);</span><br><span class="line"><span class="title function_">addLoadEvent</span>(moveMessage);</span><br></pre></td></tr></table></figure>
+<p>但这样最终呈现的没有动的过程。</p>
+<h4 id="10-1-2-时间-setTimeout-clearTimeout"><a href="#10-1-2-时间-setTimeout-clearTimeout" class="headerlink" title="10.1.2 时间(setTimeout,clearTimeout)"></a>10.1.2 时间(setTimeout,clearTimeout)</h4><p>setTimeout能够让某个函数在经过一段预定的时间后才开始执行：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">setTimeout</span>(<span class="string">&quot;function&quot;</span>,interval);</span><br></pre></td></tr></table></figure>
+<p>第一个参数是字符串，为执行函数的名字。第二个参数是以毫秒为单位的预定时间。</p>
+<p>与之相对的，还有一个可以取消这个函数的函数：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">clearTimeout</span>(variable);</span><br></pre></td></tr></table></figure>
+<p>他可以取消setTimeout在等待期间取消其行为。参数为保存着setTimeout函数的返回值的变量。</p>
+<p>之前的函数我们可以改为:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">positionMessage</span>(<span class="params"></span>)&#123;</span><br><span class="line">	<span class="keyword">if</span>(!<span class="variable language_">document</span>.<span class="property">getElementById</span> || !<span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;message&quot;</span>))&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">var</span> elem=<span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;message&quot;</span>);</span><br><span class="line">	elem.<span class="property">style</span>.<span class="property">position</span>=<span class="string">&quot;absolute&quot;</span>;</span><br><span class="line">	elem.<span class="property">style</span>.<span class="property">left</span>=<span class="string">&quot;50px&quot;</span>;</span><br><span class="line">	elem.<span class="property">style</span>.<span class="property">top</span>=<span class="string">&quot;100px&quot;</span>;</span><br><span class="line">	movement=<span class="built_in">setTimeout</span>(<span class="string">&quot;moveMessage()&quot;</span>, <span class="number">5000</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">addLoadEvent</span>(positionMessage);</span><br></pre></td></tr></table></figure>
+<p>setTimeout已经被执行，movement只是保存着这个函数返回值。而这时如果我执行<code>clearTimeout(movement);</code>就可以取消这个行为。</p>
+<p>并且，<strong>movement我没有加var，因此他是全局变量</strong>。我可以随时在外部停止他。</p>
+<h4 id="10-1-3-时间递增量"><a href="#10-1-3-时间递增量" class="headerlink" title="10.1.3 时间递增量"></a>10.1.3 时间递增量</h4><p>1.获得元素的当前位置</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> elem=<span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;message&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> xpos=<span class="built_in">parseInt</span>(elem.<span class="property">style</span>.<span class="property">left</span>);</span><br><span class="line"><span class="keyword">var</span> ypos=<span class="built_in">parseInt</span>(elem.<span class="property">style</span>.<span class="property">top</span>);</span><br></pre></td></tr></table></figure>
+<p>2.如果已经到达目的地，则退出</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(xpos==<span class="number">200</span> &amp;&amp; ypos==<span class="number">100</span>)&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>3.如果尚未到达，则再移近一点</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(xpos&lt;<span class="number">200</span>)&#123;</span><br><span class="line">			xpos++;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(xpos&gt;<span class="number">200</span>)&#123;</span><br><span class="line">			xpos--;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(ypos&lt;<span class="number">100</span>)&#123;</span><br><span class="line">			ypos++;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(ypos&gt;<span class="number">100</span>)&#123;</span><br><span class="line">			ypos--;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	elem.<span class="property">style</span>.<span class="property">left</span>=xpos+<span class="string">&quot;px&quot;</span>;<span class="comment">//注意这里</span></span><br><span class="line">	elem.<span class="property">style</span>.<span class="property">top</span>=ypos+<span class="string">&quot;px&quot;</span>;</span><br></pre></td></tr></table></figure>
+<p>4.经过一段间隔后重复上述步骤</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">movement=<span class="built_in">setTimeout</span>(<span class="string">&quot;moveMessage()&quot;</span>,<span class="number">10</span>);</span><br></pre></td></tr></table></figure>
+<h4 id="10-1-4-抽象"><a href="#10-1-4-抽象" class="headerlink" title="10.1.4 抽象"></a>10.1.4 抽象</h4><p>首先把很明显能发现的元素id，目的地等抽象化：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(!<span class="variable language_">document</span>.<span class="property">getElementById</span> || !<span class="variable language_">document</span>.<span class="title function_">getElementById</span>(elementID))&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">var</span> elem=<span class="variable language_">document</span>.<span class="title function_">getElementById</span>(elementID);</span><br><span class="line">	<span class="keyword">var</span> xpos=<span class="built_in">parseInt</span>(elem.<span class="property">style</span>.<span class="property">left</span>);</span><br><span class="line">	<span class="keyword">var</span> ypos=<span class="built_in">parseInt</span>(elem.<span class="property">style</span>.<span class="property">top</span>);</span><br><span class="line">	<span class="keyword">if</span>(xpos==final_x &amp;&amp; ypos==final_y)&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(xpos&lt;final_x)&#123;</span><br><span class="line">			xpos++;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(xpos&gt;final_x)&#123;</span><br><span class="line">			xpos--;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(ypos&lt;final_y)&#123;</span><br><span class="line">			ypos++;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(ypos&gt;final_y)&#123;</span><br><span class="line">			ypos--;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	elem.<span class="property">style</span>.<span class="property">left</span>=xpos+<span class="string">&quot;px&quot;</span>;</span><br><span class="line">	elem.<span class="property">style</span>.<span class="property">top</span>=ypos+<span class="string">&quot;px&quot;</span>;</span><br></pre></td></tr></table></figure>
+<p>但是接下来出现了问题：使用setTimeout函数要重新写函数名，这么多参数要怎么办？</p>
+<p>首先明确，elementID是字符串，要多出一个引号，因此写法如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> repeat=<span class="string">&quot;moveElement(&#x27;&quot;</span>+elementID+<span class="string">&quot;&#x27;,&quot;</span>+final_x+<span class="string">&quot;,&quot;</span>+final_y+<span class="string">&quot;,&quot;</span>+interval+<span class="string">&quot;)&quot;</span>;</span><br><span class="line">movement=<span class="built_in">setTimeout</span>(repeat,interval);</span><br></pre></td></tr></table></figure>
+<p>最终函数为；</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">moveElement</span>(<span class="params">elementID,final_x,final_y,interval</span>)&#123;</span><br><span class="line">	<span class="keyword">if</span>(!<span class="variable language_">document</span>.<span class="property">getElementById</span> || !<span class="variable language_">document</span>.<span class="title function_">getElementById</span>(elementID))&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">var</span> elem=<span class="variable language_">document</span>.<span class="title function_">getElementById</span>(elementID);</span><br><span class="line">	<span class="keyword">var</span> xpos=<span class="built_in">parseInt</span>(elem.<span class="property">style</span>.<span class="property">left</span>);</span><br><span class="line">	<span class="keyword">var</span> ypos=<span class="built_in">parseInt</span>(elem.<span class="property">style</span>.<span class="property">top</span>);</span><br><span class="line">	<span class="keyword">if</span>(xpos==final_x &amp;&amp; ypos==final_y)&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(xpos&lt;final_x)&#123;</span><br><span class="line">			xpos++;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(xpos&gt;final_x)&#123;</span><br><span class="line">			xpos--;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(ypos&lt;final_y)&#123;</span><br><span class="line">			ypos++;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(ypos&gt;final_y)&#123;</span><br><span class="line">			ypos--;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	elem.<span class="property">style</span>.<span class="property">left</span>=xpos+<span class="string">&quot;px&quot;</span>;</span><br><span class="line">	elem.<span class="property">style</span>.<span class="property">top</span>=ypos+<span class="string">&quot;px&quot;</span>;</span><br><span class="line">	<span class="keyword">var</span> repeat=<span class="string">&quot;moveElement(&#x27;&quot;</span>+elementID+<span class="string">&quot;&#x27;,&quot;</span>+final_x+<span class="string">&quot;,&quot;</span>+final_y+<span class="string">&quot;,&quot;</span>+interval+<span class="string">&quot;)&quot;</span>;</span><br><span class="line">	movement=<span class="built_in">setTimeout</span>(repeat,interval);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="10-2-实用的动画"><a href="#10-2-实用的动画" class="headerlink" title="10.2 实用的动画"></a>10.2 实用的动画</h3><h4 id="10-2-1-提出问题"><a href="#10-2-1-提出问题" class="headerlink" title="10.2.1 提出问题"></a>10.2.1 提出问题</h4><p>我们希望有一个网页的三个链接，当我们鼠标在链接上时，我们能看见他们的缩略图</p>
+<h4 id="10-2-4-JavaScript"><a href="#10-2-4-JavaScript" class="headerlink" title="10.2.4 JavaScript"></a>10.2.4 JavaScript</h4><p>我们可以用一个包含四个缩略图的长图，当在某个链接上时使长图移动，并配合overflow属性，只显示出一个缩略图，达成滚动图效果。</p>
+<hr>
+<h2 id="后记-本书中的一些注意事项"><a href="#后记-本书中的一些注意事项" class="headerlink" title="后记-本书中的一些注意事项"></a>后记-本书中的一些注意事项</h2><p>1.addLoadEvent.js</p>
+<p>在html中的script宣言里，必须放在其他js文件之前。不然浏览器会报错。</p>
+]]></content>
+      <categories>
+        <category>study</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
       </tags>
   </entry>
   <entry>
@@ -686,50 +1989,6 @@
       </tags>
   </entry>
   <entry>
-    <title>无约束最优化</title>
-    <url>/2022/05/04/%E6%97%A0%E7%BA%A6%E6%9D%9F%E6%9C%80%E4%BC%98%E5%8C%96/</url>
-    <content><![CDATA[<h2 id="1-Minizer"><a href="#1-Minizer" class="headerlink" title="1. Minizer"></a>1. Minizer</h2><ol>
-<li>全局最小值 Global Minizer</li>
-<li>局部最小值 Local Minizer<ul>
-<li>weak </li>
-<li>strict</li>
-<li>孤立的局部最小值isolated local minimizer <div class="note success modern"><p>对于凸函数，局部最小值立即成为全局最小值</p>
-</div>
-</li>
-</ul>
-</li>
-</ol>
-<h2 id="2-局部最小值条件"><a href="#2-局部最小值条件" class="headerlink" title="2. 局部最小值条件"></a>2. 局部最小值条件</h2><ol>
-<li>一阶必要条件（FIRST-ORDER NECESSARY CONDITIONS）<ol>
-<li>函数$f(x)$在点$x^*$可微</li>
-<li>梯度${\nabla f(x^*)=0}$</li>
-</ol>
-</li>
-<li>二阶必要条件<ol>
-<li>满足一阶</li>
-<li>hesse矩阵${\nabla^2 f(x^*)}$半正定   </li>
-</ol>
-</li>
-</ol>
-<div class="tabs" id="1"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#1-1">海塞矩阵</button></li><li class="tab"><button type="button" data-href="#1-2">半正定值</button></li><li class="tab"><button type="button" data-href="#1-3">海塞矩阵的半正定值</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="1-1"><p><img src="https://ds055uzetaobb.cloudfront.net/brioche/uploads/gVN1lN1A28-hessian.png?width=1200" alt=""></p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="1-2"><p>半正定值：</p>
-<ol>
-<li>对于所有x不等于0，都有 ${x^TAx≥0}$</li>
-<li>且对某个x不等于0,有 ${x^TAx&gt;0}$</li>
-</ol><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="1-3"><p>因为hesse矩阵是对称矩阵所以有以下性质：（仅限于对称矩阵！！）<br>半正定：所有特征值都大于等于0<br>正定：所有特征值都大于0<br>负定：所有特征值都小于0</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
-<mark class="hl-label red">现在虽然知道了确认某点是否为最小值的算法，但是对于如何找到这个点我们还无从得知（总不能把所有点都算一遍吧）</mark> 
-<h2 id="3-直线探索策略-line-search-strategy"><a href="#3-直线探索策略-line-search-strategy" class="headerlink" title="3. 直线探索策略 line search strategy"></a>3. 直线探索策略 line search strategy</h2><ol>
-<li>Line Serch<br> 设在某点$x_k$，寻找方向$p_k$和步长$\alpha$使得min$f(x_k+\alpha p_k)$<br> <strong>需求值：方向和步长</strong></li>
-<li>Trust Region<br> 对于点x_k上的近似函数求最小值：min$m_k(x_k+p_k)$。同时，近似函数是有限的，所以可信赖区间需要被确定。<br> <strong>需求值：近似函数和可信赖区间p</strong></li>
-</ol>
-]]></content>
-      <categories>
-        <category>study</category>
-      </categories>
-      <tags>
-        <tag>optimization</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>最小二乘问题</title>
     <url>/2022/05/05/%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E9%97%AE%E9%A2%98/</url>
     <content><![CDATA[<h2 id="最小二乘（LEAST-SQUARES）问题定义"><a href="#最小二乘（LEAST-SQUARES）问题定义" class="headerlink" title="最小二乘（LEAST-SQUARES）问题定义"></a>最小二乘（LEAST-SQUARES）问题定义</h2><p>${f_0(x)=||Ax-b||^2_2<br>        =\sum_{i=1}^k({a_i}^Tx-b_i)^2}$</p>
@@ -847,6 +2106,50 @@
       </categories>
       <tags>
         <tag>other</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>无约束最优化</title>
+    <url>/2022/05/04/%E6%97%A0%E7%BA%A6%E6%9D%9F%E6%9C%80%E4%BC%98%E5%8C%96/</url>
+    <content><![CDATA[<h2 id="1-Minizer"><a href="#1-Minizer" class="headerlink" title="1. Minizer"></a>1. Minizer</h2><ol>
+<li>全局最小值 Global Minizer</li>
+<li>局部最小值 Local Minizer<ul>
+<li>weak </li>
+<li>strict</li>
+<li>孤立的局部最小值isolated local minimizer <div class="note success modern"><p>对于凸函数，局部最小值立即成为全局最小值</p>
+</div>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="2-局部最小值条件"><a href="#2-局部最小值条件" class="headerlink" title="2. 局部最小值条件"></a>2. 局部最小值条件</h2><ol>
+<li>一阶必要条件（FIRST-ORDER NECESSARY CONDITIONS）<ol>
+<li>函数$f(x)$在点$x^*$可微</li>
+<li>梯度${\nabla f(x^*)=0}$</li>
+</ol>
+</li>
+<li>二阶必要条件<ol>
+<li>满足一阶</li>
+<li>hesse矩阵${\nabla^2 f(x^*)}$半正定   </li>
+</ol>
+</li>
+</ol>
+<div class="tabs" id="1"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#1-1">海塞矩阵</button></li><li class="tab"><button type="button" data-href="#1-2">半正定值</button></li><li class="tab"><button type="button" data-href="#1-3">海塞矩阵的半正定值</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="1-1"><p><img src="https://ds055uzetaobb.cloudfront.net/brioche/uploads/gVN1lN1A28-hessian.png?width=1200" alt=""></p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="1-2"><p>半正定值：</p>
+<ol>
+<li>对于所有x不等于0，都有 ${x^TAx≥0}$</li>
+<li>且对某个x不等于0,有 ${x^TAx&gt;0}$</li>
+</ol><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="1-3"><p>因为hesse矩阵是对称矩阵所以有以下性质：（仅限于对称矩阵！！）<br>半正定：所有特征值都大于等于0<br>正定：所有特征值都大于0<br>负定：所有特征值都小于0</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+<mark class="hl-label red">现在虽然知道了确认某点是否为最小值的算法，但是对于如何找到这个点我们还无从得知（总不能把所有点都算一遍吧）</mark> 
+<h2 id="3-直线探索策略-line-search-strategy"><a href="#3-直线探索策略-line-search-strategy" class="headerlink" title="3. 直线探索策略 line search strategy"></a>3. 直线探索策略 line search strategy</h2><ol>
+<li>Line Serch<br> 设在某点$x_k$，寻找方向$p_k$和步长$\alpha$使得min$f(x_k+\alpha p_k)$<br> <strong>需求值：方向和步长</strong></li>
+<li>Trust Region<br> 对于点x_k上的近似函数求最小值：min$m_k(x_k+p_k)$。同时，近似函数是有限的，所以可信赖区间需要被确定。<br> <strong>需求值：近似函数和可信赖区间p</strong></li>
+</ol>
+]]></content>
+      <categories>
+        <category>study</category>
+      </categories>
+      <tags>
+        <tag>optimization</tag>
       </tags>
   </entry>
 </search>
