@@ -1,0 +1,311 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>【强化学习】chatGPT的工作原理 | Su Aiwen 's Homepage</title><meta name="keywords" content="other"><meta name="author" content="Su"><meta name="copyright" content="Su"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="内容参考： [1] How ChatGPT actually works : https:&#x2F;&#x2F;www.assemblyai.com&#x2F;blog&#x2F;how-chatgpt-actually-works&#x2F;?continueFlag&#x3D;49271bb2584143248da2304817eb2d87 [2] 强化学习一基础部分 : https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;555303537">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【强化学习】chatGPT的工作原理">
+<meta property="og:url" content="https://llsf9.github.io/2022/12/31/what-is-chatgpt/index.html">
+<meta property="og:site_name" content="Su Aiwen &#39;s Homepage">
+<meta property="og:description" content="内容参考： [1] How ChatGPT actually works : https:&#x2F;&#x2F;www.assemblyai.com&#x2F;blog&#x2F;how-chatgpt-actually-works&#x2F;?continueFlag&#x3D;49271bb2584143248da2304817eb2d87 [2] 强化学习一基础部分 : https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;555303537">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://p.ipic.vip/2zxy1d.jpeg">
+<meta property="article:published_time" content="2022-12-31T04:44:28.000Z">
+<meta property="article:modified_time" content="2022-12-31T04:52:57.759Z">
+<meta property="article:author" content="Su">
+<meta property="article:tag" content="other">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://p.ipic.vip/2zxy1d.jpeg"><link rel="shortcut icon" href="/butterfly/favicon.png"><link rel="canonical" href="https://llsf9.github.io/2022/12/31/what-is-chatgpt/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '【强化学习】chatGPT的工作原理',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-12-31 12:52:57'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.1.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/butterfly/favicon.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">22</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">13</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/study"><i class="fa-fw fas fa-school"></i><span> 学习</span></a></div><div class="menus_item"><a class="site-page" href="/photo"><i class="fa-fw fas fa-camera-retro"></i><span> 摄影</span></a></div><div class="menus_item"><a class="site-page" href="/categories/blog"><i class="fa-fw fas fa-feather-alt"></i><span> 闲言</span></a></div><div class="menus_item"><a class="site-page" href="/artitalk"><i class="fa-fw far fa-comment-alt"></i><span> 碎语</span></a></div><div class="menus_item"><a class="site-page" href="/categories/project"><i class="fa-fw fas fa-school"></i><span> 项目</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://p.ipic.vip/2zxy1d.jpeg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Su Aiwen 's Homepage</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/study"><i class="fa-fw fas fa-school"></i><span> 学习</span></a></div><div class="menus_item"><a class="site-page" href="/photo"><i class="fa-fw fas fa-camera-retro"></i><span> 摄影</span></a></div><div class="menus_item"><a class="site-page" href="/categories/blog"><i class="fa-fw fas fa-feather-alt"></i><span> 闲言</span></a></div><div class="menus_item"><a class="site-page" href="/artitalk"><i class="fa-fw far fa-comment-alt"></i><span> 碎语</span></a></div><div class="menus_item"><a class="site-page" href="/categories/project"><i class="fa-fw fas fa-school"></i><span> 项目</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">【强化学习】chatGPT的工作原理</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-12-31T04:44:28.000Z" title="发表于 2022-12-31 12:44:28">2022-12-31</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-12-31T04:52:57.759Z" title="更新于 2022-12-31 12:52:57">2022-12-31</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/blog/">blog</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>3分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="【强化学习】chatGPT的工作原理"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p><strong>内容参考</strong>：</p>
+<p>[1] How ChatGPT actually works : <a target="_blank" rel="noopener" href="https://www.assemblyai.com/blog/how-chatgpt-actually-works/?continueFlag=49271bb2584143248da2304817eb2d87">https://www.assemblyai.com/blog/how-chatgpt-actually-works/?continueFlag=49271bb2584143248da2304817eb2d87</a></p>
+<p>[2] 强化学习一基础部分 : <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/555303537">https://zhuanlan.zhihu.com/p/555303537</a></p>
+<h2 id="术语说明"><a href="#术语说明" class="headerlink" title="术语说明"></a>术语说明</h2><ul>
+<li>Capability（能力）</li>
+<li>Allignment（对齐性/泛化性）</li>
+</ul>
+<p><img src="https://p.ipic.vip/4yng5g.jpg" alt=""></p>
+<h2 id="传统语言模型的缺陷"><a href="#传统语言模型的缺陷" class="headerlink" title="传统语言模型的缺陷"></a>传统语言模型的缺陷</h2><p>现在流行的语言模型训练方式有<code>Next-token-prediction</code> （下文预测）和 <code>masked-language-modeling</code> （遮挡预测）， 如大名鼎鼎的transformer。这种方式使得模型能够学习完美构成的语句，却无法真正理解更高级别的语义内容。其特点是能力高，泛化度低。比起人类的复杂的判断系统（语境，常识等），语言模型更多而仅仅依靠上下文的出现概率（likelihood）进行判断。常见的缺点有：</p>
+<ol>
+<li>缺少帮助性：无法遵循人类的指引（Instroduction）</li>
+<li>捏造性：错误信息</li>
+<li>缺少解释性：难以解释如何获得当前结果的</li>
+<li>有毒性：有害信息</li>
+</ol>
+<h2 id="ChatGPT-and-RLHF"><a href="#ChatGPT-and-RLHF" class="headerlink" title="ChatGPT and RLHF"></a>ChatGPT and RLHF</h2><p>为了解决上述的问题，chatGPT基于GPT-3的模型 [3]，加入强化学习方法，首次使用了Reinforcement Learning from Human Feedback [4]。</p>
+<h3 id="STEP-1-Supervised-fine-tuning（SFT）"><a href="#STEP-1-Supervised-fine-tuning（SFT）" class="headerlink" title="STEP 1. Supervised fine-tuning（SFT）"></a>STEP 1. Supervised fine-tuning（SFT）</h3><p><img src="https://p.ipic.vip/9k0f24.jpg" alt=""></p>
+<p>模型准备阶段。openAI选择了对已有的模型GPT-3.5进行fine-tune的方式而不是重头训练新模型。微调时使用了人工选择及编写的Prompt(指令)和Output(输出)组，对模型进行有监督的训练。</p>
+<p>此步骤旨在使用精确而较小的数据集对已有模型针对我们想要执行的任务进行初步的训练，为之后真正的半监督优化做基础。有监督的数据集当然越大越好，但毕竟我们没有那么多时间和精力收集过于庞大的人工数据。</p>
+<h3 id="STEP-2-Rewrad-moel（RM）"><a href="#STEP-2-Rewrad-moel（RM）" class="headerlink" title="STEP 2. Rewrad moel（RM）"></a>STEP 2. Rewrad moel（RM）</h3><p><img src="https://p.ipic.vip/t7dxrz.jpg" alt=""></p>
+<p>训练奖励模型，我更倾向于理解为评价模型。我们希望能有一个评价方式直接反馈给原模型（策略），而不是需要学习一个值（值函数）。具体方式是让模型对一个prompt输出多个结果，人类通过人工标记的方式对这些结果进行由好到坏的排序。这样，奖励模型习得了基于人类喜好的排序能力。</p>
+<p>比起第一步的需要人工从头编写正确答案，此步骤的标记方式显然更轻松和迅速。</p>
+<h3 id="STEP-3-Proximal-Policy-Optimization-PPO"><a href="#STEP-3-Proximal-Policy-Optimization-PPO" class="headerlink" title="STEP 3. Proximal Policy Optimization (PPO)"></a>STEP 3. Proximal Policy Optimization (PPO)</h3><p><img src="https://p.ipic.vip/sxgabk.jpg" alt=""></p>
+<p>强化学习中常见的PPO（近端策略优化）。前文提到的策略由于粒度过大（优化方向不够明确），因此为保证基于奖励模型的排序结果的优化方向不至于过于偏离现实，要求生成的新策略要与在第一步训练的SFT的输出（旧策略）的差值不得过大（KL散度）。</p>
+<p>每一个回合(iteration)一般包含复数个步骤，以保证策略的更新具有一定的远见性，而不仅仅是看眼下的利益。但是对于上一段落的KL散度的惩罚会在每一步中迅速执行，以保证回合内的策略的可信度。</p>
+<h2 id="评价方式"><a href="#评价方式" class="headerlink" title="评价方式"></a>评价方式</h2><ul>
+<li>有用性</li>
+<li>可信度</li>
+<li>有毒性</li>
+</ul>
+<h2 id="局限性"><a href="#局限性" class="headerlink" title="局限性"></a>局限性</h2><p>由于多处使用了人工标注，再加上人工调参的过程，几乎每一步都会加入主观的数据偏差。这是该模型的本质局限性。（成也萧何，败也萧何）</p>
+<p>其他的问题：</p>
+<ol>
+<li>缺少控制实验：RLHF在这里面究竟起到了多大作用？</li>
+<li>对比数据中缺少真实标注：对比数据即第二步中生成的多个结果。即使里面有的结果非常离谱，人工也只能进行“排序”而无法“告知”，即没有告诉其“应该怎么做”。这导致对比数据的偏差极大。</li>
+<li>人类的喜好并不一致。</li>
+<li>RM模型对歧义句或同义句的理解程度</li>
+<li>富含经验的模型：有时模型会抓到奖励模型的一些“暗门”，据此获得高额奖励。</li>
+</ol>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>[3] “Training language models to follow instructions with human feedback”, arXiv:2203.02155 (2022)</p>
+<p>[4] 拆解追溯 GPT-3.5 各项能力的起源 : <a target="_blank" rel="noopener" href="https://www.notion.so/360081d91ec245f29029d37b54573756">https://www.notion.so/360081d91ec245f29029d37b54573756</a></p>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/other/">other</a></div><div class="post_share"><div class="social-share" data-image="https://p.ipic.vip/2zxy1d.jpeg" data-sites="twitter,wechat,weibo"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2022/11/06/dynamic-programming/"><img class="next-cover" src="https://images.unsplash.com/photo-1545989253-02cc26577f88?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1170&amp;q=80" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">剑指Offer-2（动态算法）</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/05/05/%E9%97%B2%E8%B0%88-%E5%85%B3%E4%BA%8E%E7%BE%8E%E6%9C%AF%E9%A6%86%E6%8B%8D%E6%91%84%E7%9A%84%E5%8F%98%E5%BD%A2%E9%97%AE%E9%A2%98/" title="闲谈-关于美术馆拍摄的变形问题"><img class="cover" src="https://tva1.sinaimg.cn/large/e6c9d24egy1h1xc5rlm0hj213y0u0afo.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-05</div><div class="title">闲谈-关于美术馆拍摄的变形问题</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/butterfly/favicon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Su</div><div class="author-info__description">You can also call me ChickenLeg</div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">22</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">13</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/llsf9" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:baihe2333@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AF%E8%AF%AD%E8%AF%B4%E6%98%8E"><span class="toc-number">1.</span> <span class="toc-text">术语说明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%A0%E7%BB%9F%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%BC%BA%E9%99%B7"><span class="toc-number">2.</span> <span class="toc-text">传统语言模型的缺陷</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ChatGPT-and-RLHF"><span class="toc-number">3.</span> <span class="toc-text">ChatGPT and RLHF</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#STEP-1-Supervised-fine-tuning%EF%BC%88SFT%EF%BC%89"><span class="toc-number">3.1.</span> <span class="toc-text">STEP 1. Supervised fine-tuning（SFT）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#STEP-2-Rewrad-moel%EF%BC%88RM%EF%BC%89"><span class="toc-number">3.2.</span> <span class="toc-text">STEP 2. Rewrad moel（RM）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#STEP-3-Proximal-Policy-Optimization-PPO"><span class="toc-number">3.3.</span> <span class="toc-text">STEP 3. Proximal Policy Optimization (PPO)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%84%E4%BB%B7%E6%96%B9%E5%BC%8F"><span class="toc-number">4.</span> <span class="toc-text">评价方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B1%80%E9%99%90%E6%80%A7"><span class="toc-number">5.</span> <span class="toc-text">局限性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-number">6.</span> <span class="toc-text">参考资料</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/12/31/what-is-chatgpt/" title="【强化学习】chatGPT的工作原理"><img src="https://p.ipic.vip/2zxy1d.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【强化学习】chatGPT的工作原理"/></a><div class="content"><a class="title" href="/2022/12/31/what-is-chatgpt/" title="【强化学习】chatGPT的工作原理">【强化学习】chatGPT的工作原理</a><time datetime="2022-12-31T04:44:28.000Z" title="发表于 2022-12-31 12:44:28">2022-12-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/11/06/dynamic-programming/" title="剑指Offer-2（动态算法）"><img src="https://images.unsplash.com/photo-1545989253-02cc26577f88?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1170&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="剑指Offer-2（动态算法）"/></a><div class="content"><a class="title" href="/2022/11/06/dynamic-programming/" title="剑指Offer-2（动态算法）">剑指Offer-2（动态算法）</a><time datetime="2022-11-05T16:00:00.000Z" title="发表于 2022-11-06 00:00:00">2022-11-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/10/15/%E9%97%B2%E7%9C%8B-AI%E4%BC%9A%E6%9C%89%E5%88%BB%E6%9D%BF%E5%8D%B0%E8%B1%A1%E5%90%97%EF%BC%9F/" title="闲看-数据集会有刻板印象吗？"><img src="https://tva1.sinaimg.cn/large/008vxvgGgy1h76zhifgocj30h905wdg7.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="闲看-数据集会有刻板印象吗？"/></a><div class="content"><a class="title" href="/2022/10/15/%E9%97%B2%E7%9C%8B-AI%E4%BC%9A%E6%9C%89%E5%88%BB%E6%9D%BF%E5%8D%B0%E8%B1%A1%E5%90%97%EF%BC%9F/" title="闲看-数据集会有刻板印象吗？">闲看-数据集会有刻板印象吗？</a><time datetime="2022-10-14T16:00:00.000Z" title="发表于 2022-10-15 00:00:00">2022-10-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/10/11/%E5%89%91%E6%8C%87Offer%20-%201/" title="剑指Offer-1（队列，栈，链表）"><img src="https://s3.bmp.ovh/imgs/2022/10/07/cacd9ea1fa45fe7b.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="剑指Offer-1（队列，栈，链表）"/></a><div class="content"><a class="title" href="/2022/10/11/%E5%89%91%E6%8C%87Offer%20-%201/" title="剑指Offer-1（队列，栈，链表）">剑指Offer-1（队列，栈，链表）</a><time datetime="2022-10-10T16:00:00.000Z" title="发表于 2022-10-11 00:00:00">2022-10-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/07/31/%E5%BE%B7%E8%8B%B1%E4%BA%92%E8%AF%91NLP%E6%A8%A1%E5%9E%8B/" title="德英互译NLP模型"><img src="https://images.unsplash.com/photo-1545989253-02cc26577f88?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1170&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="德英互译NLP模型"/></a><div class="content"><a class="title" href="/2022/07/31/%E5%BE%B7%E8%8B%B1%E4%BA%92%E8%AF%91NLP%E6%A8%A1%E5%9E%8B/" title="德英互译NLP模型">德英互译NLP模型</a><time datetime="2022-07-30T16:00:00.000Z" title="发表于 2022-07-31 00:00:00">2022-07-31</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://p.ipic.vip/2zxy1d.jpeg')"><div id="footer-wrap"><div class="copyright">&copy;2022 By Su</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script></div><div class="aplayer no-destroy" data-id="7424637733" data-server="netease" data-type="playlist" data-theme="#FFDBED" data-fixed="true" data-mini="true" data-order="random"> </div><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

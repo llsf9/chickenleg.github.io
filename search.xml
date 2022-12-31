@@ -61,67 +61,6 @@
       </tags>
   </entry>
   <entry>
-    <title>HexoTags</title>
-    <url>/2022/05/05/HexoTags/</url>
-    <content><![CDATA[<h2 id="Note"><a href="#Note" class="headerlink" title="Note"></a>Note</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% note [class]%&#125;</span><br><span class="line">Any content (support inline tags too.io).</span><br><span class="line">&#123;% endnote %&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>空白</li>
-<li>default</li>
-<li>primary</li>
-<li>success</li>
-<li>info</li>
-<li>warning</li>
-<li>danger</li>
-</ul>
-<h2 id="Mermaid"><a href="#Mermaid" class="headerlink" title="Mermaid"></a>Mermaid</h2><div class="note modern"><p>使用mermaid标籤可以绘製Flowchart（流程图）、Sequence diagram（时序图 ）、Class Diagram（类别图）、State Diagram（状态图）、Gantt（甘特图）和Pie Chart（圆形图），具体可以查看<a href="https://mermaid-js.github.io/mermaid/#/">Mermaide文档</a></p>
-</div>
-<h2 id="Tabs"><a href="#Tabs" class="headerlink" title="Tabs"></a>Tabs</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% tabs test1 %&#125;</span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line"><span class="strong">**This is Tab 1.**</span></span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line"><span class="strong">**This is Tab 2.**</span></span><br><span class="line">&lt;!-- endtab --&gt;</span><br></pre></td></tr></table></figure>
-<div class="tabs" id="test1"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#test1-1">表格1</button></li><li class="tab"><button type="button" data-href="#test1-2">表格2</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="test1-1"><p>这是1</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="test1-2"><p>这是2</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
-<h2 id="label"><a href="#label" class="headerlink" title="label"></a>label</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% label 我是 %&#125;&#123;% label 什么 blue %&#125;&#123;%label 颜色 red %&#125;</span><br></pre></td></tr></table></figure>
-<mark class="hl-label default">我是</mark> <mark class="hl-label blue">什么</mark> <mark class="hl-label red">颜色</mark> 
-]]></content>
-      <categories>
-        <category>study</category>
-      </categories>
-      <tags>
-        <tag>hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Content-aware image resizing</title>
-    <url>/2022/07/20/content-aware-image-resizing/</url>
-    <content><![CDATA[<h1 id="项目报告"><a href="#项目报告" class="headerlink" title="项目报告"></a>项目报告</h1><p><a href="/butterfly/cgo.pdf">pdflink<a><br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h5vwpmg0ttj20zf07sgnu.jpg" alt=""></p>
-<h1 id="项目描述"><a href="#项目描述" class="headerlink" title="项目描述"></a>项目描述</h1><p>对于图片缩放，我们希望在缩放时却不影响主体的变换。一般来说，缩放技术有基于离散和连续的两种方法，离散型通常是迭代地寻找一排（或者一列）最小能量的像素，以删除在原图片中无效的像素点；连续型则通过形变等手法改变整个图片的比例。本项目基于Seam Carving [1]和 Image Warping [2]的论文进行代码的复现和结果的比较。</p>
-<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><h2 id="遗传算法"><a href="#遗传算法" class="headerlink" title="遗传算法"></a>遗传算法</h2><ul>
-<li>进化算法的一种，优化方式属于随机优化</li>
-<li>受生物遗传算法的启发</li>
-<li>常用于1. 非连续，非凸，非可微，非线性等难以定义的目标函数 2. 或当搜索空间过大难以使用普通优化方式的问题</li>
-</ul>
-<h3 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h3><ol>
-<li>随机生成一批个体(individual)，这一批个体形成了一个群落(population)<ul>
-<li>每个个体其实就是一个解(solution)</li>
-</ul>
-</li>
-<li>每个个体具有一个适应度(fitness)的评判值，代表着它对于目标问题的分数</li>
-<li>根据适应度的高低，高适应度的个体会相互繁衍(crossover)产生后代（下一个个体），并且会进行复制(reproduce)（在迭代中被留下）；低适应度的则在下一次进化中被淘汰(discard)</li>
-<li>在产生个体时，还会有一定的几率发生突变(mutation)；突变的发生与适应度无关</li>
-<li>重复以上的进化过程直到结束</li>
-</ol>
-<h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>在图片缩放问题中，遗传算法中的每个个体就是要找的最小影响的路线$s^v$，并且为了不改变原图片的结构，我们限制路线的最大跨度不能超过1（即只能在九宫格内移动），可以如下式表示：<br><img src="https://tva1.sinaimg.cn/large/008vxvgGgy1h7ix9s6wu0j308y02gmx1.jpg" alt=""></p>
-<p>最终我们要寻找的最优路线$s^{v*}$，我们希望它能够达到是图片中影响力最小（能量值最小）的一条路线。即：<br><img src="https://tva1.sinaimg.cn/large/008vxvgGgy1h7ixb7khaij30d702ht8l.jpg" alt=""></p>
-<p><strong>注</strong>：除了遗传算法这种随机算法，一般使用动态算法(Dynamic Programming)来解决该问题。由于我们想找到最小能量的路线，因此在探索路线时遵循以下的转换方程式：<br><img src="https://tva1.sinaimg.cn/large/008vxvgGgy1h7ixsbu3zyj30am02wa9z.jpg" alt=""></p>
-<h1 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h1><h2 id="能量函数（能量图）"><a href="#能量函数（能量图）" class="headerlink" title="能量函数（能量图）"></a>能量函数（能量图）</h2><h3 id="Backward"><a href="#Backward" class="headerlink" title="Backward"></a>Backward</h3><p>最普通的图片能量计算方式——求偏导。利用有限差分求出gradient maltitude能量图。</p>
-<h3 id="Forward"><a href="#Forward" class="headerlink" title="Forward"></a>Forward</h3><p>作者认为在寻找Seam的问题中，我们不仅要考虑删除后对原图像的影响(即backward),还要考虑当删除后产生的新的“伪影”的影响。因此Forward的目的是找到产生“伪影”最少的能量图。</p>
-<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><p>[1] Saulo AF Oliveira, Francisco N Bezerra, and Ajalmar R Rocha Neto. 2015. Genetic<br>seam carving: A genetic algorithm approach for content-aware image retargeting.<br>In Iberian Conference on Pattern Recognition and Image Analysis. Springer, 700–707.<br>[2] Yu-Shuen Wang, Chiew-Lan Tai, Olga Sorkine, and Tong-Yee Lee. 2008. Optimized<br>scale-and-stretch for image resizing. In ACM SIGGRAPH Asia 2008 papers. 1–8.</p>
-]]></content>
-      <categories>
-        <category>study</category>
-      </categories>
-      <tags>
-        <tag>CGO</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Colorization using Optimization</title>
     <url>/2022/05/06/Colorization%20using%20Optimization/</url>
     <content><![CDATA[<p><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h205yxz28gj216j0dt776.jpg" alt=""></p>
@@ -172,6 +111,162 @@
       </categories>
       <tags>
         <tag>optimization</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>HexoTags</title>
+    <url>/2022/05/05/HexoTags/</url>
+    <content><![CDATA[<h2 id="Note"><a href="#Note" class="headerlink" title="Note"></a>Note</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% note [class]%&#125;</span><br><span class="line">Any content (support inline tags too.io).</span><br><span class="line">&#123;% endnote %&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>空白</li>
+<li>default</li>
+<li>primary</li>
+<li>success</li>
+<li>info</li>
+<li>warning</li>
+<li>danger</li>
+</ul>
+<h2 id="Mermaid"><a href="#Mermaid" class="headerlink" title="Mermaid"></a>Mermaid</h2><div class="note modern"><p>使用mermaid标籤可以绘製Flowchart（流程图）、Sequence diagram（时序图 ）、Class Diagram（类别图）、State Diagram（状态图）、Gantt（甘特图）和Pie Chart（圆形图），具体可以查看<a href="https://mermaid-js.github.io/mermaid/#/">Mermaide文档</a></p>
+</div>
+<h2 id="Tabs"><a href="#Tabs" class="headerlink" title="Tabs"></a>Tabs</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% tabs test1 %&#125;</span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line"><span class="strong">**This is Tab 1.**</span></span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line"><span class="strong">**This is Tab 2.**</span></span><br><span class="line">&lt;!-- endtab --&gt;</span><br></pre></td></tr></table></figure>
+<div class="tabs" id="test1"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#test1-1">表格1</button></li><li class="tab"><button type="button" data-href="#test1-2">表格2</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="test1-1"><p>这是1</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="test1-2"><p>这是2</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+<h2 id="label"><a href="#label" class="headerlink" title="label"></a>label</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% label 我是 %&#125;&#123;% label 什么 blue %&#125;&#123;%label 颜色 red %&#125;</span><br></pre></td></tr></table></figure>
+<mark class="hl-label default">我是</mark> <mark class="hl-label blue">什么</mark> <mark class="hl-label red">颜色</mark> 
+]]></content>
+      <categories>
+        <category>study</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linear models for classification</title>
+    <url>/2022/05/23/Linear%20models%20for%20classification/</url>
+    <content><![CDATA[<h2 id="1-Intro"><a href="#1-Intro" class="headerlink" title="1. Intro"></a>1. Intro</h2><ul>
+<li>goal: The goal in <strong>classification</strong> is to take an input vector x and to <strong>assign</strong> it to one of $K$ discrete classes $C_k$ where k = 1, . . . , K</li>
+</ul>
+<blockquote>
+<p>Regression : take continuous values</p>
+</blockquote>
+<div class="note info modern"><p>NOTE<br>representation</p>
+<ul>
+<li>Two class: target variable $t \in \{0, 1\}$ such that t = 1 represents class C1 and t = 0 represents class C2</li>
+<li>Multi class: t is a vector like (1,0,0,0,0,0…) when its class is C0</li>
+</ul>
+</div>
+<p>For linear regression, we only need $y=w^Tx+w_0$to obtain a <strong>real number</strong>;</p>
+<p>For classification problem, we wish to predict <strong>discrete class labels</strong>, or more generally <strong>posterior probabilities</strong> that lie in the range (0, 1)</p>
+<p>So we use a nonlinear function which called  activation function:</p>
+<script type="math/tex; mode=display">y(x)=f(w^Tx+w_0)</script><h2 id="2-Models"><a href="#2-Models" class="headerlink" title="2. Models"></a>2. Models</h2><ul>
+<li>Discriminant Function 判别函数<ul>
+<li>Inputs 𝑥 directly into decisions</li>
+<li>$R^n -&gt; R$</li>
+<li>SVM</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-Discriminant-Function"><a href="#3-Discriminant-Function" class="headerlink" title="3. Discriminant Function"></a>3. Discriminant Function</h2><h3 id="3-1-Two-class"><a href="#3-1-Two-class" class="headerlink" title="3.1 Two class"></a>3.1 Two class</h3><script type="math/tex; mode=display">y(x)=w^Tx+w_0</script><ul>
+<li>$y(x)\geq 0$ -&gt; C1</li>
+<li>Otherwise, C2</li>
+<li>decision boundary : $y(x) = 0$<ul>
+<li><strong>perpendicular</strong> to 𝐰.</li>
+<li><strong>Displacement</strong> from origin =<br>$\frac{-w_0}{||w||}$</li>
+<li><strong>perpendicular distance</strong> r of point x from decision surface<script type="math/tex; mode=display">r=\frac{y(x)}{||x||}</script><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h2icwi9erhj20hi0b23z9.jpg" alt=""><br>It’s relate to difficulty of classification</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-2-multi-classes"><a href="#3-2-multi-classes" class="headerlink" title="3.2 multi classes"></a>3.2 multi classes</h3>]]></content>
+      <categories>
+        <category>study</category>
+      </categories>
+      <tags>
+        <tag>PRML</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SIFT</title>
+    <url>/2022/05/13/SIFT/</url>
+    <content><![CDATA[<h2 id="SIFT究竟在做什么？"><a href="#SIFT究竟在做什么？" class="headerlink" title="SIFT究竟在做什么？"></a>SIFT究竟在做什么？</h2><h3 id="WHAT"><a href="#WHAT" class="headerlink" title="WHAT"></a>WHAT</h3><p>SIFT属于传统特征提取方式，与通过深度学习的反复学习提取出的特征值不同，传统特征提取方式需要通过人工计算和模拟实验找到所需要的特征点。一个好的特征量应该具有尺度不变的性质，本文就是在解释通过怎样的计算步骤能找到这样的特征量。</p>
+<h3 id="WHY"><a href="#WHY" class="headerlink" title="WHY"></a>WHY</h3><p>特征量往往被用在物体识别，并且应该是分辨度高的，以区分于杂乱的背景和庞大的数据库。</p>
+<h3 id="HOW"><a href="#HOW" class="headerlink" title="HOW"></a>HOW</h3><p>我们主要使用四个步骤：1.尺度空间的极值检测，2.关键点的定位，3. 方向分配 4. 关键点描述，来提取我们所需要的特征量。</p>
+<h2 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h2><p>这篇文章帮助我们从图片中提取出图像特征，能满足即使当这个图片中某一事物或场景发生了失真，视角偏移，噪点增添或是光线改变时，也能将图片间的相关点进行对应。而且他它们是易于区分的特征，即使是从庞大的特征库中也能利用它们找到对应的真正的物体或场景。</p>
+<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><p>分为以下三步</p>
+<ol>
+<li>尺度空间的极值提取</li>
+<li>关键点定位</li>
+<li>方向分配</li>
+<li>关键点描述</li>
+</ol>
+<p>这一系列的方法称作为SIFT,即尺度不变的特征转换。</p>
+<h3 id="1-尺度空间的极值提取"><a href="#1-尺度空间的极值提取" class="headerlink" title="1. 尺度空间的极值提取"></a>1. 尺度空间的极值提取</h3><h4 id="生成高斯图像、尺度空间"><a href="#生成高斯图像、尺度空间" class="headerlink" title="生成高斯图像、尺度空间"></a>生成高斯图像、尺度空间</h4><p>极值提取的计算式，将使用DoG进行计算。首先我们已经知道唯一可行的尺度空间核就是高斯核，因此我们使用高斯函数对图像进行卷积从而得到尺度空间。其次，Lindebeg在1994年提出了LoG是对于尺度不变检测的必要算子。并且，Mikolajczyk提出利用LoG的最小值和最大值之差可以求出图片的稳定特征。而DoG正好可以近似于LoG。</p>
+<p>对于每个尺度空间，通过将原始图像与高斯核不断卷积，并将临近的生成图像相减形成高斯差值图像。之后，对图像进行下采样，再进行同样的工作。这样保证采样精度不变的情况下，计算量大大下降。</p>
+<h4 id="局部极值提取"><a href="#局部极值提取" class="headerlink" title="局部极值提取"></a>局部极值提取</h4><p>每个点将会和坐标空间上的8个临近点，以及尺度空间上的18个点，共计26个点进行比较。只有在27个点中是最小或最大才会被定义为极值。由于我们可以进行一些前处理筛选掉大部分的点，所以极值验证的过程并不会花费很大。</p>
+<p>明显的是，采样频率关系到极值的选择。但不幸的是并没有确定的采样频率能使我们一定能找到所需的极值。因此我们使用实验的方法来决定最优频率。</p>
+<h5 id="尺度上的采样频率"><a href="#尺度上的采样频率" class="headerlink" title="尺度上的采样频率"></a>尺度上的采样频率</h5><p>我们测试了当改变尺度空间上的采样时，重现率和关键点检测数量的改变趋势。结果表明，当采样频率增加时，重现率有下降趋势，这有可能因为即使找到了更多的极值，但他们不够稳定；并且，随着频率增加，更多的关键点被检测出来，虽然他们有助于物体检测，但运算量也大大上升，因此我们折中选择了3这个尺度空间的采样频率。</p>
+<h5 id="空间上的采样频率"><a href="#空间上的采样频率" class="headerlink" title="空间上的采样频率"></a>空间上的采样频率</h5><p>通过测试预平滑的采样频率与重现率的关系我们发现，当频率越大重现率也越大，但为了保证运行的效率，我们选择了1.6这个值。</p>
+<h3 id="2-精确的关键点定位"><a href="#2-精确的关键点定位" class="headerlink" title="2. 精确的关键点定位"></a>2. 精确的关键点定位</h3><p>上个步骤中我们找到了离散空间的极值候选者，但不一定是真正的连续函数上的极值。本章通过对取样点的D(x)求导得出偏移量，以寻找真正的极值。首先，如果偏移值大于0.5则认为极值在相邻的采样点。其次，如果有极值点的D(x)是小于0.03的我们认为它是不稳定的，因此也会被舍弃。</p>
+<h4 id="消除边缘响应"><a href="#消除边缘响应" class="headerlink" title="消除边缘响应"></a>消除边缘响应</h4><p>当主曲率过大时我们认为这是边缘上的点，由于边缘点并不稳定我们需要去除。通过计算，我们只要通过计算海塞矩阵的对角和行列式的比值就能求出特征值之比，这大大减少了计算量。本文将特征值的比值阈值设为10，大于10的将被去除。</p>
+<h3 id="3-方向分配"><a href="#3-方向分配" class="headerlink" title="3. 方向分配"></a>3. 方向分配</h3><p>对于每个关键点，我们通过统计临近区域的点的向量和角度来确定关键点的方向。通过直方图的形式统计被分配在各个角度的临近点的数量，取最多的为关键点的方向。此外，若有其他方向的统计值高于最高值的80%，我们将其认定为第二方向。</p>
+<h3 id="4-特征点描述"><a href="#4-特征点描述" class="headerlink" title="4. 特征点描述"></a>4. 特征点描述</h3><p>我们已经知道使用神经元模型，即计算出特定方向和空间次数的梯度可以得到非常稳定的特征量，可以用于视角改变和亮度改变的问题。</p>
+<h4 id="特征量表现"><a href="#特征量表现" class="headerlink" title="特征量表现"></a>特征量表现</h4><p>通过计算和统计关键点周围像素的向量方向分布，对关键点进行描述。本文中我们将对16<em>16的范围的区域分成4\</em>4的格子，来对它们的8个向量方向进行统计。<br>此外，为了对光照变化具有不变性，我们还要对向量归一化。这样能减少光亮变化而产生的对梯度带来的线性变化。其次，为向量长度设置阈值，减小值较大的向量的重要度，以减少对非线性光照变化的敏感度。</p>
+<h4 id="对仿射变换的敏感性"><a href="#对仿射变换的敏感性" class="headerlink" title="对仿射变换的敏感性"></a>对仿射变换的敏感性</h4><p>根据实验，当仿射度上升时匹配度大幅度下降。但实际上在3D图像上的可旋转范围较小，仿射不变性并不是那么重要。而如果在平面图片上时，我们可以使用xx的方法生成额外的SIFT特征量，使得最终生成标准特征库三倍量的特征。</p>
+<h4 id="对大数据集的对比"><a href="#对大数据集的对比" class="headerlink" title="对大数据集的对比"></a>对大数据集的对比</h4><p>更多是因为初始特征的位置和方向的分配问题而不是特征的可区分度造成的</p>
+<h2 id="对物体识别的应用"><a href="#对物体识别的应用" class="headerlink" title="对物体识别的应用"></a>对物体识别的应用</h2><h3 id="1-关键点匹配"><a href="#1-关键点匹配" class="headerlink" title="1. 关键点匹配"></a>1. 关键点匹配</h3><p>我们对每个关键点与数据库中的特征进行匹配，得到欧几里得距离最近的候选项。但是实际上许多特征来自于杂乱的背景或对于这个物体的识别并没有帮助。因此我们通过一个高效的手法剔除掉这些无用的特征。这个方法就是对比与最近的正确图像的距离，和最近的错误图像的距离之比。当这个比值大于0.8时（即错误图像的距离高于正确图像的距离的80%时），我们就淘汰这个特征。</p>
+<h3 id="有效的最近邻法"><a href="#有效的最近邻法" class="headerlink" title="有效的最近邻法"></a>有效的最近邻法</h3><p>我们使用BBF算法来搜索最近的点。这个算法对于我们的特征值最有效，考虑原因可能是上章提到我们只需要探索距离比值小于0.8的特征点。</p>
+<h3 id="霍夫变换聚类"><a href="#霍夫变换聚类" class="headerlink" title="霍夫变换聚类"></a>霍夫变换聚类</h3><p>为了提高对小物体和被遮挡物体的识别问题，我们希望即使少类的特征也能识别出物体。而通过霍夫变换将特征值聚类的方法能提升这一可能性。</p>
+<p>[1] <a href="https://blog.csdn.net/lavender19/article/details/120396145">https://blog.csdn.net/lavender19/article/details/120396145</a><br>[2]<a href="https://blog.csdn.net/shiyongraow/article/details/78296710">https://blog.csdn.net/shiyongraow/article/details/78296710</a><br>[3]<a href="https://www.cnblogs.com/shine-lee/p/10950963.html">https://www.cnblogs.com/shine-lee/p/10950963.html</a> 仿射变换</p>
+]]></content>
+      <categories>
+        <category>study</category>
+      </categories>
+      <tags>
+        <tag>CV</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Content-aware image resizing</title>
+    <url>/2022/07/20/content-aware-image-resizing/</url>
+    <content><![CDATA[<h1 id="项目报告"><a href="#项目报告" class="headerlink" title="项目报告"></a>项目报告</h1><p><a href="/butterfly/cgo.pdf">pdflink<a><br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h5vwpmg0ttj20zf07sgnu.jpg" alt=""></p>
+<h1 id="项目描述"><a href="#项目描述" class="headerlink" title="项目描述"></a>项目描述</h1><p>对于图片缩放，我们希望在缩放时却不影响主体的变换。一般来说，缩放技术有基于离散和连续的两种方法，离散型通常是迭代地寻找一排（或者一列）最小能量的像素，以删除在原图片中无效的像素点；连续型则通过形变等手法改变整个图片的比例。本项目基于Seam Carving [1]和 Image Warping [2]的论文进行代码的复现和结果的比较。</p>
+<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><h2 id="遗传算法"><a href="#遗传算法" class="headerlink" title="遗传算法"></a>遗传算法</h2><ul>
+<li>进化算法的一种，优化方式属于随机优化</li>
+<li>受生物遗传算法的启发</li>
+<li>常用于1. 非连续，非凸，非可微，非线性等难以定义的目标函数 2. 或当搜索空间过大难以使用普通优化方式的问题</li>
+</ul>
+<h3 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h3><ol>
+<li>随机生成一批个体(individual)，这一批个体形成了一个群落(population)<ul>
+<li>每个个体其实就是一个解(solution)</li>
+</ul>
+</li>
+<li>每个个体具有一个适应度(fitness)的评判值，代表着它对于目标问题的分数</li>
+<li>根据适应度的高低，高适应度的个体会相互繁衍(crossover)产生后代（下一个个体），并且会进行复制(reproduce)（在迭代中被留下）；低适应度的则在下一次进化中被淘汰(discard)</li>
+<li>在产生个体时，还会有一定的几率发生突变(mutation)；突变的发生与适应度无关</li>
+<li>重复以上的进化过程直到结束</li>
+</ol>
+<h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>在图片缩放问题中，遗传算法中的每个个体就是要找的最小影响的路线$s^v$，并且为了不改变原图片的结构，我们限制路线的最大跨度不能超过1（即只能在九宫格内移动），可以如下式表示：<br><img src="https://tva1.sinaimg.cn/large/008vxvgGgy1h7ix9s6wu0j308y02gmx1.jpg" alt=""></p>
+<p>最终我们要寻找的最优路线$s^{v*}$，我们希望它能够达到是图片中影响力最小（能量值最小）的一条路线。即：<br><img src="https://tva1.sinaimg.cn/large/008vxvgGgy1h7ixb7khaij30d702ht8l.jpg" alt=""></p>
+<p><strong>注</strong>：除了遗传算法这种随机算法，我们还要使用动态算法(Dynamic Programming)来解决该问题。由于我们想找到最小能量的路线，因此在探索路线时遵循以下的转换方程式：<br><img src="https://tva1.sinaimg.cn/large/008vxvgGgy1h7ixsbu3zyj30am02wa9z.jpg" alt=""></p>
+<h1 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h1><!-- 能量函数的简单介绍：silency， forward, mix
+ -->## 能量函数（能量图）
+### Backward
+最普通的图片能量计算方式——求偏导。利用有限差分求出gradient maltitude能量图。
+### Forward
+作者认为在寻找Seam的问题中，我们不仅要考虑删除后对原图像的影响(即backward),还要考虑当删除后产生的新的“伪影”的影响。因此Forward的目的是找到产生“伪影”最少的能量图。
+
+<!-- 最优化过程的变量：变异，繁殖过程的实现等
+ -->
+<!-- 结果介绍：不同参数的变化
+ -->
+<!--  与warp的对比 可以加一些ppt的简单介绍
+ -->
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><p>[1] Saulo AF Oliveira, Francisco N Bezerra, and Ajalmar R Rocha Neto. 2015. Genetic<br>seam carving: A genetic algorithm approach for content-aware image retargeting.<br>In Iberian Conference on Pattern Recognition and Image Analysis. Springer, 700–707.<br>[2] Yu-Shuen Wang, Chiew-Lan Tai, Olga Sorkine, and Tong-Yee Lee. 2008. Optimized<br>scale-and-stretch for image resizing. In ACM SIGGRAPH Asia 2008 papers. 1–8.</p>
+]]></content>
+      <categories>
+        <category>study</category>
+      </categories>
+      <tags>
+        <tag>CGO</tag>
       </tags>
   </entry>
   <entry>
@@ -915,81 +1010,195 @@
       </tags>
   </entry>
   <entry>
-    <title>Linear models for classification</title>
-    <url>/2022/05/23/Linear%20models%20for%20classification/</url>
-    <content><![CDATA[<h2 id="1-Intro"><a href="#1-Intro" class="headerlink" title="1. Intro"></a>1. Intro</h2><ul>
-<li>goal: The goal in <strong>classification</strong> is to take an input vector x and to <strong>assign</strong> it to one of $K$ discrete classes $C_k$ where k = 1, . . . , K</li>
-</ul>
-<blockquote>
-<p>Regression : take continuous values</p>
+    <title>剑指Offer-2（动态算法）</title>
+    <url>/2022/11/06/dynamic-programming/</url>
+    <content><![CDATA[<blockquote>
+<p>求解决策过程(decision process)最优化的数学方法。</p>
 </blockquote>
-<div class="note info modern"><p>NOTE<br>representation</p>
+<hr>
+<h2 id="剑指10-1-斐波那契数列"><a href="#剑指10-1-斐波那契数列" class="headerlink" title="剑指10-1. 斐波那契数列"></a>剑指10-1. 斐波那契数列</h2><p><strong>写一个函数，输入 n ，求斐波那契（Fibonacci）数列的第 n 项（即 F(N)）。斐波那契数列的定义如下：<br>F(0) = 0,   F(1) = 1<br>F(N) = F(N - 1) + F(N - 2), 其中 N &gt; 1.<br>斐波那契数列由 0 和 1 开始，之后的斐波那契数就是由之前的两数相加而得出。<br>答案需要取模 1e9+7（1000000007），如计算初始结果为：1000000008，请返回 1。</strong></p>
 <ul>
-<li>Two class: target variable $t \in \{0, 1\}$ such that t = 1 represents class C1 and t = 0 represents class C2</li>
-<li>Multi class: t is a vector like (1,0,0,0,0,0…) when its class is C0</li>
+<li>避免重复计算因此使用动态算法</li>
 </ul>
-</div>
-<p>For linear regression, we only need $y=w^Tx+w_0$to obtain a <strong>real number</strong>;</p>
-<p>For classification problem, we wish to predict <strong>discrete class labels</strong>, or more generally <strong>posterior probabilities</strong> that lie in the range (0, 1)</p>
-<p>So we use a nonlinear function which called  activation function:</p>
-<script type="math/tex; mode=display">y(x)=f(w^Tx+w_0)</script><h2 id="2-Models"><a href="#2-Models" class="headerlink" title="2. Models"></a>2. Models</h2><ul>
-<li>Discriminant Function 判别函数<ul>
-<li>Inputs 𝑥 directly into decisions</li>
-<li>$R^n -&gt; R$</li>
-<li>SVM</li>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">fib</span>(<span class="params">self, n: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        a, b = <span class="number">0</span>, <span class="number">1</span></span><br><span class="line">        <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">            a, b = b, a + b</span><br><span class="line">        <span class="keyword">return</span> a % <span class="number">1000000007</span></span><br></pre></td></tr></table></figure>
+<h2 id="剑指10-2-青蛙跳台阶"><a href="#剑指10-2-青蛙跳台阶" class="headerlink" title="剑指10-2. 青蛙跳台阶"></a>剑指10-2. 青蛙跳台阶</h2><p><strong>一只青蛙一次可以跳上1级台阶，也可以跳上2级台阶。求该青蛙跳上一个 n 级的台阶总共有多少种跳法。</strong><br><strong>答案需要取模 1e9+7（1000000007），如计算初始结果为：1000000008，请返回 1。</strong></p>
+<ul>
+<li>本质还是斐波那契数列</li>
+<li>注意当n=0时，因为只能不跳所以等于1（这个题的毛病不要太钻牛角尖）</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">numWays</span>(<span class="params">self, n: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        <span class="comment">## 最后一步一定是一阶或是两节</span></span><br><span class="line">        <span class="comment">## 剩一节时的方法有f(n-1)种，剩两节有f(n-2)种，则f(n)=f(n-1)+f(n-2)</span></span><br><span class="line">        <span class="comment">## f(0) = 1, f(1) = 1, f(2) = 2</span></span><br><span class="line"></span><br><span class="line">        a, b = <span class="number">1</span>, <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(n) :</span><br><span class="line">            a, b = b, a+b</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> a % <span class="number">1000000007</span></span><br></pre></td></tr></table></figure>
+<h2 id="剑指16-从尾到头打印链表"><a href="#剑指16-从尾到头打印链表" class="headerlink" title="剑指16. 从尾到头打印链表"></a>剑指16. 从尾到头打印链表</h2><p><strong>输入一个链表的头节点，从尾到头反过来返回每个节点的值（用数组返回）。</strong></p>
+<p>解题思路：</p>
+<p>用list顺序存储单向链表，使用切片直接倒序输出。</p>
+<p>Tip：</p>
+<ul>
+<li>列表切片规则<code>List[start:stop:step]</code>，不加则是默认全部区间</li>
+<li><code>List[::-1]</code>则代表倒置列表</li>
+</ul>
+<p>复杂度</p>
+<ul>
+<li>时间O(n)， 空间O(n)</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"># class ListNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.next = None</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">reversePrint</span>(<span class="params">self, head: ListNode</span>) -&gt; <span class="type">List</span>[<span class="built_in">int</span>]:</span><br><span class="line">        result = []</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> head:</span><br><span class="line">            result.append(head.val)</span><br><span class="line">            head = head.<span class="built_in">next</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> result[::-<span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+<h2 id="剑指24-翻转链表（中转-递归）"><a href="#剑指24-翻转链表（中转-递归）" class="headerlink" title="剑指24. 翻转链表（中转+递归）"></a>剑指24. 翻转链表（中转+递归）</h2><p><strong>定义一个函数，输入一个链表的头节点，反转该链表并输出反转后链表的头节点。</strong></p>
+<p>解题思路：<br>需要解决的问题其实有两个：1. 如何改变node之间的指向 2. 如何保存头部节点</p>
+<ol>
+<li>使用<strong>中转点</strong>对上一个node保存，遍历链表同时改变指向，最后一个到达的就是新链表的头部节点</li>
+<li>递归。只有到达最后一个节点后才开始进行翻转。这里通过返回值不停传递末节点，即新链表的头结点。<ul>
+<li>传递参数：当前节点和下一节点</li>
+<li>停止条件：当前节点为空</li>
+<li>返回值：上一节点</li>
+<li>执行动作：将下一节点指向当前节点</li>
 </ul>
 </li>
+</ol>
+<p>复杂度</p>
+<ul>
+<li>时间：O(n)，空间：O(2)</li>
 </ul>
-<h2 id="3-Discriminant-Function"><a href="#3-Discriminant-Function" class="headerlink" title="3. Discriminant Function"></a>3. Discriminant Function</h2><h3 id="3-1-Two-class"><a href="#3-1-Two-class" class="headerlink" title="3.1 Two class"></a>3.1 Two class</h3><script type="math/tex; mode=display">y(x)=w^Tx+w_0</script><ul>
-<li>$y(x)\geq 0$ -&gt; C1</li>
-<li>Otherwise, C2</li>
-<li>decision boundary : $y(x) = 0$<ul>
-<li><strong>perpendicular</strong> to 𝐰.</li>
-<li><strong>Displacement</strong> from origin =<br>$\frac{-w_0}{||w||}$</li>
-<li><strong>perpendicular distance</strong> r of point x from decision surface<script type="math/tex; mode=display">r=\frac{y(x)}{||x||}</script><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h2icwi9erhj20hi0b23z9.jpg" alt=""><br>It’s relate to difficulty of classification</li>
+<h3 id="中转站法"><a href="#中转站法" class="headerlink" title="中转站法"></a>中转站法</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"># class ListNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.next = None</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">reverseList</span>(<span class="params">self, head: ListNode</span>) -&gt; ListNode:</span><br><span class="line">        prevNode = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> head:</span><br><span class="line">            head.<span class="built_in">next</span> = prevNode</span><br><span class="line">            prevNode = head</span><br><span class="line">            head = head.<span class="built_in">next</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> prevNode</span><br></pre></td></tr></table></figure>
+<ul>
+<li>时间：O(n)，</li>
+<li>空间：O(n):递归深度达到n，需要n的空间</li>
 </ul>
-</li>
+<h3 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">reverseList</span>(<span class="params">self, head: ListNode</span>) -&gt; ListNode:</span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">recur</span>(<span class="params">cur: ListNode, prev: ListNode</span>) -&gt; ListNode:</span><br><span class="line"></span><br><span class="line">            <span class="comment">## 迭代中止：到达最后一个Node的时候next会变成None，这时返回最后一个Node</span></span><br><span class="line">            <span class="comment">## 最后一个Node会变成新链表的head，使用变量进行保存</span></span><br><span class="line">            <span class="keyword">if</span> cur:</span><br><span class="line">                head = recur(cur.<span class="built_in">next</span>, cur)</span><br><span class="line">                cur.<span class="built_in">next</span> = prev</span><br><span class="line">                <span class="keyword">return</span> head</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">return</span> prev</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> recur(head, <span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="剑指18-删除链表的节点"><a href="#剑指18-删除链表的节点" class="headerlink" title="剑指18. 删除链表的节点"></a>剑指18. 删除链表的节点</h2><p><strong>给定单向链表的头指针和一个要删除的节点的值，定义一个函数删除该节点。</strong></p>
+<p><strong>返回删除后的链表的头节点。</strong></p>
+<p>时间O(n)， 空间O(1)</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"># class ListNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.next = None</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">deleteNode</span>(<span class="params">self, head: ListNode, val: <span class="built_in">int</span></span>) -&gt; ListNode:</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> head : <span class="keyword">return</span> head</span><br><span class="line">        <span class="keyword">if</span> head.val == val : <span class="keyword">return</span> head.<span class="built_in">next</span></span><br><span class="line"></span><br><span class="line">        result = head </span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> <span class="number">1</span> :</span><br><span class="line">            <span class="keyword">if</span> head.<span class="built_in">next</span>.val == val :</span><br><span class="line">                head.<span class="built_in">next</span> = head.<span class="built_in">next</span>.<span class="built_in">next</span></span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            head = head.<span class="built_in">next</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> result</span><br></pre></td></tr></table></figure>
+<h2 id="剑指22-链表中倒数第k个字节（快慢指针）"><a href="#剑指22-链表中倒数第k个字节（快慢指针）" class="headerlink" title="剑指22. 链表中倒数第k个字节（快慢指针）"></a>剑指22. 链表中倒数第k个字节（快慢指针）</h2><p><strong>输入一个链表，输出该链表中倒数第k个节点。为了符合大多数人的习惯，本题从1开始计数，即链表的尾节点是倒数第1个节点。</strong></p>
+<p><strong>例如，一个链表有 6 个节点，从头节点开始，它们的值依次是 1、2、3、4、5、6。这个链表的倒数第 3 个节点是值为 4 的节点。</strong></p>
+<blockquote>
+<p>遍历法很容易想到就不在这里赘述了</p>
+</blockquote>
+<ul>
+<li>时间O(n) 空间O(1)</li>
 </ul>
-<h3 id="3-2-multi-classes"><a href="#3-2-multi-classes" class="headerlink" title="3.2 multi classes"></a>3.2 multi classes</h3>]]></content>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"># class ListNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.next = None</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">getKthFromEnd</span>(<span class="params">self, head: ListNode, k: <span class="built_in">int</span></span>) -&gt; ListNode:</span><br><span class="line">        slow, fast = head, head</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(k-<span class="number">1</span>) :</span><br><span class="line">            fast = fast.<span class="built_in">next</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> head <span class="keyword">and</span> fast.<span class="built_in">next</span> :</span><br><span class="line">            slow = slow.<span class="built_in">next</span></span><br><span class="line">            fast = fast.<span class="built_in">next</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> slow</span><br></pre></td></tr></table></figure>
+<h2 id="剑指25-合并两个排序的链表"><a href="#剑指25-合并两个排序的链表" class="headerlink" title="剑指25. 合并两个排序的链表"></a>剑指25. 合并两个排序的链表</h2><p><strong>输入两个递增排序的链表，合并这两个链表并使新链表中的节点仍然是递增排序的。</strong></p>
+<ul>
+<li>善用伪头结点可以减少很多步骤，如判断哪个才是头结点造成的代码行数增加</li>
+<li>因为是链表结构而非数组，因此不用考虑最后剩下的需要用while再一个个塞进去</li>
+<li>时间O(n)， 空间O(1)</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"># class ListNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.next = None</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">mergeTwoLists</span>(<span class="params">self, l1: ListNode, l2: ListNode</span>) -&gt; ListNode:  </span><br><span class="line">        head = ListNode(<span class="number">0</span>)</span><br><span class="line">        cur = head</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> l1 <span class="keyword">and</span> l2 :</span><br><span class="line">            <span class="keyword">if</span> l1.val &lt;= l2.val :</span><br><span class="line">                cur.<span class="built_in">next</span>, l1 = l1, l1.<span class="built_in">next</span></span><br><span class="line">            <span class="keyword">else</span> :</span><br><span class="line">                cur.<span class="built_in">next</span>, l2 = l2, l2.<span class="built_in">next</span></span><br><span class="line">            cur = cur.<span class="built_in">next</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> l1 :</span><br><span class="line">            cur.<span class="built_in">next</span> = l1</span><br><span class="line">        <span class="keyword">if</span> l2 :</span><br><span class="line">            cur.<span class="built_in">next</span> = l2</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>study</category>
       </categories>
       <tags>
-        <tag>PRML</tag>
+        <tag>Leetcode</tag>
       </tags>
   </entry>
   <entry>
-    <title>SIFT</title>
-    <url>/2022/05/13/SIFT/</url>
-    <content><![CDATA[<h2 id="SIFT究竟在做什么？"><a href="#SIFT究竟在做什么？" class="headerlink" title="SIFT究竟在做什么？"></a>SIFT究竟在做什么？</h2><h3 id="WHAT"><a href="#WHAT" class="headerlink" title="WHAT"></a>WHAT</h3><p>SIFT属于传统特征提取方式，与通过深度学习的反复学习提取出的特征值不同，传统特征提取方式需要通过人工计算和模拟实验找到所需要的特征点。一个好的特征量应该具有尺度不变的性质，本文就是在解释通过怎样的计算步骤能找到这样的特征量。</p>
-<h3 id="WHY"><a href="#WHY" class="headerlink" title="WHY"></a>WHY</h3><p>特征量往往被用在物体识别，并且应该是分辨度高的，以区分于杂乱的背景和庞大的数据库。</p>
-<h3 id="HOW"><a href="#HOW" class="headerlink" title="HOW"></a>HOW</h3><p>我们主要使用四个步骤：1.尺度空间的极值检测，2.关键点的定位，3. 方向分配 4. 关键点描述，来提取我们所需要的特征量。</p>
-<h2 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h2><p>这篇文章帮助我们从图片中提取出图像特征，能满足即使当这个图片中某一事物或场景发生了失真，视角偏移，噪点增添或是光线改变时，也能将图片间的相关点进行对应。而且他它们是易于区分的特征，即使是从庞大的特征库中也能利用它们找到对应的真正的物体或场景。</p>
-<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><p>分为以下三步</p>
+    <title>Edge Detection</title>
+    <url>/2022/05/09/edge%20detection/</url>
+    <content><![CDATA[<h1 id="1-Feature-detection"><a href="#1-Feature-detection" class="headerlink" title="1 Feature detection"></a>1 Feature detection</h1><blockquote>
+<ul>
+<li>Containing vast information</li>
+</ul>
+</blockquote>
+<p>SO it’s important to <mark class="hl-label red">determine</mark> </p>
 <ol>
-<li>尺度空间的极值提取</li>
-<li>关键点定位</li>
-<li>方向分配</li>
-<li>关键点描述</li>
+<li><p>WHERE</p>
+<ul>
+<li><strong>concentrate on a part</strong> and <strong>ignore others</strong></li>
+<li>e.g. Object recognition: Ignore background</li>
+</ul>
+</li>
+<li><p>WHAT</p>
+<ul>
+<li>Feature can be located<ul>
+<li>edge</li>
+<li>feature points</li>
+</ul>
+</li>
+</ul>
+</li>
 </ol>
-<p>这一系列的方法称作为SIFT,即尺度不变的特征转换。</p>
-<h3 id="1-尺度空间的极值提取"><a href="#1-尺度空间的极值提取" class="headerlink" title="1. 尺度空间的极值提取"></a>1. 尺度空间的极值提取</h3><h4 id="生成高斯图像、尺度空间"><a href="#生成高斯图像、尺度空间" class="headerlink" title="生成高斯图像、尺度空间"></a>生成高斯图像、尺度空间</h4><p>极值提取的计算式，将使用DoG进行计算。首先我们已经知道唯一可行的尺度空间核就是高斯核，因此我们使用高斯函数对图像进行卷积从而得到尺度空间。其次，Lindebeg在1994年提出了LoG是对于尺度不变检测的必要算子。并且，Mikolajczyk提出利用LoG的最小值和最大值之差可以求出图片的稳定特征。而DoG正好可以近似于LoG。</p>
-<p>对于每个尺度空间，通过将原始图像与高斯核不断卷积，并将临近的生成图像相减形成高斯差值图像。之后，对图像进行下采样，再进行同样的工作。这样保证采样精度不变的情况下，计算量大大下降。</p>
-<h4 id="局部极值提取"><a href="#局部极值提取" class="headerlink" title="局部极值提取"></a>局部极值提取</h4><p>每个点将会和坐标空间上的8个临近点，以及尺度空间上的18个点，共计26个点进行比较。只有在27个点中是最小或最大才会被定义为极值。由于我们可以进行一些前处理筛选掉大部分的点，所以极值验证的过程并不会花费很大。</p>
-<p>明显的是，采样频率关系到极值的选择。但不幸的是并没有确定的采样频率能使我们一定能找到所需的极值。因此我们使用实验的方法来决定最优频率。</p>
-<h5 id="尺度上的采样频率"><a href="#尺度上的采样频率" class="headerlink" title="尺度上的采样频率"></a>尺度上的采样频率</h5><p>我们测试了当改变尺度空间上的采样时，重现率和关键点检测数量的改变趋势。结果表明，当采样频率增加时，重现率有下降趋势，这有可能因为即使找到了更多的极值，但他们不够稳定；并且，随着频率增加，更多的关键点被检测出来，虽然他们有助于物体检测，但运算量也大大上升，因此我们折中选择了3这个尺度空间的采样频率。</p>
-<h5 id="空间上的采样频率"><a href="#空间上的采样频率" class="headerlink" title="空间上的采样频率"></a>空间上的采样频率</h5><p>通过测试预平滑的采样频率与重现率的关系我们发现，当频率越大重现率也越大，但为了保证运行的效率，我们选择了1.6这个值。</p>
-<h3 id="2-精确的关键点定位"><a href="#2-精确的关键点定位" class="headerlink" title="2. 精确的关键点定位"></a>2. 精确的关键点定位</h3><p>上个步骤中我们找到了离散空间的极值候选者，但不一定是真正的连续函数上的极值。本章通过对取样点的D(x)求导得出偏移量，以寻找真正的极值。首先，如果偏移值大于0.5则认为极值在相邻的采样点。其次，如果有极值点的D(x)是小于0.03的我们认为它是不稳定的，因此也会被舍弃。</p>
-<h4 id="消除边缘响应"><a href="#消除边缘响应" class="headerlink" title="消除边缘响应"></a>消除边缘响应</h4><p>当主曲率过大时我们认为这是边缘上的点，由于边缘点并不稳定我们需要去除。通过计算，我们只要通过计算海塞矩阵的对角和行列式的比值就能求出特征值之比，这大大减少了计算量。本文将特征值的比值阈值设为10，大于10的将被去除。</p>
-<h3 id="3-方向分配"><a href="#3-方向分配" class="headerlink" title="3. 方向分配"></a>3. 方向分配</h3><p>对于每个关键点，我们通过统计临近区域的点的向量和角度来确定关键点的方向。通过直方图的形式统计被分配在各个角度的临近点的数量，取最多的为关键点的方向。此外，若有其他方向的统计值高于最高值的80%，我们将其认定为第二方向。</p>
-<h3 id="4-特征点描述"><a href="#4-特征点描述" class="headerlink" title="4. 特征点描述"></a>4. 特征点描述</h3><p>我们已经知道使用神经元模型，即计算出特定方向和空间次数的梯度可以得到非常稳定的特征量，可以用于视角改变和亮度改变的问题。</p>
-<h4 id="特征量表现"><a href="#特征量表现" class="headerlink" title="特征量表现"></a>特征量表现</h4><p>通过计算和统计关键点周围像素的向量方向分布，对关键点进行描述。本文中我们将对16<em>16的范围的区域分成4\</em>4的格子，来对它们的8个向量方向进行统计。<br>此外，为了对光照变化具有不变性，我们还要对向量归一化。这样能减少光亮变化而产生的对梯度带来的线性变化。其次，为向量长度设置阈值，减小值较大的向量的重要度，以减少对非线性光照变化的敏感度。</p>
-<h4 id="对仿射变换的敏感性"><a href="#对仿射变换的敏感性" class="headerlink" title="对仿射变换的敏感性"></a>对仿射变换的敏感性</h4><p>根据实验，当仿射度上升时匹配度大幅度下降。但实际上在3D图像上的可旋转范围较小，仿射不变性并不是那么重要。而如果在平面图片上时，我们可以使用xx的方法生成额外的SIFT特征量，使得最终生成标准特征库三倍量的特征。</p>
-<h4 id="对大数据集的对比"><a href="#对大数据集的对比" class="headerlink" title="对大数据集的对比"></a>对大数据集的对比</h4><p>更多是因为初始特征的位置和方向的分配问题而不是特征的可区分度造成的</p>
-<h2 id="对物体识别的应用"><a href="#对物体识别的应用" class="headerlink" title="对物体识别的应用"></a>对物体识别的应用</h2><h3 id="1-关键点匹配"><a href="#1-关键点匹配" class="headerlink" title="1. 关键点匹配"></a>1. 关键点匹配</h3><p>我们对每个关键点与数据库中的特征进行匹配，得到欧几里得距离最近的候选项。但是实际上许多特征来自于杂乱的背景或对于这个物体的识别并没有帮助。因此我们通过一个高效的手法剔除掉这些无用的特征。这个方法就是对比与最近的正确图像的距离，和最近的错误图像的距离之比。当这个比值大于0.8时（即错误图像的距离高于正确图像的距离的80%时），我们就淘汰这个特征。</p>
-<h3 id="有效的最近邻法"><a href="#有效的最近邻法" class="headerlink" title="有效的最近邻法"></a>有效的最近邻法</h3><p>我们使用BBF算法来搜索最近的点。这个算法对于我们的特征值最有效，考虑原因可能是上章提到我们只需要探索距离比值小于0.8的特征点。</p>
-<h3 id="霍夫变换聚类"><a href="#霍夫变换聚类" class="headerlink" title="霍夫变换聚类"></a>霍夫变换聚类</h3><p>为了提高对小物体和被遮挡物体的识别问题，我们希望即使少类的特征也能识别出物体。而通过霍夫变换将特征值聚类的方法能提升这一可能性。</p>
-<p>[1] <a href="https://blog.csdn.net/lavender19/article/details/120396145">https://blog.csdn.net/lavender19/article/details/120396145</a><br>[2]<a href="https://blog.csdn.net/shiyongraow/article/details/78296710">https://blog.csdn.net/shiyongraow/article/details/78296710</a><br>[3]<a href="https://www.cnblogs.com/shine-lee/p/10950963.html">https://www.cnblogs.com/shine-lee/p/10950963.html</a> 仿射变换</p>
+<h1 id="2-Edge-detection"><a href="#2-Edge-detection" class="headerlink" title="2 Edge detection"></a>2 Edge detection</h1><h2 id="2-1-Feature"><a href="#2-1-Feature" class="headerlink" title="2.1 Feature"></a>2.1 Feature</h2><ol>
+<li>Brightness (value) changes <strong>rapidly</strong></li>
+<li>Differentiation (近傍ピクセルとの微分処理 ) </li>
+<li>Important feature for object recognition </li>
+<li>Weak to noise(Because it is differentiation)</li>
+</ol>
+<h2 id="2-2-Kinds"><a href="#2-2-Kinds" class="headerlink" title="2.2 Kinds"></a>2.2 Kinds</h2><p><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h22h9p2btmj211z0n2abr.jpg" alt=""></p>
+<h2 id="2-3-Differentiation"><a href="#2-3-Differentiation" class="headerlink" title="2.3 Differentiation"></a>2.3 Differentiation</h2><ul>
+<li><p>Grandient</p>
+<script type="math/tex; mode=display">\nabla I=(\frac{\partial I}{\partial x}, \frac{\partial I}{\partial y})</script><ul>
+<li>Represents the<strong> direction and the speed</strong> of the <strong>change in brightness </strong></li>
+</ul>
+</li>
+<li><p>Laplacian</p>
+<script type="math/tex; mode=display">\nabla^2 I=(\frac{\partial^2 I}{\partial x^2}, \frac{\partial^2 I}{\partial y^2})</script></li>
+</ul>
+<div class="note info modern"><p>边缘就是明暗剧烈变化的地方，所以我们可以通过一次微分的极值或二次微分的变曲点确定edge</p>
+</div>
+<p><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h231usx1ugj20sl0gd764.jpg" alt=""></p>
+<h1 id="3-edge-operator"><a href="#3-edge-operator" class="headerlink" title="3 edge operator"></a>3 edge operator</h1><blockquote>
+<p>为了计算微分，我们通过edge operator——即一种filter来实现</p>
+</blockquote>
+<h2 id="3-1-一次微分"><a href="#3-1-一次微分" class="headerlink" title="3.1 一次微分"></a>3.1 一次微分</h2><p>对于一个形同$[[I_{i,j+1}, I_{i+1,j+1}],[I_{i,j}, I_{i+1,j}]]$的2*2 window内的像素，我们可以将微分转换为</p>
+<script type="math/tex; mode=display">\frac{\partial I}{\partial x} \approx \frac{1}{2\varepsilon}((I_{i+1,j+1}-I_{i,j+1})+(I_{i+1,j}-I_{i,j}))</script><script type="math/tex; mode=display">\frac{\partial I}{\partial y} \approx \frac{1}{2\varepsilon}((I_{i,j+1}-I_{i,j})+(I_{i+1,j+1}-I_{i+1,j}))</script><p>表现为filter即为</p>
+<p><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h231ypgyluj20vp0audgc.jpg" alt=""></p>
+<p>分别求出两个方向的edge后合并才能生成总的edge图</p>
+<ul>
+<li>Location more precise</li>
+<li>Weak to noise </li>
+<li>Low detection power<br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h231uu19ctj20ut0gu40l.jpg" alt=""><script type="math/tex; mode=display">对噪声的优化很弱的后果...处处都是边缘！</script></li>
+</ul>
+<h2 id="3-2-二次微分"><a href="#3-2-二次微分" class="headerlink" title="3.2 二次微分"></a>3.2 二次微分</h2><p><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h231utawi2j20cg0aeq3b.jpg" alt=""></p>
+<script type="math/tex; mode=display">\frac{\partial^2 I}{\partial x^2} \approx \frac{1}{\varepsilon^2}(I_{i-1,j}-2I_{i,j}+I_{i+1,j})</script><script type="math/tex; mode=display">\frac{\partial^2 I}{\partial y^2} \approx \frac{1}{\varepsilon^2}(I_{i,j-1}-2I_{i,j}+I_{i,j+1})</script><p><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h231utl5ycj210q08xq3v.jpg" alt=""></p>
+<h2 id="3-3-算法"><a href="#3-3-算法" class="headerlink" title="3.3 算法"></a>3.3 算法</h2><ul>
+<li>Roberts</li>
+<li>Prewitt<ul>
+<li>先ほどのカーネルではノイズの影響が非常に強く出てしまうので、平滑化処理を加えた形</li>
+</ul>
+</li>
+<li><p>Sobel</p>
+<ul>
+<li>Location imprecise </li>
+<li>Robust to noise </li>
+<li>High detection power </li>
+</ul>
+</li>
+<li><p>LoG<br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h231uui5vej20xn0pbjuq.jpg" alt=""></p>
+<ul>
+<li>用于平滑化</li>
+<li>近似于DOG（倒不如说有时候用DOG会更方便所以可以近似）</li>
+</ul>
+</li>
+<li>Canny<ul>
+<li>通过将一系列的检出算法合并的强力检出工具<ol>
+<li>Blur image I with 2D Gaussian</li>
+<li>Find the edge‐normal direction at each pixel:</li>
+<li>Calculate the strength of the edge</li>
+<li>Find the maximal strength in the edge‐normal direction as the zero‐crossing in that direction (this step is called non‐maximum suppression)</li>
+</ol>
+</li>
+<li>改变参数$\sigma$可以提取各种各样不同的特征 </li>
+</ul>
+</li>
+</ul>
+<h1 id="4-Corner-detection"><a href="#4-Corner-detection" class="headerlink" title="4. Corner detection"></a>4. Corner detection</h1><blockquote>
+<p>除了通过微分求出练成线的轮廓线，我们还可以通过求物体“角点”确认物体的位置</p>
+</blockquote>
+<h2 id="4-1-Susan"><a href="#4-1-Susan" class="headerlink" title="4.1 Susan"></a>4.1 Susan</h2><ol>
+<li>window作为一个圆形对图片遍历，圈内与圆心相同亮度的部分称为USAN</li>
+<li>若USAN的面积小于某个阈值即认为这个点是角点（就是在圆内占比极低）<blockquote>
+<p>想象一个比例为1:3的饼状统计图…那1/4是不是就是个正方形的角？</p>
+</blockquote>
+</li>
+<li>USAN面积排行<ol>
+<li>圆内全部为相同亮度（即在一个物体内部时）面积最大</li>
+<li>圆内只有一半左右为相同亮度（即边缘）面积次大</li>
+<li>圆内只有小部分为相同亮度时（即角）面积最小<br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h232kivengj20iw0ck75h.jpg" alt=""></li>
+</ol>
+</li>
+</ol>
+<h2 id="4-2-harris"><a href="#4-2-harris" class="headerlink" title="4.2 harris"></a>4.2 harris</h2><p>Detect a point where the sum of square changes<br>of the image is largest when shifted slightly</p>
+<ul>
+<li>Points easily distinguishable from nearby points</li>
+</ul>
 ]]></content>
       <categories>
         <category>study</category>
@@ -1549,6 +1758,49 @@
       </tags>
   </entry>
   <entry>
+    <title>Queue Theory</title>
+    <url>/2022/06/05/queue-theory/</url>
+    <content><![CDATA[<h2 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h2><p>对于某个服务大厅，已知（1）单位时间内会来的客人数（2）服务客人需要的平均时间</p>
+<ul>
+<li>下一个客人什么时候来？（=t时间内来客人的概率为？）</li>
+<li>t时间后，队伍会排多长？</li>
+</ul>
+<h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><ul>
+<li>客人到达</li>
+<li>排队</li>
+<li>窗口服务</li>
+<li>离开</li>
+</ul>
+<h2 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h2><p>两个重要初始化概念：1. 客人到达时间的概率分布 2. 服务时长的概率分布<br>这两个定下来后排队所需时间和客人离开时间就固定下来了</p>
+<ul>
+<li>M/M/1：到达时间和服务时长满足泊松分布，且只有一个服务窗口</li>
+<li>M/D/1：到达时间满足泊松分布，服务时长满足固定分布，且只有一个服务窗口</li>
+</ul>
+<h2 id="泊松分布（负指数分布）"><a href="#泊松分布（负指数分布）" class="headerlink" title="泊松分布（负指数分布）"></a>泊松分布（负指数分布）</h2><p>性质</p>
+<ul>
+<li>无记忆性（马尔科夫模型）</li>
+</ul>
+<p>泊松分布就是描述某段时间内，事件具体的发生概率。<br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h2x5941bvnj20oc04waa0.jpg" alt=""></p>
+<ul>
+<li>P：概率 </li>
+<li>N： 某种函数关系，</li>
+<li>t：时间</li>
+<li>n：数量，1小时内出生3个婴儿的概率，就表示为 P(N(1) = 3) 。</li>
+<li>λ：表示事件的平均频率（如已知一小时内平均畜生5个婴儿则λ=5）</li>
+</ul>
+<h2 id="模拟"><a href="#模拟" class="headerlink" title="模拟"></a>模拟</h2><figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line"><span class="comment">% M/M/1 シミュレーション</span></span><br><span class="line"><span class="comment">% イベント駆動型</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%シミュレーションの時間</span></span><br><span class="line">T = <span class="number">100000</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">%客数</span></span><br><span class="line">N = <span class="number">10000</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">% 客の構造体の定義と初期化</span></span><br><span class="line">s.arrivalTime_ = <span class="number">-1</span>;</span><br><span class="line">s.departureTime_ = <span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">% repmatは配列のコピーをするコマンド</span></span><br><span class="line"><span class="comment">% repmat(s, N, 1) により，sの値を持つＮ×1行列ができる</span></span><br><span class="line"><span class="comment">% 存储客人的到达时间和离开时间S(N*2)</span></span><br><span class="line">S = <span class="built_in">repmat</span>(s, N, <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">% 乱数</span></span><br><span class="line">[rndArrival, rndDeparture] = RandStream.create(<span class="string">&#x27;mrg32k3a&#x27;</span>,<span class="string">&#x27;NumStreams&#x27;</span>, <span class="number">2</span>, <span class="string">&#x27;seed&#x27;</span>,seed);</span><br><span class="line"></span><br><span class="line"><span class="comment">% 最初の到着時刻</span></span><br><span class="line">numArrivals = <span class="number">0</span>;</span><br><span class="line">curTime = expRandom(rndArrival, lambda);</span><br><span class="line"></span><br><span class="line">nextEvent = <span class="string">&#x27;arrival&#x27;</span>;</span><br><span class="line">nextArrivalTime = T;</span><br><span class="line">nextDepartureTime = T;</span><br><span class="line"></span><br><span class="line">numDepartures = <span class="number">0</span>;</span><br><span class="line">queueLength = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">%出力用</span></span><br><span class="line">queueTrace = <span class="built_in">zeros</span>(N, <span class="number">2</span>);</span><br><span class="line">qnum = <span class="number">0</span>;</span><br><span class="line">numEvent = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(curTime &lt; T &amp;&amp; numArrivals &lt;= N)</span><br><span class="line">    </span><br><span class="line">    numEvent = numEvent + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(strcmp(nextEvent, <span class="string">&#x27;arrival&#x27;</span>))</span><br><span class="line">        <span class="comment">%到着時のキュー長の累積値を増やす</span></span><br><span class="line">        qnum = qnum + queueLength;</span><br><span class="line">        <span class="comment">%到着した客数の累積値を一つ増やす</span></span><br><span class="line">        numArrivals = numArrivals + <span class="number">1</span>;</span><br><span class="line">        <span class="comment">%客の到着時刻を構造体に記録</span></span><br><span class="line">        S(numArrivals, <span class="number">1</span>).arrivalTime_ = curTime;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">%空のキューに到着した客ならば出発時刻を決める</span></span><br><span class="line">        <span class="keyword">if</span>(queueLength == <span class="number">0</span>)</span><br><span class="line">        	<span class="comment">% 如果需要M/D/1模型就把这个expRandom()改成加常数</span></span><br><span class="line">            nextDepartureTime = curTime + expRandom(rndDeparture, mu);</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        <span class="comment">%キュー長を1つ増加</span></span><br><span class="line">        queueLength = queueLength + <span class="number">1</span>;</span><br><span class="line">        <span class="comment">%次の到着時刻を決める</span></span><br><span class="line">        nextArrivalTime = curTime + expRandom(rndArrival, lambda);</span><br><span class="line">        </span><br><span class="line">    <span class="keyword">elseif</span>(strcmp(nextEvent, <span class="string">&#x27;departure&#x27;</span>))</span><br><span class="line">        </span><br><span class="line">        <span class="comment">%出発した客数の累積値を増加</span></span><br><span class="line">        numDepartures = numDepartures + <span class="number">1</span>;</span><br><span class="line">        <span class="comment">%出発時刻を構造体に記録</span></span><br><span class="line">        S(numDepartures, <span class="number">1</span>).departureTime_ = curTime;</span><br><span class="line">        <span class="comment">%キュー長を一つ減らす</span></span><br><span class="line">        queueLength = queueLength - <span class="number">1</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">%キュー長が正ならば次の出発時刻を決める</span></span><br><span class="line">        <span class="keyword">if</span>(queueLength &gt; <span class="number">0</span>)</span><br><span class="line">            nextDepartureTime = curTime + expRandom(rndDeparture, mu);</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="comment">%キュー長が0ならばシミュレーション終了時刻を出発時刻とする</span></span><br><span class="line">            nextDepartureTime = T;</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        </span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    </span><br><span class="line">    queueTrace(numEvent, <span class="number">1</span>) = curTime;</span><br><span class="line">    queueTrace(numEvent, <span class="number">2</span>) = queueLength;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(nextArrivalTime &lt;= nextDepartureTime)</span><br><span class="line">        nextEvent = <span class="string">&#x27;arrival&#x27;</span>;</span><br><span class="line">        curTime = nextArrivalTime;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        nextEvent = <span class="string">&#x27;departure&#x27;</span>;</span><br><span class="line">        curTime = nextDepartureTime;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">sumQueue = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>: numEvent - <span class="number">1</span></span><br><span class="line">    sumQueue = sumQueue + (queueTrace(<span class="built_in">i</span> + <span class="number">1</span>, <span class="number">1</span>) - queueTrace(<span class="built_in">i</span>, <span class="number">1</span>)) * queueTrace(<span class="built_in">i</span>, <span class="number">2</span>);</span><br><span class="line">    </span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">totalTime = queueTrace(numEvent, <span class="number">1</span>) - queueTrace(<span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line">timeAvgQueue = sumQueue/totalTime;</span><br><span class="line">avgQueue = qnum/numArrivals;</span><br><span class="line"></span><br><span class="line">delays = <span class="built_in">zeros</span>(numDepartures,<span class="number">1</span>);</span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>: numDepartures</span><br><span class="line">    delays(<span class="built_in">i</span>, <span class="number">1</span>) = S(<span class="built_in">i</span>).departureTime_ - S(<span class="built_in">i</span>).arrivalTime_;</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<h2 id="关于平均值的t检定"><a href="#关于平均值的t检定" class="headerlink" title="关于平均值的t检定"></a>关于平均值的t检定</h2><ul>
+<li>两个样本的母分散不同时的t检定<br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h2x5hs8q8jj20ie0jtaby.jpg" alt=""></li>
+</ul>
+]]></content>
+      <categories>
+        <category>study</category>
+      </categories>
+      <tags>
+        <tag>OR</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>凸优化问题</title>
     <url>/2022/05/06/%E5%87%B8%E4%BC%98%E5%8C%96%E9%97%AE%E9%A2%98/</url>
     <content><![CDATA[<script type="math/tex; mode=display">\text{minimize }f_0(x)</script><script type="math/tex; mode=display">\text{subject to } f_i(x)\le 0, i=1...m</script><script type="math/tex; mode=display">h(x)=0, i=1...p</script><ul>
@@ -1576,121 +1828,103 @@
       </tags>
   </entry>
   <entry>
-    <title>Edge Detection</title>
-    <url>/2022/05/09/edge%20detection/</url>
-    <content><![CDATA[<h1 id="1-Feature-detection"><a href="#1-Feature-detection" class="headerlink" title="1 Feature detection"></a>1 Feature detection</h1><blockquote>
-<ul>
-<li>Containing vast information</li>
-</ul>
+    <title>凸集合与凸函数</title>
+    <url>/2022/05/06/%E5%87%B8%E9%9B%86%E5%90%88%E4%B8%8E%E5%87%B8%E5%87%BD%E6%95%B0/</url>
+    <content><![CDATA[<h2 id="1-convex-sets"><a href="#1-convex-sets" class="headerlink" title="1. convex sets"></a>1. convex sets</h2><h3 id="1-1-Line-segmentation-直线分割"><a href="#1-1-Line-segmentation-直线分割" class="headerlink" title="1.1 Line segmentation 直线分割"></a>1.1 Line segmentation 直线分割</h3><script type="math/tex; mode=display">y=\theta x_1+(1-\theta)x_2</script><script type="math/tex; mode=display">y=x_2+\theta(x_1-x_2)</script><blockquote>
+<p>$\theta$=1时$y=x_1$,=0时反之，所以称为<strong>直线分割 </strong></p>
+<p>根据式2也可以看做是以x_2为基准。向x_1-x_2延伸的一条线<br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h1ykewxdwij208m048q2r.jpg" alt=""></p>
 </blockquote>
-<p>SO it’s important to <mark class="hl-label red">determine</mark> </p>
+<h3 id="1-2-affine-sets"><a href="#1-2-affine-sets" class="headerlink" title="1.2 affine sets"></a>1.2 affine sets</h3><p>仿射集C上的任意两点连成的直线属于C<br>即</p>
+<script type="math/tex; mode=display">{\theta x_{1}+(1-\theta) x_{2} \in C, \quad \forall x_{1}, x_{2} \in C, \text { and } \theta \in \mathbb{R}}</script><p>扩展到多点上为</p>
+<script type="math/tex; mode=display">x_1, x_2 ... x_k \in C</script><script type="math/tex; mode=display">\bf{AND} {\theta}_1+{\theta}_2+...+{\theta}_k=1</script><script type="math/tex; mode=display">\bf{THEN} \theta x_{1}+...+\theta_k x_{k} \in C</script><p>其中，对于属于C的子空间是<br>$V=C-x_0=\{x-x_0|x\in C\}$</p>
+<blockquote>
+<p>意味着标量乘积之和是闭合的</p>
+</blockquote>
+<p>子空间维数=仿射集维数</p>
+<h3 id="1-3-affine-hull-仿射包"><a href="#1-3-affine-hull-仿射包" class="headerlink" title="1.3 affine hull 仿射包"></a>1.3 affine hull 仿射包</h3><p>aff$C=\{\theta x_{1}+…+\theta_k x_{k}|x_{1}, x_{2}…x_k\in C, \theta_1+\theta_2+…+\theta_k=1\}$</p>
 <ol>
-<li><p>WHERE</p>
-<ul>
-<li><strong>concentrate on a part</strong> and <strong>ignore others</strong></li>
-<li>e.g. Object recognition: Ignore background</li>
-</ul>
-</li>
-<li><p>WHAT</p>
-<ul>
-<li>Feature can be located<ul>
-<li>edge</li>
-<li>feature points</li>
-</ul>
-</li>
-</ul>
-</li>
+<li>C中的所有点的仿射组合组成的集合</li>
+<li>仿射集维数=仿射集子空间的维数</li>
+<li>是包含C的最小仿射集合</li>
 </ol>
-<h1 id="2-Edge-detection"><a href="#2-Edge-detection" class="headerlink" title="2 Edge detection"></a>2 Edge detection</h1><h2 id="2-1-Feature"><a href="#2-1-Feature" class="headerlink" title="2.1 Feature"></a>2.1 Feature</h2><ol>
-<li>Brightness (value) changes <strong>rapidly</strong></li>
-<li>Differentiation (近傍ピクセルとの微分処理 ) </li>
-<li>Important feature for object recognition </li>
-<li>Weak to noise(Because it is differentiation)</li>
-</ol>
-<h2 id="2-2-Kinds"><a href="#2-2-Kinds" class="headerlink" title="2.2 Kinds"></a>2.2 Kinds</h2><p><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h22h9p2btmj211z0n2abr.jpg" alt=""></p>
-<h2 id="2-3-Differentiation"><a href="#2-3-Differentiation" class="headerlink" title="2.3 Differentiation"></a>2.3 Differentiation</h2><ul>
-<li><p>Grandient</p>
-<script type="math/tex; mode=display">\nabla I=(\frac{\partial I}{\partial x}, \frac{\partial I}{\partial y})</script><ul>
-<li>Represents the<strong> direction and the speed</strong> of the <strong>change in brightness </strong></li>
-</ul>
-</li>
-<li><p>Laplacian</p>
-<script type="math/tex; mode=display">\nabla^2 I=(\frac{\partial^2 I}{\partial x^2}, \frac{\partial^2 I}{\partial y^2})</script></li>
-</ul>
-<div class="note info modern"><p>边缘就是明暗剧烈变化的地方，所以我们可以通过一次微分的极值或二次微分的变曲点确定edge</p>
-</div>
-<p><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h231usx1ugj20sl0gd764.jpg" alt=""></p>
-<h1 id="3-edge-operator"><a href="#3-edge-operator" class="headerlink" title="3 edge operator"></a>3 edge operator</h1><blockquote>
-<p>为了计算微分，我们通过edge operator——即一种filter来实现</p>
+<h3 id="1-4-相对内部-relative-interior"><a href="#1-4-相对内部-relative-interior" class="headerlink" title="1.4 相对内部 relative interior"></a>1.4 相对内部 relative interior</h3><p>如果集合C的仿射维数小于n,那么aff$C\ne R ^n$<br>相对内部relint C定义为<br>$\text { relint } C =\{x \in C \mid B(x, r) \cap \operatorname{aff} C \subseteq C \text { for some } r&gt;0\}$<br>其中$B(x,y)=\{y| |y-x|\le r\}$(任意范数均可)</p>
+<blockquote>
+<p>（呃呃呃开始不说人话了是吧）</p>
 </blockquote>
-<h2 id="3-1-一次微分"><a href="#3-1-一次微分" class="headerlink" title="3.1 一次微分"></a>3.1 一次微分</h2><p>对于一个形同$[[I_{i,j+1}, I_{i+1,j+1}],[I_{i,j}, I_{i+1,j}]]$的2*2 window内的像素，我们可以将微分转换为</p>
-<script type="math/tex; mode=display">\frac{\partial I}{\partial x} \approx \frac{1}{2\varepsilon}((I_{i+1,j+1}-I_{i,j+1})+(I_{i+1,j}-I_{i,j}))</script><script type="math/tex; mode=display">\frac{\partial I}{\partial y} \approx \frac{1}{2\varepsilon}((I_{i,j+1}-I_{i,j})+(I_{i+1,j+1}-I_{i+1,j}))</script><p>表现为filter即为</p>
-<p><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h231ypgyluj20vp0audgc.jpg" alt=""></p>
-<p>分别求出两个方向的edge后合并才能生成总的edge图</p>
-<ul>
-<li>Location more precise</li>
-<li>Weak to noise </li>
-<li>Low detection power<br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h231uu19ctj20ut0gu40l.jpg" alt=""><script type="math/tex; mode=display">对噪声的优化很弱的后果...处处都是边缘！</script></li>
-</ul>
-<h2 id="3-2-二次微分"><a href="#3-2-二次微分" class="headerlink" title="3.2 二次微分"></a>3.2 二次微分</h2><p><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h231utawi2j20cg0aeq3b.jpg" alt=""></p>
-<script type="math/tex; mode=display">\frac{\partial^2 I}{\partial x^2} \approx \frac{1}{\varepsilon^2}(I_{i-1,j}-2I_{i,j}+I_{i+1,j})</script><script type="math/tex; mode=display">\frac{\partial^2 I}{\partial y^2} \approx \frac{1}{\varepsilon^2}(I_{i,j-1}-2I_{i,j}+I_{i,j+1})</script><p><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h231utl5ycj210q08xq3v.jpg" alt=""></p>
-<h2 id="3-3-算法"><a href="#3-3-算法" class="headerlink" title="3.3 算法"></a>3.3 算法</h2><ul>
-<li>Roberts</li>
-<li>Prewitt<ul>
-<li>先ほどのカーネルではノイズの影響が非常に強く出てしまうので、平滑化処理を加えた形</li>
-</ul>
-</li>
-<li><p>Sobel</p>
-<ul>
-<li>Location imprecise </li>
-<li>Robust to noise </li>
-<li>High detection power </li>
-</ul>
-</li>
-<li><p>LoG<br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h231uui5vej20xn0pbjuq.jpg" alt=""></p>
-<ul>
-<li>用于平滑化</li>
-<li>近似于DOG（倒不如说有时候用DOG会更方便所以可以近似）</li>
-</ul>
-</li>
-<li>Canny<ul>
-<li>通过将一系列的检出算法合并的强力检出工具<ol>
-<li>Blur image I with 2D Gaussian</li>
-<li>Find the edge‐normal direction at each pixel:</li>
-<li>Calculate the strength of the edge</li>
-<li>Find the maximal strength in the edge‐normal direction as the zero‐crossing in that direction (this step is called non‐maximum suppression)</li>
+<h3 id="1-5-convex-sets-凸集"><a href="#1-5-convex-sets-凸集" class="headerlink" title="1.5 convex sets 凸集"></a>1.5 convex sets 凸集</h3><p>任意两点的线段都在C中<br>$\theta x_{1}+(1-\theta) x_{2} \in C$<br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h1ym9ddkmrj21610aata5.jpg" alt=""><br>所有点的凸组合为凸包（convex hull）<br>conv$C=\{\theta x_{1}+…+\theta_k x_{k}|x_{1}, x_{2}…x_k\in C, \theta_1+\theta_2+…+\theta_k=1, \theta_i\ge 0\}$<br>凸包是包含C的最小凸集<br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h1ym9epnp9j216e0b3jsg.jpg" alt=""></p>
+<h2 id="2-cone-锥"><a href="#2-cone-锥" class="headerlink" title="2. cone 锥"></a>2. cone 锥</h2><p>对与任何x属于C以及$\theta$大于等于0，都有<br>$\theta x\in C$</p>
+<h3 id="2-1-凸锥"><a href="#2-1-凸锥" class="headerlink" title="2.1 凸锥"></a>2.1 凸锥</h3><p>锥且凸，即<br>$\theta_1 x_1 + \theta_2 x_2\in C$<br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h1yme7l34kj21650iddhe.jpg" alt=""></p>
+<h3 id="2-2-锥包"><a href="#2-2-锥包" class="headerlink" title="2.2 锥包"></a>2.2 锥包</h3><p>所有锥组合形成的集合</p>
+<h2 id="3-重要例子"><a href="#3-重要例子" class="headerlink" title="3. 重要例子"></a>3. 重要例子</h2><h3 id="3-1-一些概念"><a href="#3-1-一些概念" class="headerlink" title="3.1 一些概念"></a>3.1 一些概念</h3><ol>
+<li>空集、任意一个点（即单点集）、全空间R”都是Rn的仿射（自然也是凸的)子集。</li>
+<li>任意直线是仿射的。如果直线通过零点，则是子空间，因此，也是凸锥。</li>
+<li>一条线段是凸的，但不是仿射的（除非退化为一个点）。</li>
+<li>一条射线，即具有形式$\{x_0+\theta v|\theta≥0\}$，v≠0的集合，是凸的，但不是仿射的。如果射线的基点$x_0$是0，则它是凸锥。</li>
+<li>任意子空间是仿射的、凸锥（自然是凸的）。</li>
 </ol>
-</li>
-<li>改变参数$\sigma$可以提取各种各样不同的特征 </li>
+<h3 id="3-2-超平面"><a href="#3-2-超平面" class="headerlink" title="3.2 超平面"></a>3.2 超平面</h3><p>$\{x|a^Tx=b\}$</p>
+<ul>
+<li>$a\in R^n且不为0, b\in R$</li>
+<li>超平面是关于x的线性方程的解空间（因此是仿射集合）</li>
 </ul>
-</li>
+<h3 id="3-3-半空间"><a href="#3-3-半空间" class="headerlink" title="3.3 半空间"></a>3.3 半空间</h3><p>$\{x|a^Tx\le b\}$</p>
+<ul>
+<li>线性不等式的解空间</li>
+<li>凸但不仿射</li>
+<li>由超平面切割而成2个半空间</li>
 </ul>
-<h1 id="4-Corner-detection"><a href="#4-Corner-detection" class="headerlink" title="4. Corner detection"></a>4. Corner detection</h1><blockquote>
-<p>除了通过微分求出练成线的轮廓线，我们还可以通过求物体“角点”确认物体的位置</p>
+<h3 id="3-4-Euclid球"><a href="#3-4-Euclid球" class="headerlink" title="3.4 Euclid球"></a>3.4 Euclid球</h3><p>$\begin{aligned}<br>B\left(x_{c}, r\right) &amp;=\left\{x \mid\left|x-x_{c}\right|_{2} \leq r\right\} \\<br>&amp;=\left\{x \mid\left(x-x_{c}\right)^{\top}\left(x-x_{c}\right) \leq r^{2}\right\}<br>\end{aligned}$</p>
+<ul>
+<li>$x_c$为球心</li>
+<li>r是半径</li>
+</ul>
+<h3 id="3-5-多面体"><a href="#3-5-多面体" class="headerlink" title="3.5 多面体"></a>3.5 多面体</h3><p>$\begin{array}{r}<br>\mathcal{P}=\left\{x \mid a_{j}^{\top} x-b_{j} \leq 0, j=1, \ldots, m\right. \\<br>\left.c_{j}^{\top} x-d_{j}=0, j=1, \ldots, p\right\}<br>\end{array}$</p>
+<ul>
+<li>有限个线性等式和不等式的集合（即有限个超平面和半空间的交集）</li>
+<li>凸集</li>
+</ul>
+<h2 id="4-凸集间的保凸运算"><a href="#4-凸集间的保凸运算" class="headerlink" title="4. 凸集间的保凸运算"></a>4. 凸集间的保凸运算</h2><p>凸集之间的运算生成新的凸集</p>
+<h3 id="4-1-交集"><a href="#4-1-交集" class="headerlink" title="4.1 交集"></a>4.1 交集</h3><p>$S=S1 \cap S2 $也为凸</p>
+<h3 id="4-2-仿射函数"><a href="#4-2-仿射函数" class="headerlink" title="4.2 仿射函数"></a>4.2 仿射函数</h3><p>形同$f(x)=Ax+b$，对于任意点s属于凸集S，$f(s)$为凸<br>同样若有f(s)属于凸集S，则原象$f^{-1}(s)$也为凸</p>
+<h3 id="4-3-透视函数"><a href="#4-3-透视函数" class="headerlink" title="4.3 透视函数"></a>4.3 透视函数</h3><p>对于$P(z,t)=z/t$（定义域为dom $P=R^n \times R_{++}$ ）</p>
+<blockquote>
+<p>$R_{++}为正实数$</p>
 </blockquote>
-<h2 id="4-1-Susan"><a href="#4-1-Susan" class="headerlink" title="4.1 Susan"></a>4.1 Susan</h2><ol>
-<li>window作为一个圆形对图片遍历，圈内与圆心相同亮度的部分称为USAN</li>
-<li>若USAN的面积小于某个阈值即认为这个点是角点（就是在圆内占比极低）<blockquote>
-<p>想象一个比例为1:3的饼状统计图…那1/4是不是就是个正方形的角？</p>
-</blockquote>
-</li>
-<li>USAN面积排行<ol>
-<li>圆内全部为相同亮度（即在一个物体内部时）面积最大</li>
-<li>圆内只有一半左右为相同亮度（即边缘）面积次大</li>
-<li>圆内只有小部分为相同亮度时（即角）面积最小<br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h232kivengj20iw0ck75h.jpg" alt=""></li>
+<p>则对任意x属于凸C，P(x)也为凸</p>
+<h2 id="5-凸函数"><a href="#5-凸函数" class="headerlink" title="5. 凸函数"></a>5. 凸函数</h2><p>$f:R^n \rightarrow R$, 若dom f为凸集，且x,y属于dom f,且$\theta$在0，1之间，则</p>
+<script type="math/tex; mode=display">f(\theta x+(1-\theta) y) \leq \theta f(x)+(1-\theta) f(y)</script><ul>
+<li>严格凸函数：无等号</li>
+<li>凹函数：当-f是凸</li>
+</ul>
+<p>最大值函数就是一个凸函数：<br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h1yqclyw6ij20r207uq3i.jpg" alt=""></p>
+<h3 id="5-1-扩展值延伸-Extended-value-extensions"><a href="#5-1-扩展值延伸-Extended-value-extensions" class="headerlink" title="5.1 扩展值延伸 Extended-value extensions"></a>5.1 扩展值延伸 Extended-value extensions</h3><p>定义：当x不在dom f时，我们认为$f(x)=\infty$</p>
+<h3 id="5-2-一阶条件"><a href="#5-2-一阶条件" class="headerlink" title="5.2 一阶条件"></a>5.2 一阶条件</h3><ol>
+<li>dom f是凸集</li>
+<li>$f(y)\ge f(x)+ \bigtriangledown f(x)^T(y-x) $</li>
 </ol>
-</li>
-</ol>
-<h2 id="4-2-harris"><a href="#4-2-harris" class="headerlink" title="4.2 harris"></a>4.2 harris</h2><p>Detect a point where the sum of square changes<br>of the image is largest when shifted slightly</p>
 <ul>
-<li>Points easily distinguishable from nearby points</li>
+<li>右式为f在点x附近的泰勒近似</li>
+</ul>
+<h3 id="5-3-二阶条件"><a href="#5-3-二阶条件" class="headerlink" title="5.3 二阶条件"></a>5.3 二阶条件</h3><p>$f(x)$的hessian矩阵为半正定，即可认为</p>
+<script type="math/tex; mode=display">\bigtriangledown^2f(x) \succeq 0</script><blockquote>
+<p>$\succeq$指的是矩阵中的不等式</p>
+</blockquote>
+<ul>
+<li>对于在R上的f，我们简单的认为就是二阶导大于等于0</li>
+</ul>
+<h3 id="5-4-凸函数间的保凸运算"><a href="#5-4-凸函数间的保凸运算" class="headerlink" title="5.4 凸函数间的保凸运算"></a>5.4 凸函数间的保凸运算</h3><ul>
+<li><p>非负加权求和</p>
+<script type="math/tex; mode=display">f=w_1f_1+w_2f_2+...+w_kf_k(w非负，f凸函数)</script></li>
+<li><p>复合仿射映射</p>
+<script type="math/tex; mode=display">g(x)=f(Ax+b)</script><p>f凸时，g凸</p>
+</li>
 </ul>
 ]]></content>
       <categories>
         <category>study</category>
       </categories>
       <tags>
-        <tag>CV</tag>
+        <tag>optimization</tag>
       </tags>
   </entry>
   <entry>
@@ -1836,38 +2070,55 @@
       </tags>
   </entry>
   <entry>
-    <title>德英互译NLP模型</title>
-    <url>/2022/07/31/%E5%BE%B7%E8%8B%B1%E4%BA%92%E8%AF%91NLP%E6%A8%A1%E5%9E%8B/</url>
-    <content><![CDATA[<p><a href="/butterfly/nlp.pdf">pdflink<a><br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h5vwr2ng3wj20yt0g70v4.jpg" alt=""></p>
-]]></content>
-      <categories>
-        <category>project</category>
-      </categories>
-      <tags>
-        <tag>NLP</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>最小二乘问题</title>
-    <url>/2022/05/05/%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<h2 id="最小二乘（LEAST-SQUARES）问题定义"><a href="#最小二乘（LEAST-SQUARES）问题定义" class="headerlink" title="最小二乘（LEAST-SQUARES）问题定义"></a>最小二乘（LEAST-SQUARES）问题定义</h2><p>${f_0(x)=||Ax-b||^2_2<br>        =\sum_{i=1}^k({a_i}^Tx-b_i)^2}$</p>
-<blockquote>
-<p>2-范数<br>${||x||_2=(x,x)^{1/2}=\sqrt{\sum_{i=1}^n x_i^2}}$</p>
-</blockquote>
-<h2 id="最小二乘法"><a href="#最小二乘法" class="headerlink" title="最小二乘法"></a>最小二乘法</h2><p>上面的式子可被简化为：<br>${(A^TA)x = A^Tb}$<br>${x = (A^TA)^{-1}A^Tb}$<br>代入原式并求hesse矩阵的话<br>${\nabla^2 ||Ax-b||^2_2=2A^TA}$<br>→ 变成了确认 ${2A^TA}$的正定值与否的问题</p>
-<h2 id="补充：最小二乘"><a href="#补充：最小二乘" class="headerlink" title="补充：最小二乘"></a>补充：最小二乘</h2><ul>
-<li>如下二维平面图中有很多个点，假设我们想用一条直线来拟合数据，即期望能找到一条直线能最好地穿过这些数据点。</li>
-<li>一个点就可以构造一个方程，而未知数显然只有两个（直线的斜率和截距），因此这就是一个超定系统，我们是没有办法找到一条完美的直线，使得上述的点都在直线上。因此，我们只能期望找到一条最好的“适配（best fitting line）”直线来拟合这些数据</li>
-<li>有x作为自变量，y表示x对应的真实值，$y^hat$表示由拟合直线对应的预测值</li>
-<li>找一条直线能使得所有点离这个直线的距离平均值最小的这种近似的结果就是回归分析的目标。</li>
-<li>最小二乘法主要包含了两大类方法，一种是线性最小二乘法（Linear Least Squares），一种是非线性最小二乘法（Nonlinear Least Squares）。</li>
+    <title>【强化学习】chatGPT的工作原理</title>
+    <url>/2022/12/31/what-is-chatgpt/</url>
+    <content><![CDATA[<p><strong>内容参考</strong>：</p>
+<p>[1] How ChatGPT actually works : <a href="https://www.assemblyai.com/blog/how-chatgpt-actually-works/?continueFlag=49271bb2584143248da2304817eb2d87">https://www.assemblyai.com/blog/how-chatgpt-actually-works/?continueFlag=49271bb2584143248da2304817eb2d87</a></p>
+<p>[2] 强化学习一基础部分 : <a href="https://zhuanlan.zhihu.com/p/555303537">https://zhuanlan.zhihu.com/p/555303537</a></p>
+<h2 id="术语说明"><a href="#术语说明" class="headerlink" title="术语说明"></a>术语说明</h2><ul>
+<li>Capability（能力）</li>
+<li>Allignment（对齐性/泛化性）</li>
 </ul>
+<p><img src="https://p.ipic.vip/4yng5g.jpg" alt=""></p>
+<h2 id="传统语言模型的缺陷"><a href="#传统语言模型的缺陷" class="headerlink" title="传统语言模型的缺陷"></a>传统语言模型的缺陷</h2><p>现在流行的语言模型训练方式有<code>Next-token-prediction</code> （下文预测）和 <code>masked-language-modeling</code> （遮挡预测）， 如大名鼎鼎的transformer。这种方式使得模型能够学习完美构成的语句，却无法真正理解更高级别的语义内容。其特点是能力高，泛化度低。比起人类的复杂的判断系统（语境，常识等），语言模型更多而仅仅依靠上下文的出现概率（likelihood）进行判断。常见的缺点有：</p>
+<ol>
+<li>缺少帮助性：无法遵循人类的指引（Instroduction）</li>
+<li>捏造性：错误信息</li>
+<li>缺少解释性：难以解释如何获得当前结果的</li>
+<li>有毒性：有害信息</li>
+</ol>
+<h2 id="ChatGPT-and-RLHF"><a href="#ChatGPT-and-RLHF" class="headerlink" title="ChatGPT and RLHF"></a>ChatGPT and RLHF</h2><p>为了解决上述的问题，chatGPT基于GPT-3的模型 [3]，加入强化学习方法，首次使用了Reinforcement Learning from Human Feedback [4]。</p>
+<h3 id="STEP-1-Supervised-fine-tuning（SFT）"><a href="#STEP-1-Supervised-fine-tuning（SFT）" class="headerlink" title="STEP 1. Supervised fine-tuning（SFT）"></a>STEP 1. Supervised fine-tuning（SFT）</h3><p><img src="https://p.ipic.vip/9k0f24.jpg" alt=""></p>
+<p>模型准备阶段。openAI选择了对已有的模型GPT-3.5进行fine-tune的方式而不是重头训练新模型。微调时使用了人工选择及编写的Prompt(指令)和Output(输出)组，对模型进行有监督的训练。</p>
+<p>此步骤旨在使用精确而较小的数据集对已有模型针对我们想要执行的任务进行初步的训练，为之后真正的半监督优化做基础。有监督的数据集当然越大越好，但毕竟我们没有那么多时间和精力收集过于庞大的人工数据。</p>
+<h3 id="STEP-2-Rewrad-moel（RM）"><a href="#STEP-2-Rewrad-moel（RM）" class="headerlink" title="STEP 2. Rewrad moel（RM）"></a>STEP 2. Rewrad moel（RM）</h3><p><img src="https://p.ipic.vip/t7dxrz.jpg" alt=""></p>
+<p>训练奖励模型，我更倾向于理解为评价模型。我们希望能有一个评价方式直接反馈给原模型（策略），而不是需要学习一个值（值函数）。具体方式是让模型对一个prompt输出多个结果，人类通过人工标记的方式对这些结果进行由好到坏的排序。这样，奖励模型习得了基于人类喜好的排序能力。</p>
+<p>比起第一步的需要人工从头编写正确答案，此步骤的标记方式显然更轻松和迅速。</p>
+<h3 id="STEP-3-Proximal-Policy-Optimization-PPO"><a href="#STEP-3-Proximal-Policy-Optimization-PPO" class="headerlink" title="STEP 3. Proximal Policy Optimization (PPO)"></a>STEP 3. Proximal Policy Optimization (PPO)</h3><p><img src="https://p.ipic.vip/sxgabk.jpg" alt=""></p>
+<p>强化学习中常见的PPO（近端策略优化）。前文提到的策略由于粒度过大（优化方向不够明确），因此为保证基于奖励模型的排序结果的优化方向不至于过于偏离现实，要求生成的新策略要与在第一步训练的SFT的输出（旧策略）的差值不得过大（KL散度）。</p>
+<p>每一个回合(iteration)一般包含复数个步骤，以保证策略的更新具有一定的远见性，而不仅仅是看眼下的利益。但是对于上一段落的KL散度的惩罚会在每一步中迅速执行，以保证回合内的策略的可信度。</p>
+<h2 id="评价方式"><a href="#评价方式" class="headerlink" title="评价方式"></a>评价方式</h2><ul>
+<li>有用性</li>
+<li>可信度</li>
+<li>有毒性</li>
+</ul>
+<h2 id="局限性"><a href="#局限性" class="headerlink" title="局限性"></a>局限性</h2><p>由于多处使用了人工标注，再加上人工调参的过程，几乎每一步都会加入主观的数据偏差。这是该模型的本质局限性。（成也萧何，败也萧何）</p>
+<p>其他的问题：</p>
+<ol>
+<li>缺少控制实验：RLHF在这里面究竟起到了多大作用？</li>
+<li>对比数据中缺少真实标注：对比数据即第二步中生成的多个结果。即使里面有的结果非常离谱，人工也只能进行“排序”而无法“告知”，即没有告诉其“应该怎么做”。这导致对比数据的偏差极大。</li>
+<li>人类的喜好并不一致。</li>
+<li>RM模型对歧义句或同义句的理解程度</li>
+<li>富含经验的模型：有时模型会抓到奖励模型的一些“暗门”，据此获得高额奖励。</li>
+</ol>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>[3] “Training language models to follow instructions with human feedback”, arXiv:2203.02155 (2022)</p>
+<p>[4] 拆解追溯 GPT-3.5 各项能力的起源 : <a href="https://www.notion.so/360081d91ec245f29029d37b54573756">https://www.notion.so/360081d91ec245f29029d37b54573756</a></p>
 ]]></content>
       <categories>
-        <category>study</category>
+        <category>blog</category>
       </categories>
       <tags>
-        <tag>optimization</tag>
+        <tag>other</tag>
       </tags>
   </entry>
   <entry>
@@ -1915,26 +2166,38 @@
       </tags>
   </entry>
   <entry>
-    <title>闲谈-关于美术馆拍摄的变形问题</title>
-    <url>/2022/05/05/%E9%97%B2%E8%B0%88-%E5%85%B3%E4%BA%8E%E7%BE%8E%E6%9C%AF%E9%A6%86%E6%8B%8D%E6%91%84%E7%9A%84%E5%8F%98%E5%BD%A2%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<p>前几天去艺术馆拍了不少喜欢的画作，本想回来美美做墙纸之类的，结果….<br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h1xc5rlm0hj213y0u0afo.jpg" alt="除去我摄影水平不够导致的没有完美对齐的问题，和红框相比能明显看出来似乎加了鱼眼效果般突出来了点"></p>
-<p><em>除去我摄影水平不够导致的没有完美对齐的问题，和红框相比能明显看出来似乎加了鱼眼效果般突出来了点</em></p>
-<h2 id="镜头变形"><a href="#镜头变形" class="headerlink" title="镜头变形"></a>镜头变形</h2><p><img src="https://i.guancha.cn/bbs/2020/06/21/20200621224008407.png?imageView2/2/w/500/format/png" alt="枕形变形与鼓形变形"></p>
-<blockquote>
-<p>“<em>对于一般的风景画，没有多少直线，对枕形变形不太敏感；但要是以建筑为主体，或者是有较多靠近画框边缘的直线的抽象画，枕形变形就会比较扎眼。如果要把画框拍出来，平直线条紧贴着画面边缘，枕形变形特别容易显出来，佳能红圈20-70/2.8都压不住，慢说任何小数码相机了。这是拍摄绘画的“不利条件”。</em>“</p>
-</blockquote>
-<h2 id="球差（球面収差）"><a href="#球差（球面収差）" class="headerlink" title="球差（球面収差）"></a>球差（球面収差）</h2><p><img src="http://www.kansmemo.com/archives/001/201009/4c99aa26d1e4d.png" alt=""><br>透过镜头外侧的光和透镜片中心(近轴)附近的光,因为焦点位置不同而产生变形。原理上来说，只要镜头为球面镜头这一现象就不可避免。<br>相反,球面收差可以通过使用适当设计——非球面镜头来消除。所以,最近的镜头中非球面镜头开始被普遍使用。<br><img src="http://www.kansmemo.com/archives/001/201009/4c99aa29663c5.png" alt=""></p>
-<h2 id="题外话"><a href="#题外话" class="headerlink" title="题外话"></a>题外话</h2><p>物理学的稀巴烂所以基本还停留在初中学的“凸透镜光线汇聚成一点”，所以其实理解这个费了好大的功夫。一些关于<strong>为什么与教科书不同，凸透镜的焦点并不能完美汇聚于一点</strong>的补充如下：</p>
-<blockquote>
-<p>聚集到一点，需要几个因素<br>1、理想平行光<br>2、理想凸透镜<br>3、理想单一频率<br>4、理想粒子特性(实际上光具有波粒两相性)</p>
-</blockquote>
-<p>[1]<a href="https://www.zhihu.com/question/272102579/answer/1297496356">https://www.zhihu.com/question/272102579/answer/1297496356</a><br>[2]<a href="http://www.kansmemo.com/photo/camera/principles/entry-191.html">http://www.kansmemo.com/photo/camera/principles/entry-191.html</a></p>
+    <title>德英互译NLP模型</title>
+    <url>/2022/07/31/%E5%BE%B7%E8%8B%B1%E4%BA%92%E8%AF%91NLP%E6%A8%A1%E5%9E%8B/</url>
+    <content><![CDATA[<p><a href="/butterfly/nlp.pdf">pdflink<a><br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h5vwr2ng3wj20yt0g70v4.jpg" alt=""></p>
 ]]></content>
       <categories>
-        <category>blog</category>
+        <category>project</category>
       </categories>
       <tags>
-        <tag>other</tag>
+        <tag>NLP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>最小二乘问题</title>
+    <url>/2022/05/05/%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<h2 id="最小二乘（LEAST-SQUARES）问题定义"><a href="#最小二乘（LEAST-SQUARES）问题定义" class="headerlink" title="最小二乘（LEAST-SQUARES）问题定义"></a>最小二乘（LEAST-SQUARES）问题定义</h2><p>${f_0(x)=||Ax-b||^2_2<br>        =\sum_{i=1}^k({a_i}^Tx-b_i)^2}$</p>
+<blockquote>
+<p>2-范数<br>${||x||_2=(x,x)^{1/2}=\sqrt{\sum_{i=1}^n x_i^2}}$</p>
+</blockquote>
+<h2 id="最小二乘法"><a href="#最小二乘法" class="headerlink" title="最小二乘法"></a>最小二乘法</h2><p>上面的式子可被简化为：<br>${(A^TA)x = A^Tb}$<br>${x = (A^TA)^{-1}A^Tb}$<br>代入原式并求hesse矩阵的话<br>${\nabla^2 ||Ax-b||^2_2=2A^TA}$<br>→ 变成了确认 ${2A^TA}$的正定值与否的问题</p>
+<h2 id="补充：最小二乘"><a href="#补充：最小二乘" class="headerlink" title="补充：最小二乘"></a>补充：最小二乘</h2><ul>
+<li>如下二维平面图中有很多个点，假设我们想用一条直线来拟合数据，即期望能找到一条直线能最好地穿过这些数据点。</li>
+<li>一个点就可以构造一个方程，而未知数显然只有两个（直线的斜率和截距），因此这就是一个超定系统，我们是没有办法找到一条完美的直线，使得上述的点都在直线上。因此，我们只能期望找到一条最好的“适配（best fitting line）”直线来拟合这些数据</li>
+<li>有x作为自变量，y表示x对应的真实值，$y^hat$表示由拟合直线对应的预测值</li>
+<li>找一条直线能使得所有点离这个直线的距离平均值最小的这种近似的结果就是回归分析的目标。</li>
+<li>最小二乘法主要包含了两大类方法，一种是线性最小二乘法（Linear Least Squares），一种是非线性最小二乘法（Nonlinear Least Squares）。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>study</category>
+      </categories>
+      <tags>
+        <tag>optimization</tag>
       </tags>
   </entry>
   <entry>
@@ -2012,146 +2275,26 @@
       </tags>
   </entry>
   <entry>
-    <title>Queue Theory</title>
-    <url>/2022/06/05/queue-theory/</url>
-    <content><![CDATA[<h2 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h2><p>对于某个服务大厅，已知（1）单位时间内会来的客人数（2）服务客人需要的平均时间</p>
-<ul>
-<li>下一个客人什么时候来？（=t时间内来客人的概率为？）</li>
-<li>t时间后，队伍会排多长？</li>
-</ul>
-<h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><ul>
-<li>客人到达</li>
-<li>排队</li>
-<li>窗口服务</li>
-<li>离开</li>
-</ul>
-<h2 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h2><p>两个重要初始化概念：1. 客人到达时间的概率分布 2. 服务时长的概率分布<br>这两个定下来后排队所需时间和客人离开时间就固定下来了</p>
-<ul>
-<li>M/M/1：到达时间和服务时长满足泊松分布，且只有一个服务窗口</li>
-<li>M/D/1：到达时间满足泊松分布，服务时长满足固定分布，且只有一个服务窗口</li>
-</ul>
-<h2 id="泊松分布（负指数分布）"><a href="#泊松分布（负指数分布）" class="headerlink" title="泊松分布（负指数分布）"></a>泊松分布（负指数分布）</h2><p>性质</p>
-<ul>
-<li>无记忆性（马尔科夫模型）</li>
-</ul>
-<p>泊松分布就是描述某段时间内，事件具体的发生概率。<br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h2x5941bvnj20oc04waa0.jpg" alt=""></p>
-<ul>
-<li>P：概率 </li>
-<li>N： 某种函数关系，</li>
-<li>t：时间</li>
-<li>n：数量，1小时内出生3个婴儿的概率，就表示为 P(N(1) = 3) 。</li>
-<li>λ：表示事件的平均频率（如已知一小时内平均畜生5个婴儿则λ=5）</li>
-</ul>
-<h2 id="模拟"><a href="#模拟" class="headerlink" title="模拟"></a>模拟</h2><figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line"><span class="comment">% M/M/1 シミュレーション</span></span><br><span class="line"><span class="comment">% イベント駆動型</span></span><br><span class="line"></span><br><span class="line"><span class="comment">%シミュレーションの時間</span></span><br><span class="line">T = <span class="number">100000</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">%客数</span></span><br><span class="line">N = <span class="number">10000</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">% 客の構造体の定義と初期化</span></span><br><span class="line">s.arrivalTime_ = <span class="number">-1</span>;</span><br><span class="line">s.departureTime_ = <span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">% repmatは配列のコピーをするコマンド</span></span><br><span class="line"><span class="comment">% repmat(s, N, 1) により，sの値を持つＮ×1行列ができる</span></span><br><span class="line"><span class="comment">% 存储客人的到达时间和离开时间S(N*2)</span></span><br><span class="line">S = <span class="built_in">repmat</span>(s, N, <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">% 乱数</span></span><br><span class="line">[rndArrival, rndDeparture] = RandStream.create(<span class="string">&#x27;mrg32k3a&#x27;</span>,<span class="string">&#x27;NumStreams&#x27;</span>, <span class="number">2</span>, <span class="string">&#x27;seed&#x27;</span>,seed);</span><br><span class="line"></span><br><span class="line"><span class="comment">% 最初の到着時刻</span></span><br><span class="line">numArrivals = <span class="number">0</span>;</span><br><span class="line">curTime = expRandom(rndArrival, lambda);</span><br><span class="line"></span><br><span class="line">nextEvent = <span class="string">&#x27;arrival&#x27;</span>;</span><br><span class="line">nextArrivalTime = T;</span><br><span class="line">nextDepartureTime = T;</span><br><span class="line"></span><br><span class="line">numDepartures = <span class="number">0</span>;</span><br><span class="line">queueLength = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">%出力用</span></span><br><span class="line">queueTrace = <span class="built_in">zeros</span>(N, <span class="number">2</span>);</span><br><span class="line">qnum = <span class="number">0</span>;</span><br><span class="line">numEvent = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(curTime &lt; T &amp;&amp; numArrivals &lt;= N)</span><br><span class="line">    </span><br><span class="line">    numEvent = numEvent + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(strcmp(nextEvent, <span class="string">&#x27;arrival&#x27;</span>))</span><br><span class="line">        <span class="comment">%到着時のキュー長の累積値を増やす</span></span><br><span class="line">        qnum = qnum + queueLength;</span><br><span class="line">        <span class="comment">%到着した客数の累積値を一つ増やす</span></span><br><span class="line">        numArrivals = numArrivals + <span class="number">1</span>;</span><br><span class="line">        <span class="comment">%客の到着時刻を構造体に記録</span></span><br><span class="line">        S(numArrivals, <span class="number">1</span>).arrivalTime_ = curTime;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">%空のキューに到着した客ならば出発時刻を決める</span></span><br><span class="line">        <span class="keyword">if</span>(queueLength == <span class="number">0</span>)</span><br><span class="line">        	<span class="comment">% 如果需要M/D/1模型就把这个expRandom()改成加常数</span></span><br><span class="line">            nextDepartureTime = curTime + expRandom(rndDeparture, mu);</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        <span class="comment">%キュー長を1つ増加</span></span><br><span class="line">        queueLength = queueLength + <span class="number">1</span>;</span><br><span class="line">        <span class="comment">%次の到着時刻を決める</span></span><br><span class="line">        nextArrivalTime = curTime + expRandom(rndArrival, lambda);</span><br><span class="line">        </span><br><span class="line">    <span class="keyword">elseif</span>(strcmp(nextEvent, <span class="string">&#x27;departure&#x27;</span>))</span><br><span class="line">        </span><br><span class="line">        <span class="comment">%出発した客数の累積値を増加</span></span><br><span class="line">        numDepartures = numDepartures + <span class="number">1</span>;</span><br><span class="line">        <span class="comment">%出発時刻を構造体に記録</span></span><br><span class="line">        S(numDepartures, <span class="number">1</span>).departureTime_ = curTime;</span><br><span class="line">        <span class="comment">%キュー長を一つ減らす</span></span><br><span class="line">        queueLength = queueLength - <span class="number">1</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">%キュー長が正ならば次の出発時刻を決める</span></span><br><span class="line">        <span class="keyword">if</span>(queueLength &gt; <span class="number">0</span>)</span><br><span class="line">            nextDepartureTime = curTime + expRandom(rndDeparture, mu);</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="comment">%キュー長が0ならばシミュレーション終了時刻を出発時刻とする</span></span><br><span class="line">            nextDepartureTime = T;</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        </span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    </span><br><span class="line">    queueTrace(numEvent, <span class="number">1</span>) = curTime;</span><br><span class="line">    queueTrace(numEvent, <span class="number">2</span>) = queueLength;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(nextArrivalTime &lt;= nextDepartureTime)</span><br><span class="line">        nextEvent = <span class="string">&#x27;arrival&#x27;</span>;</span><br><span class="line">        curTime = nextArrivalTime;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        nextEvent = <span class="string">&#x27;departure&#x27;</span>;</span><br><span class="line">        curTime = nextDepartureTime;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">sumQueue = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>: numEvent - <span class="number">1</span></span><br><span class="line">    sumQueue = sumQueue + (queueTrace(<span class="built_in">i</span> + <span class="number">1</span>, <span class="number">1</span>) - queueTrace(<span class="built_in">i</span>, <span class="number">1</span>)) * queueTrace(<span class="built_in">i</span>, <span class="number">2</span>);</span><br><span class="line">    </span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">totalTime = queueTrace(numEvent, <span class="number">1</span>) - queueTrace(<span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line">timeAvgQueue = sumQueue/totalTime;</span><br><span class="line">avgQueue = qnum/numArrivals;</span><br><span class="line"></span><br><span class="line">delays = <span class="built_in">zeros</span>(numDepartures,<span class="number">1</span>);</span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>: numDepartures</span><br><span class="line">    delays(<span class="built_in">i</span>, <span class="number">1</span>) = S(<span class="built_in">i</span>).departureTime_ - S(<span class="built_in">i</span>).arrivalTime_;</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-<h2 id="关于平均值的t检定"><a href="#关于平均值的t检定" class="headerlink" title="关于平均值的t检定"></a>关于平均值的t检定</h2><ul>
-<li>两个样本的母分散不同时的t检定<br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h2x5hs8q8jj20ie0jtaby.jpg" alt=""></li>
-</ul>
+    <title>闲谈-关于美术馆拍摄的变形问题</title>
+    <url>/2022/05/05/%E9%97%B2%E8%B0%88-%E5%85%B3%E4%BA%8E%E7%BE%8E%E6%9C%AF%E9%A6%86%E6%8B%8D%E6%91%84%E7%9A%84%E5%8F%98%E5%BD%A2%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<p>前几天去艺术馆拍了不少喜欢的画作，本想回来美美做墙纸之类的，结果….<br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h1xc5rlm0hj213y0u0afo.jpg" alt="除去我摄影水平不够导致的没有完美对齐的问题，和红框相比能明显看出来似乎加了鱼眼效果般突出来了点"></p>
+<p><em>除去我摄影水平不够导致的没有完美对齐的问题，和红框相比能明显看出来似乎加了鱼眼效果般突出来了点</em></p>
+<h2 id="镜头变形"><a href="#镜头变形" class="headerlink" title="镜头变形"></a>镜头变形</h2><p><img src="https://i.guancha.cn/bbs/2020/06/21/20200621224008407.png?imageView2/2/w/500/format/png" alt="枕形变形与鼓形变形"></p>
+<blockquote>
+<p>“<em>对于一般的风景画，没有多少直线，对枕形变形不太敏感；但要是以建筑为主体，或者是有较多靠近画框边缘的直线的抽象画，枕形变形就会比较扎眼。如果要把画框拍出来，平直线条紧贴着画面边缘，枕形变形特别容易显出来，佳能红圈20-70/2.8都压不住，慢说任何小数码相机了。这是拍摄绘画的“不利条件”。</em>“</p>
+</blockquote>
+<h2 id="球差（球面収差）"><a href="#球差（球面収差）" class="headerlink" title="球差（球面収差）"></a>球差（球面収差）</h2><p><img src="http://www.kansmemo.com/archives/001/201009/4c99aa26d1e4d.png" alt=""><br>透过镜头外侧的光和透镜片中心(近轴)附近的光,因为焦点位置不同而产生变形。原理上来说，只要镜头为球面镜头这一现象就不可避免。<br>相反,球面收差可以通过使用适当设计——非球面镜头来消除。所以,最近的镜头中非球面镜头开始被普遍使用。<br><img src="http://www.kansmemo.com/archives/001/201009/4c99aa29663c5.png" alt=""></p>
+<h2 id="题外话"><a href="#题外话" class="headerlink" title="题外话"></a>题外话</h2><p>物理学的稀巴烂所以基本还停留在初中学的“凸透镜光线汇聚成一点”，所以其实理解这个费了好大的功夫。一些关于<strong>为什么与教科书不同，凸透镜的焦点并不能完美汇聚于一点</strong>的补充如下：</p>
+<blockquote>
+<p>聚集到一点，需要几个因素<br>1、理想平行光<br>2、理想凸透镜<br>3、理想单一频率<br>4、理想粒子特性(实际上光具有波粒两相性)</p>
+</blockquote>
+<p>[1]<a href="https://www.zhihu.com/question/272102579/answer/1297496356">https://www.zhihu.com/question/272102579/answer/1297496356</a><br>[2]<a href="http://www.kansmemo.com/photo/camera/principles/entry-191.html">http://www.kansmemo.com/photo/camera/principles/entry-191.html</a></p>
 ]]></content>
       <categories>
-        <category>study</category>
+        <category>blog</category>
       </categories>
       <tags>
-        <tag>OR</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>凸集合与凸函数</title>
-    <url>/2022/05/06/%E5%87%B8%E9%9B%86%E5%90%88%E4%B8%8E%E5%87%B8%E5%87%BD%E6%95%B0/</url>
-    <content><![CDATA[<h2 id="1-convex-sets"><a href="#1-convex-sets" class="headerlink" title="1. convex sets"></a>1. convex sets</h2><h3 id="1-1-Line-segmentation-直线分割"><a href="#1-1-Line-segmentation-直线分割" class="headerlink" title="1.1 Line segmentation 直线分割"></a>1.1 Line segmentation 直线分割</h3><script type="math/tex; mode=display">y=\theta x_1+(1-\theta)x_2</script><script type="math/tex; mode=display">y=x_2+\theta(x_1-x_2)</script><blockquote>
-<p>$\theta$=1时$y=x_1$,=0时反之，所以称为<strong>直线分割 </strong></p>
-<p>根据式2也可以看做是以x_2为基准。向x_1-x_2延伸的一条线<br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h1ykewxdwij208m048q2r.jpg" alt=""></p>
-</blockquote>
-<h3 id="1-2-affine-sets"><a href="#1-2-affine-sets" class="headerlink" title="1.2 affine sets"></a>1.2 affine sets</h3><p>仿射集C上的任意两点连成的直线属于C<br>即</p>
-<script type="math/tex; mode=display">{\theta x_{1}+(1-\theta) x_{2} \in C, \quad \forall x_{1}, x_{2} \in C, \text { and } \theta \in \mathbb{R}}</script><p>扩展到多点上为</p>
-<script type="math/tex; mode=display">x_1, x_2 ... x_k \in C</script><script type="math/tex; mode=display">\bf{AND} {\theta}_1+{\theta}_2+...+{\theta}_k=1</script><script type="math/tex; mode=display">\bf{THEN} \theta x_{1}+...+\theta_k x_{k} \in C</script><p>其中，对于属于C的子空间是<br>$V=C-x_0=\{x-x_0|x\in C\}$</p>
-<blockquote>
-<p>意味着标量乘积之和是闭合的</p>
-</blockquote>
-<p>子空间维数=仿射集维数</p>
-<h3 id="1-3-affine-hull-仿射包"><a href="#1-3-affine-hull-仿射包" class="headerlink" title="1.3 affine hull 仿射包"></a>1.3 affine hull 仿射包</h3><p>aff$C=\{\theta x_{1}+…+\theta_k x_{k}|x_{1}, x_{2}…x_k\in C, \theta_1+\theta_2+…+\theta_k=1\}$</p>
-<ol>
-<li>C中的所有点的仿射组合组成的集合</li>
-<li>仿射集维数=仿射集子空间的维数</li>
-<li>是包含C的最小仿射集合</li>
-</ol>
-<h3 id="1-4-相对内部-relative-interior"><a href="#1-4-相对内部-relative-interior" class="headerlink" title="1.4 相对内部 relative interior"></a>1.4 相对内部 relative interior</h3><p>如果集合C的仿射维数小于n,那么aff$C\ne R ^n$<br>相对内部relint C定义为<br>$\text { relint } C =\{x \in C \mid B(x, r) \cap \operatorname{aff} C \subseteq C \text { for some } r&gt;0\}$<br>其中$B(x,y)=\{y| |y-x|\le r\}$(任意范数均可)</p>
-<blockquote>
-<p>（呃呃呃开始不说人话了是吧）</p>
-</blockquote>
-<h3 id="1-5-convex-sets-凸集"><a href="#1-5-convex-sets-凸集" class="headerlink" title="1.5 convex sets 凸集"></a>1.5 convex sets 凸集</h3><p>任意两点的线段都在C中<br>$\theta x_{1}+(1-\theta) x_{2} \in C$<br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h1ym9ddkmrj21610aata5.jpg" alt=""><br>所有点的凸组合为凸包（convex hull）<br>conv$C=\{\theta x_{1}+…+\theta_k x_{k}|x_{1}, x_{2}…x_k\in C, \theta_1+\theta_2+…+\theta_k=1, \theta_i\ge 0\}$<br>凸包是包含C的最小凸集<br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h1ym9epnp9j216e0b3jsg.jpg" alt=""></p>
-<h2 id="2-cone-锥"><a href="#2-cone-锥" class="headerlink" title="2. cone 锥"></a>2. cone 锥</h2><p>对与任何x属于C以及$\theta$大于等于0，都有<br>$\theta x\in C$</p>
-<h3 id="2-1-凸锥"><a href="#2-1-凸锥" class="headerlink" title="2.1 凸锥"></a>2.1 凸锥</h3><p>锥且凸，即<br>$\theta_1 x_1 + \theta_2 x_2\in C$<br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h1yme7l34kj21650iddhe.jpg" alt=""></p>
-<h3 id="2-2-锥包"><a href="#2-2-锥包" class="headerlink" title="2.2 锥包"></a>2.2 锥包</h3><p>所有锥组合形成的集合</p>
-<h2 id="3-重要例子"><a href="#3-重要例子" class="headerlink" title="3. 重要例子"></a>3. 重要例子</h2><h3 id="3-1-一些概念"><a href="#3-1-一些概念" class="headerlink" title="3.1 一些概念"></a>3.1 一些概念</h3><ol>
-<li>空集、任意一个点（即单点集）、全空间R”都是Rn的仿射（自然也是凸的)子集。</li>
-<li>任意直线是仿射的。如果直线通过零点，则是子空间，因此，也是凸锥。</li>
-<li>一条线段是凸的，但不是仿射的（除非退化为一个点）。</li>
-<li>一条射线，即具有形式$\{x_0+\theta v|\theta≥0\}$，v≠0的集合，是凸的，但不是仿射的。如果射线的基点$x_0$是0，则它是凸锥。</li>
-<li>任意子空间是仿射的、凸锥（自然是凸的）。</li>
-</ol>
-<h3 id="3-2-超平面"><a href="#3-2-超平面" class="headerlink" title="3.2 超平面"></a>3.2 超平面</h3><p>$\{x|a^Tx=b\}$</p>
-<ul>
-<li>$a\in R^n且不为0, b\in R$</li>
-<li>超平面是关于x的线性方程的解空间（因此是仿射集合）</li>
-</ul>
-<h3 id="3-3-半空间"><a href="#3-3-半空间" class="headerlink" title="3.3 半空间"></a>3.3 半空间</h3><p>$\{x|a^Tx\le b\}$</p>
-<ul>
-<li>线性不等式的解空间</li>
-<li>凸但不仿射</li>
-<li>由超平面切割而成2个半空间</li>
-</ul>
-<h3 id="3-4-Euclid球"><a href="#3-4-Euclid球" class="headerlink" title="3.4 Euclid球"></a>3.4 Euclid球</h3><p>$\begin{aligned}<br>B\left(x_{c}, r\right) &amp;=\left\{x \mid\left|x-x_{c}\right|_{2} \leq r\right\} \\<br>&amp;=\left\{x \mid\left(x-x_{c}\right)^{\top}\left(x-x_{c}\right) \leq r^{2}\right\}<br>\end{aligned}$</p>
-<ul>
-<li>$x_c$为球心</li>
-<li>r是半径</li>
-</ul>
-<h3 id="3-5-多面体"><a href="#3-5-多面体" class="headerlink" title="3.5 多面体"></a>3.5 多面体</h3><p>$\begin{array}{r}<br>\mathcal{P}=\left\{x \mid a_{j}^{\top} x-b_{j} \leq 0, j=1, \ldots, m\right. \\<br>\left.c_{j}^{\top} x-d_{j}=0, j=1, \ldots, p\right\}<br>\end{array}$</p>
-<ul>
-<li>有限个线性等式和不等式的集合（即有限个超平面和半空间的交集）</li>
-<li>凸集</li>
-</ul>
-<h2 id="4-凸集间的保凸运算"><a href="#4-凸集间的保凸运算" class="headerlink" title="4. 凸集间的保凸运算"></a>4. 凸集间的保凸运算</h2><p>凸集之间的运算生成新的凸集</p>
-<h3 id="4-1-交集"><a href="#4-1-交集" class="headerlink" title="4.1 交集"></a>4.1 交集</h3><p>$S=S1 \cap S2 $也为凸</p>
-<h3 id="4-2-仿射函数"><a href="#4-2-仿射函数" class="headerlink" title="4.2 仿射函数"></a>4.2 仿射函数</h3><p>形同$f(x)=Ax+b$，对于任意点s属于凸集S，$f(s)$为凸<br>同样若有f(s)属于凸集S，则原象$f^{-1}(s)$也为凸</p>
-<h3 id="4-3-透视函数"><a href="#4-3-透视函数" class="headerlink" title="4.3 透视函数"></a>4.3 透视函数</h3><p>对于$P(z,t)=z/t$（定义域为dom $P=R^n \times R_{++}$ ）</p>
-<blockquote>
-<p>$R_{++}为正实数$</p>
-</blockquote>
-<p>则对任意x属于凸C，P(x)也为凸</p>
-<h2 id="5-凸函数"><a href="#5-凸函数" class="headerlink" title="5. 凸函数"></a>5. 凸函数</h2><p>$f:R^n \rightarrow R$, 若dom f为凸集，且x,y属于dom f,且$\theta$在0，1之间，则</p>
-<script type="math/tex; mode=display">f(\theta x+(1-\theta) y) \leq \theta f(x)+(1-\theta) f(y)</script><ul>
-<li>严格凸函数：无等号</li>
-<li>凹函数：当-f是凸</li>
-</ul>
-<p>最大值函数就是一个凸函数：<br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h1yqclyw6ij20r207uq3i.jpg" alt=""></p>
-<h3 id="5-1-扩展值延伸-Extended-value-extensions"><a href="#5-1-扩展值延伸-Extended-value-extensions" class="headerlink" title="5.1 扩展值延伸 Extended-value extensions"></a>5.1 扩展值延伸 Extended-value extensions</h3><p>定义：当x不在dom f时，我们认为$f(x)=\infty$</p>
-<h3 id="5-2-一阶条件"><a href="#5-2-一阶条件" class="headerlink" title="5.2 一阶条件"></a>5.2 一阶条件</h3><ol>
-<li>dom f是凸集</li>
-<li>$f(y)\ge f(x)+ \bigtriangledown f(x)^T(y-x) $</li>
-</ol>
-<ul>
-<li>右式为f在点x附近的泰勒近似</li>
-</ul>
-<h3 id="5-3-二阶条件"><a href="#5-3-二阶条件" class="headerlink" title="5.3 二阶条件"></a>5.3 二阶条件</h3><p>$f(x)$的hessian矩阵为半正定，即可认为</p>
-<script type="math/tex; mode=display">\bigtriangledown^2f(x) \succeq 0</script><blockquote>
-<p>$\succeq$指的是矩阵中的不等式</p>
-</blockquote>
-<ul>
-<li>对于在R上的f，我们简单的认为就是二阶导大于等于0</li>
-</ul>
-<h3 id="5-4-凸函数间的保凸运算"><a href="#5-4-凸函数间的保凸运算" class="headerlink" title="5.4 凸函数间的保凸运算"></a>5.4 凸函数间的保凸运算</h3><ul>
-<li><p>非负加权求和</p>
-<script type="math/tex; mode=display">f=w_1f_1+w_2f_2+...+w_kf_k(w非负，f凸函数)</script></li>
-<li><p>复合仿射映射</p>
-<script type="math/tex; mode=display">g(x)=f(Ax+b)</script><p>f凸时，g凸</p>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>study</category>
-      </categories>
-      <tags>
-        <tag>optimization</tag>
+        <tag>other</tag>
       </tags>
   </entry>
 </search>
