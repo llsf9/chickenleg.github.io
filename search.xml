@@ -54,33 +54,6 @@
       </tags>
   </entry>
   <entry>
-    <title>HexoTags</title>
-    <url>/2022/05/05/HexoTags/</url>
-    <content><![CDATA[<h2 id="Note"><a href="#Note" class="headerlink" title="Note"></a>Note</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% note [class]%&#125;</span><br><span class="line">Any content (support inline tags too.io).</span><br><span class="line">&#123;% endnote %&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>空白</li>
-<li>default</li>
-<li>primary</li>
-<li>success</li>
-<li>info</li>
-<li>warning</li>
-<li>danger</li>
-</ul>
-<h2 id="Mermaid"><a href="#Mermaid" class="headerlink" title="Mermaid"></a>Mermaid</h2><div class="note modern"><p>使用mermaid标籤可以绘製Flowchart（流程图）、Sequence diagram（时序图 ）、Class Diagram（类别图）、State Diagram（状态图）、Gantt（甘特图）和Pie Chart（圆形图），具体可以查看<a href="https://mermaid-js.github.io/mermaid/#/">Mermaide文档</a></p>
-</div>
-<h2 id="Tabs"><a href="#Tabs" class="headerlink" title="Tabs"></a>Tabs</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% tabs test1 %&#125;</span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line"><span class="strong">**This is Tab 1.**</span></span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line"><span class="strong">**This is Tab 2.**</span></span><br><span class="line">&lt;!-- endtab --&gt;</span><br></pre></td></tr></table></figure>
-<div class="tabs" id="test1"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#test1-1">表格1</button></li><li class="tab"><button type="button" data-href="#test1-2">表格2</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="test1-1"><p>这是1</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="test1-2"><p>这是2</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
-<h2 id="label"><a href="#label" class="headerlink" title="label"></a>label</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% label 我是 %&#125;&#123;% label 什么 blue %&#125;&#123;%label 颜色 red %&#125;</span><br></pre></td></tr></table></figure>
-<mark class="hl-label default">我是</mark> <mark class="hl-label blue">什么</mark> <mark class="hl-label red">颜色</mark> 
-]]></content>
-      <categories>
-        <category>study</category>
-      </categories>
-      <tags>
-        <tag>hexo</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Collection of CGO</title>
     <url>/2022/05/28/Collection-of-CGO/</url>
     <content><![CDATA[<h1 id="Collections"><a href="#Collections" class="headerlink" title="Collections"></a>Collections</h1><ul>
@@ -138,6 +111,33 @@
       </categories>
       <tags>
         <tag>CGO</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>HexoTags</title>
+    <url>/2022/05/05/HexoTags/</url>
+    <content><![CDATA[<h2 id="Note"><a href="#Note" class="headerlink" title="Note"></a>Note</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% note [class]%&#125;</span><br><span class="line">Any content (support inline tags too.io).</span><br><span class="line">&#123;% endnote %&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>空白</li>
+<li>default</li>
+<li>primary</li>
+<li>success</li>
+<li>info</li>
+<li>warning</li>
+<li>danger</li>
+</ul>
+<h2 id="Mermaid"><a href="#Mermaid" class="headerlink" title="Mermaid"></a>Mermaid</h2><div class="note modern"><p>使用mermaid标籤可以绘製Flowchart（流程图）、Sequence diagram（时序图 ）、Class Diagram（类别图）、State Diagram（状态图）、Gantt（甘特图）和Pie Chart（圆形图），具体可以查看<a href="https://mermaid-js.github.io/mermaid/#/">Mermaide文档</a></p>
+</div>
+<h2 id="Tabs"><a href="#Tabs" class="headerlink" title="Tabs"></a>Tabs</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% tabs test1 %&#125;</span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line"><span class="strong">**This is Tab 1.**</span></span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line"><span class="strong">**This is Tab 2.**</span></span><br><span class="line">&lt;!-- endtab --&gt;</span><br></pre></td></tr></table></figure>
+<div class="tabs" id="test1"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#test1-1">表格1</button></li><li class="tab"><button type="button" data-href="#test1-2">表格2</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="test1-1"><p>这是1</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="test1-2"><p>这是2</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+<h2 id="label"><a href="#label" class="headerlink" title="label"></a>label</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% label 我是 %&#125;&#123;% label 什么 blue %&#125;&#123;%label 颜色 red %&#125;</span><br></pre></td></tr></table></figure>
+<mark class="hl-label default">我是</mark> <mark class="hl-label blue">什么</mark> <mark class="hl-label red">颜色</mark> 
+]]></content>
+      <categories>
+        <category>study</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -282,160 +282,6 @@
       </categories>
       <tags>
         <tag>CGO</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>闲看-数据集会有刻板印象吗？</title>
-    <url>/2022/10/15/dataset-bias/</url>
-    <content><![CDATA[<blockquote>
-<p>本来是想看<em>Ruth Fong</em>这位作者的一些关于可解释模型的一些论文，但是无意中看到她作为共作的讨论数据集的性别刻板印象的论文，沉迷于此看了一天倒是忘记了最开始是要看别的来着…</p>
-</blockquote>
-<p>Meister, Nicole, et al. “Gender Artifacts in Visual Datasets.” arXiv preprint arXiv:2206.09191 (2022).</p>
-<p>标题：<strong>Gender Artifacts in Visual Datasets</strong><br>论文地址：<a href="https://arxiv.org/abs/2206.09191">https://arxiv.org/abs/2206.09191</a><br>关键词：AI fairness, gender bias, dataset analysis</p>
-<h2 id="0-摘要"><a href="#0-摘要" class="headerlink" title="0. 摘要"></a>0. 摘要</h2><p>我们已经知道性别偏差会出现在大型图像集中并且会影响下游任务模型。许多前序工作已经提出弱化这种偏差影响的手法比如尝试将性别情感相关的情报从图片里删除。为了理解这些手法的可行性和使用性，我们调查了大型图片集中究竟有哪些<em>性别伪影（gender artifacts）</em>。我们定义，性别伪影应该是一个</p>
-<ol>
-<li>可视的并且会被现代模型学习到的</li>
-<li>能以人类思维解释的</li>
-</ol>
-<p>与性别相关的线索。通过我们的分析，我们发现在COCO和OpenImages数据集中，伪影可以说是无处不在，下到低阶信息（如色彩信息），上至高阶信息（如姿势和位置），都存在性别伪影。因此我们认为通过删除伪影的方法是不可行的。并且我们认为作为研究员和训练者的责任，他们更应该注意数据里的性别分布，并应该加强手法对这些分布偏差的鲁棒性。</p>
-<h2 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1. 介绍"></a>1. 介绍</h2><p>我们现在已知了很多深度学习模型的衍生物都有社会偏差。一种主要的假设是这种偏差源自于输入数据本身的问题。许多偏差都来自于特定群体的相关数据的缺乏，如天然的性别分布已经被论证不足以缓解模型的偏差。因此许多手法提出将具有性别色彩的元素进行遮挡的方法以避免输入数据的不均匀。</p>
-<p>在本文中，我们不仅关注这些数据集的偏差，并且探索了这些性别信息究竟多大程度能被除掉。因此首先我们定义了<em>性别伪影</em>应该是可学习的和可解释的。并且为了探索这些伪影，我们生成和对比了许多不同版本的数据（如灰度化的图片，被遮挡背景的图片等），以探索它们的性别预测程度。</p>
-<p>但是我们并不赞成任何预测性别的行为。并认为这里并没有任何理由足以支持这一行为。</p>
-<p>根据上述工作，我们最终发现在COCO和OpenImage里性别伪影无处不在。如下图中仅仅是计算了图片中三原色的平均值，就能够看出两性之间的明显差异。通过平均值模型预测度为，COCO：58.0%, OpenImages：59.1%</p>
-<p><img src="https://p.ipic.vip/bp87fo.png" alt="左：分割掩膜的相关统计量 右：图像的平均色彩度"></p>
-<p>这些发现的暗示如下：</p>
-<ol>
-<li>性别伪影存在于图片的每个角落，因此过去的删除特定性别伪影的手法也许是无效的。我们更推荐研究者使用注重公平的模型，以及非聚合的验证矩阵。这能帮助发现潜在的群体偏差。</li>
-<li>在我们的发现中，这些性格偏差的无处不在性导致最终的预测可能是毫无道理的。比如每当让模型预测性别时，我们需要积极地考虑预预测依据是什么；模型是真的学习到了有意义的理由，还是仅仅是因为图片更红一些。</li>
-</ol>
-<p>最后，我们也要考虑不是所有伪影都是错误的。有一些也许是真的能够帮助我们区别两个群体，它们是重要的特征；但有一些仅仅是讨厌的刻板印象。我们需要考虑哪些是要避免的。</p>
-<h2 id="2-相关工作"><a href="#2-相关工作" class="headerlink" title="2. 相关工作"></a>2. 相关工作</h2><h2 id="3-实验"><a href="#3-实验" class="headerlink" title="3. 实验"></a>3. 实验</h2><h3 id="3-1-数据集"><a href="#3-1-数据集" class="headerlink" title="3.1 数据集"></a>3.1 数据集</h3><p>使用COCO和OpenImages的主要原因是它们是少见的能直接获得性别标签的注释。</p>
-<h3 id="3-2-模型参数"><a href="#3-2-模型参数" class="headerlink" title="3.2 模型参数"></a>3.2 模型参数</h3><h3 id="3-3-道德考虑"><a href="#3-3-道德考虑" class="headerlink" title="3.3 道德考虑"></a>3.3 道德考虑</h3><hr>
-<blockquote>
-<p>以下开始是产生性别伪影的原因的实验和探讨</p>
-</blockquote>
-<h2 id="4-分辨率和颜色"><a href="#4-分辨率和颜色" class="headerlink" title="4. 分辨率和颜色"></a>4. 分辨率和颜色</h2><p>我们测试了测试集在112x112, 56x56, 28x28, 14x14, 7x7这几种分辨率情况下的预测情况。随着分辨率下降，准确度也逐步下降，但是颜色也逐渐变得单一。因此我们也考虑了当转化为灰度图片后随着分辨率下降预测度的情况。结果如下图所示。</p>
-<p><img src="https://p.ipic.vip/6ovrla.png" alt="Color：彩色，Grayscale：灰度，LogReg：红绿蓝三原色的像素块个数的平均值"></p>
-<p>在28x28的分辨率下的COCO数据集中，彩色图片预测率有61.9%而灰度图片仅有51.9%。这说明在图片的物体形状不再具有意义时，性别伪影很可能来自于色彩的影响。</p>
-<p>并且即使将分辨率低到了7x7的程度，彩色图片的预测率依旧高于50%。</p>
-<p>这很有可能数据集中的两性具有一定的色彩特征。男性更常是在绿色草坪上，而数据集中的女性更常拥有更亮色的皮肤。</p>
-<h2 id="5-人和背景"><a href="#5-人和背景" class="headerlink" title="5. 人和背景"></a>5. 人和背景</h2><p>前序工作中已经证明人物的样貌一定包含了性别伪影。那么更朴素的问题是，是否图片背景，甚至是更高阶的人物信息（姿势和大小等）会包含人物伪影？</p>
-<p>我们设置了一系列的遮挡图片来对比对预测度的影响，术语解释如下：</p>
-<ol>
-<li>Full：人物完全被显示出来</li>
-<li>Full NoBg：人物完全被显示并且没有背景</li>
-<li>MaskSegm：人物掩膜</li>
-<li>MaskRect：矩形掩膜</li>
-</ol>
-<p>最终结果如下图</p>
-<p><img src="https://p.ipic.vip/62qmuv.png" alt=""></p>
-<p><strong>人物外貌是性别伪影。</strong>很明显，即使遮挡住背景时（Full Nobg），预测度也没有剧烈的下降。</p>
-<p><strong>仅仅使用人物的形状和位置对性别进行预测也达到了50%以上。</strong>我们看到即使在MaskSegm NoBg的情况下，也达到了74.8%的准确率，说明人物形状本身都能揭露性别情报，比如着装或是头发的长短。接下来，我们删除了更多人物信息，只留下了关键点(keypoints)如下图。</p>
-<p><img src="https://p.ipic.vip/e28dt9.png" alt=""></p>
-<p>它们的表现依旧优于50%达到了64.8%的准确度。男性的动作有可能被模型认为更小和在运动状态；而女性更多的被模型认为倾向于更大和站立。</p>
-<p><strong>这些不同性别表达中的大小和位置差异是可被学习的。</strong>即使我们把人物轮廓遮住（MaskRectNoBg），结果仍表现出了高于50%的精度。</p>
-<p><strong>背景信息仍旧是极其重要的信息对于表达性别信息。</strong>因此任何仅仅只是通过遮挡人物外貌的方法，只不过是把性别伪影从人物转移到了背景上，实际上是无法真正消除所有性别伪影的。</p>
-<p><strong>定性分析。</strong>为了进一步理解背景中的性别伪影，我们进行了一系列定性分析结果如下图。<br><img src="https://p.ipic.vip/adv6fw.png" alt="值为100意味着被预测为女性，0则为男性"></p>
-<p>模型倾向于将城市和室内的背景与女性连接起来，而将室外和运动背景与男性结合。此外，通过第四行我们发现状态更“小”和静止时常被模型认为是女性，而“大”和动态被认为是男性。但是，我们也发现了如果人物外貌被包含在图片里时，运动的女性和静止的男性也是可以被正确区分的。</p>
-<p><strong>性别伪影在数据集中具有普遍性。</strong>我们对两个数据集进行了交叉验证如下表，不管是哪种掩膜设定最终结果都高于50%。</p>
-<p><img src="https://p.ipic.vip/wdpf1d.png" alt=""></p>
-<h2 id="6-具有语义内容的物体"><a href="#6-具有语义内容的物体" class="headerlink" title="6. 具有语义内容的物体"></a>6. 具有语义内容的物体</h2><p>这一章节我们致力于更好的理解性别伪影，并区别背景中的两大要素：物体和场景。</p>
-<p><strong>通过模型的关注度可视化性别伪影。</strong>我们使用CAMS可视化了不同物体在用于性别分类时的重要度，如下图</p>
-<p><img src="https://p.ipic.vip/j47vr1.png" alt=""></p>
-<p>当人物被预测为女性时，模型在关注室内的物体如床和烤箱；而被预测为男性时，模型关注于室外物体如滑板和摩托。</p>
-<p><strong>和性别分类最有关的物体排序。</strong>在COCO中，比重最高的十个物体对应用于分类女性的，分别为吹风机，手提包，泰迪熊，雨伞和床；而比重最低的十个物体对应于分类男性，为滑板，领带，滑雪板，棒球手套和摩托车。</p>
-<p>为了进一步理解这些物体的作用，我们逐步从图片中删除各个物体，并观察预测结果的准确率的变化。结果如下图。</p>
-<p><img src="https://p.ipic.vip/w08stw.png" alt=""></p>
-<p>我们可以看到，物体产生的影响无处不在；直到我们将物体删除到一个不剩，判定率才下降到了50%的基准。</p>
-<h2 id="7-讨论"><a href="#7-讨论" class="headerlink" title="7. 讨论"></a>7. 讨论</h2><p>首先，我们应该面对这种数据集中的不均匀而不是妄图消灭它们（我们已经证明了这几乎不可能）。因此使用注重公平性的模型是更好的选择。</p>
-<p>此外，在构建数据集时我们也要尽量避免这种产生的偏差。我们应提前考虑这种结构是否会影响到下游任务的结果。</p>
-<p>最后，我们应该警惕模型的学习结果。也许一些模型的结果真的和人类的判断结果相符合，甚至和我们的认知对应。但实际上它可能只是在学习这个数据集中的可视化物体的关联性，而不是真正的“理解”。当我们对结果分析时，我们应该小心我们的分析是不是其实仅仅是人类自己“赋予”的。</p>
-]]></content>
-      <categories>
-        <category>blog</category>
-      </categories>
-      <tags>
-        <tag>Paper</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>剑指Offer-2（动态算法）</title>
-    <url>/2022/11/06/dynamic-programming/</url>
-    <content><![CDATA[<blockquote>
-<p>求解决策过程(decision process)最优化的数学方法。</p>
-</blockquote>
-<hr>
-<h2 id="剑指10-1-斐波那契数列"><a href="#剑指10-1-斐波那契数列" class="headerlink" title="剑指10-1. 斐波那契数列"></a>剑指10-1. 斐波那契数列</h2><p><strong>写一个函数，输入 n ，求斐波那契（Fibonacci）数列的第 n 项（即 F(N)）。斐波那契数列的定义如下：<br>F(0) = 0,   F(1) = 1<br>F(N) = F(N - 1) + F(N - 2), 其中 N &gt; 1.<br>斐波那契数列由 0 和 1 开始，之后的斐波那契数就是由之前的两数相加而得出。<br>答案需要取模 1e9+7（1000000007），如计算初始结果为：1000000008，请返回 1。</strong></p>
-<ul>
-<li>避免重复计算因此使用动态算法</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">fib</span>(<span class="params">self, n: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        a, b = <span class="number">0</span>, <span class="number">1</span></span><br><span class="line">        <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">            a, b = b, a + b</span><br><span class="line">        <span class="keyword">return</span> a % <span class="number">1000000007</span></span><br></pre></td></tr></table></figure>
-<h2 id="剑指10-2-青蛙跳台阶"><a href="#剑指10-2-青蛙跳台阶" class="headerlink" title="剑指10-2. 青蛙跳台阶"></a>剑指10-2. 青蛙跳台阶</h2><p><strong>一只青蛙一次可以跳上1级台阶，也可以跳上2级台阶。求该青蛙跳上一个 n 级的台阶总共有多少种跳法。</strong><br><strong>答案需要取模 1e9+7（1000000007），如计算初始结果为：1000000008，请返回 1。</strong></p>
-<ul>
-<li>本质还是斐波那契数列</li>
-<li>注意当n=0时，因为只能不跳所以等于1（这个题的毛病不要太钻牛角尖）</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">numWays</span>(<span class="params">self, n: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        <span class="comment">## 最后一步一定是一阶或是两节</span></span><br><span class="line">        <span class="comment">## 剩一节时的方法有f(n-1)种，剩两节有f(n-2)种，则f(n)=f(n-1)+f(n-2)</span></span><br><span class="line">        <span class="comment">## f(0) = 1, f(1) = 1, f(2) = 2</span></span><br><span class="line"></span><br><span class="line">        a, b = <span class="number">1</span>, <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(n) :</span><br><span class="line">            a, b = b, a+b</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> a % <span class="number">1000000007</span></span><br></pre></td></tr></table></figure>
-<h2 id="剑指16-从尾到头打印链表"><a href="#剑指16-从尾到头打印链表" class="headerlink" title="剑指16. 从尾到头打印链表"></a>剑指16. 从尾到头打印链表</h2><p><strong>输入一个链表的头节点，从尾到头反过来返回每个节点的值（用数组返回）。</strong></p>
-<p>解题思路：</p>
-<p>用list顺序存储单向链表，使用切片直接倒序输出。</p>
-<p>Tip：</p>
-<ul>
-<li>列表切片规则<code>List[start:stop:step]</code>，不加则是默认全部区间</li>
-<li><code>List[::-1]</code>则代表倒置列表</li>
-</ul>
-<p>复杂度</p>
-<ul>
-<li>时间O(n)， 空间O(n)</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"># class ListNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.next = None</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">reversePrint</span>(<span class="params">self, head: ListNode</span>) -&gt; <span class="type">List</span>[<span class="built_in">int</span>]:</span><br><span class="line">        result = []</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> head:</span><br><span class="line">            result.append(head.val)</span><br><span class="line">            head = head.<span class="built_in">next</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> result[::-<span class="number">1</span>]</span><br></pre></td></tr></table></figure>
-<h2 id="剑指24-翻转链表（中转-递归）"><a href="#剑指24-翻转链表（中转-递归）" class="headerlink" title="剑指24. 翻转链表（中转+递归）"></a>剑指24. 翻转链表（中转+递归）</h2><p><strong>定义一个函数，输入一个链表的头节点，反转该链表并输出反转后链表的头节点。</strong></p>
-<p>解题思路：<br>需要解决的问题其实有两个：1. 如何改变node之间的指向 2. 如何保存头部节点</p>
-<ol>
-<li>使用<strong>中转点</strong>对上一个node保存，遍历链表同时改变指向，最后一个到达的就是新链表的头部节点</li>
-<li>递归。只有到达最后一个节点后才开始进行翻转。这里通过返回值不停传递末节点，即新链表的头结点。<ul>
-<li>传递参数：当前节点和下一节点</li>
-<li>停止条件：当前节点为空</li>
-<li>返回值：上一节点</li>
-<li>执行动作：将下一节点指向当前节点</li>
-</ul>
-</li>
-</ol>
-<p>复杂度</p>
-<ul>
-<li>时间：O(n)，空间：O(2)</li>
-</ul>
-<h3 id="中转站法"><a href="#中转站法" class="headerlink" title="中转站法"></a>中转站法</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"># class ListNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.next = None</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">reverseList</span>(<span class="params">self, head: ListNode</span>) -&gt; ListNode:</span><br><span class="line">        prevNode = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> head:</span><br><span class="line">            head.<span class="built_in">next</span> = prevNode</span><br><span class="line">            prevNode = head</span><br><span class="line">            head = head.<span class="built_in">next</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> prevNode</span><br></pre></td></tr></table></figure>
-<ul>
-<li>时间：O(n)，</li>
-<li>空间：O(n):递归深度达到n，需要n的空间</li>
-</ul>
-<h3 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">reverseList</span>(<span class="params">self, head: ListNode</span>) -&gt; ListNode:</span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">recur</span>(<span class="params">cur: ListNode, prev: ListNode</span>) -&gt; ListNode:</span><br><span class="line"></span><br><span class="line">            <span class="comment">## 迭代中止：到达最后一个Node的时候next会变成None，这时返回最后一个Node</span></span><br><span class="line">            <span class="comment">## 最后一个Node会变成新链表的head，使用变量进行保存</span></span><br><span class="line">            <span class="keyword">if</span> cur:</span><br><span class="line">                head = recur(cur.<span class="built_in">next</span>, cur)</span><br><span class="line">                cur.<span class="built_in">next</span> = prev</span><br><span class="line">                <span class="keyword">return</span> head</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">return</span> prev</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> recur(head, <span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
-<h2 id="剑指18-删除链表的节点"><a href="#剑指18-删除链表的节点" class="headerlink" title="剑指18. 删除链表的节点"></a>剑指18. 删除链表的节点</h2><p><strong>给定单向链表的头指针和一个要删除的节点的值，定义一个函数删除该节点。</strong></p>
-<p><strong>返回删除后的链表的头节点。</strong></p>
-<p>时间O(n)， 空间O(1)</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"># class ListNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.next = None</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">deleteNode</span>(<span class="params">self, head: ListNode, val: <span class="built_in">int</span></span>) -&gt; ListNode:</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> head : <span class="keyword">return</span> head</span><br><span class="line">        <span class="keyword">if</span> head.val == val : <span class="keyword">return</span> head.<span class="built_in">next</span></span><br><span class="line"></span><br><span class="line">        result = head </span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> <span class="number">1</span> :</span><br><span class="line">            <span class="keyword">if</span> head.<span class="built_in">next</span>.val == val :</span><br><span class="line">                head.<span class="built_in">next</span> = head.<span class="built_in">next</span>.<span class="built_in">next</span></span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            head = head.<span class="built_in">next</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> result</span><br></pre></td></tr></table></figure>
-<h2 id="剑指22-链表中倒数第k个字节（快慢指针）"><a href="#剑指22-链表中倒数第k个字节（快慢指针）" class="headerlink" title="剑指22. 链表中倒数第k个字节（快慢指针）"></a>剑指22. 链表中倒数第k个字节（快慢指针）</h2><p><strong>输入一个链表，输出该链表中倒数第k个节点。为了符合大多数人的习惯，本题从1开始计数，即链表的尾节点是倒数第1个节点。</strong></p>
-<p><strong>例如，一个链表有 6 个节点，从头节点开始，它们的值依次是 1、2、3、4、5、6。这个链表的倒数第 3 个节点是值为 4 的节点。</strong></p>
-<blockquote>
-<p>遍历法很容易想到就不在这里赘述了</p>
-</blockquote>
-<ul>
-<li>时间O(n) 空间O(1)</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"># class ListNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.next = None</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">getKthFromEnd</span>(<span class="params">self, head: ListNode, k: <span class="built_in">int</span></span>) -&gt; ListNode:</span><br><span class="line">        slow, fast = head, head</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(k-<span class="number">1</span>) :</span><br><span class="line">            fast = fast.<span class="built_in">next</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> head <span class="keyword">and</span> fast.<span class="built_in">next</span> :</span><br><span class="line">            slow = slow.<span class="built_in">next</span></span><br><span class="line">            fast = fast.<span class="built_in">next</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> slow</span><br></pre></td></tr></table></figure>
-<h2 id="剑指25-合并两个排序的链表"><a href="#剑指25-合并两个排序的链表" class="headerlink" title="剑指25. 合并两个排序的链表"></a>剑指25. 合并两个排序的链表</h2><p><strong>输入两个递增排序的链表，合并这两个链表并使新链表中的节点仍然是递增排序的。</strong></p>
-<ul>
-<li>善用伪头结点可以减少很多步骤，如判断哪个才是头结点造成的代码行数增加</li>
-<li>因为是链表结构而非数组，因此不用考虑最后剩下的需要用while再一个个塞进去</li>
-<li>时间O(n)， 空间O(1)</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"># class ListNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.next = None</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">mergeTwoLists</span>(<span class="params">self, l1: ListNode, l2: ListNode</span>) -&gt; ListNode:  </span><br><span class="line">        head = ListNode(<span class="number">0</span>)</span><br><span class="line">        cur = head</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> l1 <span class="keyword">and</span> l2 :</span><br><span class="line">            <span class="keyword">if</span> l1.val &lt;= l2.val :</span><br><span class="line">                cur.<span class="built_in">next</span>, l1 = l1, l1.<span class="built_in">next</span></span><br><span class="line">            <span class="keyword">else</span> :</span><br><span class="line">                cur.<span class="built_in">next</span>, l2 = l2, l2.<span class="built_in">next</span></span><br><span class="line">            cur = cur.<span class="built_in">next</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> l1 :</span><br><span class="line">            cur.<span class="built_in">next</span> = l1</span><br><span class="line">        <span class="keyword">if</span> l2 :</span><br><span class="line">            cur.<span class="built_in">next</span> = l2</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>study</category>
-      </categories>
-      <tags>
-        <tag>Leetcode</tag>
       </tags>
   </entry>
   <entry>
@@ -1176,6 +1022,160 @@
       </categories>
       <tags>
         <tag>css</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>闲看-数据集会有刻板印象吗？</title>
+    <url>/2022/10/15/dataset-bias/</url>
+    <content><![CDATA[<blockquote>
+<p>本来是想看<em>Ruth Fong</em>这位作者的一些关于可解释模型的一些论文，但是无意中看到她作为共作的讨论数据集的性别刻板印象的论文，沉迷于此看了一天倒是忘记了最开始是要看别的来着…</p>
+</blockquote>
+<p>Meister, Nicole, et al. “Gender Artifacts in Visual Datasets.” arXiv preprint arXiv:2206.09191 (2022).</p>
+<p>标题：<strong>Gender Artifacts in Visual Datasets</strong><br>论文地址：<a href="https://arxiv.org/abs/2206.09191">https://arxiv.org/abs/2206.09191</a><br>关键词：AI fairness, gender bias, dataset analysis</p>
+<h2 id="0-摘要"><a href="#0-摘要" class="headerlink" title="0. 摘要"></a>0. 摘要</h2><p>我们已经知道性别偏差会出现在大型图像集中并且会影响下游任务模型。许多前序工作已经提出弱化这种偏差影响的手法比如尝试将性别情感相关的情报从图片里删除。为了理解这些手法的可行性和使用性，我们调查了大型图片集中究竟有哪些<em>性别伪影（gender artifacts）</em>。我们定义，性别伪影应该是一个</p>
+<ol>
+<li>可视的并且会被现代模型学习到的</li>
+<li>能以人类思维解释的</li>
+</ol>
+<p>与性别相关的线索。通过我们的分析，我们发现在COCO和OpenImages数据集中，伪影可以说是无处不在，下到低阶信息（如色彩信息），上至高阶信息（如姿势和位置），都存在性别伪影。因此我们认为通过删除伪影的方法是不可行的。并且我们认为作为研究员和训练者的责任，他们更应该注意数据里的性别分布，并应该加强手法对这些分布偏差的鲁棒性。</p>
+<h2 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1. 介绍"></a>1. 介绍</h2><p>我们现在已知了很多深度学习模型的衍生物都有社会偏差。一种主要的假设是这种偏差源自于输入数据本身的问题。许多偏差都来自于特定群体的相关数据的缺乏，如天然的性别分布已经被论证不足以缓解模型的偏差。因此许多手法提出将具有性别色彩的元素进行遮挡的方法以避免输入数据的不均匀。</p>
+<p>在本文中，我们不仅关注这些数据集的偏差，并且探索了这些性别信息究竟多大程度能被除掉。因此首先我们定义了<em>性别伪影</em>应该是可学习的和可解释的。并且为了探索这些伪影，我们生成和对比了许多不同版本的数据（如灰度化的图片，被遮挡背景的图片等），以探索它们的性别预测程度。</p>
+<p>但是我们并不赞成任何预测性别的行为。并认为这里并没有任何理由足以支持这一行为。</p>
+<p>根据上述工作，我们最终发现在COCO和OpenImage里性别伪影无处不在。如下图中仅仅是计算了图片中三原色的平均值，就能够看出两性之间的明显差异。通过平均值模型预测度为，COCO：58.0%, OpenImages：59.1%</p>
+<p><img src="https://p.ipic.vip/bp87fo.png" alt="左：分割掩膜的相关统计量 右：图像的平均色彩度"></p>
+<p>这些发现的暗示如下：</p>
+<ol>
+<li>性别伪影存在于图片的每个角落，因此过去的删除特定性别伪影的手法也许是无效的。我们更推荐研究者使用注重公平的模型，以及非聚合的验证矩阵。这能帮助发现潜在的群体偏差。</li>
+<li>在我们的发现中，这些性格偏差的无处不在性导致最终的预测可能是毫无道理的。比如每当让模型预测性别时，我们需要积极地考虑预预测依据是什么；模型是真的学习到了有意义的理由，还是仅仅是因为图片更红一些。</li>
+</ol>
+<p>最后，我们也要考虑不是所有伪影都是错误的。有一些也许是真的能够帮助我们区别两个群体，它们是重要的特征；但有一些仅仅是讨厌的刻板印象。我们需要考虑哪些是要避免的。</p>
+<h2 id="2-相关工作"><a href="#2-相关工作" class="headerlink" title="2. 相关工作"></a>2. 相关工作</h2><h2 id="3-实验"><a href="#3-实验" class="headerlink" title="3. 实验"></a>3. 实验</h2><h3 id="3-1-数据集"><a href="#3-1-数据集" class="headerlink" title="3.1 数据集"></a>3.1 数据集</h3><p>使用COCO和OpenImages的主要原因是它们是少见的能直接获得性别标签的注释。</p>
+<h3 id="3-2-模型参数"><a href="#3-2-模型参数" class="headerlink" title="3.2 模型参数"></a>3.2 模型参数</h3><h3 id="3-3-道德考虑"><a href="#3-3-道德考虑" class="headerlink" title="3.3 道德考虑"></a>3.3 道德考虑</h3><hr>
+<blockquote>
+<p>以下开始是产生性别伪影的原因的实验和探讨</p>
+</blockquote>
+<h2 id="4-分辨率和颜色"><a href="#4-分辨率和颜色" class="headerlink" title="4. 分辨率和颜色"></a>4. 分辨率和颜色</h2><p>我们测试了测试集在112x112, 56x56, 28x28, 14x14, 7x7这几种分辨率情况下的预测情况。随着分辨率下降，准确度也逐步下降，但是颜色也逐渐变得单一。因此我们也考虑了当转化为灰度图片后随着分辨率下降预测度的情况。结果如下图所示。</p>
+<p><img src="https://p.ipic.vip/6ovrla.png" alt="Color：彩色，Grayscale：灰度，LogReg：红绿蓝三原色的像素块个数的平均值"></p>
+<p>在28x28的分辨率下的COCO数据集中，彩色图片预测率有61.9%而灰度图片仅有51.9%。这说明在图片的物体形状不再具有意义时，性别伪影很可能来自于色彩的影响。</p>
+<p>并且即使将分辨率低到了7x7的程度，彩色图片的预测率依旧高于50%。</p>
+<p>这很有可能数据集中的两性具有一定的色彩特征。男性更常是在绿色草坪上，而数据集中的女性更常拥有更亮色的皮肤。</p>
+<h2 id="5-人和背景"><a href="#5-人和背景" class="headerlink" title="5. 人和背景"></a>5. 人和背景</h2><p>前序工作中已经证明人物的样貌一定包含了性别伪影。那么更朴素的问题是，是否图片背景，甚至是更高阶的人物信息（姿势和大小等）会包含人物伪影？</p>
+<p>我们设置了一系列的遮挡图片来对比对预测度的影响，术语解释如下：</p>
+<ol>
+<li>Full：人物完全被显示出来</li>
+<li>Full NoBg：人物完全被显示并且没有背景</li>
+<li>MaskSegm：人物掩膜</li>
+<li>MaskRect：矩形掩膜</li>
+</ol>
+<p>最终结果如下图</p>
+<p><img src="https://p.ipic.vip/62qmuv.png" alt=""></p>
+<p><strong>人物外貌是性别伪影。</strong>很明显，即使遮挡住背景时（Full Nobg），预测度也没有剧烈的下降。</p>
+<p><strong>仅仅使用人物的形状和位置对性别进行预测也达到了50%以上。</strong>我们看到即使在MaskSegm NoBg的情况下，也达到了74.8%的准确率，说明人物形状本身都能揭露性别情报，比如着装或是头发的长短。接下来，我们删除了更多人物信息，只留下了关键点(keypoints)如下图。</p>
+<p><img src="https://p.ipic.vip/e28dt9.png" alt=""></p>
+<p>它们的表现依旧优于50%达到了64.8%的准确度。男性的动作有可能被模型认为更小和在运动状态；而女性更多的被模型认为倾向于更大和站立。</p>
+<p><strong>这些不同性别表达中的大小和位置差异是可被学习的。</strong>即使我们把人物轮廓遮住（MaskRectNoBg），结果仍表现出了高于50%的精度。</p>
+<p><strong>背景信息仍旧是极其重要的信息对于表达性别信息。</strong>因此任何仅仅只是通过遮挡人物外貌的方法，只不过是把性别伪影从人物转移到了背景上，实际上是无法真正消除所有性别伪影的。</p>
+<p><strong>定性分析。</strong>为了进一步理解背景中的性别伪影，我们进行了一系列定性分析结果如下图。<br><img src="https://p.ipic.vip/adv6fw.png" alt="值为100意味着被预测为女性，0则为男性"></p>
+<p>模型倾向于将城市和室内的背景与女性连接起来，而将室外和运动背景与男性结合。此外，通过第四行我们发现状态更“小”和静止时常被模型认为是女性，而“大”和动态被认为是男性。但是，我们也发现了如果人物外貌被包含在图片里时，运动的女性和静止的男性也是可以被正确区分的。</p>
+<p><strong>性别伪影在数据集中具有普遍性。</strong>我们对两个数据集进行了交叉验证如下表，不管是哪种掩膜设定最终结果都高于50%。</p>
+<p><img src="https://p.ipic.vip/wdpf1d.png" alt=""></p>
+<h2 id="6-具有语义内容的物体"><a href="#6-具有语义内容的物体" class="headerlink" title="6. 具有语义内容的物体"></a>6. 具有语义内容的物体</h2><p>这一章节我们致力于更好的理解性别伪影，并区别背景中的两大要素：物体和场景。</p>
+<p><strong>通过模型的关注度可视化性别伪影。</strong>我们使用CAMS可视化了不同物体在用于性别分类时的重要度，如下图</p>
+<p><img src="https://p.ipic.vip/j47vr1.png" alt=""></p>
+<p>当人物被预测为女性时，模型在关注室内的物体如床和烤箱；而被预测为男性时，模型关注于室外物体如滑板和摩托。</p>
+<p><strong>和性别分类最有关的物体排序。</strong>在COCO中，比重最高的十个物体对应用于分类女性的，分别为吹风机，手提包，泰迪熊，雨伞和床；而比重最低的十个物体对应于分类男性，为滑板，领带，滑雪板，棒球手套和摩托车。</p>
+<p>为了进一步理解这些物体的作用，我们逐步从图片中删除各个物体，并观察预测结果的准确率的变化。结果如下图。</p>
+<p><img src="https://p.ipic.vip/w08stw.png" alt=""></p>
+<p>我们可以看到，物体产生的影响无处不在；直到我们将物体删除到一个不剩，判定率才下降到了50%的基准。</p>
+<h2 id="7-讨论"><a href="#7-讨论" class="headerlink" title="7. 讨论"></a>7. 讨论</h2><p>首先，我们应该面对这种数据集中的不均匀而不是妄图消灭它们（我们已经证明了这几乎不可能）。因此使用注重公平性的模型是更好的选择。</p>
+<p>此外，在构建数据集时我们也要尽量避免这种产生的偏差。我们应提前考虑这种结构是否会影响到下游任务的结果。</p>
+<p>最后，我们应该警惕模型的学习结果。也许一些模型的结果真的和人类的判断结果相符合，甚至和我们的认知对应。但实际上它可能只是在学习这个数据集中的可视化物体的关联性，而不是真正的“理解”。当我们对结果分析时，我们应该小心我们的分析是不是其实仅仅是人类自己“赋予”的。</p>
+]]></content>
+      <categories>
+        <category>blog</category>
+      </categories>
+      <tags>
+        <tag>Paper</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>剑指Offer-2（动态算法）</title>
+    <url>/2022/11/06/dynamic-programming/</url>
+    <content><![CDATA[<blockquote>
+<p>求解决策过程(decision process)最优化的数学方法。</p>
+</blockquote>
+<hr>
+<h2 id="剑指10-1-斐波那契数列"><a href="#剑指10-1-斐波那契数列" class="headerlink" title="剑指10-1. 斐波那契数列"></a>剑指10-1. 斐波那契数列</h2><p><strong>写一个函数，输入 n ，求斐波那契（Fibonacci）数列的第 n 项（即 F(N)）。斐波那契数列的定义如下：<br>F(0) = 0,   F(1) = 1<br>F(N) = F(N - 1) + F(N - 2), 其中 N &gt; 1.<br>斐波那契数列由 0 和 1 开始，之后的斐波那契数就是由之前的两数相加而得出。<br>答案需要取模 1e9+7（1000000007），如计算初始结果为：1000000008，请返回 1。</strong></p>
+<ul>
+<li>避免重复计算因此使用动态算法</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">fib</span>(<span class="params">self, n: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        a, b = <span class="number">0</span>, <span class="number">1</span></span><br><span class="line">        <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">            a, b = b, a + b</span><br><span class="line">        <span class="keyword">return</span> a % <span class="number">1000000007</span></span><br></pre></td></tr></table></figure>
+<h2 id="剑指10-2-青蛙跳台阶"><a href="#剑指10-2-青蛙跳台阶" class="headerlink" title="剑指10-2. 青蛙跳台阶"></a>剑指10-2. 青蛙跳台阶</h2><p><strong>一只青蛙一次可以跳上1级台阶，也可以跳上2级台阶。求该青蛙跳上一个 n 级的台阶总共有多少种跳法。</strong><br><strong>答案需要取模 1e9+7（1000000007），如计算初始结果为：1000000008，请返回 1。</strong></p>
+<ul>
+<li>本质还是斐波那契数列</li>
+<li>注意当n=0时，因为只能不跳所以等于1（这个题的毛病不要太钻牛角尖）</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">numWays</span>(<span class="params">self, n: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        <span class="comment">## 最后一步一定是一阶或是两节</span></span><br><span class="line">        <span class="comment">## 剩一节时的方法有f(n-1)种，剩两节有f(n-2)种，则f(n)=f(n-1)+f(n-2)</span></span><br><span class="line">        <span class="comment">## f(0) = 1, f(1) = 1, f(2) = 2</span></span><br><span class="line"></span><br><span class="line">        a, b = <span class="number">1</span>, <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(n) :</span><br><span class="line">            a, b = b, a+b</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> a % <span class="number">1000000007</span></span><br></pre></td></tr></table></figure>
+<h2 id="剑指16-从尾到头打印链表"><a href="#剑指16-从尾到头打印链表" class="headerlink" title="剑指16. 从尾到头打印链表"></a>剑指16. 从尾到头打印链表</h2><p><strong>输入一个链表的头节点，从尾到头反过来返回每个节点的值（用数组返回）。</strong></p>
+<p>解题思路：</p>
+<p>用list顺序存储单向链表，使用切片直接倒序输出。</p>
+<p>Tip：</p>
+<ul>
+<li>列表切片规则<code>List[start:stop:step]</code>，不加则是默认全部区间</li>
+<li><code>List[::-1]</code>则代表倒置列表</li>
+</ul>
+<p>复杂度</p>
+<ul>
+<li>时间O(n)， 空间O(n)</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"># class ListNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.next = None</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">reversePrint</span>(<span class="params">self, head: ListNode</span>) -&gt; <span class="type">List</span>[<span class="built_in">int</span>]:</span><br><span class="line">        result = []</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> head:</span><br><span class="line">            result.append(head.val)</span><br><span class="line">            head = head.<span class="built_in">next</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> result[::-<span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+<h2 id="剑指24-翻转链表（中转-递归）"><a href="#剑指24-翻转链表（中转-递归）" class="headerlink" title="剑指24. 翻转链表（中转+递归）"></a>剑指24. 翻转链表（中转+递归）</h2><p><strong>定义一个函数，输入一个链表的头节点，反转该链表并输出反转后链表的头节点。</strong></p>
+<p>解题思路：<br>需要解决的问题其实有两个：1. 如何改变node之间的指向 2. 如何保存头部节点</p>
+<ol>
+<li>使用<strong>中转点</strong>对上一个node保存，遍历链表同时改变指向，最后一个到达的就是新链表的头部节点</li>
+<li>递归。只有到达最后一个节点后才开始进行翻转。这里通过返回值不停传递末节点，即新链表的头结点。<ul>
+<li>传递参数：当前节点和下一节点</li>
+<li>停止条件：当前节点为空</li>
+<li>返回值：上一节点</li>
+<li>执行动作：将下一节点指向当前节点</li>
+</ul>
+</li>
+</ol>
+<p>复杂度</p>
+<ul>
+<li>时间：O(n)，空间：O(2)</li>
+</ul>
+<h3 id="中转站法"><a href="#中转站法" class="headerlink" title="中转站法"></a>中转站法</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"># class ListNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.next = None</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">reverseList</span>(<span class="params">self, head: ListNode</span>) -&gt; ListNode:</span><br><span class="line">        prevNode = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> head:</span><br><span class="line">            head.<span class="built_in">next</span> = prevNode</span><br><span class="line">            prevNode = head</span><br><span class="line">            head = head.<span class="built_in">next</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> prevNode</span><br></pre></td></tr></table></figure>
+<ul>
+<li>时间：O(n)，</li>
+<li>空间：O(n):递归深度达到n，需要n的空间</li>
+</ul>
+<h3 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">reverseList</span>(<span class="params">self, head: ListNode</span>) -&gt; ListNode:</span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">recur</span>(<span class="params">cur: ListNode, prev: ListNode</span>) -&gt; ListNode:</span><br><span class="line"></span><br><span class="line">            <span class="comment">## 迭代中止：到达最后一个Node的时候next会变成None，这时返回最后一个Node</span></span><br><span class="line">            <span class="comment">## 最后一个Node会变成新链表的head，使用变量进行保存</span></span><br><span class="line">            <span class="keyword">if</span> cur:</span><br><span class="line">                head = recur(cur.<span class="built_in">next</span>, cur)</span><br><span class="line">                cur.<span class="built_in">next</span> = prev</span><br><span class="line">                <span class="keyword">return</span> head</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">return</span> prev</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> recur(head, <span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="剑指18-删除链表的节点"><a href="#剑指18-删除链表的节点" class="headerlink" title="剑指18. 删除链表的节点"></a>剑指18. 删除链表的节点</h2><p><strong>给定单向链表的头指针和一个要删除的节点的值，定义一个函数删除该节点。</strong></p>
+<p><strong>返回删除后的链表的头节点。</strong></p>
+<p>时间O(n)， 空间O(1)</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"># class ListNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.next = None</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">deleteNode</span>(<span class="params">self, head: ListNode, val: <span class="built_in">int</span></span>) -&gt; ListNode:</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> head : <span class="keyword">return</span> head</span><br><span class="line">        <span class="keyword">if</span> head.val == val : <span class="keyword">return</span> head.<span class="built_in">next</span></span><br><span class="line"></span><br><span class="line">        result = head </span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> <span class="number">1</span> :</span><br><span class="line">            <span class="keyword">if</span> head.<span class="built_in">next</span>.val == val :</span><br><span class="line">                head.<span class="built_in">next</span> = head.<span class="built_in">next</span>.<span class="built_in">next</span></span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            head = head.<span class="built_in">next</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> result</span><br></pre></td></tr></table></figure>
+<h2 id="剑指22-链表中倒数第k个字节（快慢指针）"><a href="#剑指22-链表中倒数第k个字节（快慢指针）" class="headerlink" title="剑指22. 链表中倒数第k个字节（快慢指针）"></a>剑指22. 链表中倒数第k个字节（快慢指针）</h2><p><strong>输入一个链表，输出该链表中倒数第k个节点。为了符合大多数人的习惯，本题从1开始计数，即链表的尾节点是倒数第1个节点。</strong></p>
+<p><strong>例如，一个链表有 6 个节点，从头节点开始，它们的值依次是 1、2、3、4、5、6。这个链表的倒数第 3 个节点是值为 4 的节点。</strong></p>
+<blockquote>
+<p>遍历法很容易想到就不在这里赘述了</p>
+</blockquote>
+<ul>
+<li>时间O(n) 空间O(1)</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"># class ListNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.next = None</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">getKthFromEnd</span>(<span class="params">self, head: ListNode, k: <span class="built_in">int</span></span>) -&gt; ListNode:</span><br><span class="line">        slow, fast = head, head</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(k-<span class="number">1</span>) :</span><br><span class="line">            fast = fast.<span class="built_in">next</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> head <span class="keyword">and</span> fast.<span class="built_in">next</span> :</span><br><span class="line">            slow = slow.<span class="built_in">next</span></span><br><span class="line">            fast = fast.<span class="built_in">next</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> slow</span><br></pre></td></tr></table></figure>
+<h2 id="剑指25-合并两个排序的链表"><a href="#剑指25-合并两个排序的链表" class="headerlink" title="剑指25. 合并两个排序的链表"></a>剑指25. 合并两个排序的链表</h2><p><strong>输入两个递增排序的链表，合并这两个链表并使新链表中的节点仍然是递增排序的。</strong></p>
+<ul>
+<li>善用伪头结点可以减少很多步骤，如判断哪个才是头结点造成的代码行数增加</li>
+<li>因为是链表结构而非数组，因此不用考虑最后剩下的需要用while再一个个塞进去</li>
+<li>时间O(n)， 空间O(1)</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"># class ListNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.next = None</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">mergeTwoLists</span>(<span class="params">self, l1: ListNode, l2: ListNode</span>) -&gt; ListNode:  </span><br><span class="line">        head = ListNode(<span class="number">0</span>)</span><br><span class="line">        cur = head</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> l1 <span class="keyword">and</span> l2 :</span><br><span class="line">            <span class="keyword">if</span> l1.val &lt;= l2.val :</span><br><span class="line">                cur.<span class="built_in">next</span>, l1 = l1, l1.<span class="built_in">next</span></span><br><span class="line">            <span class="keyword">else</span> :</span><br><span class="line">                cur.<span class="built_in">next</span>, l2 = l2, l2.<span class="built_in">next</span></span><br><span class="line">            cur = cur.<span class="built_in">next</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> l1 :</span><br><span class="line">            cur.<span class="built_in">next</span> = l1</span><br><span class="line">        <span class="keyword">if</span> l2 :</span><br><span class="line">            cur.<span class="built_in">next</span> = l2</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>study</category>
+      </categories>
+      <tags>
+        <tag>Leetcode</tag>
       </tags>
   </entry>
   <entry>
@@ -1996,6 +1996,154 @@ x_j} f(x)</script></li>
       </tags>
   </entry>
   <entry>
+    <title>基于跨域学习的行人重识别</title>
+    <url>/2022/01/17/person-reid-wirh-domain-adaptation/</url>
+    <content><![CDATA[<p><a href="/butterfly/passengers.pdf">pdflink<a><br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h5vvqbj2hfj20l007zdgu.jpg" alt=""></p>
+<h1 id="基于域学习的行人重识别"><a href="#基于域学习的行人重识别" class="headerlink" title="基于域学习的行人重识别"></a>基于域学习的行人重识别</h1><h1 id="项目描述"><a href="#项目描述" class="headerlink" title="项目描述"></a>项目描述</h1><p>偏工业项目。主要针对解决公交车的出入口行人重识别课题，来达到自动判断乘客的乘车区间的目的。难点有三：1. 本数据集的出入口的摄像机种类不同（RGB和近红外线） 2. 为保护隐私分辨率较低无法使用面部特征 3. 外部光照影响较大。数据集来源为日本公交公司。</p>
+<p><img src="https://p.ipic.vip/ncpwis.png" alt=""></p>
+<h1 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a>基本思路</h1><p>难点的关键在于我们无法使用过去的方法：颜色特征和面部特征。因此解决的关键是实现提取颜色光照无关的特征（更深层的特征，或域无关的特征）。考虑了以下三种解决方法：</p>
+<ol>
+<li>利用深度网络学习域无关特征（DANN，AGW）</li>
+<li>手动提取域无关特征（HeadReID）</li>
+<li>姿态估计（TODO）</li>
+</ol>
+<h2 id="DANN-1"><a href="#DANN-1" class="headerlink" title="DANN [1]"></a>DANN [1]</h2><p><img src="https://p.ipic.vip/d703om.png" alt=""></p>
+<p>在一般的分类预测期以外加上了域分类器，以提高特征的抽象度。我们希望提取出的特征无法被域分类器成功判别，以确认生成的特征是域无关的。</p>
+<h2 id="AGW-2"><a href="#AGW-2" class="headerlink" title="AGW [2]"></a>AGW [2]</h2><p><img src="https://p.ipic.vip/uyfxkp.png" alt=""></p>
+<p>考虑到表层特征差异大的问题，还尝试了通过分开卷积层的方法。首先使用域单独的卷积层提取出表层特征，再进入相同的Resnet+NoLocal块的网络，增加对全域特征的提取能力。</p>
+<h2 id="HeadReID"><a href="#HeadReID" class="headerlink" title="HeadReID"></a>HeadReID</h2><p><img src="https://p.ipic.vip/yczuur.png" alt=""></p>
+<p>根据文献 [3]，仅仅是头部特征也有惊人的表达能力。因此尝试了增加提取头部特征的网络，以抵御域变换带来的影响。</p>
+<h1 id="实现过程"><a href="#实现过程" class="headerlink" title="实现过程"></a>实现过程</h1><p>主要为以下步骤：</p>
+<ol>
+<li>数据处理：视频转换为图片，根据真值切割出每一帧的正确的行人图片，为每个行人制作文件夹，形成最后的数据库<ul>
+<li>对于HeadReID使用的头部图片由于没有真值，简单的利用原行人图片的上部20%进行提取。</li>
+</ul>
+</li>
+<li><p><strong>DANN：</strong>两个域的行人图片集分别传入Resnet50，提取出特征向量。利用此特征向量分别进行：</p>
+<ol>
+<li>度量学习：Triplet Loss</li>
+<li>标签预测：Person ID预测 → label loss</li>
+<li><p>域预测：属于入口/出口 → domain loss → 梯度翻转 →  ${y(domain loss)}$</p>
+<p>三个loss之和最小化</p>
+<p><strong>AGW：</strong>两个域的行人图片集分别传入各自的特征提取层。最小化分类损失。</p>
+<p><strong>HeadReID：</strong>行人图片集及其头部图片分别传入对应的特征提取网络。最小化分类损失。</p>
+</li>
+</ol>
+</li>
+<li><p>使用测试集，求出两两行人图片之间的特征类似度，得出结果。</p>
+</li>
+</ol>
+<h1 id="参数选择"><a href="#参数选择" class="headerlink" title="参数选择"></a>参数选择</h1><p>根据实验，使用sin函数作为类似度函数，以及对于每个ID的行人使用所有图片的平均特征量时效果过最好。</p>
+<h1 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h1><p>最终结果说明，AGW的手法在里面的效果最好。尤其在人多时造成特征不完全时带来的收益最大。但是当有明显的局部特征如帽子耳机等时，DANN对其的学习能力更强。</p>
+<p><img src="https://p.ipic.vip/a7fo4y.png" alt=""></p>
+<p><img src="https://p.ipic.vip/e2yeq7.png" alt=""></p>
+<p><img src="https://p.ipic.vip/t1se4t.png" alt=""></p>
+<p>HeadReID的失败原因：</p>
+<ol>
+<li>虽然头部特征在前手法中论证有用，但实际本数据集的分辨率远远低于文献使用的数据集。</li>
+<li>因为没有使用头部识别网络而仅仅进行了剪裁操作，衣服等域有关的特征不可避免的被混入。</li>
+<li>数据集中有儿童的存在：他们无法使用简单的剪裁操作生成头部图片。</li>
+</ol>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><p>[1] Y. Ganin and V. Lempitsky. Unsupervised domain adaptation by backpropa- gation. In ICML, Vol. 37, pp. 1180–1189, 2015.</p>
+<p>[2] M. Ye, J. Shen, G. Lin, T. Xiang, L. Shao, and S. C. H. Hoi. Deep Learning for Person Re-identification: A Survey and Outlook. TPAMI, pp. 1–1, 2021. doi:10.1109/TPAMI.2021.3054775.</p>
+<p>[3] Junliang Guo, Yanbing Xue, Jing Cai, Zan Gao, Guangping Xu, and Hua Zhang. A bus passenger re-identification dataset and a deep learning baseline using triplet embedding. Multimedia Tools and Applications, Vol. 80, No. 11, pp. 16425–16440, 2021.</p>
+]]></content>
+      <categories>
+        <category>project</category>
+      </categories>
+      <tags>
+        <tag>CV</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【花书】从概率统计到深度网络的概率预测</title>
+    <url>/2023/01/05/probability-output/</url>
+    <content><![CDATA[<p>参考深度学习花书</p>
+<p>第三章 概率与信息论【常用统计量，分布】</p>
+<p>第五章 机器学习基础【参数选择，最大似然估计】</p>
+<p>第六章 深度前馈网络【输出单元】</p>
+<h2 id="概率统计"><a href="#概率统计" class="headerlink" title="概率统计"></a>概率统计</h2><h3 id="期望"><a href="#期望" class="headerlink" title="期望"></a>期望</h3><p>离散: $E[f(x)]=\sum_xP(x)f(x)$</p>
+<p>连续： $E[f(x)]=\int P(x)f(x)dx$</p>
+<p>默认地，我们假设E表示对括号内的所有随机变量求平均</p>
+<p>性质：线性</p>
+<script type="math/tex; mode=display">E(af(x)+bg(x)+c)=aE(f(x))+bE(g(x))+c</script><h3 id="方差"><a href="#方差" class="headerlink" title="方差"></a>方差</h3><p>对x依照概率分布采样时，随机变量x的函数值会呈现多大的差异</p>
+<p>离散： <script type="math/tex">Var(f(x))=E[(f(x)-E[f(x)])^2]</script></p>
+<h3 id="协方差"><a href="#协方差" class="headerlink" title="协方差"></a>协方差</h3><p>两个变量线性相关性的强度以及这些变量的尺度</p>
+<script type="math/tex; mode=display">Cov(f(x),g(y))=E[(f(x)-E[f(x)])(g(y)-E[g(y)])]</script><p>随机变量组成的向量之间可构成协方差矩阵，其对角元素为方差</p>
+<script type="math/tex; mode=display">Cov(x)_{i,j}=Cov(x_i, x_j)</script><ul>
+<li>变量的尺度：1. 绝对值越大，变化越大 2. 若为正，则两个变量都倾向于取较于均值更大的值</li>
+<li>相关性：若为0，则无线性相关；若不为0，则一定相关</li>
+<li>注意：相关性比独立性的要求更弱。相关性无法判断非线性相关性，而独立性要求线性非线性均无关。</li>
+</ul>
+<h3 id="相关系数"><a href="#相关系数" class="headerlink" title="相关系数"></a>相关系数</h3><p>将协方差变量进行归一化，达到之衡量变量的相关性而不受各个变量尺度大小的影响。</p>
+<script type="math/tex; mode=display">Cov(f(x),g(y))=\frac{E[(f(x)-E[f(x)])(g(y)-E[g(y)])]}{\sqrt{Var(f(x))Var(g(y))}}</script><h2 id="常见分布"><a href="#常见分布" class="headerlink" title="常见分布"></a>常见分布</h2><h3 id="伯努利分布"><a href="#伯努利分布" class="headerlink" title="伯努利分布"></a>伯努利分布</h3><p>单个二值随机变量的分布。展示了只有两种可能性（0或1）的事件，分别发生的概率x的分布。必然发生的概率为 $\phi$。常用于深度学习的二分类问题。</p>
+<script type="math/tex; mode=display">P(x=1)=\phi</script><script type="math/tex; mode=display">P(x=0)=1-\phi</script><p>将两个式子合二为一：（注意：这个式子只是一种简化写法，并不代表x能取任意值。实际上它只能取{0,1}）</p>
+<script type="math/tex; mode=display">P(\text{x}=x)=\phi^x(1-\phi)^{1-x}</script><p>其期望和方差：</p>
+<script type="math/tex; mode=display">E(x)=\phi</script><script type="math/tex; mode=display">Var(x)=\phi(1-\phi)</script><h3 id="n重伯努利分布"><a href="#n重伯努利分布" class="headerlink" title="n重伯努利分布"></a>n重伯努利分布</h3><p>具有k个不同状态的单个离散型随机变量上的分布。由向量 $p\in\{0,1\}^{k}$ (k个二值元素)参数化。其中每一个分量 $p_i$表示第 $i$个状态的概率。</p>
+<p><strong>伯努利分布并不是特别强大， 但是它们的领域足够简单。它们可以对那些能够将所有的状态进行枚举的离散型随机变量进行建模。</strong></p>
+<h3 id="高斯分布（正态分布）"><a href="#高斯分布（正态分布）" class="headerlink" title="高斯分布（正态分布）"></a>高斯分布（正态分布）</h3><p>实数上最常用的分布。由参数 $\mu$和 $\sigma$控制。</p>
+<script type="math/tex; mode=display">\mathcal N(x;\mu,\sigma^2)=\sqrt{\frac{1}{2\pi \sigma^2}}\text{exp}(-\frac{1}{2\sigma^2}(x-\mu)^2)</script><p>另一种方式是使用 $\beta=1/\sigma^2$来控制分布的精度。写作：</p>
+<script type="math/tex; mode=display">\mathcal N(x;\mu,\beta^{-1})=\sqrt{\frac{\beta}{2\pi}}\text{exp}(-\frac{1}{2\sigma^2}(x-\mu)^2)</script><p>推广到高维空间的多维正态分布。 $\mu$变为向量表示的均值， $\Sigma$为协方差矩阵（一般写作对角阵即只有方差足矣）</p>
+<script type="math/tex; mode=display">\mathcal N(x;\mu,\Sigma)=\sqrt{\frac{1}{(2\pi)^n\text{det}(\Sigma)}}\text{exp}(-\frac{1}{2}(x-\mu)^T\Sigma^{-1}(x-\mu))</script><script type="math/tex; mode=display">\mathcal N(x;\mu,\beta^{-1})=\sqrt{\frac{\text{det}(\beta)}{(2\pi)^n}}\text{exp}(-\frac{1}{2}(x-\mu)^T\beta(x-\mu))</script><p>高斯分布具有以下优点：</p>
+<ol>
+<li>许多真实事件的分布接近于高斯分布。（中心极限定理）</li>
+<li>在相同方差的所有概率分布中，高斯分布具有最大不确定性。因此所需要的先验知识量更少。（少量的训练数据可获得更大的学习收益）</li>
+</ol>
+<p>因此正态分布是我们缺乏先验知识时最好的默认选择。</p>
+<h3 id="指数分布"><a href="#指数分布" class="headerlink" title="指数分布"></a>指数分布</h3><p>x=0周围的边界点的分布。</p>
+<ul>
+<li>$\lambda e^{-\lambda x}$     $x \geq 0$</li>
+<li>0              $x &lt; 0$</li>
+</ul>
+<h2 id="点估计：参数选择与验证"><a href="#点估计：参数选择与验证" class="headerlink" title="点估计：参数选择与验证"></a>点估计：参数选择与验证</h2><p>点估计试图为一些感兴趣的参数提供单个最优预测。对于 独立同分布的 $\{x^1, x^2…,x^m\}$，点估计或统计量是这些数据的任意函数：</p>
+<script type="math/tex; mode=display">\hat \theta_m = g(x^1...x^m)</script><p>防止误解，我们一般将真实的参数值写作 $\theta$， 将预测值写作 $\hat \theta$ </p>
+<p>为了衡量预测的点估计的特点，我们一般通过如下性质进行判断</p>
+<ul>
+<li><p>偏差：度量偏离真实参数的误差期望</p>
+<script type="math/tex; mode=display">bias(\hat \theta_m)=E(\hat \theta_m)-\theta</script></li>
+<li><p>方差：度量数据上任意特定采样可能导致的估计期望的偏差</p>
+<script type="math/tex; mode=display">Var(\hat \theta)</script></li>
+<li><p>一致性：估计量的偏离度应随着数据样本的增加而减少</p>
+<script type="math/tex; mode=display">\text{plim}_{m\rightarrow \infty}\hat \theta_m = \theta</script></li>
+</ul>
+<h3 id="过拟合与欠拟合"><a href="#过拟合与欠拟合" class="headerlink" title="过拟合与欠拟合"></a>过拟合与欠拟合</h3><p>可以看到，两个性质分别对应着参数的不同性质。理想中我们希望两个性质都能最优。实际上，随着模型容量（模型的大小，学习能力）的增大，偏差会降低，方差却会增大，从而进入过拟合的阶段。如何权衡两个值找到最优的模型容量成为重要问题。</p>
+<p><img src="https://p.ipic.vip/a004t8.png" alt=""></p>
+<h3 id="最优模型寻找对策：均方误差与交叉验证"><a href="#最优模型寻找对策：均方误差与交叉验证" class="headerlink" title="最优模型寻找对策：均方误差与交叉验证"></a>最优模型寻找对策：均方误差与交叉验证</h3><p>均方误差度量着估计和真实参数间平方误差的总体期望。他同时包含了偏差和方差。因此理想的点估计应该具有较小的MSE。</p>
+<script type="math/tex; mode=display">\text{MSE}=E[(\hat \theta_m-\theta)^2]=Bias(\hat \theta_m)^2+Var(\hat \theta_m)</script><blockquote>
+<p>还有一种常见的方法是使用交叉验证对不同模型进行正确评估。最后选择误差最小的模型。</p>
+</blockquote>
+<h2 id="最大似然估计：参数估计"><a href="#最大似然估计：参数估计" class="headerlink" title="最大似然估计：参数估计"></a>最大似然估计：参数估计</h2><p>上面讲述了对于得到的参数，如何评判其好坏。本节的最大似然估计则告诉我们如何进行通过数据学习合理的参数。</p>
+<p>对参数 $\theta$的最大似然估计为：</p>
+<p>（其中 $p_{model}$是模型从数据学到的概率，以估计真实概率 $p_{data}$。真实概率代表了x出现的概率。）</p>
+<script type="math/tex; mode=display">\theta_{ML}=argmax_{\theta}p_{model}(X,\theta)=argmax_{\theta}\prod^{m}_{i=1} p_{model}(x^i,\theta)=argmax_{\theta}\sum^{m}_{i=1}\log p_{model}=(x^i,\theta)=argmax_{\theta}E_{p\sim \hat p_{data}}\log p_{model}(x^i,\theta)</script><p> 不难理解，第一个式子代表了当估计参数能使训练数据x出现概率最大的时候，我们选其为最优参数。之后根据联合概率，log函数的性质，argmax的缩放不变性，变成了最后的式子的样子（为什么是x遵循经验分布下的期望值？因为我们不知道真实分布哇，只能曲线救国咯）。</p>
+<p>另一种观点是把最大似然估计看做经验分布和模型分布之间的差异，用KL散度表示（其实也就是交叉熵）：</p>
+<script type="math/tex; mode=display">$D_{KL}(\hat p_{data}||p_{mdoel})=E_{x\sim \hat p_{data}}[\log \hat p_{data}(x)-\log p_{model}(x)]</script><p> 数据相关的统计量我们管不着，因此其实最大似然只和右边的值有关系。</p>
+<script type="math/tex; mode=display">\theta_{ML}=argmax_{\theta}E_{p\sim \hat p_{data}}\log p_{model}(x^i,\theta)=-E_{x\sim \hat p_{data}}\log p_{model}(x)</script><p> 列了一堆式子，最终只要记住上面这一行就够了。所以参数选择中最小化KL散度其实就是等同于最大化似然。</p>
+<p>最后，这里的似然估计是对于模拟分布场景的。对于(x,y)类型的监督学习，应该写作：（也就是当数据分布遵循经验分布时，x生成真实值y的概率应该最大）</p>
+<script type="math/tex; mode=display">\theta_{ML}=-E_{x,y\sim \hat p_{data}}\log p_{model}(y|x)</script><h2 id="输出单元"><a href="#输出单元" class="headerlink" title="输出单元"></a>输出单元</h2><p>最后一个问题来了：我们知道了参数如何进行估计，但是最基本的模型分布到底要怎么表示？如何通过数据建模模型分布？这个就涉及到了网络输出层的函数设计：如何使用正确的函数代表 $p_{model}$。</p>
+<p>由于网络的任务基本为回归，二分类，多分类。因此只讨论这三种情况下的输出单元。当然，大多数输出单元也可被用于隐藏层。</p>
+<p>假设现在神经网络为输出层提供了一组为 $h$的隐藏特征。</p>
+<h3 id="线性单元"><a href="#线性单元" class="headerlink" title="线性单元"></a>线性单元</h3><p>基于仿射变换。此时假设该线性回归应遵循正态分布。</p>
+<script type="math/tex; mode=display">\hat y=W^Th+b</script><script type="math/tex; mode=display">P(y|x)=\mathcal N (y;\hat y,I)</script><h3 id="sigmoid单元"><a href="#sigmoid单元" class="headerlink" title="sigmoid单元"></a>sigmoid单元</h3><p>基于伯努利分布，适用于二分类问题。</p>
+<script type="math/tex; mode=display">\sigma(x)=\frac{1}{1+\exp(-x)}</script><p>伯努利函数要求变量出现概率应小于1而大于0。sigmoid的性质完美符合了它：</p>
+<p><img src="https://p.ipic.vip/gc31e7.png" alt=""></p>
+<script type="math/tex; mode=display">\sigma(x)=\frac{\exp(x)}{\exp(x)+\exp(0)}</script><script type="math/tex; mode=display">\sigma'(x)=\sigma(x)(1-\sigma(x))</script><script type="math/tex; mode=display">\sigma(-x)=1-\sigma(x)</script><blockquote>
+<p>当输入值绝对值较大时，很明显sigmoid的函数将会饱和（很平），这不利于我们计算梯度（非常小）。但是还好，负对数似然会帮我们中和。</p>
+</blockquote>
+<h3 id="softmax单元"><a href="#softmax单元" class="headerlink" title="softmax单元"></a>softmax单元</h3><p>基于n重伯努利分布，适用于多分类问题。不仅仅每一个的概率在[0,1]范围内，甚至所有事件的总概率应该是等于1的：</p>
+<script type="math/tex; mode=display">z = W^Th+b</script><script type="math/tex; mode=display">\text{softmax}(z)_i=\frac{\exp(z_i)}{\sum_j{\exp(z_j)}}</script><p>首先线性层进行对数概率的预测，之后再对z进行指数化和归一化（TODO）</p>
+<blockquote>
+<p>太困了，有点匆忙，有空最后再补吧</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>study</category>
+      </categories>
+      <tags>
+        <tag>DL</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Queue Theory</title>
     <url>/2022/06/05/queue-theory/</url>
     <content><![CDATA[<h2 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h2><p>对于某个服务大厅，已知（1）单位时间内会来的客人数（2）服务客人需要的平均时间</p>
@@ -2348,30 +2496,6 @@ x_j} f(x)</script></li>
       </tags>
   </entry>
   <entry>
-    <title>基于跨域学习的行人重识别</title>
-    <url>/2022/01/17/%E5%9F%BA%E4%BA%8E%E8%B7%A8%E5%9F%9F%E5%AD%A6%E4%B9%A0%E7%9A%84%E8%A1%8C%E4%BA%BA%E9%87%8D%E8%AF%86%E5%88%AB/</url>
-    <content><![CDATA[<p><a href="/butterfly/passengers.pdf">pdflink<a><br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h5vvqbj2hfj20l007zdgu.jpg" alt=""></p>
-]]></content>
-      <categories>
-        <category>project</category>
-      </categories>
-      <tags>
-        <tag>CV</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>德英互译NLP模型</title>
-    <url>/2022/07/31/%E5%BE%B7%E8%8B%B1%E4%BA%92%E8%AF%91NLP%E6%A8%A1%E5%9E%8B/</url>
-    <content><![CDATA[<p><a href="/butterfly/nlp.pdf">pdflink<a><br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h5vwr2ng3wj20yt0g70v4.jpg" alt=""></p>
-]]></content>
-      <categories>
-        <category>project</category>
-      </categories>
-      <tags>
-        <tag>NLP</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>无约束最优化</title>
     <url>/2022/05/04/%E6%97%A0%E7%BA%A6%E6%9D%9F%E6%9C%80%E4%BC%98%E5%8C%96/</url>
     <content><![CDATA[<h2 id="1-Minizer"><a href="#1-Minizer" class="headerlink" title="1. Minizer"></a>1. Minizer</h2><ol>
@@ -2462,91 +2586,15 @@ x_j} f(x)</script></li>
       </tags>
   </entry>
   <entry>
-    <title>【花书】从概率统计到深度网络的概率预测</title>
-    <url>/2023/01/05/probability-output/</url>
-    <content><![CDATA[<p>参考深度学习花书</p>
-<p>第三章 概率与信息论【常用统计量，分布】</p>
-<p>第五章 机器学习基础【参数选择，最大似然估计】</p>
-<p>第六章 深度前馈网络【输出单元】</p>
-<h2 id="概率统计"><a href="#概率统计" class="headerlink" title="概率统计"></a>概率统计</h2><h3 id="期望"><a href="#期望" class="headerlink" title="期望"></a>期望</h3><p>离散: $E[f(x)]=\sum_xP(x)f(x)$</p>
-<p>连续： $E[f(x)]=\int P(x)f(x)dx$</p>
-<p>默认地，我们假设E表示对括号内的所有随机变量求平均</p>
-<p>性质：线性</p>
-<script type="math/tex; mode=display">E(af(x)+bg(x)+c)=aE(f(x))+bE(g(x))+c</script><h3 id="方差"><a href="#方差" class="headerlink" title="方差"></a>方差</h3><p>对x依照概率分布采样时，随机变量x的函数值会呈现多大的差异</p>
-<p>离散： <script type="math/tex">Var(f(x))=E[(f(x)-E[f(x)])^2]</script></p>
-<h3 id="协方差"><a href="#协方差" class="headerlink" title="协方差"></a>协方差</h3><p>两个变量线性相关性的强度以及这些变量的尺度</p>
-<script type="math/tex; mode=display">Cov(f(x),g(y))=E[(f(x)-E[f(x)])(g(y)-E[g(y)])]</script><p>随机变量组成的向量之间可构成协方差矩阵，其对角元素为方差</p>
-<script type="math/tex; mode=display">Cov(x)_{i,j}=Cov(x_i, x_j)</script><ul>
-<li>变量的尺度：1. 绝对值越大，变化越大 2. 若为正，则两个变量都倾向于取较于均值更大的值</li>
-<li>相关性：若为0，则无线性相关；若不为0，则一定相关</li>
-<li>注意：相关性比独立性的要求更弱。相关性无法判断非线性相关性，而独立性要求线性非线性均无关。</li>
-</ul>
-<h3 id="相关系数"><a href="#相关系数" class="headerlink" title="相关系数"></a>相关系数</h3><p>将协方差变量进行归一化，达到之衡量变量的相关性而不受各个变量尺度大小的影响。</p>
-<script type="math/tex; mode=display">Cov(f(x),g(y))=\frac{E[(f(x)-E[f(x)])(g(y)-E[g(y)])]}{\sqrt{Var(f(x))Var(g(y))}}</script><h2 id="常见分布"><a href="#常见分布" class="headerlink" title="常见分布"></a>常见分布</h2><h3 id="伯努利分布"><a href="#伯努利分布" class="headerlink" title="伯努利分布"></a>伯努利分布</h3><p>单个二值随机变量的分布。展示了只有两种可能性（0或1）的事件，分别发生的概率x的分布。必然发生的概率为 $\phi$。常用于深度学习的二分类问题。</p>
-<script type="math/tex; mode=display">P(x=1)=\phi</script><script type="math/tex; mode=display">P(x=0)=1-\phi</script><p>将两个式子合二为一：（注意：这个式子只是一种简化写法，并不代表x能取任意值。实际上它只能取{0,1}）</p>
-<script type="math/tex; mode=display">P(\text{x}=x)=\phi^x(1-\phi)^{1-x}</script><p>其期望和方差：</p>
-<script type="math/tex; mode=display">E(x)=\phi</script><script type="math/tex; mode=display">Var(x)=\phi(1-\phi)</script><h3 id="n重伯努利分布"><a href="#n重伯努利分布" class="headerlink" title="n重伯努利分布"></a>n重伯努利分布</h3><p>具有k个不同状态的单个离散型随机变量上的分布。由向量 $p\in\{0,1\}^{k}$ (k个二值元素)参数化。其中每一个分量 $p_i$表示第 $i$个状态的概率。</p>
-<p><strong>伯努利分布并不是特别强大， 但是它们的领域足够简单。它们可以对那些能够将所有的状态进行枚举的离散型随机变量进行建模。</strong></p>
-<h3 id="高斯分布（正态分布）"><a href="#高斯分布（正态分布）" class="headerlink" title="高斯分布（正态分布）"></a>高斯分布（正态分布）</h3><p>实数上最常用的分布。由参数 $\mu$和 $\sigma$控制。</p>
-<script type="math/tex; mode=display">\mathcal N(x;\mu,\sigma^2)=\sqrt{\frac{1}{2\pi \sigma^2}}\text{exp}(-\frac{1}{2\sigma^2}(x-\mu)^2)</script><p>另一种方式是使用 $\beta=1/\sigma^2$来控制分布的精度。写作：</p>
-<script type="math/tex; mode=display">\mathcal N(x;\mu,\beta^{-1})=\sqrt{\frac{\beta}{2\pi}}\text{exp}(-\frac{1}{2\sigma^2}(x-\mu)^2)</script><p>推广到高维空间的多维正态分布。 $\mu$变为向量表示的均值， $\Sigma$为协方差矩阵（一般写作对角阵即只有方差足矣）</p>
-<script type="math/tex; mode=display">\mathcal N(x;\mu,\Sigma)=\sqrt{\frac{1}{(2\pi)^n\text{det}(\Sigma)}}\text{exp}(-\frac{1}{2}(x-\mu)^T\Sigma^{-1}(x-\mu))</script><script type="math/tex; mode=display">\mathcal N(x;\mu,\beta^{-1})=\sqrt{\frac{\text{det}(\beta)}{(2\pi)^n}}\text{exp}(-\frac{1}{2}(x-\mu)^T\beta(x-\mu))</script><p>高斯分布具有以下优点：</p>
-<ol>
-<li>许多真实事件的分布接近于高斯分布。（中心极限定理）</li>
-<li>在相同方差的所有概率分布中，高斯分布具有最大不确定性。因此所需要的先验知识量更少。（少量的训练数据可获得更大的学习收益）</li>
-</ol>
-<p>因此正态分布是我们缺乏先验知识时最好的默认选择。</p>
-<h3 id="指数分布"><a href="#指数分布" class="headerlink" title="指数分布"></a>指数分布</h3><p>x=0周围的边界点的分布。</p>
-<ul>
-<li>$\lambda e^{-\lambda x}$     $x \geq 0$</li>
-<li>0              $x &lt; 0$</li>
-</ul>
-<h2 id="点估计：参数选择与验证"><a href="#点估计：参数选择与验证" class="headerlink" title="点估计：参数选择与验证"></a>点估计：参数选择与验证</h2><p>点估计试图为一些感兴趣的参数提供单个最优预测。对于 独立同分布的 $\{x^1, x^2…,x^m\}$，点估计或统计量是这些数据的任意函数：</p>
-<script type="math/tex; mode=display">\hat \theta_m = g(x^1...x^m)</script><p>防止误解，我们一般将真实的参数值写作 $\theta$， 将预测值写作 $\hat \theta$ </p>
-<p>为了衡量预测的点估计的特点，我们一般通过如下性质进行判断</p>
-<ul>
-<li><p>偏差：度量偏离真实参数的误差期望</p>
-<script type="math/tex; mode=display">bias(\hat \theta_m)=E(\hat \theta_m)-\theta</script></li>
-<li><p>方差：度量数据上任意特定采样可能导致的估计期望的偏差</p>
-<script type="math/tex; mode=display">Var(\hat \theta)</script></li>
-<li><p>一致性：估计量的偏离度应随着数据样本的增加而减少</p>
-<script type="math/tex; mode=display">\text{plim}_{m\rightarrow \infty}\hat \theta_m = \theta</script></li>
-</ul>
-<h3 id="过拟合与欠拟合"><a href="#过拟合与欠拟合" class="headerlink" title="过拟合与欠拟合"></a>过拟合与欠拟合</h3><p>可以看到，两个性质分别对应着参数的不同性质。理想中我们希望两个性质都能最优。实际上，随着模型容量（模型的大小，学习能力）的增大，偏差会降低，方差却会增大，从而进入过拟合的阶段。如何权衡两个值找到最优的模型容量成为重要问题。</p>
-<p><img src="https://p.ipic.vip/a004t8.png" alt=""></p>
-<h3 id="最优模型寻找对策：均方误差与交叉验证"><a href="#最优模型寻找对策：均方误差与交叉验证" class="headerlink" title="最优模型寻找对策：均方误差与交叉验证"></a>最优模型寻找对策：均方误差与交叉验证</h3><p>均方误差度量着估计和真实参数间平方误差的总体期望。他同时包含了偏差和方差。因此理想的点估计应该具有较小的MSE。</p>
-<script type="math/tex; mode=display">\text{MSE}=E[(\hat \theta_m-\theta)^2]=Bias(\hat \theta_m)^2+Var(\hat \theta_m)</script><blockquote>
-<p>还有一种常见的方法是使用交叉验证对不同模型进行正确评估。最后选择误差最小的模型。</p>
-</blockquote>
-<h2 id="最大似然估计：参数估计"><a href="#最大似然估计：参数估计" class="headerlink" title="最大似然估计：参数估计"></a>最大似然估计：参数估计</h2><p>上面讲述了对于得到的参数，如何评判其好坏。本节的最大似然估计则告诉我们如何进行通过数据学习合理的参数。</p>
-<p>对参数 $\theta$的最大似然估计为：</p>
-<p>（其中 $p_{model}$是模型从数据学到的概率，以估计真实概率 $p_{data}$。真实概率代表了x出现的概率。）</p>
-<script type="math/tex; mode=display">\theta_{ML}=argmax_{\theta}p_{model}(X,\theta)=argmax_{\theta}\prod^{m}_{i=1} p_{model}(x^i,\theta)=argmax_{\theta}\sum^{m}_{i=1}\log p_{model}=(x^i,\theta)=argmax_{\theta}E_{p\sim \hat p_{data}}\log p_{model}(x^i,\theta)</script><p> 不难理解，第一个式子代表了当估计参数能使训练数据x出现概率最大的时候，我们选其为最优参数。之后根据联合概率，log函数的性质，argmax的缩放不变性，变成了最后的式子的样子（为什么是x遵循经验分布下的期望值？因为我们不知道真实分布哇，只能曲线救国咯）。</p>
-<p>另一种观点是把最大似然估计看做经验分布和模型分布之间的差异，用KL散度表示（其实也就是交叉熵）：</p>
-<script type="math/tex; mode=display">$D_{KL}(\hat p_{data}||p_{mdoel})=E_{x\sim \hat p_{data}}[\log \hat p_{data}(x)-\log p_{model}(x)]</script><p> 数据相关的统计量我们管不着，因此其实最大似然只和右边的值有关系。</p>
-<script type="math/tex; mode=display">\theta_{ML}=argmax_{\theta}E_{p\sim \hat p_{data}}\log p_{model}(x^i,\theta)=-E_{x\sim \hat p_{data}}\log p_{model}(x)</script><p> 列了一堆式子，最终只要记住上面这一行就够了。所以参数选择中最小化KL散度其实就是等同于最大化似然。</p>
-<p>最后，这里的似然估计是对于模拟分布场景的。对于(x,y)类型的监督学习，应该写作：（也就是当数据分布遵循经验分布时，x生成真实值y的概率应该最大）</p>
-<script type="math/tex; mode=display">\theta_{ML}=-E_{x,y\sim \hat p_{data}}\log p_{model}(y|x)</script><h2 id="输出单元"><a href="#输出单元" class="headerlink" title="输出单元"></a>输出单元</h2><p>最后一个问题来了：我们知道了参数如何进行估计，但是最基本的模型分布到底要怎么表示？如何通过数据建模模型分布？这个就涉及到了网络输出层的函数设计：如何使用正确的函数代表 $p_{model}$。</p>
-<p>由于网络的任务基本为回归，二分类，多分类。因此只讨论这三种情况下的输出单元。当然，大多数输出单元也可被用于隐藏层。</p>
-<p>假设现在神经网络为输出层提供了一组为 $h$的隐藏特征。</p>
-<h3 id="线性单元"><a href="#线性单元" class="headerlink" title="线性单元"></a>线性单元</h3><p>基于仿射变换。此时假设该线性回归应遵循正态分布。</p>
-<script type="math/tex; mode=display">\hat y=W^Th+b</script><script type="math/tex; mode=display">P(y|x)=\mathcal N (y;\hat y,I)</script><h3 id="sigmoid单元"><a href="#sigmoid单元" class="headerlink" title="sigmoid单元"></a>sigmoid单元</h3><p>基于伯努利分布，适用于二分类问题。</p>
-<script type="math/tex; mode=display">\sigma(x)=\frac{1}{1+\exp(-x)}</script><p>伯努利函数要求变量出现概率应小于1而大于0。sigmoid的性质完美符合了它：</p>
-<p><img src="https://p.ipic.vip/gc31e7.png" alt=""></p>
-<script type="math/tex; mode=display">\sigma(x)=\frac{\exp(x)}{\exp(x)+\exp(0)}</script><script type="math/tex; mode=display">\sigma'(x)=\sigma(x)(1-\sigma(x))</script><script type="math/tex; mode=display">\sigma(-x)=1-\sigma(x)</script><blockquote>
-<p>当输入值绝对值较大时，很明显sigmoid的函数将会饱和（很平），这不利于我们计算梯度（非常小）。但是还好，负对数似然会帮我们中和。</p>
-</blockquote>
-<h3 id="softmax单元"><a href="#softmax单元" class="headerlink" title="softmax单元"></a>softmax单元</h3><p>基于n重伯努利分布，适用于多分类问题。不仅仅每一个的概率在[0,1]范围内，甚至所有事件的总概率应该是等于1的：</p>
-<script type="math/tex; mode=display">z = W^Th+b</script><script type="math/tex; mode=display">\text{softmax}(z)_i=\frac{\exp(z_i)}{\sum_j{\exp(z_j)}}</script><p>首先线性层进行对数概率的预测，之后再对z进行指数化和归一化（TODO）</p>
-<blockquote>
-<p>太困了，有点匆忙，有空最后再补吧</p>
-</blockquote>
+    <title>德英互译NLP模型</title>
+    <url>/2022/07/31/%E5%BE%B7%E8%8B%B1%E4%BA%92%E8%AF%91NLP%E6%A8%A1%E5%9E%8B/</url>
+    <content><![CDATA[<p><a href="/butterfly/nlp.pdf">pdflink<a><br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h5vwr2ng3wj20yt0g70v4.jpg" alt=""></p>
 ]]></content>
       <categories>
-        <category>study</category>
+        <category>project</category>
       </categories>
       <tags>
-        <tag>DL</tag>
+        <tag>NLP</tag>
       </tags>
   </entry>
 </search>
