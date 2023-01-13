@@ -1,59 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Colorization using Optimization</title>
-    <url>/2022/05/06/Colorization-using-Optimization/</url>
-    <content><![CDATA[<p><img src="https://p.ipic.vip/mwdw7t.png" alt=""></p>
-<h2 id="论文概述-1"><a href="#论文概述-1" class="headerlink" title="论文概述 [1]"></a>论文概述 [1]</h2><blockquote>
-<p>在本文中，我们提出了一种简单的着色方法:基于一个简单前提：时空中具有相似强度(intensity:Y)的<strong>相邻像素应该具有相似的颜色</strong>。 我们使用次成本函数形式化这个前提，并获得一个可以使用标准技术有效解决的优化问题。</p>
-</blockquote>
-<p>[1]Levin, Anat, Dani Lischinski, and Yair Weiss. “Colorization using optimization.” ACM SIGGRAPH 2004 Papers. 2004. 689-694.</p>
-<h3 id="目标函数"><a href="#目标函数" class="headerlink" title="目标函数"></a>目标函数</h3><p>Y可以通过gray图像作为已知信息，因此我们需要通过临近像素的推测U和V<br>MINIMIZE</p>
-<script type="math/tex; mode=display">J(U) = \sum_r \left( U(r) - \sum_{s \in N(r)} w_{rs} U(s) \right)^2</script><script type="math/tex; mode=display">J(V) = \sum_r \left( V(r) - \sum_{s \in N(r)} w_{rs} V(s) \right)^2</script><ul>
-<li>r: 目标像素 N(r):临近像素</li>
-<li>$w_{rs}$的条件<ul>
-<li>两像素间Y越相似，w越大；两像素间Y差值越大，w越小</li>
-<li>和为1</li>
-</ul>
-</li>
-</ul>
-<h3 id="约束条件"><a href="#约束条件" class="headerlink" title="约束条件"></a>约束条件</h3><p>相邻像素具有相似Y时应该具有相似的U和V</p>
-<h3 id="权重函数"><a href="#权重函数" class="headerlink" title="权重函数"></a>权重函数</h3><script type="math/tex; mode=display">w_{rs} \propto \exp \left( \frac{-\left(Y(r)-Y(s)\right)^2}{2 \sigma_r^2} \right)</script><ul>
-<li>$\sigma_r^2$为包含r的临近像素的variance</li>
-</ul>
-<h2 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h2><ol>
-<li>二乘问题的目的函数转换为解线性方程组Ax=b的问题<ul>
-<li>如果按照稠密矩阵构造A就需要使用$(A^TA)^{-1}A^Tb$计算，将会十分庞大；如果用稀疏矩阵则会大大减少计算量<blockquote>
-<p>呃呃搞明白以后思路就是如此简单。。。。</p>
-</blockquote>
-</li>
-</ul>
-</li>
-</ol>
-<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><h3 id="import库"><a href="#import库" class="headerlink" title="import库"></a>import库</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 依赖库 </span></span><br><span class="line">%matplotlib inline</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"><span class="keyword">from</span> skimage <span class="keyword">import</span> color</span><br><span class="line"><span class="keyword">from</span> scipy.sparse <span class="keyword">import</span> csr_matrix</span><br><span class="line"><span class="keyword">from</span> scipy.sparse.linalg <span class="keyword">import</span> spsolve</span><br></pre></td></tr></table></figure>
-<h3 id="图像预处理"><a href="#图像预处理" class="headerlink" title="图像预处理"></a>图像预处理</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Load the images</span></span><br><span class="line"><span class="comment"># 打开图片转换为RGB再转换为YUV</span></span><br><span class="line">img_in   = color.rgb2yuv( np.array( Image.<span class="built_in">open</span>( <span class="string">&#x27;baby.png&#x27;</span> ).convert(<span class="string">&quot;RGB&quot;</span>), dtype=<span class="built_in">float</span> ) / <span class="number">255</span> )</span><br><span class="line">img_edit = color.rgb2yuv( np.array( Image.<span class="built_in">open</span>( <span class="string">&#x27;baby_marked.png&#x27;</span> ).convert(<span class="string">&quot;RGB&quot;</span>), dtype=<span class="built_in">float</span> ) / <span class="number">255</span> )</span><br><span class="line">img_hint = np.zeros( img_edit.shape )</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过图片像素相减提取hint</span></span><br><span class="line"><span class="comment"># </span></span><br><span class="line">idx = (np.<span class="built_in">abs</span>((img_in-img_edit).<span class="built_in">sum</span>(<span class="number">2</span>)) &gt; <span class="number">1e-4</span>)</span><br><span class="line">img_hint[ idx ] = img_edit[ idx ]</span><br></pre></td></tr></table></figure>
-<ul>
-<li><code>Image.open()</code>：返回一个image的对象(shape=(w,h))<ul>
-<li><code>Image.open().convert(&quot;RGB&quot;)</code>：返回一个image的RGB对象(shape=(w,h,c))</li>
-</ul>
-</li>
-<li><code>sum(n)</code>：沿n维的sum</li>
-</ul>
-<h3 id="生成稀疏矩阵A"><a href="#生成稀疏矩阵A" class="headerlink" title="生成稀疏矩阵A"></a>生成稀疏矩阵A</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Create the optimization problem</span></span><br><span class="line">w = img_edit.shape[<span class="number">0</span>]</span><br><span class="line">h = img_edit.shape[<span class="number">1</span>]</span><br><span class="line"><span class="comment"># window size</span></span><br><span class="line">wpx = <span class="number">1</span> </span><br><span class="line"><span class="comment"># u和v：只放入已确定颜色的像素id的uv值</span></span><br><span class="line">b_u = np.zeros( (w*h,) )</span><br><span class="line">b_v = b_u.copy()</span><br><span class="line"><span class="comment"># Sparse matrix，一对(row,col)代表一对邻居关系的像素，dat内存储权重</span></span><br><span class="line">row = []</span><br><span class="line">col = []</span><br><span class="line">dat = []</span><br><span class="line"></span><br><span class="line"><span class="comment"># 遍历 w * h = n</span></span><br><span class="line"><span class="keyword">for</span> v <span class="keyword">in</span> <span class="built_in">range</span>(h):</span><br><span class="line">    <span class="keyword">for</span> u <span class="keyword">in</span> <span class="built_in">range</span>(w):</span><br><span class="line">        <span class="comment"># （w，v）to index</span></span><br><span class="line">        i = v*w + u</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Add first entry U(r) for both  channels</span></span><br><span class="line">        <span class="comment"># 像素本身等于自身，因此稀疏矩阵A的对角均为1</span></span><br><span class="line">        row.append( i )</span><br><span class="line">        col.append( i )</span><br><span class="line">        dat.append( <span class="number">1.</span> )</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Skip coloured areas,</span></span><br><span class="line">        <span class="comment"># 已经在给的hint里上色的区域就跳过</span></span><br><span class="line">        <span class="keyword">if</span> idx[u,v]:</span><br><span class="line">            b_u[i] = img_edit[u,v,<span class="number">1</span>]</span><br><span class="line">            b_v[i] = img_edit[u,v,<span class="number">2</span>]</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 求r的neighbour范围</span></span><br><span class="line">        umin = <span class="built_in">max</span>(<span class="number">0</span>,u-wpx)</span><br><span class="line">        umax = <span class="built_in">min</span>(w,u+wpx+<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        vmin = <span class="built_in">max</span>(<span class="number">0</span>,v-wpx)</span><br><span class="line">        vmax = <span class="built_in">min</span>(h,v+wpx+<span class="number">1</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 求neighbour范围内的variance</span></span><br><span class="line">        patch = img_in[ umin:umax, vmin:vmax, <span class="number">0</span> ]</span><br><span class="line">        mu_r = np.mean( patch )</span><br><span class="line">        sigma_r = np.var( patch )</span><br><span class="line">        sigma_r = <span class="built_in">max</span>( sigma_r, <span class="number">1e-6</span> )</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 求r的Y</span></span><br><span class="line">        Yr = img_in[u,v,<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Go over neighbours</span></span><br><span class="line">        <span class="comment"># 遍历neighbour，求各自的w</span></span><br><span class="line">        N = []</span><br><span class="line">        wrs = []</span><br><span class="line">        <span class="keyword">for</span> nu <span class="keyword">in</span> <span class="built_in">range</span>( umin, umax ):</span><br><span class="line">            <span class="keyword">for</span> nv <span class="keyword">in</span> <span class="built_in">range</span>( vmin, vmax ):</span><br><span class="line">                j = nv*w + nu</span><br><span class="line">                <span class="keyword">if</span> i==j:</span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line">                Ys = img_in[nu,nv,<span class="number">0</span>]</span><br><span class="line">                wrs.append(np.exp(-<span class="number">1</span>*(Yr-Ys)*(Yr-Ys)/ <span class="number">2</span> / sigma_r))</span><br><span class="line">                N.append(j)</span><br><span class="line">        wrs = np.array( wrs )</span><br><span class="line">        <span class="comment"># 对w的约束条件：和必须为1</span></span><br><span class="line">        wrs /= wrs.<span class="built_in">sum</span>()</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 根据求出的w完善矩阵</span></span><br><span class="line">        <span class="keyword">for</span> k,j <span class="keyword">in</span> <span class="built_in">enumerate</span>(N):</span><br><span class="line">            row.append(i)</span><br><span class="line">            col.append(j)</span><br><span class="line">            dat.append(-wrs[k])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 最终生成一个大小为(wh,wh)的，包含所有点与点之间的权重的矩阵</span></span><br><span class="line">A = csr_matrix( (dat, (row,col)) )</span><br></pre></td></tr></table></figure>
-<ul>
-<li><code>csr_matrix( (data, (row_index,col_index)) )</code>:  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">csr_matrix( ([<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>], ([<span class="number">1</span>,<span class="number">3</span>,<span class="number">3</span>],[<span class="number">0</span>,<span class="number">1</span>,<span class="number">3</span>])) ).toarray()</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>array([[<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">   [<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">   [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">   [<span class="number">0</span>, <span class="number">2</span>, <span class="number">0</span>, <span class="number">1</span>]], dtype=int64)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="解方程组生成目标图像"><a href="#解方程组生成目标图像" class="headerlink" title="解方程组生成目标图像"></a>解方程组生成目标图像</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Solve the optimization and display results</span></span><br><span class="line">Y = img_in[:,:,<span class="number">0</span>:<span class="number">1</span>]</span><br><span class="line">U = spsolve(A, b_u).reshape( h, w, <span class="number">1</span> ).transpose( (<span class="number">1</span>,<span class="number">0</span>,<span class="number">2</span>) )</span><br><span class="line">V = spsolve(A, b_v).reshape( h, w, <span class="number">1</span> ).transpose( (<span class="number">1</span>,<span class="number">0</span>,<span class="number">2</span>) )</span><br><span class="line"></span><br><span class="line">img_out = np.concatenate( (Y,U,V), axis=<span class="number">2</span> )</span><br><span class="line">plt.imshow( color.yuv2rgb(img_out) )</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>study</category>
-      </categories>
-      <tags>
-        <tag>optimization</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Collection of CGO</title>
     <url>/2022/05/28/Collection-of-CGO/</url>
     <content><![CDATA[<h1 id="Collections"><a href="#Collections" class="headerlink" title="Collections"></a>Collections</h1><ul>
@@ -141,6 +88,59 @@
       </tags>
   </entry>
   <entry>
+    <title>Colorization using Optimization</title>
+    <url>/2022/05/06/Colorization-using-Optimization/</url>
+    <content><![CDATA[<p><img src="https://p.ipic.vip/mwdw7t.png" alt=""></p>
+<h2 id="论文概述-1"><a href="#论文概述-1" class="headerlink" title="论文概述 [1]"></a>论文概述 [1]</h2><blockquote>
+<p>在本文中，我们提出了一种简单的着色方法:基于一个简单前提：时空中具有相似强度(intensity:Y)的<strong>相邻像素应该具有相似的颜色</strong>。 我们使用次成本函数形式化这个前提，并获得一个可以使用标准技术有效解决的优化问题。</p>
+</blockquote>
+<p>[1]Levin, Anat, Dani Lischinski, and Yair Weiss. “Colorization using optimization.” ACM SIGGRAPH 2004 Papers. 2004. 689-694.</p>
+<h3 id="目标函数"><a href="#目标函数" class="headerlink" title="目标函数"></a>目标函数</h3><p>Y可以通过gray图像作为已知信息，因此我们需要通过临近像素的推测U和V<br>MINIMIZE</p>
+<script type="math/tex; mode=display">J(U) = \sum_r \left( U(r) - \sum_{s \in N(r)} w_{rs} U(s) \right)^2</script><script type="math/tex; mode=display">J(V) = \sum_r \left( V(r) - \sum_{s \in N(r)} w_{rs} V(s) \right)^2</script><ul>
+<li>r: 目标像素 N(r):临近像素</li>
+<li>$w_{rs}$的条件<ul>
+<li>两像素间Y越相似，w越大；两像素间Y差值越大，w越小</li>
+<li>和为1</li>
+</ul>
+</li>
+</ul>
+<h3 id="约束条件"><a href="#约束条件" class="headerlink" title="约束条件"></a>约束条件</h3><p>相邻像素具有相似Y时应该具有相似的U和V</p>
+<h3 id="权重函数"><a href="#权重函数" class="headerlink" title="权重函数"></a>权重函数</h3><script type="math/tex; mode=display">w_{rs} \propto \exp \left( \frac{-\left(Y(r)-Y(s)\right)^2}{2 \sigma_r^2} \right)</script><ul>
+<li>$\sigma_r^2$为包含r的临近像素的variance</li>
+</ul>
+<h2 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h2><ol>
+<li>二乘问题的目的函数转换为解线性方程组Ax=b的问题<ul>
+<li>如果按照稠密矩阵构造A就需要使用$(A^TA)^{-1}A^Tb$计算，将会十分庞大；如果用稀疏矩阵则会大大减少计算量<blockquote>
+<p>呃呃搞明白以后思路就是如此简单。。。。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><h3 id="import库"><a href="#import库" class="headerlink" title="import库"></a>import库</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 依赖库 </span></span><br><span class="line">%matplotlib inline</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"><span class="keyword">from</span> skimage <span class="keyword">import</span> color</span><br><span class="line"><span class="keyword">from</span> scipy.sparse <span class="keyword">import</span> csr_matrix</span><br><span class="line"><span class="keyword">from</span> scipy.sparse.linalg <span class="keyword">import</span> spsolve</span><br></pre></td></tr></table></figure>
+<h3 id="图像预处理"><a href="#图像预处理" class="headerlink" title="图像预处理"></a>图像预处理</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Load the images</span></span><br><span class="line"><span class="comment"># 打开图片转换为RGB再转换为YUV</span></span><br><span class="line">img_in   = color.rgb2yuv( np.array( Image.<span class="built_in">open</span>( <span class="string">&#x27;baby.png&#x27;</span> ).convert(<span class="string">&quot;RGB&quot;</span>), dtype=<span class="built_in">float</span> ) / <span class="number">255</span> )</span><br><span class="line">img_edit = color.rgb2yuv( np.array( Image.<span class="built_in">open</span>( <span class="string">&#x27;baby_marked.png&#x27;</span> ).convert(<span class="string">&quot;RGB&quot;</span>), dtype=<span class="built_in">float</span> ) / <span class="number">255</span> )</span><br><span class="line">img_hint = np.zeros( img_edit.shape )</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过图片像素相减提取hint</span></span><br><span class="line"><span class="comment"># </span></span><br><span class="line">idx = (np.<span class="built_in">abs</span>((img_in-img_edit).<span class="built_in">sum</span>(<span class="number">2</span>)) &gt; <span class="number">1e-4</span>)</span><br><span class="line">img_hint[ idx ] = img_edit[ idx ]</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>Image.open()</code>：返回一个image的对象(shape=(w,h))<ul>
+<li><code>Image.open().convert(&quot;RGB&quot;)</code>：返回一个image的RGB对象(shape=(w,h,c))</li>
+</ul>
+</li>
+<li><code>sum(n)</code>：沿n维的sum</li>
+</ul>
+<h3 id="生成稀疏矩阵A"><a href="#生成稀疏矩阵A" class="headerlink" title="生成稀疏矩阵A"></a>生成稀疏矩阵A</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Create the optimization problem</span></span><br><span class="line">w = img_edit.shape[<span class="number">0</span>]</span><br><span class="line">h = img_edit.shape[<span class="number">1</span>]</span><br><span class="line"><span class="comment"># window size</span></span><br><span class="line">wpx = <span class="number">1</span> </span><br><span class="line"><span class="comment"># u和v：只放入已确定颜色的像素id的uv值</span></span><br><span class="line">b_u = np.zeros( (w*h,) )</span><br><span class="line">b_v = b_u.copy()</span><br><span class="line"><span class="comment"># Sparse matrix，一对(row,col)代表一对邻居关系的像素，dat内存储权重</span></span><br><span class="line">row = []</span><br><span class="line">col = []</span><br><span class="line">dat = []</span><br><span class="line"></span><br><span class="line"><span class="comment"># 遍历 w * h = n</span></span><br><span class="line"><span class="keyword">for</span> v <span class="keyword">in</span> <span class="built_in">range</span>(h):</span><br><span class="line">    <span class="keyword">for</span> u <span class="keyword">in</span> <span class="built_in">range</span>(w):</span><br><span class="line">        <span class="comment"># （w，v）to index</span></span><br><span class="line">        i = v*w + u</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Add first entry U(r) for both  channels</span></span><br><span class="line">        <span class="comment"># 像素本身等于自身，因此稀疏矩阵A的对角均为1</span></span><br><span class="line">        row.append( i )</span><br><span class="line">        col.append( i )</span><br><span class="line">        dat.append( <span class="number">1.</span> )</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Skip coloured areas,</span></span><br><span class="line">        <span class="comment"># 已经在给的hint里上色的区域就跳过</span></span><br><span class="line">        <span class="keyword">if</span> idx[u,v]:</span><br><span class="line">            b_u[i] = img_edit[u,v,<span class="number">1</span>]</span><br><span class="line">            b_v[i] = img_edit[u,v,<span class="number">2</span>]</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 求r的neighbour范围</span></span><br><span class="line">        umin = <span class="built_in">max</span>(<span class="number">0</span>,u-wpx)</span><br><span class="line">        umax = <span class="built_in">min</span>(w,u+wpx+<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        vmin = <span class="built_in">max</span>(<span class="number">0</span>,v-wpx)</span><br><span class="line">        vmax = <span class="built_in">min</span>(h,v+wpx+<span class="number">1</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 求neighbour范围内的variance</span></span><br><span class="line">        patch = img_in[ umin:umax, vmin:vmax, <span class="number">0</span> ]</span><br><span class="line">        mu_r = np.mean( patch )</span><br><span class="line">        sigma_r = np.var( patch )</span><br><span class="line">        sigma_r = <span class="built_in">max</span>( sigma_r, <span class="number">1e-6</span> )</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 求r的Y</span></span><br><span class="line">        Yr = img_in[u,v,<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Go over neighbours</span></span><br><span class="line">        <span class="comment"># 遍历neighbour，求各自的w</span></span><br><span class="line">        N = []</span><br><span class="line">        wrs = []</span><br><span class="line">        <span class="keyword">for</span> nu <span class="keyword">in</span> <span class="built_in">range</span>( umin, umax ):</span><br><span class="line">            <span class="keyword">for</span> nv <span class="keyword">in</span> <span class="built_in">range</span>( vmin, vmax ):</span><br><span class="line">                j = nv*w + nu</span><br><span class="line">                <span class="keyword">if</span> i==j:</span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line">                Ys = img_in[nu,nv,<span class="number">0</span>]</span><br><span class="line">                wrs.append(np.exp(-<span class="number">1</span>*(Yr-Ys)*(Yr-Ys)/ <span class="number">2</span> / sigma_r))</span><br><span class="line">                N.append(j)</span><br><span class="line">        wrs = np.array( wrs )</span><br><span class="line">        <span class="comment"># 对w的约束条件：和必须为1</span></span><br><span class="line">        wrs /= wrs.<span class="built_in">sum</span>()</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 根据求出的w完善矩阵</span></span><br><span class="line">        <span class="keyword">for</span> k,j <span class="keyword">in</span> <span class="built_in">enumerate</span>(N):</span><br><span class="line">            row.append(i)</span><br><span class="line">            col.append(j)</span><br><span class="line">            dat.append(-wrs[k])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 最终生成一个大小为(wh,wh)的，包含所有点与点之间的权重的矩阵</span></span><br><span class="line">A = csr_matrix( (dat, (row,col)) )</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>csr_matrix( (data, (row_index,col_index)) )</code>:  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">csr_matrix( ([<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>], ([<span class="number">1</span>,<span class="number">3</span>,<span class="number">3</span>],[<span class="number">0</span>,<span class="number">1</span>,<span class="number">3</span>])) ).toarray()</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>array([[<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">   [<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">   [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">   [<span class="number">0</span>, <span class="number">2</span>, <span class="number">0</span>, <span class="number">1</span>]], dtype=int64)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="解方程组生成目标图像"><a href="#解方程组生成目标图像" class="headerlink" title="解方程组生成目标图像"></a>解方程组生成目标图像</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Solve the optimization and display results</span></span><br><span class="line">Y = img_in[:,:,<span class="number">0</span>:<span class="number">1</span>]</span><br><span class="line">U = spsolve(A, b_u).reshape( h, w, <span class="number">1</span> ).transpose( (<span class="number">1</span>,<span class="number">0</span>,<span class="number">2</span>) )</span><br><span class="line">V = spsolve(A, b_v).reshape( h, w, <span class="number">1</span> ).transpose( (<span class="number">1</span>,<span class="number">0</span>,<span class="number">2</span>) )</span><br><span class="line"></span><br><span class="line">img_out = np.concatenate( (Y,U,V), axis=<span class="number">2</span> )</span><br><span class="line">plt.imshow( color.yuv2rgb(img_out) )</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>study</category>
+      </categories>
+      <tags>
+        <tag>optimization</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Linear models for classification</title>
     <url>/2022/05/23/Linear%20models%20for%20classification/</url>
     <content><![CDATA[<h2 id="1-Intro"><a href="#1-Intro" class="headerlink" title="1. Intro"></a>1. Intro</h2><ul>
@@ -225,7 +225,7 @@
       </tags>
   </entry>
   <entry>
-    <title>考虑内容的图片缩放</title>
+    <title>【项目实战】考虑内容的图片缩放</title>
     <url>/2022/07/20/content-aware-image-resizing/</url>
     <content><![CDATA[<h1 id="项目报告"><a href="#项目报告" class="headerlink" title="项目报告"></a>项目报告</h1><p><a href="/butterfly/cgo.pdf">pdflink<a><br><img src="https://p.ipic.vip/1skxgt.png" alt=""></p>
 <h1 id="项目描述"><a href="#项目描述" class="headerlink" title="项目描述"></a>项目描述</h1><p>对于图片缩放，我们希望在缩放时却不影响主体的变换。一般来说，缩放技术有基于离散和连续的两种方法，离散型通常是迭代地寻找一排（或者一列）最小能量的像素，以删除在原图片中无效的像素点；连续型则通过形变等手法改变整个图片的比例。本项目基于Seam Carving [1]和 Image Warping [2]的论文进行代码的复现和结果的比较。</p>
@@ -278,10 +278,113 @@
 <p>[2] Yu-Shuen Wang, Chiew-Lan Tai, Olga Sorkine, and Tong-Yee Lee. 2008. Optimized scale-and-stretch for image resizing. In ACM SIGGRAPH Asia 2008 papers. 1–8.</p>
 ]]></content>
       <categories>
-        <category>study</category>
+        <category>project</category>
       </categories>
       <tags>
         <tag>CGO</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>闲看-数据集会有刻板印象吗？</title>
+    <url>/2022/10/15/dataset-bias/</url>
+    <content><![CDATA[<blockquote>
+<p>本来是想看<em>Ruth Fong</em>这位作者的一些关于可解释模型的一些论文，但是无意中看到她作为共作的讨论数据集的性别刻板印象的论文，沉迷于此看了一天倒是忘记了最开始是要看别的来着…</p>
+</blockquote>
+<p>Meister, Nicole, et al. “Gender Artifacts in Visual Datasets.” arXiv preprint arXiv:2206.09191 (2022).</p>
+<p>标题：<strong>Gender Artifacts in Visual Datasets</strong><br>论文地址：<a href="https://arxiv.org/abs/2206.09191">https://arxiv.org/abs/2206.09191</a><br>关键词：AI fairness, gender bias, dataset analysis</p>
+<h2 id="0-摘要"><a href="#0-摘要" class="headerlink" title="0. 摘要"></a>0. 摘要</h2><p>我们已经知道性别偏差会出现在大型图像集中并且会影响下游任务模型。许多前序工作已经提出弱化这种偏差影响的手法比如尝试将性别情感相关的情报从图片里删除。为了理解这些手法的可行性和使用性，我们调查了大型图片集中究竟有哪些<em>性别伪影（gender artifacts）</em>。我们定义，性别伪影应该是一个</p>
+<ol>
+<li>可视的并且会被现代模型学习到的</li>
+<li>能以人类思维解释的</li>
+</ol>
+<p>与性别相关的线索。通过我们的分析，我们发现在COCO和OpenImages数据集中，伪影可以说是无处不在，下到低阶信息（如色彩信息），上至高阶信息（如姿势和位置），都存在性别伪影。因此我们认为通过删除伪影的方法是不可行的。并且我们认为作为研究员和训练者的责任，他们更应该注意数据里的性别分布，并应该加强手法对这些分布偏差的鲁棒性。</p>
+<h2 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1. 介绍"></a>1. 介绍</h2><p>我们现在已知了很多深度学习模型的衍生物都有社会偏差。一种主要的假设是这种偏差源自于输入数据本身的问题。许多偏差都来自于特定群体的相关数据的缺乏，如天然的性别分布已经被论证不足以缓解模型的偏差。因此许多手法提出将具有性别色彩的元素进行遮挡的方法以避免输入数据的不均匀。</p>
+<p>在本文中，我们不仅关注这些数据集的偏差，并且探索了这些性别信息究竟多大程度能被除掉。因此首先我们定义了<em>性别伪影</em>应该是可学习的和可解释的。并且为了探索这些伪影，我们生成和对比了许多不同版本的数据（如灰度化的图片，被遮挡背景的图片等），以探索它们的性别预测程度。</p>
+<p>但是我们并不赞成任何预测性别的行为。并认为这里并没有任何理由足以支持这一行为。</p>
+<p>根据上述工作，我们最终发现在COCO和OpenImage里性别伪影无处不在。如下图中仅仅是计算了图片中三原色的平均值，就能够看出两性之间的明显差异。通过平均值模型预测度为，COCO：58.0%, OpenImages：59.1%</p>
+<p><img src="https://p.ipic.vip/bp87fo.png" alt="左：分割掩膜的相关统计量 右：图像的平均色彩度"></p>
+<p>这些发现的暗示如下：</p>
+<ol>
+<li>性别伪影存在于图片的每个角落，因此过去的删除特定性别伪影的手法也许是无效的。我们更推荐研究者使用注重公平的模型，以及非聚合的验证矩阵。这能帮助发现潜在的群体偏差。</li>
+<li>在我们的发现中，这些性格偏差的无处不在性导致最终的预测可能是毫无道理的。比如每当让模型预测性别时，我们需要积极地考虑预预测依据是什么；模型是真的学习到了有意义的理由，还是仅仅是因为图片更红一些。</li>
+</ol>
+<p>最后，我们也要考虑不是所有伪影都是错误的。有一些也许是真的能够帮助我们区别两个群体，它们是重要的特征；但有一些仅仅是讨厌的刻板印象。我们需要考虑哪些是要避免的。</p>
+<h2 id="2-相关工作"><a href="#2-相关工作" class="headerlink" title="2. 相关工作"></a>2. 相关工作</h2><h2 id="3-实验"><a href="#3-实验" class="headerlink" title="3. 实验"></a>3. 实验</h2><h3 id="3-1-数据集"><a href="#3-1-数据集" class="headerlink" title="3.1 数据集"></a>3.1 数据集</h3><p>使用COCO和OpenImages的主要原因是它们是少见的能直接获得性别标签的注释。</p>
+<h3 id="3-2-模型参数"><a href="#3-2-模型参数" class="headerlink" title="3.2 模型参数"></a>3.2 模型参数</h3><h3 id="3-3-道德考虑"><a href="#3-3-道德考虑" class="headerlink" title="3.3 道德考虑"></a>3.3 道德考虑</h3><hr>
+<blockquote>
+<p>以下开始是产生性别伪影的原因的实验和探讨</p>
+</blockquote>
+<h2 id="4-分辨率和颜色"><a href="#4-分辨率和颜色" class="headerlink" title="4. 分辨率和颜色"></a>4. 分辨率和颜色</h2><p>我们测试了测试集在112x112, 56x56, 28x28, 14x14, 7x7这几种分辨率情况下的预测情况。随着分辨率下降，准确度也逐步下降，但是颜色也逐渐变得单一。因此我们也考虑了当转化为灰度图片后随着分辨率下降预测度的情况。结果如下图所示。</p>
+<p><img src="https://p.ipic.vip/6ovrla.png" alt="Color：彩色，Grayscale：灰度，LogReg：红绿蓝三原色的像素块个数的平均值"></p>
+<p>在28x28的分辨率下的COCO数据集中，彩色图片预测率有61.9%而灰度图片仅有51.9%。这说明在图片的物体形状不再具有意义时，性别伪影很可能来自于色彩的影响。</p>
+<p>并且即使将分辨率低到了7x7的程度，彩色图片的预测率依旧高于50%。</p>
+<p>这很有可能数据集中的两性具有一定的色彩特征。男性更常是在绿色草坪上，而数据集中的女性更常拥有更亮色的皮肤。</p>
+<h2 id="5-人和背景"><a href="#5-人和背景" class="headerlink" title="5. 人和背景"></a>5. 人和背景</h2><p>前序工作中已经证明人物的样貌一定包含了性别伪影。那么更朴素的问题是，是否图片背景，甚至是更高阶的人物信息（姿势和大小等）会包含人物伪影？</p>
+<p>我们设置了一系列的遮挡图片来对比对预测度的影响，术语解释如下：</p>
+<ol>
+<li>Full：人物完全被显示出来</li>
+<li>Full NoBg：人物完全被显示并且没有背景</li>
+<li>MaskSegm：人物掩膜</li>
+<li>MaskRect：矩形掩膜</li>
+</ol>
+<p>最终结果如下图</p>
+<p><img src="https://p.ipic.vip/62qmuv.png" alt=""></p>
+<p><strong>人物外貌是性别伪影。</strong>很明显，即使遮挡住背景时（Full Nobg），预测度也没有剧烈的下降。</p>
+<p><strong>仅仅使用人物的形状和位置对性别进行预测也达到了50%以上。</strong>我们看到即使在MaskSegm NoBg的情况下，也达到了74.8%的准确率，说明人物形状本身都能揭露性别情报，比如着装或是头发的长短。接下来，我们删除了更多人物信息，只留下了关键点(keypoints)如下图。</p>
+<p><img src="https://p.ipic.vip/e28dt9.png" alt=""></p>
+<p>它们的表现依旧优于50%达到了64.8%的准确度。男性的动作有可能被模型认为更小和在运动状态；而女性更多的被模型认为倾向于更大和站立。</p>
+<p><strong>这些不同性别表达中的大小和位置差异是可被学习的。</strong>即使我们把人物轮廓遮住（MaskRectNoBg），结果仍表现出了高于50%的精度。</p>
+<p><strong>背景信息仍旧是极其重要的信息对于表达性别信息。</strong>因此任何仅仅只是通过遮挡人物外貌的方法，只不过是把性别伪影从人物转移到了背景上，实际上是无法真正消除所有性别伪影的。</p>
+<p><strong>定性分析。</strong>为了进一步理解背景中的性别伪影，我们进行了一系列定性分析结果如下图。<br><img src="https://p.ipic.vip/adv6fw.png" alt="值为100意味着被预测为女性，0则为男性"></p>
+<p>模型倾向于将城市和室内的背景与女性连接起来，而将室外和运动背景与男性结合。此外，通过第四行我们发现状态更“小”和静止时常被模型认为是女性，而“大”和动态被认为是男性。但是，我们也发现了如果人物外貌被包含在图片里时，运动的女性和静止的男性也是可以被正确区分的。</p>
+<p><strong>性别伪影在数据集中具有普遍性。</strong>我们对两个数据集进行了交叉验证如下表，不管是哪种掩膜设定最终结果都高于50%。</p>
+<p><img src="https://p.ipic.vip/wdpf1d.png" alt=""></p>
+<h2 id="6-具有语义内容的物体"><a href="#6-具有语义内容的物体" class="headerlink" title="6. 具有语义内容的物体"></a>6. 具有语义内容的物体</h2><p>这一章节我们致力于更好的理解性别伪影，并区别背景中的两大要素：物体和场景。</p>
+<p><strong>通过模型的关注度可视化性别伪影。</strong>我们使用CAMS可视化了不同物体在用于性别分类时的重要度，如下图</p>
+<p><img src="https://p.ipic.vip/j47vr1.png" alt=""></p>
+<p>当人物被预测为女性时，模型在关注室内的物体如床和烤箱；而被预测为男性时，模型关注于室外物体如滑板和摩托。</p>
+<p><strong>和性别分类最有关的物体排序。</strong>在COCO中，比重最高的十个物体对应用于分类女性的，分别为吹风机，手提包，泰迪熊，雨伞和床；而比重最低的十个物体对应于分类男性，为滑板，领带，滑雪板，棒球手套和摩托车。</p>
+<p>为了进一步理解这些物体的作用，我们逐步从图片中删除各个物体，并观察预测结果的准确率的变化。结果如下图。</p>
+<p><img src="https://p.ipic.vip/w08stw.png" alt=""></p>
+<p>我们可以看到，物体产生的影响无处不在；直到我们将物体删除到一个不剩，判定率才下降到了50%的基准。</p>
+<h2 id="7-讨论"><a href="#7-讨论" class="headerlink" title="7. 讨论"></a>7. 讨论</h2><p>首先，我们应该面对这种数据集中的不均匀而不是妄图消灭它们（我们已经证明了这几乎不可能）。因此使用注重公平性的模型是更好的选择。</p>
+<p>此外，在构建数据集时我们也要尽量避免这种产生的偏差。我们应提前考虑这种结构是否会影响到下游任务的结果。</p>
+<p>最后，我们应该警惕模型的学习结果。也许一些模型的结果真的和人类的判断结果相符合，甚至和我们的认知对应。但实际上它可能只是在学习这个数据集中的可视化物体的关联性，而不是真正的“理解”。当我们对结果分析时，我们应该小心我们的分析是不是其实仅仅是人类自己“赋予”的。</p>
+]]></content>
+      <categories>
+        <category>blog</category>
+      </categories>
+      <tags>
+        <tag>Paper</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【项目实战】德英互译NLP模型</title>
+    <url>/2022/07/31/de-en-translation/</url>
+    <content><![CDATA[<h1 id="项目报告"><a href="#项目报告" class="headerlink" title="项目报告"></a>项目报告</h1><p><a href="/butterfly/nlp.pdf">pdflink<a><br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h5vwr2ng3wj20yt0g70v4.jpg" alt=""></p>
+<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>围绕机器翻译，对NLP知识进行了总结复习和实战。首先总结了机器翻译模型的发展历史，并对相关技术进行复习。最后使用了几个前沿的预训练模型对德英数据集进行了微调，并使用不同的分词手法和评估函数进行了对比。</p>
+<h1 id="发展历史"><a href="#发展历史" class="headerlink" title="发展历史"></a>发展历史</h1><ol>
+<li>RNN：加入了上一个隐藏层的输入以记忆历史数据，最先被提出用来解决时间序列模型的结构。但是过长的文本会导致梯度消失。</li>
+<li>LSTM/GRU：解决长文本问题，可提供对更久以前的数据的记忆。</li>
+<li>Attention机制：1. 提供弹性表达（而不是只能将文本映射为固定长度的向量） 2. 可学习全局的关系 3. 并行计算</li>
+<li>双循环网络：初期的RNN只能单向循环，即只能看到前面的内容，看不到后面。双循环添加了从后向前的方向，使输出不仅依靠前面的文本还可知晓后面的内容。</li>
+<li>Transformer：结合上述结构的优势，生成了强大的Transformer。在Transformer基础上还诞生了BERT等强大的模型。</li>
+</ol>
+<h1 id="使用手法"><a href="#使用手法" class="headerlink" title="使用手法"></a>使用手法</h1><p>主要使用基于Transformer模型T5和Transformer-align，对机器翻译任务进行迁移学习。</p>
+<h1 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h1><ul>
+<li>Dataset：Multi50k</li>
+<li>Evaluation：Bleu</li>
+</ul>
+<p>下面两张图分别是在测试集的损失变化，和Bleu的变化量。可以看出Transfromer align在本次任务中表现最好。</p>
+<p><img src="https://p.ipic.vip/d2dw7h.png" alt=""></p>
+<p>我们还实现了词语之间的attention值的可视化，更明显的看出每个生成词语的参考来源。</p>
+<p><img src="https://p.ipic.vip/xu6hy3.png" alt=""></p>
+]]></content>
+      <categories>
+        <category>project</category>
+      </categories>
+      <tags>
+        <tag>NLP</tag>
       </tags>
   </entry>
   <entry>
@@ -1022,80 +1125,6 @@
       </categories>
       <tags>
         <tag>css</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>闲看-数据集会有刻板印象吗？</title>
-    <url>/2022/10/15/dataset-bias/</url>
-    <content><![CDATA[<blockquote>
-<p>本来是想看<em>Ruth Fong</em>这位作者的一些关于可解释模型的一些论文，但是无意中看到她作为共作的讨论数据集的性别刻板印象的论文，沉迷于此看了一天倒是忘记了最开始是要看别的来着…</p>
-</blockquote>
-<p>Meister, Nicole, et al. “Gender Artifacts in Visual Datasets.” arXiv preprint arXiv:2206.09191 (2022).</p>
-<p>标题：<strong>Gender Artifacts in Visual Datasets</strong><br>论文地址：<a href="https://arxiv.org/abs/2206.09191">https://arxiv.org/abs/2206.09191</a><br>关键词：AI fairness, gender bias, dataset analysis</p>
-<h2 id="0-摘要"><a href="#0-摘要" class="headerlink" title="0. 摘要"></a>0. 摘要</h2><p>我们已经知道性别偏差会出现在大型图像集中并且会影响下游任务模型。许多前序工作已经提出弱化这种偏差影响的手法比如尝试将性别情感相关的情报从图片里删除。为了理解这些手法的可行性和使用性，我们调查了大型图片集中究竟有哪些<em>性别伪影（gender artifacts）</em>。我们定义，性别伪影应该是一个</p>
-<ol>
-<li>可视的并且会被现代模型学习到的</li>
-<li>能以人类思维解释的</li>
-</ol>
-<p>与性别相关的线索。通过我们的分析，我们发现在COCO和OpenImages数据集中，伪影可以说是无处不在，下到低阶信息（如色彩信息），上至高阶信息（如姿势和位置），都存在性别伪影。因此我们认为通过删除伪影的方法是不可行的。并且我们认为作为研究员和训练者的责任，他们更应该注意数据里的性别分布，并应该加强手法对这些分布偏差的鲁棒性。</p>
-<h2 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1. 介绍"></a>1. 介绍</h2><p>我们现在已知了很多深度学习模型的衍生物都有社会偏差。一种主要的假设是这种偏差源自于输入数据本身的问题。许多偏差都来自于特定群体的相关数据的缺乏，如天然的性别分布已经被论证不足以缓解模型的偏差。因此许多手法提出将具有性别色彩的元素进行遮挡的方法以避免输入数据的不均匀。</p>
-<p>在本文中，我们不仅关注这些数据集的偏差，并且探索了这些性别信息究竟多大程度能被除掉。因此首先我们定义了<em>性别伪影</em>应该是可学习的和可解释的。并且为了探索这些伪影，我们生成和对比了许多不同版本的数据（如灰度化的图片，被遮挡背景的图片等），以探索它们的性别预测程度。</p>
-<p>但是我们并不赞成任何预测性别的行为。并认为这里并没有任何理由足以支持这一行为。</p>
-<p>根据上述工作，我们最终发现在COCO和OpenImage里性别伪影无处不在。如下图中仅仅是计算了图片中三原色的平均值，就能够看出两性之间的明显差异。通过平均值模型预测度为，COCO：58.0%, OpenImages：59.1%</p>
-<p><img src="https://p.ipic.vip/bp87fo.png" alt="左：分割掩膜的相关统计量 右：图像的平均色彩度"></p>
-<p>这些发现的暗示如下：</p>
-<ol>
-<li>性别伪影存在于图片的每个角落，因此过去的删除特定性别伪影的手法也许是无效的。我们更推荐研究者使用注重公平的模型，以及非聚合的验证矩阵。这能帮助发现潜在的群体偏差。</li>
-<li>在我们的发现中，这些性格偏差的无处不在性导致最终的预测可能是毫无道理的。比如每当让模型预测性别时，我们需要积极地考虑预预测依据是什么；模型是真的学习到了有意义的理由，还是仅仅是因为图片更红一些。</li>
-</ol>
-<p>最后，我们也要考虑不是所有伪影都是错误的。有一些也许是真的能够帮助我们区别两个群体，它们是重要的特征；但有一些仅仅是讨厌的刻板印象。我们需要考虑哪些是要避免的。</p>
-<h2 id="2-相关工作"><a href="#2-相关工作" class="headerlink" title="2. 相关工作"></a>2. 相关工作</h2><h2 id="3-实验"><a href="#3-实验" class="headerlink" title="3. 实验"></a>3. 实验</h2><h3 id="3-1-数据集"><a href="#3-1-数据集" class="headerlink" title="3.1 数据集"></a>3.1 数据集</h3><p>使用COCO和OpenImages的主要原因是它们是少见的能直接获得性别标签的注释。</p>
-<h3 id="3-2-模型参数"><a href="#3-2-模型参数" class="headerlink" title="3.2 模型参数"></a>3.2 模型参数</h3><h3 id="3-3-道德考虑"><a href="#3-3-道德考虑" class="headerlink" title="3.3 道德考虑"></a>3.3 道德考虑</h3><hr>
-<blockquote>
-<p>以下开始是产生性别伪影的原因的实验和探讨</p>
-</blockquote>
-<h2 id="4-分辨率和颜色"><a href="#4-分辨率和颜色" class="headerlink" title="4. 分辨率和颜色"></a>4. 分辨率和颜色</h2><p>我们测试了测试集在112x112, 56x56, 28x28, 14x14, 7x7这几种分辨率情况下的预测情况。随着分辨率下降，准确度也逐步下降，但是颜色也逐渐变得单一。因此我们也考虑了当转化为灰度图片后随着分辨率下降预测度的情况。结果如下图所示。</p>
-<p><img src="https://p.ipic.vip/6ovrla.png" alt="Color：彩色，Grayscale：灰度，LogReg：红绿蓝三原色的像素块个数的平均值"></p>
-<p>在28x28的分辨率下的COCO数据集中，彩色图片预测率有61.9%而灰度图片仅有51.9%。这说明在图片的物体形状不再具有意义时，性别伪影很可能来自于色彩的影响。</p>
-<p>并且即使将分辨率低到了7x7的程度，彩色图片的预测率依旧高于50%。</p>
-<p>这很有可能数据集中的两性具有一定的色彩特征。男性更常是在绿色草坪上，而数据集中的女性更常拥有更亮色的皮肤。</p>
-<h2 id="5-人和背景"><a href="#5-人和背景" class="headerlink" title="5. 人和背景"></a>5. 人和背景</h2><p>前序工作中已经证明人物的样貌一定包含了性别伪影。那么更朴素的问题是，是否图片背景，甚至是更高阶的人物信息（姿势和大小等）会包含人物伪影？</p>
-<p>我们设置了一系列的遮挡图片来对比对预测度的影响，术语解释如下：</p>
-<ol>
-<li>Full：人物完全被显示出来</li>
-<li>Full NoBg：人物完全被显示并且没有背景</li>
-<li>MaskSegm：人物掩膜</li>
-<li>MaskRect：矩形掩膜</li>
-</ol>
-<p>最终结果如下图</p>
-<p><img src="https://p.ipic.vip/62qmuv.png" alt=""></p>
-<p><strong>人物外貌是性别伪影。</strong>很明显，即使遮挡住背景时（Full Nobg），预测度也没有剧烈的下降。</p>
-<p><strong>仅仅使用人物的形状和位置对性别进行预测也达到了50%以上。</strong>我们看到即使在MaskSegm NoBg的情况下，也达到了74.8%的准确率，说明人物形状本身都能揭露性别情报，比如着装或是头发的长短。接下来，我们删除了更多人物信息，只留下了关键点(keypoints)如下图。</p>
-<p><img src="https://p.ipic.vip/e28dt9.png" alt=""></p>
-<p>它们的表现依旧优于50%达到了64.8%的准确度。男性的动作有可能被模型认为更小和在运动状态；而女性更多的被模型认为倾向于更大和站立。</p>
-<p><strong>这些不同性别表达中的大小和位置差异是可被学习的。</strong>即使我们把人物轮廓遮住（MaskRectNoBg），结果仍表现出了高于50%的精度。</p>
-<p><strong>背景信息仍旧是极其重要的信息对于表达性别信息。</strong>因此任何仅仅只是通过遮挡人物外貌的方法，只不过是把性别伪影从人物转移到了背景上，实际上是无法真正消除所有性别伪影的。</p>
-<p><strong>定性分析。</strong>为了进一步理解背景中的性别伪影，我们进行了一系列定性分析结果如下图。<br><img src="https://p.ipic.vip/adv6fw.png" alt="值为100意味着被预测为女性，0则为男性"></p>
-<p>模型倾向于将城市和室内的背景与女性连接起来，而将室外和运动背景与男性结合。此外，通过第四行我们发现状态更“小”和静止时常被模型认为是女性，而“大”和动态被认为是男性。但是，我们也发现了如果人物外貌被包含在图片里时，运动的女性和静止的男性也是可以被正确区分的。</p>
-<p><strong>性别伪影在数据集中具有普遍性。</strong>我们对两个数据集进行了交叉验证如下表，不管是哪种掩膜设定最终结果都高于50%。</p>
-<p><img src="https://p.ipic.vip/wdpf1d.png" alt=""></p>
-<h2 id="6-具有语义内容的物体"><a href="#6-具有语义内容的物体" class="headerlink" title="6. 具有语义内容的物体"></a>6. 具有语义内容的物体</h2><p>这一章节我们致力于更好的理解性别伪影，并区别背景中的两大要素：物体和场景。</p>
-<p><strong>通过模型的关注度可视化性别伪影。</strong>我们使用CAMS可视化了不同物体在用于性别分类时的重要度，如下图</p>
-<p><img src="https://p.ipic.vip/j47vr1.png" alt=""></p>
-<p>当人物被预测为女性时，模型在关注室内的物体如床和烤箱；而被预测为男性时，模型关注于室外物体如滑板和摩托。</p>
-<p><strong>和性别分类最有关的物体排序。</strong>在COCO中，比重最高的十个物体对应用于分类女性的，分别为吹风机，手提包，泰迪熊，雨伞和床；而比重最低的十个物体对应于分类男性，为滑板，领带，滑雪板，棒球手套和摩托车。</p>
-<p>为了进一步理解这些物体的作用，我们逐步从图片中删除各个物体，并观察预测结果的准确率的变化。结果如下图。</p>
-<p><img src="https://p.ipic.vip/w08stw.png" alt=""></p>
-<p>我们可以看到，物体产生的影响无处不在；直到我们将物体删除到一个不剩，判定率才下降到了50%的基准。</p>
-<h2 id="7-讨论"><a href="#7-讨论" class="headerlink" title="7. 讨论"></a>7. 讨论</h2><p>首先，我们应该面对这种数据集中的不均匀而不是妄图消灭它们（我们已经证明了这几乎不可能）。因此使用注重公平性的模型是更好的选择。</p>
-<p>此外，在构建数据集时我们也要尽量避免这种产生的偏差。我们应提前考虑这种结构是否会影响到下游任务的结果。</p>
-<p>最后，我们应该警惕模型的学习结果。也许一些模型的结果真的和人类的判断结果相符合，甚至和我们的认知对应。但实际上它可能只是在学习这个数据集中的可视化物体的关联性，而不是真正的“理解”。当我们对结果分析时，我们应该小心我们的分析是不是其实仅仅是人类自己“赋予”的。</p>
-]]></content>
-      <categories>
-        <category>blog</category>
-      </categories>
-      <tags>
-        <tag>Paper</tag>
       </tags>
   </entry>
   <entry>
@@ -1996,66 +2025,6 @@ x_j} f(x)</script></li>
       </tags>
   </entry>
   <entry>
-    <title>基于跨域学习的行人重识别</title>
-    <url>/2022/01/17/person-reid-wirh-domain-adaptation/</url>
-    <content><![CDATA[<p><a href="/butterfly/passengers.pdf">pdflink<a><br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h5vvqbj2hfj20l007zdgu.jpg" alt=""></p>
-<h1 id="基于域学习的行人重识别"><a href="#基于域学习的行人重识别" class="headerlink" title="基于域学习的行人重识别"></a>基于域学习的行人重识别</h1><h1 id="项目描述"><a href="#项目描述" class="headerlink" title="项目描述"></a>项目描述</h1><p>偏工业项目。主要针对解决公交车的出入口行人重识别课题，来达到自动判断乘客的乘车区间的目的。难点有三：1. 本数据集的出入口的摄像机种类不同（RGB和近红外线） 2. 为保护隐私分辨率较低无法使用面部特征 3. 外部光照影响较大。数据集来源为日本公交公司。</p>
-<p><img src="https://p.ipic.vip/ncpwis.png" alt=""></p>
-<h1 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a>基本思路</h1><p>难点的关键在于我们无法使用过去的方法：颜色特征和面部特征。因此解决的关键是实现提取颜色光照无关的特征（更深层的特征，或域无关的特征）。考虑了以下三种解决方法：</p>
-<ol>
-<li>利用深度网络学习域无关特征（DANN，AGW）</li>
-<li>手动提取域无关特征（HeadReID）</li>
-<li>姿态估计（TODO）</li>
-</ol>
-<h2 id="DANN-1"><a href="#DANN-1" class="headerlink" title="DANN [1]"></a>DANN [1]</h2><p><img src="https://p.ipic.vip/d703om.png" alt=""></p>
-<p>在一般的分类预测期以外加上了域分类器，以提高特征的抽象度。我们希望提取出的特征无法被域分类器成功判别，以确认生成的特征是域无关的。</p>
-<h2 id="AGW-2"><a href="#AGW-2" class="headerlink" title="AGW [2]"></a>AGW [2]</h2><p><img src="https://p.ipic.vip/uyfxkp.png" alt=""></p>
-<p>考虑到表层特征差异大的问题，还尝试了通过分开卷积层的方法。首先使用域单独的卷积层提取出表层特征，再进入相同的Resnet+NoLocal块的网络，增加对全域特征的提取能力。</p>
-<h2 id="HeadReID"><a href="#HeadReID" class="headerlink" title="HeadReID"></a>HeadReID</h2><p><img src="https://p.ipic.vip/yczuur.png" alt=""></p>
-<p>根据文献 [3]，仅仅是头部特征也有惊人的表达能力。因此尝试了增加提取头部特征的网络，以抵御域变换带来的影响。</p>
-<h1 id="实现过程"><a href="#实现过程" class="headerlink" title="实现过程"></a>实现过程</h1><p>主要为以下步骤：</p>
-<ol>
-<li>数据处理：视频转换为图片，根据真值切割出每一帧的正确的行人图片，为每个行人制作文件夹，形成最后的数据库<ul>
-<li>对于HeadReID使用的头部图片由于没有真值，简单的利用原行人图片的上部20%进行提取。</li>
-</ul>
-</li>
-<li><p><strong>DANN：</strong>两个域的行人图片集分别传入Resnet50，提取出特征向量。利用此特征向量分别进行：</p>
-<ol>
-<li>度量学习：Triplet Loss</li>
-<li>标签预测：Person ID预测 → label loss</li>
-<li><p>域预测：属于入口/出口 → domain loss → 梯度翻转 →  ${y(domain loss)}$</p>
-<p>三个loss之和最小化</p>
-<p><strong>AGW：</strong>两个域的行人图片集分别传入各自的特征提取层。最小化分类损失。</p>
-<p><strong>HeadReID：</strong>行人图片集及其头部图片分别传入对应的特征提取网络。最小化分类损失。</p>
-</li>
-</ol>
-</li>
-<li><p>使用测试集，求出两两行人图片之间的特征类似度，得出结果。</p>
-</li>
-</ol>
-<h1 id="参数选择"><a href="#参数选择" class="headerlink" title="参数选择"></a>参数选择</h1><p>根据实验，使用sin函数作为类似度函数，以及对于每个ID的行人使用所有图片的平均特征量时效果过最好。</p>
-<h1 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h1><p>最终结果说明，AGW的手法在里面的效果最好。尤其在人多时造成特征不完全时带来的收益最大。但是当有明显的局部特征如帽子耳机等时，DANN对其的学习能力更强。</p>
-<p><img src="https://p.ipic.vip/a7fo4y.png" alt=""></p>
-<p><img src="https://p.ipic.vip/e2yeq7.png" alt=""></p>
-<p><img src="https://p.ipic.vip/t1se4t.png" alt=""></p>
-<p>HeadReID的失败原因：</p>
-<ol>
-<li>虽然头部特征在前手法中论证有用，但实际本数据集的分辨率远远低于文献使用的数据集。</li>
-<li>因为没有使用头部识别网络而仅仅进行了剪裁操作，衣服等域有关的特征不可避免的被混入。</li>
-<li>数据集中有儿童的存在：他们无法使用简单的剪裁操作生成头部图片。</li>
-</ol>
-<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><p>[1] Y. Ganin and V. Lempitsky. Unsupervised domain adaptation by backpropa- gation. In ICML, Vol. 37, pp. 1180–1189, 2015.</p>
-<p>[2] M. Ye, J. Shen, G. Lin, T. Xiang, L. Shao, and S. C. H. Hoi. Deep Learning for Person Re-identification: A Survey and Outlook. TPAMI, pp. 1–1, 2021. doi:10.1109/TPAMI.2021.3054775.</p>
-<p>[3] Junliang Guo, Yanbing Xue, Jing Cai, Zan Gao, Guangping Xu, and Hua Zhang. A bus passenger re-identification dataset and a deep learning baseline using triplet embedding. Multimedia Tools and Applications, Vol. 80, No. 11, pp. 16425–16440, 2021.</p>
-]]></content>
-      <categories>
-        <category>project</category>
-      </categories>
-      <tags>
-        <tag>CV</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>【花书】从概率统计到深度网络的概率预测</title>
     <url>/2023/01/05/probability-output/</url>
     <content><![CDATA[<p>参考深度学习花书</p>
@@ -2184,6 +2153,66 @@ x_j} f(x)</script></li>
       </categories>
       <tags>
         <tag>OR</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【项目实战】基于跨域学习的行人重识别</title>
+    <url>/2022/01/17/person-reid-wirh-domain-adaptation/</url>
+    <content><![CDATA[<p><a href="/butterfly/passengers.pdf">pdflink<a><br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h5vvqbj2hfj20l007zdgu.jpg" alt=""></p>
+<h1 id="基于域学习的行人重识别"><a href="#基于域学习的行人重识别" class="headerlink" title="基于域学习的行人重识别"></a>基于域学习的行人重识别</h1><h1 id="项目描述"><a href="#项目描述" class="headerlink" title="项目描述"></a>项目描述</h1><p>偏工业项目。主要针对解决公交车的出入口行人重识别课题，来达到自动判断乘客的乘车区间的目的。难点有三：1. 本数据集的出入口的摄像机种类不同（RGB和近红外线） 2. 为保护隐私分辨率较低无法使用面部特征 3. 外部光照影响较大。数据集来源为日本公交公司。</p>
+<p><img src="https://p.ipic.vip/ncpwis.png" alt=""></p>
+<h1 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a>基本思路</h1><p>难点的关键在于我们无法使用过去的方法：颜色特征和面部特征。因此解决的关键是实现提取颜色光照无关的特征（更深层的特征，或域无关的特征）。考虑了以下三种解决方法：</p>
+<ol>
+<li>利用深度网络学习域无关特征（DANN，AGW）</li>
+<li>手动提取域无关特征（HeadReID）</li>
+<li>姿态估计（TODO）</li>
+</ol>
+<h2 id="DANN-1"><a href="#DANN-1" class="headerlink" title="DANN [1]"></a>DANN [1]</h2><p><img src="https://p.ipic.vip/d703om.png" alt=""></p>
+<p>在一般的分类预测期以外加上了域分类器，以提高特征的抽象度。我们希望提取出的特征无法被域分类器成功判别，以确认生成的特征是域无关的。</p>
+<h2 id="AGW-2"><a href="#AGW-2" class="headerlink" title="AGW [2]"></a>AGW [2]</h2><p><img src="https://p.ipic.vip/uyfxkp.png" alt=""></p>
+<p>考虑到表层特征差异大的问题，还尝试了通过分开卷积层的方法。首先使用域单独的卷积层提取出表层特征，再进入相同的Resnet+NoLocal块的网络，增加对全域特征的提取能力。</p>
+<h2 id="HeadReID"><a href="#HeadReID" class="headerlink" title="HeadReID"></a>HeadReID</h2><p><img src="https://p.ipic.vip/yczuur.png" alt=""></p>
+<p>根据文献 [3]，仅仅是头部特征也有惊人的表达能力。因此尝试了增加提取头部特征的网络，以抵御域变换带来的影响。</p>
+<h1 id="实现过程"><a href="#实现过程" class="headerlink" title="实现过程"></a>实现过程</h1><p>主要为以下步骤：</p>
+<ol>
+<li>数据处理：视频转换为图片，根据真值切割出每一帧的正确的行人图片，为每个行人制作文件夹，形成最后的数据库<ul>
+<li>对于HeadReID使用的头部图片由于没有真值，简单的利用原行人图片的上部20%进行提取。</li>
+</ul>
+</li>
+<li><p><strong>DANN：</strong>两个域的行人图片集分别传入Resnet50，提取出特征向量。利用此特征向量分别进行：</p>
+<ol>
+<li>度量学习：Triplet Loss</li>
+<li>标签预测：Person ID预测 → label loss</li>
+<li><p>域预测：属于入口/出口 → domain loss → 梯度翻转 →  ${y(domain loss)}$</p>
+<p>三个loss之和最小化</p>
+<p><strong>AGW：</strong>两个域的行人图片集分别传入各自的特征提取层。最小化分类损失。</p>
+<p><strong>HeadReID：</strong>行人图片集及其头部图片分别传入对应的特征提取网络。最小化分类损失。</p>
+</li>
+</ol>
+</li>
+<li><p>使用测试集，求出两两行人图片之间的特征类似度，得出结果。</p>
+</li>
+</ol>
+<h1 id="参数选择"><a href="#参数选择" class="headerlink" title="参数选择"></a>参数选择</h1><p>根据实验，使用sin函数作为类似度函数，以及对于每个ID的行人使用所有图片的平均特征量时效果过最好。</p>
+<h1 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h1><p>最终结果说明，AGW的手法在里面的效果最好。尤其在人多时造成特征不完全时带来的收益最大。但是当有明显的局部特征如帽子耳机等时，DANN对其的学习能力更强。</p>
+<p><img src="https://p.ipic.vip/a7fo4y.png" alt=""></p>
+<p><img src="https://p.ipic.vip/e2yeq7.png" alt=""></p>
+<p><img src="https://p.ipic.vip/t1se4t.png" alt=""></p>
+<p>HeadReID的失败原因：</p>
+<ol>
+<li>虽然头部特征在前手法中论证有用，但实际本数据集的分辨率远远低于文献使用的数据集。</li>
+<li>因为没有使用头部识别网络而仅仅进行了剪裁操作，衣服等域有关的特征不可避免的被混入。</li>
+<li>数据集中有儿童的存在：他们无法使用简单的剪裁操作生成头部图片。</li>
+</ol>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><p>[1] Y. Ganin and V. Lempitsky. Unsupervised domain adaptation by backpropa- gation. In ICML, Vol. 37, pp. 1180–1189, 2015.</p>
+<p>[2] M. Ye, J. Shen, G. Lin, T. Xiang, L. Shao, and S. C. H. Hoi. Deep Learning for Person Re-identification: A Survey and Outlook. TPAMI, pp. 1–1, 2021. doi:10.1109/TPAMI.2021.3054775.</p>
+<p>[3] Junliang Guo, Yanbing Xue, Jing Cai, Zan Gao, Guangping Xu, and Hua Zhang. A bus passenger re-identification dataset and a deep learning baseline using triplet embedding. Multimedia Tools and Applications, Vol. 80, No. 11, pp. 16425–16440, 2021.</p>
+]]></content>
+      <categories>
+        <category>project</category>
+      </categories>
+      <tags>
+        <tag>CV</tag>
       </tags>
   </entry>
   <entry>
@@ -2583,18 +2612,6 @@ x_j} f(x)</script></li>
       </categories>
       <tags>
         <tag>other</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>德英互译NLP模型</title>
-    <url>/2022/07/31/%E5%BE%B7%E8%8B%B1%E4%BA%92%E8%AF%91NLP%E6%A8%A1%E5%9E%8B/</url>
-    <content><![CDATA[<p><a href="/butterfly/nlp.pdf">pdflink<a><br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h5vwr2ng3wj20yt0g70v4.jpg" alt=""></p>
-]]></content>
-      <categories>
-        <category>project</category>
-      </categories>
-      <tags>
-        <tag>NLP</tag>
       </tags>
   </entry>
 </search>
