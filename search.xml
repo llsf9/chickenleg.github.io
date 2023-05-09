@@ -61,33 +61,6 @@
       </tags>
   </entry>
   <entry>
-    <title>HexoTags</title>
-    <url>/2022/05/05/HexoTags/</url>
-    <content><![CDATA[<h2 id="Note"><a href="#Note" class="headerlink" title="Note"></a>Note</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% note [class]%&#125;</span><br><span class="line">Any content (support inline tags too.io).</span><br><span class="line">&#123;% endnote %&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>空白</li>
-<li>default</li>
-<li>primary</li>
-<li>success</li>
-<li>info</li>
-<li>warning</li>
-<li>danger</li>
-</ul>
-<h2 id="Mermaid"><a href="#Mermaid" class="headerlink" title="Mermaid"></a>Mermaid</h2><div class="note modern"><p>使用mermaid标籤可以绘製Flowchart（流程图）、Sequence diagram（时序图 ）、Class Diagram（类别图）、State Diagram（状态图）、Gantt（甘特图）和Pie Chart（圆形图），具体可以查看<a href="https://mermaid-js.github.io/mermaid/#/">Mermaide文档</a></p>
-</div>
-<h2 id="Tabs"><a href="#Tabs" class="headerlink" title="Tabs"></a>Tabs</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% tabs test1 %&#125;</span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line"><span class="strong">**This is Tab 1.**</span></span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line"><span class="strong">**This is Tab 2.**</span></span><br><span class="line">&lt;!-- endtab --&gt;</span><br></pre></td></tr></table></figure>
-<div class="tabs" id="test1"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#test1-1">表格1</button></li><li class="tab"><button type="button" data-href="#test1-2">表格2</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="test1-1"><p>这是1</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="test1-2"><p>这是2</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
-<h2 id="label"><a href="#label" class="headerlink" title="label"></a>label</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% label 我是 %&#125;&#123;% label 什么 blue %&#125;&#123;%label 颜色 red %&#125;</span><br></pre></td></tr></table></figure>
-<mark class="hl-label default">我是</mark> <mark class="hl-label blue">什么</mark> <mark class="hl-label red">颜色</mark> 
-]]></content>
-      <categories>
-        <category>study</category>
-      </categories>
-      <tags>
-        <tag>hexo</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Colorization using Optimization</title>
     <url>/2022/05/06/Colorization-using-Optimization/</url>
     <content><![CDATA[<p><img src="https://p.ipic.vip/mwdw7t.png" alt=""></p>
@@ -138,6 +111,33 @@
       </categories>
       <tags>
         <tag>optimization</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>HexoTags</title>
+    <url>/2022/05/05/HexoTags/</url>
+    <content><![CDATA[<h2 id="Note"><a href="#Note" class="headerlink" title="Note"></a>Note</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% note [class]%&#125;</span><br><span class="line">Any content (support inline tags too.io).</span><br><span class="line">&#123;% endnote %&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>空白</li>
+<li>default</li>
+<li>primary</li>
+<li>success</li>
+<li>info</li>
+<li>warning</li>
+<li>danger</li>
+</ul>
+<h2 id="Mermaid"><a href="#Mermaid" class="headerlink" title="Mermaid"></a>Mermaid</h2><div class="note modern"><p>使用mermaid标籤可以绘製Flowchart（流程图）、Sequence diagram（时序图 ）、Class Diagram（类别图）、State Diagram（状态图）、Gantt（甘特图）和Pie Chart（圆形图），具体可以查看<a href="https://mermaid-js.github.io/mermaid/#/">Mermaide文档</a></p>
+</div>
+<h2 id="Tabs"><a href="#Tabs" class="headerlink" title="Tabs"></a>Tabs</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% tabs test1 %&#125;</span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line"><span class="strong">**This is Tab 1.**</span></span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line"><span class="strong">**This is Tab 2.**</span></span><br><span class="line">&lt;!-- endtab --&gt;</span><br></pre></td></tr></table></figure>
+<div class="tabs" id="test1"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#test1-1">表格1</button></li><li class="tab"><button type="button" data-href="#test1-2">表格2</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="test1-1"><p>这是1</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="test1-2"><p>这是2</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+<h2 id="label"><a href="#label" class="headerlink" title="label"></a>label</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% label 我是 %&#125;&#123;% label 什么 blue %&#125;&#123;%label 颜色 red %&#125;</span><br></pre></td></tr></table></figure>
+<mark class="hl-label default">我是</mark> <mark class="hl-label blue">什么</mark> <mark class="hl-label red">颜色</mark> 
+]]></content>
+      <categories>
+        <category>study</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -282,109 +282,6 @@
       </categories>
       <tags>
         <tag>CGO</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>闲看-数据集会有刻板印象吗？</title>
-    <url>/2022/10/15/dataset-bias/</url>
-    <content><![CDATA[<blockquote>
-<p>本来是想看<em>Ruth Fong</em>这位作者的一些关于可解释模型的一些论文，但是无意中看到她作为共作的讨论数据集的性别刻板印象的论文，沉迷于此看了一天倒是忘记了最开始是要看别的来着…</p>
-</blockquote>
-<p>Meister, Nicole, et al. “Gender Artifacts in Visual Datasets.” arXiv preprint arXiv:2206.09191 (2022).</p>
-<p>标题：<strong>Gender Artifacts in Visual Datasets</strong><br>论文地址：<a href="https://arxiv.org/abs/2206.09191">https://arxiv.org/abs/2206.09191</a><br>关键词：AI fairness, gender bias, dataset analysis</p>
-<h2 id="0-摘要"><a href="#0-摘要" class="headerlink" title="0. 摘要"></a>0. 摘要</h2><p>我们已经知道性别偏差会出现在大型图像集中并且会影响下游任务模型。许多前序工作已经提出弱化这种偏差影响的手法比如尝试将性别情感相关的情报从图片里删除。为了理解这些手法的可行性和使用性，我们调查了大型图片集中究竟有哪些<em>性别伪影（gender artifacts）</em>。我们定义，性别伪影应该是一个</p>
-<ol>
-<li>可视的并且会被现代模型学习到的</li>
-<li>能以人类思维解释的</li>
-</ol>
-<p>与性别相关的线索。通过我们的分析，我们发现在COCO和OpenImages数据集中，伪影可以说是无处不在，下到低阶信息（如色彩信息），上至高阶信息（如姿势和位置），都存在性别伪影。因此我们认为通过删除伪影的方法是不可行的。并且我们认为作为研究员和训练者的责任，他们更应该注意数据里的性别分布，并应该加强手法对这些分布偏差的鲁棒性。</p>
-<h2 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1. 介绍"></a>1. 介绍</h2><p>我们现在已知了很多深度学习模型的衍生物都有社会偏差。一种主要的假设是这种偏差源自于输入数据本身的问题。许多偏差都来自于特定群体的相关数据的缺乏，如天然的性别分布已经被论证不足以缓解模型的偏差。因此许多手法提出将具有性别色彩的元素进行遮挡的方法以避免输入数据的不均匀。</p>
-<p>在本文中，我们不仅关注这些数据集的偏差，并且探索了这些性别信息究竟多大程度能被除掉。因此首先我们定义了<em>性别伪影</em>应该是可学习的和可解释的。并且为了探索这些伪影，我们生成和对比了许多不同版本的数据（如灰度化的图片，被遮挡背景的图片等），以探索它们的性别预测程度。</p>
-<p>但是我们并不赞成任何预测性别的行为。并认为这里并没有任何理由足以支持这一行为。</p>
-<p>根据上述工作，我们最终发现在COCO和OpenImage里性别伪影无处不在。如下图中仅仅是计算了图片中三原色的平均值，就能够看出两性之间的明显差异。通过平均值模型预测度为，COCO：58.0%, OpenImages：59.1%</p>
-<p><img src="https://p.ipic.vip/bp87fo.png" alt="左：分割掩膜的相关统计量 右：图像的平均色彩度"></p>
-<p>这些发现的暗示如下：</p>
-<ol>
-<li>性别伪影存在于图片的每个角落，因此过去的删除特定性别伪影的手法也许是无效的。我们更推荐研究者使用注重公平的模型，以及非聚合的验证矩阵。这能帮助发现潜在的群体偏差。</li>
-<li>在我们的发现中，这些性格偏差的无处不在性导致最终的预测可能是毫无道理的。比如每当让模型预测性别时，我们需要积极地考虑预预测依据是什么；模型是真的学习到了有意义的理由，还是仅仅是因为图片更红一些。</li>
-</ol>
-<p>最后，我们也要考虑不是所有伪影都是错误的。有一些也许是真的能够帮助我们区别两个群体，它们是重要的特征；但有一些仅仅是讨厌的刻板印象。我们需要考虑哪些是要避免的。</p>
-<h2 id="2-相关工作"><a href="#2-相关工作" class="headerlink" title="2. 相关工作"></a>2. 相关工作</h2><h2 id="3-实验"><a href="#3-实验" class="headerlink" title="3. 实验"></a>3. 实验</h2><h3 id="3-1-数据集"><a href="#3-1-数据集" class="headerlink" title="3.1 数据集"></a>3.1 数据集</h3><p>使用COCO和OpenImages的主要原因是它们是少见的能直接获得性别标签的注释。</p>
-<h3 id="3-2-模型参数"><a href="#3-2-模型参数" class="headerlink" title="3.2 模型参数"></a>3.2 模型参数</h3><h3 id="3-3-道德考虑"><a href="#3-3-道德考虑" class="headerlink" title="3.3 道德考虑"></a>3.3 道德考虑</h3><hr>
-<blockquote>
-<p>以下开始是产生性别伪影的原因的实验和探讨</p>
-</blockquote>
-<h2 id="4-分辨率和颜色"><a href="#4-分辨率和颜色" class="headerlink" title="4. 分辨率和颜色"></a>4. 分辨率和颜色</h2><p>我们测试了测试集在112x112, 56x56, 28x28, 14x14, 7x7这几种分辨率情况下的预测情况。随着分辨率下降，准确度也逐步下降，但是颜色也逐渐变得单一。因此我们也考虑了当转化为灰度图片后随着分辨率下降预测度的情况。结果如下图所示。</p>
-<p><img src="https://p.ipic.vip/6ovrla.png" alt="Color：彩色，Grayscale：灰度，LogReg：红绿蓝三原色的像素块个数的平均值"></p>
-<p>在28x28的分辨率下的COCO数据集中，彩色图片预测率有61.9%而灰度图片仅有51.9%。这说明在图片的物体形状不再具有意义时，性别伪影很可能来自于色彩的影响。</p>
-<p>并且即使将分辨率低到了7x7的程度，彩色图片的预测率依旧高于50%。</p>
-<p>这很有可能数据集中的两性具有一定的色彩特征。男性更常是在绿色草坪上，而数据集中的女性更常拥有更亮色的皮肤。</p>
-<h2 id="5-人和背景"><a href="#5-人和背景" class="headerlink" title="5. 人和背景"></a>5. 人和背景</h2><p>前序工作中已经证明人物的样貌一定包含了性别伪影。那么更朴素的问题是，是否图片背景，甚至是更高阶的人物信息（姿势和大小等）会包含人物伪影？</p>
-<p>我们设置了一系列的遮挡图片来对比对预测度的影响，术语解释如下：</p>
-<ol>
-<li>Full：人物完全被显示出来</li>
-<li>Full NoBg：人物完全被显示并且没有背景</li>
-<li>MaskSegm：人物掩膜</li>
-<li>MaskRect：矩形掩膜</li>
-</ol>
-<p>最终结果如下图</p>
-<p><img src="https://p.ipic.vip/62qmuv.png" alt=""></p>
-<p><strong>人物外貌是性别伪影。</strong>很明显，即使遮挡住背景时（Full Nobg），预测度也没有剧烈的下降。</p>
-<p><strong>仅仅使用人物的形状和位置对性别进行预测也达到了50%以上。</strong>我们看到即使在MaskSegm NoBg的情况下，也达到了74.8%的准确率，说明人物形状本身都能揭露性别情报，比如着装或是头发的长短。接下来，我们删除了更多人物信息，只留下了关键点(keypoints)如下图。</p>
-<p><img src="https://p.ipic.vip/e28dt9.png" alt=""></p>
-<p>它们的表现依旧优于50%达到了64.8%的准确度。男性的动作有可能被模型认为更小和在运动状态；而女性更多的被模型认为倾向于更大和站立。</p>
-<p><strong>这些不同性别表达中的大小和位置差异是可被学习的。</strong>即使我们把人物轮廓遮住（MaskRectNoBg），结果仍表现出了高于50%的精度。</p>
-<p><strong>背景信息仍旧是极其重要的信息对于表达性别信息。</strong>因此任何仅仅只是通过遮挡人物外貌的方法，只不过是把性别伪影从人物转移到了背景上，实际上是无法真正消除所有性别伪影的。</p>
-<p><strong>定性分析。</strong>为了进一步理解背景中的性别伪影，我们进行了一系列定性分析结果如下图。<br><img src="https://p.ipic.vip/adv6fw.png" alt="值为100意味着被预测为女性，0则为男性"></p>
-<p>模型倾向于将城市和室内的背景与女性连接起来，而将室外和运动背景与男性结合。此外，通过第四行我们发现状态更“小”和静止时常被模型认为是女性，而“大”和动态被认为是男性。但是，我们也发现了如果人物外貌被包含在图片里时，运动的女性和静止的男性也是可以被正确区分的。</p>
-<p><strong>性别伪影在数据集中具有普遍性。</strong>我们对两个数据集进行了交叉验证如下表，不管是哪种掩膜设定最终结果都高于50%。</p>
-<p><img src="https://p.ipic.vip/wdpf1d.png" alt=""></p>
-<h2 id="6-具有语义内容的物体"><a href="#6-具有语义内容的物体" class="headerlink" title="6. 具有语义内容的物体"></a>6. 具有语义内容的物体</h2><p>这一章节我们致力于更好的理解性别伪影，并区别背景中的两大要素：物体和场景。</p>
-<p><strong>通过模型的关注度可视化性别伪影。</strong>我们使用CAMS可视化了不同物体在用于性别分类时的重要度，如下图</p>
-<p><img src="https://p.ipic.vip/j47vr1.png" alt=""></p>
-<p>当人物被预测为女性时，模型在关注室内的物体如床和烤箱；而被预测为男性时，模型关注于室外物体如滑板和摩托。</p>
-<p><strong>和性别分类最有关的物体排序。</strong>在COCO中，比重最高的十个物体对应用于分类女性的，分别为吹风机，手提包，泰迪熊，雨伞和床；而比重最低的十个物体对应于分类男性，为滑板，领带，滑雪板，棒球手套和摩托车。</p>
-<p>为了进一步理解这些物体的作用，我们逐步从图片中删除各个物体，并观察预测结果的准确率的变化。结果如下图。</p>
-<p><img src="https://p.ipic.vip/w08stw.png" alt=""></p>
-<p>我们可以看到，物体产生的影响无处不在；直到我们将物体删除到一个不剩，判定率才下降到了50%的基准。</p>
-<h2 id="7-讨论"><a href="#7-讨论" class="headerlink" title="7. 讨论"></a>7. 讨论</h2><p>首先，我们应该面对这种数据集中的不均匀而不是妄图消灭它们（我们已经证明了这几乎不可能）。因此使用注重公平性的模型是更好的选择。</p>
-<p>此外，在构建数据集时我们也要尽量避免这种产生的偏差。我们应提前考虑这种结构是否会影响到下游任务的结果。</p>
-<p>最后，我们应该警惕模型的学习结果。也许一些模型的结果真的和人类的判断结果相符合，甚至和我们的认知对应。但实际上它可能只是在学习这个数据集中的可视化物体的关联性，而不是真正的“理解”。当我们对结果分析时，我们应该小心我们的分析是不是其实仅仅是人类自己“赋予”的。</p>
-]]></content>
-      <categories>
-        <category>blog</category>
-      </categories>
-      <tags>
-        <tag>Paper</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【项目实战】德英互译NLP模型</title>
-    <url>/2022/07/31/de-en-translation/</url>
-    <content><![CDATA[<h1 id="项目报告"><a href="#项目报告" class="headerlink" title="项目报告"></a>项目报告</h1><p><a href="/butterfly/nlp.pdf">pdflink<a><br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h5vwr2ng3wj20yt0g70v4.jpg" alt=""></p>
-<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>围绕机器翻译，对NLP知识进行了总结复习和实战。首先总结了机器翻译模型的发展历史，并对相关技术进行复习。最后使用了几个前沿的预训练模型对德英数据集进行了微调，并使用不同的分词手法和评估函数进行了对比。</p>
-<h1 id="发展历史"><a href="#发展历史" class="headerlink" title="发展历史"></a>发展历史</h1><ol>
-<li>RNN：加入了上一个隐藏层的输入以记忆历史数据，最先被提出用来解决时间序列模型的结构。但是过长的文本会导致梯度消失。</li>
-<li>LSTM/GRU：解决长文本问题，可提供对更久以前的数据的记忆。</li>
-<li>Attention机制：1. 提供弹性表达（而不是只能将文本映射为固定长度的向量） 2. 可学习全局的关系 3. 并行计算</li>
-<li>双循环网络：初期的RNN只能单向循环，即只能看到前面的内容，看不到后面。双循环添加了从后向前的方向，使输出不仅依靠前面的文本还可知晓后面的内容。</li>
-<li>Transformer：结合上述结构的优势，生成了强大的Transformer。在Transformer基础上还诞生了BERT等强大的模型。</li>
-</ol>
-<h1 id="使用手法"><a href="#使用手法" class="headerlink" title="使用手法"></a>使用手法</h1><p>主要使用基于Transformer模型T5和Transformer-align，对机器翻译任务进行迁移学习。</p>
-<h1 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h1><ul>
-<li>Dataset：Multi50k</li>
-<li>Evaluation：Bleu</li>
-</ul>
-<p>下面两张图分别是在测试集的损失变化，和Bleu的变化量。可以看出Transfromer align在本次任务中表现最好。</p>
-<p><img src="https://p.ipic.vip/d2dw7h.png" alt=""></p>
-<p>我们还实现了词语之间的attention值的可视化，更明显的看出每个生成词语的参考来源。</p>
-<p><img src="https://p.ipic.vip/xu6hy3.png" alt=""></p>
-]]></content>
-      <categories>
-        <category>project</category>
-      </categories>
-      <tags>
-        <tag>NLP</tag>
       </tags>
   </entry>
   <entry>
@@ -1125,6 +1022,190 @@
       </categories>
       <tags>
         <tag>css</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>闲看-数据集会有刻板印象吗？</title>
+    <url>/2022/10/15/dataset-bias/</url>
+    <content><![CDATA[<blockquote>
+<p>本来是想看<em>Ruth Fong</em>这位作者的一些关于可解释模型的一些论文，但是无意中看到她作为共作的讨论数据集的性别刻板印象的论文，沉迷于此看了一天倒是忘记了最开始是要看别的来着…</p>
+</blockquote>
+<p>Meister, Nicole, et al. “Gender Artifacts in Visual Datasets.” arXiv preprint arXiv:2206.09191 (2022).</p>
+<p>标题：<strong>Gender Artifacts in Visual Datasets</strong><br>论文地址：<a href="https://arxiv.org/abs/2206.09191">https://arxiv.org/abs/2206.09191</a><br>关键词：AI fairness, gender bias, dataset analysis</p>
+<h2 id="0-摘要"><a href="#0-摘要" class="headerlink" title="0. 摘要"></a>0. 摘要</h2><p>我们已经知道性别偏差会出现在大型图像集中并且会影响下游任务模型。许多前序工作已经提出弱化这种偏差影响的手法比如尝试将性别情感相关的情报从图片里删除。为了理解这些手法的可行性和使用性，我们调查了大型图片集中究竟有哪些<em>性别伪影（gender artifacts）</em>。我们定义，性别伪影应该是一个</p>
+<ol>
+<li>可视的并且会被现代模型学习到的</li>
+<li>能以人类思维解释的</li>
+</ol>
+<p>与性别相关的线索。通过我们的分析，我们发现在COCO和OpenImages数据集中，伪影可以说是无处不在，下到低阶信息（如色彩信息），上至高阶信息（如姿势和位置），都存在性别伪影。因此我们认为通过删除伪影的方法是不可行的。并且我们认为作为研究员和训练者的责任，他们更应该注意数据里的性别分布，并应该加强手法对这些分布偏差的鲁棒性。</p>
+<h2 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1. 介绍"></a>1. 介绍</h2><p>我们现在已知了很多深度学习模型的衍生物都有社会偏差。一种主要的假设是这种偏差源自于输入数据本身的问题。许多偏差都来自于特定群体的相关数据的缺乏，如天然的性别分布已经被论证不足以缓解模型的偏差。因此许多手法提出将具有性别色彩的元素进行遮挡的方法以避免输入数据的不均匀。</p>
+<p>在本文中，我们不仅关注这些数据集的偏差，并且探索了这些性别信息究竟多大程度能被除掉。因此首先我们定义了<em>性别伪影</em>应该是可学习的和可解释的。并且为了探索这些伪影，我们生成和对比了许多不同版本的数据（如灰度化的图片，被遮挡背景的图片等），以探索它们的性别预测程度。</p>
+<p>但是我们并不赞成任何预测性别的行为。并认为这里并没有任何理由足以支持这一行为。</p>
+<p>根据上述工作，我们最终发现在COCO和OpenImage里性别伪影无处不在。如下图中仅仅是计算了图片中三原色的平均值，就能够看出两性之间的明显差异。通过平均值模型预测度为，COCO：58.0%, OpenImages：59.1%</p>
+<p><img src="https://p.ipic.vip/bp87fo.png" alt="左：分割掩膜的相关统计量 右：图像的平均色彩度"></p>
+<p>这些发现的暗示如下：</p>
+<ol>
+<li>性别伪影存在于图片的每个角落，因此过去的删除特定性别伪影的手法也许是无效的。我们更推荐研究者使用注重公平的模型，以及非聚合的验证矩阵。这能帮助发现潜在的群体偏差。</li>
+<li>在我们的发现中，这些性格偏差的无处不在性导致最终的预测可能是毫无道理的。比如每当让模型预测性别时，我们需要积极地考虑预预测依据是什么；模型是真的学习到了有意义的理由，还是仅仅是因为图片更红一些。</li>
+</ol>
+<p>最后，我们也要考虑不是所有伪影都是错误的。有一些也许是真的能够帮助我们区别两个群体，它们是重要的特征；但有一些仅仅是讨厌的刻板印象。我们需要考虑哪些是要避免的。</p>
+<h2 id="2-相关工作"><a href="#2-相关工作" class="headerlink" title="2. 相关工作"></a>2. 相关工作</h2><h2 id="3-实验"><a href="#3-实验" class="headerlink" title="3. 实验"></a>3. 实验</h2><h3 id="3-1-数据集"><a href="#3-1-数据集" class="headerlink" title="3.1 数据集"></a>3.1 数据集</h3><p>使用COCO和OpenImages的主要原因是它们是少见的能直接获得性别标签的注释。</p>
+<h3 id="3-2-模型参数"><a href="#3-2-模型参数" class="headerlink" title="3.2 模型参数"></a>3.2 模型参数</h3><h3 id="3-3-道德考虑"><a href="#3-3-道德考虑" class="headerlink" title="3.3 道德考虑"></a>3.3 道德考虑</h3><hr>
+<blockquote>
+<p>以下开始是产生性别伪影的原因的实验和探讨</p>
+</blockquote>
+<h2 id="4-分辨率和颜色"><a href="#4-分辨率和颜色" class="headerlink" title="4. 分辨率和颜色"></a>4. 分辨率和颜色</h2><p>我们测试了测试集在112x112, 56x56, 28x28, 14x14, 7x7这几种分辨率情况下的预测情况。随着分辨率下降，准确度也逐步下降，但是颜色也逐渐变得单一。因此我们也考虑了当转化为灰度图片后随着分辨率下降预测度的情况。结果如下图所示。</p>
+<p><img src="https://p.ipic.vip/6ovrla.png" alt="Color：彩色，Grayscale：灰度，LogReg：红绿蓝三原色的像素块个数的平均值"></p>
+<p>在28x28的分辨率下的COCO数据集中，彩色图片预测率有61.9%而灰度图片仅有51.9%。这说明在图片的物体形状不再具有意义时，性别伪影很可能来自于色彩的影响。</p>
+<p>并且即使将分辨率低到了7x7的程度，彩色图片的预测率依旧高于50%。</p>
+<p>这很有可能数据集中的两性具有一定的色彩特征。男性更常是在绿色草坪上，而数据集中的女性更常拥有更亮色的皮肤。</p>
+<h2 id="5-人和背景"><a href="#5-人和背景" class="headerlink" title="5. 人和背景"></a>5. 人和背景</h2><p>前序工作中已经证明人物的样貌一定包含了性别伪影。那么更朴素的问题是，是否图片背景，甚至是更高阶的人物信息（姿势和大小等）会包含人物伪影？</p>
+<p>我们设置了一系列的遮挡图片来对比对预测度的影响，术语解释如下：</p>
+<ol>
+<li>Full：人物完全被显示出来</li>
+<li>Full NoBg：人物完全被显示并且没有背景</li>
+<li>MaskSegm：人物掩膜</li>
+<li>MaskRect：矩形掩膜</li>
+</ol>
+<p>最终结果如下图</p>
+<p><img src="https://p.ipic.vip/62qmuv.png" alt=""></p>
+<p><strong>人物外貌是性别伪影。</strong>很明显，即使遮挡住背景时（Full Nobg），预测度也没有剧烈的下降。</p>
+<p><strong>仅仅使用人物的形状和位置对性别进行预测也达到了50%以上。</strong>我们看到即使在MaskSegm NoBg的情况下，也达到了74.8%的准确率，说明人物形状本身都能揭露性别情报，比如着装或是头发的长短。接下来，我们删除了更多人物信息，只留下了关键点(keypoints)如下图。</p>
+<p><img src="https://p.ipic.vip/e28dt9.png" alt=""></p>
+<p>它们的表现依旧优于50%达到了64.8%的准确度。男性的动作有可能被模型认为更小和在运动状态；而女性更多的被模型认为倾向于更大和站立。</p>
+<p><strong>这些不同性别表达中的大小和位置差异是可被学习的。</strong>即使我们把人物轮廓遮住（MaskRectNoBg），结果仍表现出了高于50%的精度。</p>
+<p><strong>背景信息仍旧是极其重要的信息对于表达性别信息。</strong>因此任何仅仅只是通过遮挡人物外貌的方法，只不过是把性别伪影从人物转移到了背景上，实际上是无法真正消除所有性别伪影的。</p>
+<p><strong>定性分析。</strong>为了进一步理解背景中的性别伪影，我们进行了一系列定性分析结果如下图。<br><img src="https://p.ipic.vip/adv6fw.png" alt="值为100意味着被预测为女性，0则为男性"></p>
+<p>模型倾向于将城市和室内的背景与女性连接起来，而将室外和运动背景与男性结合。此外，通过第四行我们发现状态更“小”和静止时常被模型认为是女性，而“大”和动态被认为是男性。但是，我们也发现了如果人物外貌被包含在图片里时，运动的女性和静止的男性也是可以被正确区分的。</p>
+<p><strong>性别伪影在数据集中具有普遍性。</strong>我们对两个数据集进行了交叉验证如下表，不管是哪种掩膜设定最终结果都高于50%。</p>
+<p><img src="https://p.ipic.vip/wdpf1d.png" alt=""></p>
+<h2 id="6-具有语义内容的物体"><a href="#6-具有语义内容的物体" class="headerlink" title="6. 具有语义内容的物体"></a>6. 具有语义内容的物体</h2><p>这一章节我们致力于更好的理解性别伪影，并区别背景中的两大要素：物体和场景。</p>
+<p><strong>通过模型的关注度可视化性别伪影。</strong>我们使用CAMS可视化了不同物体在用于性别分类时的重要度，如下图</p>
+<p><img src="https://p.ipic.vip/j47vr1.png" alt=""></p>
+<p>当人物被预测为女性时，模型在关注室内的物体如床和烤箱；而被预测为男性时，模型关注于室外物体如滑板和摩托。</p>
+<p><strong>和性别分类最有关的物体排序。</strong>在COCO中，比重最高的十个物体对应用于分类女性的，分别为吹风机，手提包，泰迪熊，雨伞和床；而比重最低的十个物体对应于分类男性，为滑板，领带，滑雪板，棒球手套和摩托车。</p>
+<p>为了进一步理解这些物体的作用，我们逐步从图片中删除各个物体，并观察预测结果的准确率的变化。结果如下图。</p>
+<p><img src="https://p.ipic.vip/w08stw.png" alt=""></p>
+<p>我们可以看到，物体产生的影响无处不在；直到我们将物体删除到一个不剩，判定率才下降到了50%的基准。</p>
+<h2 id="7-讨论"><a href="#7-讨论" class="headerlink" title="7. 讨论"></a>7. 讨论</h2><p>首先，我们应该面对这种数据集中的不均匀而不是妄图消灭它们（我们已经证明了这几乎不可能）。因此使用注重公平性的模型是更好的选择。</p>
+<p>此外，在构建数据集时我们也要尽量避免这种产生的偏差。我们应提前考虑这种结构是否会影响到下游任务的结果。</p>
+<p>最后，我们应该警惕模型的学习结果。也许一些模型的结果真的和人类的判断结果相符合，甚至和我们的认知对应。但实际上它可能只是在学习这个数据集中的可视化物体的关联性，而不是真正的“理解”。当我们对结果分析时，我们应该小心我们的分析是不是其实仅仅是人类自己“赋予”的。</p>
+]]></content>
+      <categories>
+        <category>blog</category>
+      </categories>
+      <tags>
+        <tag>Paper</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【项目实战】德英互译NLP模型</title>
+    <url>/2022/07/31/de-en-translation/</url>
+    <content><![CDATA[<h1 id="项目报告"><a href="#项目报告" class="headerlink" title="项目报告"></a>项目报告</h1><p><a href="/butterfly/nlp.pdf">pdflink<a><br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h5vwr2ng3wj20yt0g70v4.jpg" alt=""></p>
+<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>围绕机器翻译，对NLP知识进行了总结复习和实战。首先总结了机器翻译模型的发展历史，并对相关技术进行复习。最后使用了几个前沿的预训练模型对德英数据集进行了微调，并使用不同的分词手法和评估函数进行了对比。</p>
+<h1 id="发展历史"><a href="#发展历史" class="headerlink" title="发展历史"></a>发展历史</h1><ol>
+<li>RNN：加入了上一个隐藏层的输入以记忆历史数据，最先被提出用来解决时间序列模型的结构。但是过长的文本会导致梯度消失。</li>
+<li>LSTM/GRU：解决长文本问题，可提供对更久以前的数据的记忆。</li>
+<li>Attention机制：1. 提供弹性表达（而不是只能将文本映射为固定长度的向量） 2. 可学习全局的关系 3. 并行计算</li>
+<li>双循环网络：初期的RNN只能单向循环，即只能看到前面的内容，看不到后面。双循环添加了从后向前的方向，使输出不仅依靠前面的文本还可知晓后面的内容。</li>
+<li>Transformer：结合上述结构的优势，生成了强大的Transformer。在Transformer基础上还诞生了BERT等强大的模型。</li>
+</ol>
+<h1 id="使用手法"><a href="#使用手法" class="headerlink" title="使用手法"></a>使用手法</h1><p>主要使用基于Transformer模型T5和Transformer-align，对机器翻译任务进行迁移学习。</p>
+<h1 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h1><ul>
+<li>Dataset：Multi50k</li>
+<li>Evaluation：Bleu</li>
+</ul>
+<p>下面两张图分别是在测试集的损失变化，和Bleu的变化量。可以看出Transfromer align在本次任务中表现最好。</p>
+<p><img src="https://p.ipic.vip/d2dw7h.png" alt=""></p>
+<p>我们还实现了词语之间的attention值的可视化，更明显的看出每个生成词语的参考来源。</p>
+<p><img src="https://p.ipic.vip/xu6hy3.png" alt=""></p>
+]]></content>
+      <categories>
+        <category>project</category>
+      </categories>
+      <tags>
+        <tag>NLP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Diffusion model 总结</title>
+    <url>/2023/05/09/diffusion-model/</url>
+    <content><![CDATA[<blockquote>
+<p>从去年diffusion的崛起陆陆续续的看了很多文章和应用，也有在自己的研究上加入一些元素。但是浑浑噩噩下来其实对于dm的历史以及进化过程很是浅显， 笔记也非常零碎，借此文章对笔记进行一些整理</p>
+</blockquote>
+<h2 id="符号"><a href="#符号" class="headerlink" title="符号"></a>符号</h2><p>T：定量。确定的时间步长。</p>
+<p>t：变量。对应的时间步。</p>
+<h2 id="生成模型"><a href="#生成模型" class="headerlink" title="生成模型"></a>生成模型</h2><p>生成模型的根本其实就是：<strong>将训练数据和生成数据的分布尽可能接近</strong></p>
+<p><em>如果将一个个的sample看做是一个个人类，那么控制的参数则有性别，年龄，身高，器官的大小……这些数据的分布情况都决定了AI创造的的新种族是否与人类相似。如果这个种族的平均身高只有120，那必然怎么看都只能算侏儒群体。</em></p>
+<p>将两个数据的分布靠近的方法可以分为下面两类：</p>
+<ol>
+<li>直接计算：<ul>
+<li>严密计算：Flow-based</li>
+<li>使用易于计算的上限值计算：VAE,diffusion</li>
+</ul>
+</li>
+<li>间接达成<ul>
+<li>GAN</li>
+</ul>
+</li>
+</ol>
+<p>在两种方法中，以GAN为首的间接达成的方法曾经一直是主流。其通过增加分辨器的方式进行对抗学习，”逼迫“生成器必须提取非常抽象的特征以生成无法被识别出来真假的sample。但是它的缺点是<strong>不够精细，生成样本的质量参差不齐</strong>。最近以Diffusion为主的直接计算法又再次登上舞台，但是只要尝试后就知道其在<strong>某些领域的生成能力和总体的消耗时间</strong>其实仍不如GAN，这也是目前对diffusion优化的方向之一（优化模型，提高泛化能力[Diffusion models beat GANs on image synthesis]）</p>
+<h2 id="Diffusion-Model"><a href="#Diffusion-Model" class="headerlink" title="Diffusion Model"></a>Diffusion Model</h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>首先DM在做的事情其实就是<strong><strong><strong><em>**</em></strong></strong></strong>基于扩散模型的学习过程。<strong><strong><strong><em>**</em></strong></strong></strong>扩散模型是指马尔科夫过程，也就是将一段一段的迁移过程直接用一个式子概括的定理。DM整个过程都基于这个定理。</p>
+<p>DM的学习和生成过程可以用下面这张看烂的图概括</p>
+<p><img src="Untitled.png" alt="Untitled"></p>
+<p>学习过程(Forward process)：0到T的过程。从原图片变成遵循高斯分布的噪声。记为q。</p>
+<p>训练过程(Reverse process)：T到0的过程。从噪声变成图片。记为p。</p>
+<p>X0始终代表原始图片，之后的Xt都是从原图片提取出来的特征也好变量也好的东西。</p>
+<h3 id="学习过程"><a href="#学习过程" class="headerlink" title="学习过程"></a>学习过程</h3><p>单个一小步的过程的迁移概率如下：</p>
+<p>${q(X_t|X_{t-1})=\mathcal N(X_t;\sqrt{1-\beta_t}X_{t-1},\beta_tI)}$</p>
+<p>根据马尔科夫定理，将所有迁移过程汇总为如下的一个式子</p>
+<p>${q_\theta}(X_{1:T}|X_0) = \prod^T_{t=1}q(X_t|X_{t-1})$ </p>
+<p>可以看到，里面其实只有一个参数beta。这个beta也是定好的，会随着定义好的schedular线性或者对数改变，在代码中一般定义为beta_schedular。因此在<strong>整个学习过程中没有需要学习的参数。</strong></p>
+<blockquote>
+<p>一些思虑：<br>Xt究竟用什么表示？我们只定义了迁移过程的概率式，但是Xt究竟用什么表示呢？<br>应该是在学习过程就定死的。学习过程相当于外部添加噪声的过程，这个噪声通常是由随机函数产生，因此这个是已知量。</p>
+</blockquote>
+<h3 id="训练过程"><a href="#训练过程" class="headerlink" title="训练过程"></a>训练过程</h3><p>首先我们假设学习过程中最终生成的噪声图片遵循平均值0分布为1的正态分布（可能通过什么转换变成的）</p>
+<p>${p(X_T)=\mathcal N(0,I)}$</p>
+<p>每一步的去噪过程可被表述为与加噪过程相同的形式。不同的是，这里的平均值和分布不再是之和beta相关的定值，而是需要DNN进行学习的未知参数。</p>
+<p>${p_\theta(X_{t-1}|X_t)=\mathcal N(X_{t-1};\mu_\theta(x_t,t), \Sigma_\theta(x_t,t))}$</p>
+<p>z最终整个过程被表现为</p>
+<p>${p_\theta(X_0:T)=p_{\theta}(X_t)\prod^T_{t=1}p_\theta(X_{t-1}|X_t)}$</p>
+<blockquote>
+<p>其实我还是没有太搞懂。概率的过程和最终的生成同样图片的关联在哪里。</p>
+</blockquote>
+<h2 id="Diffusion-Models-Beat-GANs-on-Image-Synthesis-中的解释"><a href="#Diffusion-Models-Beat-GANs-on-Image-Synthesis-中的解释" class="headerlink" title="Diffusion Models Beat GANs on Image Synthesis 中的解释"></a>Diffusion Models Beat GANs on Image Synthesis 中的解释</h2><p><img src="%25E6%2588%25AA%25E5%25B1%258F2023-04-10_19.20.09.png" alt="截屏2023-04-10 19.20.09.png"></p>
+<p>……在高层面来说，扩散模型其实就是通过一个反转的加噪过程，来对分布进行采样。这个过程从Xt持续到X0。不同的时间步t对应不同的噪声等级。对于每个Xt可以看做是X0和一个与t成比例的噪声e混合而成的数据。其中在本文中，我们假设e是从高斯分布中提取出来的。</p>
+<blockquote>
+<p><em>但是这个去噪的过程是很复杂的。虽然DM很牛掰但是也不可能一下子就学会整个过程。就像人画东西也需要一个部位一个部位的画，而DM需要一个层次一个层次的画。所以DM的整个创作过程是由无数个简单的创作过程组成的。</em></p>
+</blockquote>
+<p>扩散模型的目的是学会如何从Xt中创作一个噪声能稍微少一点的Xt-1。[1] 用噪声预测函数 ${noise’=\epsilon_\theta(x_t, t)}$对模型参数化（即下图的Noise Predictor）。</p>
+<blockquote>
+<p>如果用吴恩达的图片也许会更清晰：</p>
+<p><img src="IMG_2241.png" alt="IMG_2241.PNG"></p>
+</blockquote>
+<p>在训练过程中，</p>
+<ol>
+<li><p>我们会对原始图片进行逐渐加噪。加噪是利用已知的原始图片X0，现在的时间步t’，和随机噪声 ${\epsilon}$，利用这些来生成Xt。生成的原理是根据下面的式子：</p>
+<p> ${q(X_t|X_{t-1})=\mathcal N(X_t;\sqrt{1-\beta_t}X_{t-1},\beta_tI)}$</p>
+<p> ${q_\theta}(X_{1:T}|X_0) = \prod^T_{t=1}q(X_t|X_{t-1})$ </p>
+</li>
+<li><p>s根据生成的Xt我们利用噪声预测函数对噪声进行反推。显而易见，损失函数就是我们真正的已知的噪声 ${\epsilon}$和预测出的噪声 ${noise’=\epsilon_\theta(x_t, t)}$的差值</p>
+<p> ${||\epsilon_\theta(x_t, t)-\epsilon||^2}$</p>
+</li>
+</ol>
+<p>训练过程解决了，那我们究竟如何利用噪声预测器对噪声图片采样以获得原始图片呢？也就是上面吴恩达的图片的减号的部分，到底是如何实现的？</p>
+<p>实际上在[1]中，作者假设了从Xt到Xt-1的过程也是遵从高斯分布的，即</p>
+<p>${p_\theta(X_{t-1}|X_t)=\mathcal N(X_{t-1};\mu_\theta(x_t,t), \Sigma_\theta(x_t,t))}$</p>
+<p>其中的平均值mu实际上就可以从噪声预测器的结果获得；而方差是由一个定数决定。因此DM整个的学习过程就是<strong>训练噪声预测函数</strong>！</p>
+<h2 id="资料"><a href="#资料" class="headerlink" title="资料"></a>资料</h2><p>原理和代码对照学习：</p>
+<p><a href="https://nn.labml.ai/diffusion/ddpm/index.html">https://nn.labml.ai/diffusion/ddpm/index.html</a></p>
+<p>[1] Denoising diffusion probabilistic models.</p>
+]]></content>
+      <categories>
+        <category>study</category>
+      </categories>
+      <tags>
+        <tag>DL</tag>
       </tags>
   </entry>
   <entry>
@@ -2025,6 +2106,66 @@ x_j} f(x)</script></li>
       </tags>
   </entry>
   <entry>
+    <title>【项目实战】基于跨域学习的行人重识别</title>
+    <url>/2022/01/17/person-reid-wirh-domain-adaptation/</url>
+    <content><![CDATA[<p><a href="/butterfly/passengers.pdf">pdflink<a><br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h5vvqbj2hfj20l007zdgu.jpg" alt=""></p>
+<h1 id="基于域学习的行人重识别"><a href="#基于域学习的行人重识别" class="headerlink" title="基于域学习的行人重识别"></a>基于域学习的行人重识别</h1><h1 id="项目描述"><a href="#项目描述" class="headerlink" title="项目描述"></a>项目描述</h1><p>偏工业项目。主要针对解决公交车的出入口行人重识别课题，来达到自动判断乘客的乘车区间的目的。难点有三：1. 本数据集的出入口的摄像机种类不同（RGB和近红外线） 2. 为保护隐私分辨率较低无法使用面部特征 3. 外部光照影响较大。数据集来源为日本公交公司。</p>
+<p><img src="https://p.ipic.vip/ncpwis.png" alt=""></p>
+<h1 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a>基本思路</h1><p>难点的关键在于我们无法使用过去的方法：颜色特征和面部特征。因此解决的关键是实现提取颜色光照无关的特征（更深层的特征，或域无关的特征）。考虑了以下三种解决方法：</p>
+<ol>
+<li>利用深度网络学习域无关特征（DANN，AGW）</li>
+<li>手动提取域无关特征（HeadReID）</li>
+<li>姿态估计（TODO）</li>
+</ol>
+<h2 id="DANN-1"><a href="#DANN-1" class="headerlink" title="DANN [1]"></a>DANN [1]</h2><p><img src="https://p.ipic.vip/d703om.png" alt=""></p>
+<p>在一般的分类预测期以外加上了域分类器，以提高特征的抽象度。我们希望提取出的特征无法被域分类器成功判别，以确认生成的特征是域无关的。</p>
+<h2 id="AGW-2"><a href="#AGW-2" class="headerlink" title="AGW [2]"></a>AGW [2]</h2><p><img src="https://p.ipic.vip/uyfxkp.png" alt=""></p>
+<p>考虑到表层特征差异大的问题，还尝试了通过分开卷积层的方法。首先使用域单独的卷积层提取出表层特征，再进入相同的Resnet+NoLocal块的网络，增加对全域特征的提取能力。</p>
+<h2 id="HeadReID"><a href="#HeadReID" class="headerlink" title="HeadReID"></a>HeadReID</h2><p><img src="https://p.ipic.vip/yczuur.png" alt=""></p>
+<p>根据文献 [3]，仅仅是头部特征也有惊人的表达能力。因此尝试了增加提取头部特征的网络，以抵御域变换带来的影响。</p>
+<h1 id="实现过程"><a href="#实现过程" class="headerlink" title="实现过程"></a>实现过程</h1><p>主要为以下步骤：</p>
+<ol>
+<li>数据处理：视频转换为图片，根据真值切割出每一帧的正确的行人图片，为每个行人制作文件夹，形成最后的数据库<ul>
+<li>对于HeadReID使用的头部图片由于没有真值，简单的利用原行人图片的上部20%进行提取。</li>
+</ul>
+</li>
+<li><p><strong>DANN：</strong>两个域的行人图片集分别传入Resnet50，提取出特征向量。利用此特征向量分别进行：</p>
+<ol>
+<li>度量学习：Triplet Loss</li>
+<li>标签预测：Person ID预测 → label loss</li>
+<li><p>域预测：属于入口/出口 → domain loss → 梯度翻转 →  ${y(domain loss)}$</p>
+<p>三个loss之和最小化</p>
+<p><strong>AGW：</strong>两个域的行人图片集分别传入各自的特征提取层。最小化分类损失。</p>
+<p><strong>HeadReID：</strong>行人图片集及其头部图片分别传入对应的特征提取网络。最小化分类损失。</p>
+</li>
+</ol>
+</li>
+<li><p>使用测试集，求出两两行人图片之间的特征类似度，得出结果。</p>
+</li>
+</ol>
+<h1 id="参数选择"><a href="#参数选择" class="headerlink" title="参数选择"></a>参数选择</h1><p>根据实验，使用sin函数作为类似度函数，以及对于每个ID的行人使用所有图片的平均特征量时效果过最好。</p>
+<h1 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h1><p>最终结果说明，AGW的手法在里面的效果最好。尤其在人多时造成特征不完全时带来的收益最大。但是当有明显的局部特征如帽子耳机等时，DANN对其的学习能力更强。</p>
+<p><img src="https://p.ipic.vip/a7fo4y.png" alt=""></p>
+<p><img src="https://p.ipic.vip/e2yeq7.png" alt=""></p>
+<p><img src="https://p.ipic.vip/t1se4t.png" alt=""></p>
+<p>HeadReID的失败原因：</p>
+<ol>
+<li>虽然头部特征在前手法中论证有用，但实际本数据集的分辨率远远低于文献使用的数据集。</li>
+<li>因为没有使用头部识别网络而仅仅进行了剪裁操作，衣服等域有关的特征不可避免的被混入。</li>
+<li>数据集中有儿童的存在：他们无法使用简单的剪裁操作生成头部图片。</li>
+</ol>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><p>[1] Y. Ganin and V. Lempitsky. Unsupervised domain adaptation by backpropa- gation. In ICML, Vol. 37, pp. 1180–1189, 2015.</p>
+<p>[2] M. Ye, J. Shen, G. Lin, T. Xiang, L. Shao, and S. C. H. Hoi. Deep Learning for Person Re-identification: A Survey and Outlook. TPAMI, pp. 1–1, 2021. doi:10.1109/TPAMI.2021.3054775.</p>
+<p>[3] Junliang Guo, Yanbing Xue, Jing Cai, Zan Gao, Guangping Xu, and Hua Zhang. A bus passenger re-identification dataset and a deep learning baseline using triplet embedding. Multimedia Tools and Applications, Vol. 80, No. 11, pp. 16425–16440, 2021.</p>
+]]></content>
+      <categories>
+        <category>project</category>
+      </categories>
+      <tags>
+        <tag>CV</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>【花书】从概率统计到深度网络的概率预测</title>
     <url>/2023/01/05/probability-output/</url>
     <content><![CDATA[<p>参考深度学习花书</p>
@@ -2113,6 +2254,69 @@ x_j} f(x)</script></li>
       </tags>
   </entry>
   <entry>
+    <title>提示工程 | Prompt Engineering</title>
+    <url>/2023/05/09/prompt-engineering/</url>
+    <content><![CDATA[<p>课程：<a href="https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/">https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/</a></p>
+<p>课程代码：<a href="https://github.com/ArslanKAS/Prompt-Engineering-by-OpenAI">https://github.com/ArslanKAS/Prompt-Engineering-by-OpenAI</a></p>
+<p>文档：<a href="https://platform.openai.com/docs/api-reference/introduction">https://platform.openai.com/docs/api-reference/introduction</a></p>
+<h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><ol>
+<li>clear not equal short。有时必要的增加prompt的长度能下达更精准的命令。</li>
+<li>使用区分符号如三引号，tag符号等。避免对模型产生误导。</li>
+<li>解决复杂问题时要引导模型step by step的解决问题。模型有跳过说明性文字而直接看结果的倾向，可能导致错误答案。</li>
+<li>要给模型思考时间。如提示他直到计算出答案前不要决定结果。</li>
+<li>避免让模型直接生成名字等。模型有生成不存在的答案的倾向。必要时可以向模型提供相关的情报信息引导它生成真实存在的名字。</li>
+<li>提示工程和深度学习的过程一样，是递归的。我们应该根据具体问题具体分析，在一次次的实验中找到最优prompt。</li>
+<li>巧妙利用数组存放prompts，以让模型进行流水线工作。</li>
+<li>对结果的格式进行要求以获得适合编程用的内容：转化JSON，作成html形式，数值化等。</li>
+</ol>
+<h2 id="基本函数"><a href="#基本函数" class="headerlink" title="基本函数"></a>基本函数</h2><h3 id="openai-的api导入："><a href="#openai-的api导入：" class="headerlink" title="openai 的api导入："></a>openai 的api导入：</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> openai</span><br><span class="line">openai.api_key = os.getenv(<span class="string">&quot;OPENAI_API_KEY&quot;</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="传回结果："><a href="#传回结果：" class="headerlink" title="传回结果："></a>传回结果：</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_completion</span>(<span class="params">prompt, model=<span class="string">&quot;gpt-3.5-turbo&quot;</span></span>):</span><br><span class="line">    messages = [&#123;<span class="string">&quot;role&quot;</span>: <span class="string">&quot;user&quot;</span>, <span class="string">&quot;content&quot;</span>: prompt&#125;]</span><br><span class="line">    response = openai.ChatCompletion.create(</span><br><span class="line">        model=model,</span><br><span class="line">        messages=messages,</span><br><span class="line">        temperature=<span class="number">0</span>, <span class="comment"># this is the degree of randomness of the model&#x27;s output</span></span><br><span class="line">    )</span><br><span class="line">    <span class="keyword">return</span> response.choices[<span class="number">0</span>].message[<span class="string">&quot;content&quot;</span>]</span><br></pre></td></tr></table></figure>
+<h2 id="方法一：处理多任务并生成具体格式的回答"><a href="#方法一：处理多任务并生成具体格式的回答" class="headerlink" title="方法一：处理多任务并生成具体格式的回答"></a>方法一：处理多任务并生成具体格式的回答</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">text = <span class="string">&quot;&quot;&quot;...&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">prompt_2 = <span class="string">f&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">你的任务如下：</span></span><br><span class="line"><span class="string">1. 总结&lt;&gt;内包含的内容为一句话</span></span><br><span class="line"><span class="string">2. 将总结的内容转换为法语</span></span><br><span class="line"><span class="string">3. 将法语总结里的名字列成表</span></span><br><span class="line"><span class="string">4. 生成json对象，里面应包含以下的键：法语总结，名字</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">答案应使用如下的格式：</span></span><br><span class="line"><span class="string">Text: &lt;text to summarize&gt;</span></span><br><span class="line"><span class="string">Summary: &lt;summary&gt;</span></span><br><span class="line"><span class="string">Translation: &lt;summary translation&gt;</span></span><br><span class="line"><span class="string">Names: &lt;list of names in Italian summary&gt;</span></span><br><span class="line"><span class="string">Output JSON: &lt;json with summary and num_names&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">文本如下</span></span><br><span class="line"><span class="string">Text: &lt;<span class="subst">&#123;text&#125;</span>&gt;</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">response = get_completion(prompt_2)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;\nCompletion for prompt 2:&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(response)</span><br></pre></td></tr></table></figure>
+<h2 id="方法二：引导step-by-step的生成答案-给模型思考时间"><a href="#方法二：引导step-by-step的生成答案-给模型思考时间" class="headerlink" title="方法二：引导step by step的生成答案 | 给模型思考时间"></a>方法二：引导step by step的生成答案 | 给模型思考时间</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">prompt = <span class="string">f&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">Your task is to determine if the student&#x27;s solution \</span></span><br><span class="line"><span class="string">is correct or not.</span></span><br><span class="line"><span class="string">To solve the problem do the following:</span></span><br><span class="line"><span class="string">- First, work out your own solution to the problem. </span></span><br><span class="line"><span class="string">- Then compare your solution to the student&#x27;s solution \ </span></span><br><span class="line"><span class="string">and evaluate if the student&#x27;s solution is correct or not. </span></span><br><span class="line"><span class="string">Don&#x27;t decide if the student&#x27;s solution is correct until </span></span><br><span class="line"><span class="string">you have done the problem yourself.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Use the following format:</span></span><br><span class="line"><span class="string">Question:</span></span><br></pre></td></tr></table></figure>
+<p>question here<br><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Student&#x27;s solution:</span><br></pre></td></tr></table></figure><br>student’s solution here<br><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Actual solution:</span><br></pre></td></tr></table></figure><br>steps to work out the solution and your solution here<br><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Is the student&#x27;s solution the same as actual solution \</span><br><span class="line">just calculated:</span><br></pre></td></tr></table></figure><br>yes or no<br><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Student grade:</span><br></pre></td></tr></table></figure><br>correct or incorrect<br><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">Question:</span><br></pre></td></tr></table></figure><br>I’m building a solar power installation and I need help \<br>working out the financials. </p>
+<ul>
+<li>Land costs $100 / square foot</li>
+<li>I can buy solar panels for $250 / square foot</li>
+<li>I negotiated a contract for maintenance that will cost \<br>me a flat $100k per year, and an additional $10 / square \<br>foot<br>What is the total cost for the first year of operations \<br>as a function of the number of square feet.<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Student&#x27;s solution:</span><br></pre></td></tr></table></figure>
+Let x be the size of the installation in square feet.<br>Costs:</li>
+</ul>
+<ol>
+<li>Land cost: 100x</li>
+<li>Solar panel cost: 250x</li>
+<li>Maintenance cost: 100,000 + 100x<br>Total cost: 100x + 250x + 100,000 + 100x = 450x + 100,000<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Actual solution:</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">response = get_completion(prompt)</span><br><span class="line">print(response)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="方法三：给模型足够的情报"><a href="#方法三：给模型足够的情报" class="headerlink" title="方法三：给模型足够的情报"></a>方法三：给模型足够的情报</h2><blockquote>
+<p>这个prompt非常长，但是给了模型非常多的需要的信息以生成想要的答案：模型担任的职能，需要关注的细节，面向的客户群体，必须输出的内容。</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">prompt = <span class="string">f&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">Your task is to help a marketing team create a </span></span><br><span class="line"><span class="string">description for a retail website of a product based </span></span><br><span class="line"><span class="string">on a technical fact sheet.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Write a product description based on the information </span></span><br><span class="line"><span class="string">provided in the technical specifications delimited by </span></span><br><span class="line"><span class="string">triple backticks.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">The description is intended for furniture retailers, </span></span><br><span class="line"><span class="string">so should be technical in nature and focus on the </span></span><br><span class="line"><span class="string">materials the product is constructed from.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">At the end of the description, include every 7-character </span></span><br><span class="line"><span class="string">Product ID in the technical specification.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Use at most 50 words.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Technical specifications: ```<span class="subst">&#123;fact_sheet_chair&#125;</span>```</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line">response = get_completion(prompt)</span><br><span class="line"><span class="built_in">print</span>(response)</span><br></pre></td></tr></table></figure>
+<h2 id="方法四：处理流水线"><a href="#方法四：处理流水线" class="headerlink" title="方法四：处理流水线"></a>方法四：处理流水线</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(reviews)):</span><br><span class="line">    prompt = <span class="string">f&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Your task is to generate a short summary of a product \ </span></span><br><span class="line"><span class="string">    review from an ecommerce site. </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Summarize the review below, delimited by triple \</span></span><br><span class="line"><span class="string">    backticks in at most 20 words. </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Review: ```<span class="subst">&#123;reviews[i]&#125;</span>```</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    response = get_completion(prompt)</span><br><span class="line">    <span class="built_in">print</span>(i, response, <span class="string">&quot;\n&quot;</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="场景一：对客户评价进行处理并提供可分析的数据"><a href="#场景一：对客户评价进行处理并提供可分析的数据" class="headerlink" title="场景一：对客户评价进行处理并提供可分析的数据"></a>场景一：对客户评价进行处理并提供可分析的数据</h2><blockquote>
+<p>利用模型自动对客户的满意度进行评价。利用此我们还可以想到更多的可能性：</p>
+<ol>
+<li>预警系统。对不满意的客户及时预警和对应。</li>
+<li>分析系统。每个产品的满意程度的分析。</li>
+<li>处理系统。对不满意的客户我们可以利用提取到的关键信息，让模型先自动进行消息回复的对应。并且可以通过更改temp参数增加其多样性。</li>
+<li>流水线处理。利用数组就可以批量处理。</li>
+</ol>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">prompt = <span class="string">f&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">Identify the following items from the review text: </span></span><br><span class="line"><span class="string">- Sentiment (positive or negative)</span></span><br><span class="line"><span class="string">- Is the reviewer expressing anger? (true or false)</span></span><br><span class="line"><span class="string">- Item purchased by reviewer</span></span><br><span class="line"><span class="string">- Company that made the item</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">The review is delimited with triple backticks. \</span></span><br><span class="line"><span class="string">Format your response as a JSON object with \</span></span><br><span class="line"><span class="string">&quot;Sentiment&quot;, &quot;Anger&quot;, &quot;Item&quot; and &quot;Brand&quot; as the keys.</span></span><br><span class="line"><span class="string">If the information isn&#x27;t present, use &quot;unknown&quot; \</span></span><br><span class="line"><span class="string">as the value.</span></span><br><span class="line"><span class="string">Make your response as short as possible.</span></span><br><span class="line"><span class="string">Format the Anger value as a boolean.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Review text: &#x27;&#x27;&#x27;<span class="subst">&#123;lamp_review&#125;</span>&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line">response = get_completion(prompt)</span><br><span class="line"><span class="built_in">print</span>(response)</span><br></pre></td></tr></table></figure>
+<h2 id="场景二：对话机器人"><a href="#场景二：对话机器人" class="headerlink" title="场景二：对话机器人"></a>场景二：对话机器人</h2><p>可对话型和上述的单纯处理型的区别在于：需要记忆能力。</p>
+<p>因此首先我们使用新的函数。其中messages里记录了前面的对话。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_completion_from_messages</span>(<span class="params">messages, model=<span class="string">&quot;gpt-3.5-turbo&quot;</span>, temperature=<span class="number">0</span></span>):</span><br><span class="line">    response = openai.ChatCompletion.create(</span><br><span class="line">        model=model,</span><br><span class="line">        messages=messages,</span><br><span class="line">        temperature=temperature, <span class="comment"># this is the degree of randomness of the model&#x27;s output</span></span><br><span class="line">    )</span><br><span class="line"><span class="comment">#     print(str(response.choices[0].message))</span></span><br><span class="line">    <span class="keyword">return</span> response.choices[<span class="number">0</span>].message[<span class="string">&quot;content&quot;</span>]</span><br></pre></td></tr></table></figure>
+<p>message的格式如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">messages =  [  </span><br><span class="line">&#123;<span class="string">&#x27;role&#x27;</span>:<span class="string">&#x27;system&#x27;</span>, <span class="string">&#x27;content&#x27;</span>:<span class="string">&#x27;You are an assistant that speaks like Shakespeare.&#x27;</span>&#125;,    </span><br><span class="line">&#123;<span class="string">&#x27;role&#x27;</span>:<span class="string">&#x27;user&#x27;</span>, <span class="string">&#x27;content&#x27;</span>:<span class="string">&#x27;tell me a joke&#x27;</span>&#125;,   </span><br><span class="line">&#123;<span class="string">&#x27;role&#x27;</span>:<span class="string">&#x27;assistant&#x27;</span>, <span class="string">&#x27;content&#x27;</span>:<span class="string">&#x27;Why did the chicken cross the road&#x27;</span>&#125;,   </span><br><span class="line">&#123;<span class="string">&#x27;role&#x27;</span>:<span class="string">&#x27;user&#x27;</span>, <span class="string">&#x27;content&#x27;</span>:<span class="string">&#x27;I don\&#x27;t know&#x27;</span>&#125;  ]</span><br></pre></td></tr></table></figure>
+<p>system为最高层的要求，相当于下达prompt的系统。user为客户，assistant为模型。</p>
+<p>接下来利用GUI包生成披萨订购助手：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">## 储存之前的对话</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">collect_messages</span>(<span class="params">_</span>):</span><br><span class="line">    prompt = inp.value_input</span><br><span class="line">    inp.value = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    context.append(&#123;<span class="string">&#x27;role&#x27;</span>:<span class="string">&#x27;user&#x27;</span>, <span class="string">&#x27;content&#x27;</span>:<span class="string">f&quot;<span class="subst">&#123;prompt&#125;</span>&quot;</span>&#125;)</span><br><span class="line">    response = get_completion_from_messages(context) </span><br><span class="line">    context.append(&#123;<span class="string">&#x27;role&#x27;</span>:<span class="string">&#x27;assistant&#x27;</span>, <span class="string">&#x27;content&#x27;</span>:<span class="string">f&quot;<span class="subst">&#123;response&#125;</span>&quot;</span>&#125;)</span><br><span class="line">    panels.append(</span><br><span class="line">        pn.Row(<span class="string">&#x27;User:&#x27;</span>, pn.pane.Markdown(prompt, width=<span class="number">600</span>)))</span><br><span class="line">    panels.append(</span><br><span class="line">        pn.Row(<span class="string">&#x27;Assistant:&#x27;</span>, pn.pane.Markdown(response, width=<span class="number">600</span>, style=&#123;<span class="string">&#x27;background-color&#x27;</span>: <span class="string">&#x27;#F6F6F6&#x27;</span>&#125;)))</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">return</span> pn.Column(*panels)</span><br><span class="line"></span><br><span class="line"><span class="comment">##MAIN</span></span><br><span class="line"><span class="keyword">import</span> panel <span class="keyword">as</span> pn  <span class="comment"># GUI</span></span><br><span class="line">pn.extension()</span><br><span class="line"></span><br><span class="line">panels = [] <span class="comment"># collect display </span></span><br><span class="line"></span><br><span class="line">context = [ &#123;<span class="string">&#x27;role&#x27;</span>:<span class="string">&#x27;system&#x27;</span>, <span class="string">&#x27;content&#x27;</span>:<span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">You are OrderBot, an automated service to collect orders for a pizza restaurant. \</span></span><br><span class="line"><span class="string">You first greet the customer, then collects the order, \</span></span><br><span class="line"><span class="string">and then asks if it&#x27;s a pickup or delivery. \</span></span><br><span class="line"><span class="string">You wait to collect the entire order, then summarize it and check for a final \</span></span><br><span class="line"><span class="string">time if the customer wants to add anything else. \</span></span><br><span class="line"><span class="string">If it&#x27;s a delivery, you ask for an address. \</span></span><br><span class="line"><span class="string">Finally you collect the payment.\</span></span><br><span class="line"><span class="string">Make sure to clarify all options, extras and sizes to uniquely \</span></span><br><span class="line"><span class="string">identify the item from the menu.\</span></span><br><span class="line"><span class="string">You respond in a short, very conversational friendly style. \</span></span><br><span class="line"><span class="string">The menu includes \</span></span><br><span class="line"><span class="string">pepperoni pizza  12.95, 10.00, 7.00 \</span></span><br><span class="line"><span class="string">cheese pizza   10.95, 9.25, 6.50 \</span></span><br><span class="line"><span class="string">eggplant pizza   11.95, 9.75, 6.75 \</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span>&#125; ]  <span class="comment"># accumulate messages</span></span><br><span class="line"></span><br><span class="line">inp = pn.widgets.TextInput(value=<span class="string">&quot;Hi&quot;</span>, placeholder=<span class="string">&#x27;Enter text here…&#x27;</span>)</span><br><span class="line">button_conversation = pn.widgets.Button(name=<span class="string">&quot;Chat!&quot;</span>)</span><br><span class="line"></span><br><span class="line">interactive_conversation = pn.bind(collect_messages, button_conversation)</span><br><span class="line"></span><br><span class="line">dashboard = pn.Column(</span><br><span class="line">    inp,</span><br><span class="line">    pn.Row(button_conversation),</span><br><span class="line">    pn.panel(interactive_conversation, loading_indicator=<span class="literal">True</span>, height=<span class="number">300</span>),</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">dashboard</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>blog</category>
+      </categories>
+      <tags>
+        <tag>DL</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Queue Theory</title>
     <url>/2022/06/05/queue-theory/</url>
     <content><![CDATA[<h2 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h2><p>对于某个服务大厅，已知（1）单位时间内会来的客人数（2）服务客人需要的平均时间</p>
@@ -2153,66 +2357,6 @@ x_j} f(x)</script></li>
       </categories>
       <tags>
         <tag>OR</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【项目实战】基于跨域学习的行人重识别</title>
-    <url>/2022/01/17/person-reid-wirh-domain-adaptation/</url>
-    <content><![CDATA[<p><a href="/butterfly/passengers.pdf">pdflink<a><br><img src="https://tva1.sinaimg.cn/large/e6c9d24egy1h5vvqbj2hfj20l007zdgu.jpg" alt=""></p>
-<h1 id="基于域学习的行人重识别"><a href="#基于域学习的行人重识别" class="headerlink" title="基于域学习的行人重识别"></a>基于域学习的行人重识别</h1><h1 id="项目描述"><a href="#项目描述" class="headerlink" title="项目描述"></a>项目描述</h1><p>偏工业项目。主要针对解决公交车的出入口行人重识别课题，来达到自动判断乘客的乘车区间的目的。难点有三：1. 本数据集的出入口的摄像机种类不同（RGB和近红外线） 2. 为保护隐私分辨率较低无法使用面部特征 3. 外部光照影响较大。数据集来源为日本公交公司。</p>
-<p><img src="https://p.ipic.vip/ncpwis.png" alt=""></p>
-<h1 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a>基本思路</h1><p>难点的关键在于我们无法使用过去的方法：颜色特征和面部特征。因此解决的关键是实现提取颜色光照无关的特征（更深层的特征，或域无关的特征）。考虑了以下三种解决方法：</p>
-<ol>
-<li>利用深度网络学习域无关特征（DANN，AGW）</li>
-<li>手动提取域无关特征（HeadReID）</li>
-<li>姿态估计（TODO）</li>
-</ol>
-<h2 id="DANN-1"><a href="#DANN-1" class="headerlink" title="DANN [1]"></a>DANN [1]</h2><p><img src="https://p.ipic.vip/d703om.png" alt=""></p>
-<p>在一般的分类预测期以外加上了域分类器，以提高特征的抽象度。我们希望提取出的特征无法被域分类器成功判别，以确认生成的特征是域无关的。</p>
-<h2 id="AGW-2"><a href="#AGW-2" class="headerlink" title="AGW [2]"></a>AGW [2]</h2><p><img src="https://p.ipic.vip/uyfxkp.png" alt=""></p>
-<p>考虑到表层特征差异大的问题，还尝试了通过分开卷积层的方法。首先使用域单独的卷积层提取出表层特征，再进入相同的Resnet+NoLocal块的网络，增加对全域特征的提取能力。</p>
-<h2 id="HeadReID"><a href="#HeadReID" class="headerlink" title="HeadReID"></a>HeadReID</h2><p><img src="https://p.ipic.vip/yczuur.png" alt=""></p>
-<p>根据文献 [3]，仅仅是头部特征也有惊人的表达能力。因此尝试了增加提取头部特征的网络，以抵御域变换带来的影响。</p>
-<h1 id="实现过程"><a href="#实现过程" class="headerlink" title="实现过程"></a>实现过程</h1><p>主要为以下步骤：</p>
-<ol>
-<li>数据处理：视频转换为图片，根据真值切割出每一帧的正确的行人图片，为每个行人制作文件夹，形成最后的数据库<ul>
-<li>对于HeadReID使用的头部图片由于没有真值，简单的利用原行人图片的上部20%进行提取。</li>
-</ul>
-</li>
-<li><p><strong>DANN：</strong>两个域的行人图片集分别传入Resnet50，提取出特征向量。利用此特征向量分别进行：</p>
-<ol>
-<li>度量学习：Triplet Loss</li>
-<li>标签预测：Person ID预测 → label loss</li>
-<li><p>域预测：属于入口/出口 → domain loss → 梯度翻转 →  ${y(domain loss)}$</p>
-<p>三个loss之和最小化</p>
-<p><strong>AGW：</strong>两个域的行人图片集分别传入各自的特征提取层。最小化分类损失。</p>
-<p><strong>HeadReID：</strong>行人图片集及其头部图片分别传入对应的特征提取网络。最小化分类损失。</p>
-</li>
-</ol>
-</li>
-<li><p>使用测试集，求出两两行人图片之间的特征类似度，得出结果。</p>
-</li>
-</ol>
-<h1 id="参数选择"><a href="#参数选择" class="headerlink" title="参数选择"></a>参数选择</h1><p>根据实验，使用sin函数作为类似度函数，以及对于每个ID的行人使用所有图片的平均特征量时效果过最好。</p>
-<h1 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h1><p>最终结果说明，AGW的手法在里面的效果最好。尤其在人多时造成特征不完全时带来的收益最大。但是当有明显的局部特征如帽子耳机等时，DANN对其的学习能力更强。</p>
-<p><img src="https://p.ipic.vip/a7fo4y.png" alt=""></p>
-<p><img src="https://p.ipic.vip/e2yeq7.png" alt=""></p>
-<p><img src="https://p.ipic.vip/t1se4t.png" alt=""></p>
-<p>HeadReID的失败原因：</p>
-<ol>
-<li>虽然头部特征在前手法中论证有用，但实际本数据集的分辨率远远低于文献使用的数据集。</li>
-<li>因为没有使用头部识别网络而仅仅进行了剪裁操作，衣服等域有关的特征不可避免的被混入。</li>
-<li>数据集中有儿童的存在：他们无法使用简单的剪裁操作生成头部图片。</li>
-</ol>
-<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><p>[1] Y. Ganin and V. Lempitsky. Unsupervised domain adaptation by backpropa- gation. In ICML, Vol. 37, pp. 1180–1189, 2015.</p>
-<p>[2] M. Ye, J. Shen, G. Lin, T. Xiang, L. Shao, and S. C. H. Hoi. Deep Learning for Person Re-identification: A Survey and Outlook. TPAMI, pp. 1–1, 2021. doi:10.1109/TPAMI.2021.3054775.</p>
-<p>[3] Junliang Guo, Yanbing Xue, Jing Cai, Zan Gao, Guangping Xu, and Hua Zhang. A bus passenger re-identification dataset and a deep learning baseline using triplet embedding. Multimedia Tools and Applications, Vol. 80, No. 11, pp. 16425–16440, 2021.</p>
-]]></content>
-      <categories>
-        <category>project</category>
-      </categories>
-      <tags>
-        <tag>CV</tag>
       </tags>
   </entry>
   <entry>
