@@ -1,0 +1,406 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Git command and GUI 操作 | Su Aiwen 's Homepage</title><meta name="keywords" content="Tool"><meta name="author" content="Su"><meta name="copyright" content="Su"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="ちょっと触っただけので大した内容ではなくて、各部分の基本構成とロジックをまとめる文章です  何がうれしい Dockerは、依頼関係をパッケージ化することができるもので、実行するデバイスを変えても環境設定は要らない（例えAIプログラムを実行するときに必要なモデルとInputも、パッケージ化されている）    WSLは、Windows Subsystem for Linuxで、windowsOSでL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git command and GUI 操作">
+<meta property="og:url" content="https://llsf9.github.io/2024/10/03/docker-and-flask/index.html">
+<meta property="og:site_name" content="Su Aiwen &#39;s Homepage">
+<meta property="og:description" content="ちょっと触っただけので大した内容ではなくて、各部分の基本構成とロジックをまとめる文章です  何がうれしい Dockerは、依頼関係をパッケージ化することができるもので、実行するデバイスを変えても環境設定は要らない（例えAIプログラムを実行するときに必要なモデルとInputも、パッケージ化されている）    WSLは、Windows Subsystem for Linuxで、windowsOSでL">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/llsf9/pics/master/20241007140344.png">
+<meta property="article:published_time" content="2024-10-03T03:44:28.000Z">
+<meta property="article:modified_time" content="2024-10-07T05:06:07.232Z">
+<meta property="article:author" content="Su">
+<meta property="article:tag" content="Tool">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/llsf9/pics/master/20241007140344.png"><link rel="shortcut icon" href="/butterfly/favicon.png"><link rel="canonical" href="https://llsf9.github.io/2024/10/03/docker-and-flask/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Git command and GUI 操作',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-10-07 14:06:07'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.1.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/butterfly/favicon.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">30</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">16</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/study"><i class="fa-fw fas fa-school"></i><span> 学习</span></a></div><div class="menus_item"><a class="site-page" href="/photo"><i class="fa-fw fas fa-camera-retro"></i><span> 摄影</span></a></div><div class="menus_item"><a class="site-page" href="/categories/blog"><i class="fa-fw fas fa-feather-alt"></i><span> 闲言</span></a></div><div class="menus_item"><a class="site-page" href="/artitalk"><i class="fa-fw far fa-comment-alt"></i><span> 碎语</span></a></div><div class="menus_item"><a class="site-page" href="/categories/project"><i class="fa-fw fas fa-school"></i><span> 项目</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://raw.githubusercontent.com/llsf9/pics/master/20241007140344.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Su Aiwen 's Homepage</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/study"><i class="fa-fw fas fa-school"></i><span> 学习</span></a></div><div class="menus_item"><a class="site-page" href="/photo"><i class="fa-fw fas fa-camera-retro"></i><span> 摄影</span></a></div><div class="menus_item"><a class="site-page" href="/categories/blog"><i class="fa-fw fas fa-feather-alt"></i><span> 闲言</span></a></div><div class="menus_item"><a class="site-page" href="/artitalk"><i class="fa-fw far fa-comment-alt"></i><span> 碎语</span></a></div><div class="menus_item"><a class="site-page" href="/categories/project"><i class="fa-fw fas fa-school"></i><span> 项目</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Git command and GUI 操作</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-10-03T03:44:28.000Z" title="发表于 2024-10-03 12:44:28">2024-10-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-10-07T05:06:07.232Z" title="更新于 2024-10-07 14:06:07">2024-10-07</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/blog/">blog</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Git command and GUI 操作"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><blockquote>
+<p>ちょっと触っただけので大した内容ではなくて、各部分の基本構成とロジックをまとめる文章です</p>
+</blockquote>
+<h2 id="何がうれしい"><a href="#何がうれしい" class="headerlink" title="何がうれしい"></a>何がうれしい</h2><ul>
+<li>Dockerは、依頼関係をパッケージ化することができるもので、実行するデバイスを変えても環境設定は要らない（例えAIプログラムを実行するときに必要なモデルとInputも、パッケージ化されている）</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/llsf9/pics/master/20241007140344.png" alt=""></p>
+<ul>
+<li><p>WSLは、Windows Subsystem for Linuxで、windowsOSでLinuxを実行するように最適化された仮想マシンです。これでLinuxと同じように使える。</p>
+<p>  <img src="https://raw.githubusercontent.com/llsf9/pics/master/20241007140427.png" alt=""></p>
+</li>
+<li><p>Flask：Python用のウェブアプリケーションフレームワークです。PythonだけでAPIを構築できる。</p>
+</li>
+</ul>
+<h2 id="環境設定"><a href="#環境設定" class="headerlink" title="環境設定"></a>環境設定</h2><p>一番苦労するところかも。。。</p>
+<h3 id="WSL2"><a href="#WSL2" class="headerlink" title="WSL2"></a>WSL2</h3><p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/ja-jp/windows/wsl/install#step-4---download-the-linux-kernel-update-package">https://learn.microsoft.com/ja-jp/windows/wsl/install#step-4---download-the-linux-kernel-update-package</a></p>
+<p>ここは特に記憶はないから、多分難しくない</p>
+<h3 id="Ubuntu"><a href="#Ubuntu" class="headerlink" title="Ubuntu"></a>Ubuntu</h3><p>普通のネットワークの下のならAppStoreから簡単に落とせるが、例えばセキュリティでStoreが使えない場合には下のリンクを参考すればいい</p>
+<p><a target="_blank" rel="noopener" href="https://www.softtechtips.net/wsl2-ubuntu-install/">WSL2にUbuntuをインストール | ソフトウェア Tech Tips (softtechtips.net)</a></p>
+<h3 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h3><p><a target="_blank" rel="noopener" href="https://qiita.com/taka777n/items/ea3a1b3a2802aabf3db2">windowsにWSL2+Docker環境を構築する手順 #Windows - Qiita</a></p>
+<h2 id="整理してみて。。。"><a href="#整理してみて。。。" class="headerlink" title="整理してみて。。。"></a>整理してみて。。。</h2><ol>
+<li>Flask＋Pythonの実行プログラム完成</li>
+<li>Dockerfileで依頼関係を定義して、必要なInputを一つのフォルダにまとめる</li>
+<li>ローカルのポートをWSL上にForwardingして、WSLのIPアドレスを固定する</li>
+<li>必要な外部ファイルをマウントして、DockerContainerを実行する</li>
+</ol>
+<h2 id="Flask"><a href="#Flask" class="headerlink" title="Flask"></a>Flask</h2><h3 id="基本構成"><a href="#基本構成" class="headerlink" title="基本構成"></a>基本構成</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, request, jsonify</span><br><span class="line"><span class="keyword">import</span> your_model  <span class="comment"># モデルをインポート</span></span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/predict&#x27;</span>, methods=[<span class="string">&#x27;POST&#x27;</span>]</span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">predict</span>():</span><br><span class="line">     <span class="comment"># 情報を受け取る</span></span><br><span class="line">    file_path = request.json[<span class="string">&#x27;file_path&#x27;</span>]</span><br><span class="line">    file = <span class="built_in">open</span>(file_path)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># ここでファイルをAIモデルに渡して予測を行う</span></span><br><span class="line">    result = your_model.predict(file)  <span class="comment"># モデルによる処理</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> error_condition :</span><br><span class="line">        <span class="keyword">return</span> jsonify(&#123;<span class="string">&#x27;error&#x27;</span>: <span class="number">500</span>&#125;), <span class="number">500</span> </span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> jsonify(&#123;<span class="string">&#x27;result&#x27;</span>: result&#125;)  <span class="comment"># 結果をJSON形式で返す</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    app.run(host=<span class="string">&#x27;0.0.0.0&#x27;</span>, port=<span class="number">5000</span>)  <span class="comment"># ポート5000で実行</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p><code>@</code> マーク：デコレーターです。下の関数を引数として受け取る。</p>
+<p>  ここの<code>@app.route</code>　はFlaskのルーティングデコレーターで、ユーザの関数と特定のURLをマッピングしていて、<code>/predict</code>にPOSTリクエストが来ると、Flaskは自動的に<code>predict</code>関数を呼び出す。</p>
+<ul>
+<li><strong>Note：”/predict”と“/predict/”は異なるルート</strong></li>
+</ul>
+</li>
+<li><p><code>request.&lt;extract_method&gt;[Info]</code></p>
+<p>  クライアントのリクエストは、一般的にはURL情報だけではなくて、Inputの情報もある。（E.g.例えば天気APIに請求を送るときにも、いつDayの情報が欲しいかも伝える必要がある）。そのような追加情報を抽出するために、Flaskにはrequestというツールを用意している。書き方によっていろんな抽出方法があるので、具体的には：<a target="_blank" rel="noopener" href="https://qiita.com/aKuad/items/400550b76d79c0d2cd3c">flask.request 自分用チートシート #Python - Qiita</a></p>
+</li>
+<li><p><code>app.run(host=&#39;0.0.0.0&#39;, port=5000)</code></p>
+<p>  指定されたポートに送られた情報だけを受け取る。0.0.0.0はすべてのアドレスをリッセンすることを示す。一台のPCは基本的は</p>
+<ul>
+<li>ホストアドレス(ipconfigを打って出たIP、外部からアクセス可能)</li>
+<li><p>ローカルアドレス（localhostやほかのプライベートアドレス、外部アクセス不可）</p>
+<p>のように、複数のIPアドレスを保有します。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="テスト方法"><a href="#テスト方法" class="headerlink" title="テスト方法"></a>テスト方法</h3><p>cURL：さまざまなプロトコルを利用してデータ転送するコマンドラインツール</p>
+<p>これがあればコマンドラインだけでFlaskの動作を確認できる</p>
+<p><code>curl -X POST http://localhost:5000/predict -H &quot;Content-Type: application/json&quot; -d &#39;&#123;&quot;path&quot;: &quot;example.jpg&quot;&#125;&#39;</code> </p>
+<ul>
+<li><code>-X POST/GET &lt;URL:port&gt;</code> : POSTまたはGETメソッドで指定したURLに情報を送る<ul>
+<li>ポートを一致しないと受け取れない</li>
+</ul>
+</li>
+</ul>
+<h2 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h2><p><img src="https://raw.githubusercontent.com/llsf9/pics/master/20241007140436.png" alt=""></p>
+<p>Dockerの流れは以上のように、実際に動くコンテナは全く独立している容器だ。その中にあらかじめ、必要とする依頼関係（Python、pytorch…）、作業用のフォルダ（/app）、外部のファイルを作業用フォルダにコピーする（model…）</p>
+<blockquote>
+<p>Containerで動くプログラムは外部に一切アクセスできないと考えてもいいかな</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># ベースとなるイメージの指定</span></span><br><span class="line">FROM python:<span class="number">3.8</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 依存関係をインストール</span></span><br><span class="line">RUN apt-get</span><br><span class="line">RUN pip install -r requirements.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># イメージ内で作業するディレクトリを指定</span></span><br><span class="line">RUN mkdir /app</span><br><span class="line">WORKDIR /app</span><br><span class="line"></span><br><span class="line"><span class="comment"># 必要なファイルをホストからコンテナにコピー</span></span><br><span class="line">COPY requirements.txt /app/</span><br><span class="line">COPY . /app/</span><br><span class="line"></span><br><span class="line"><span class="comment"># アプリケーションを実行するコマンドを指定</span></span><br><span class="line">CMD [<span class="string">&quot;python&quot;</span>, <span class="string">&quot;app.py&quot;</span>]</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>ベース：</p>
+<p>  Pythonだけを使って軽量なAPPならPythonをベースとしたDockerは十分</p>
+<p>  でも実際に使うときにUbuntuをベースとするケースが一番普通のらしい。区別はGPT先生に聞いた：</p>
+<blockquote>
+<ul>
+<li><strong><code>python</code> イメージ</strong>は、Python アプリケーションに特化した環境であり、すぐに開発を開始できる軽量なベースイメージです。</li>
+<li><p><strong><code>ubuntu</code> イメージ</strong>は、汎用的な Linux システムで、環境を細かくカスタマイズしたい場合に適していますが、セットアップに手間がかかる場合があります。</p>
+  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">FROM ubuntu:<span class="number">20.04</span></span><br><span class="line">RUN apt-get update &amp;&amp; apt-get install -y python3 python3-pip</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<p>  っと、自分もまだ理解していないです。。。</p>
+</li>
+</ul>
+<p><strong>ノート：Ubuntuを利用する場合には、Python3.9は一番最後にサポートされるバージョンで、3.10以上をインストールしたいなら別のコードを追加する必要がある</strong></p>
+<ul>
+<li>参考：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/69503329/pip-is-not-working-for-python-3-10-on-ubuntu/69527217#69527217">Pip is not working for Python 3.10 on Ubuntu - Stack Overflow</a></li>
+</ul>
+<h2 id="WSL2-1"><a href="#WSL2-1" class="headerlink" title="WSL2"></a>WSL2</h2><p>WSL２は、windowsOSと完全に異なる別のOSとして存在する仮想マシン。</p>
+<p>なので、<strong>独立したIPアドレス、ファイルシステム</strong>を保有する。これでwindows側で書いたコードはここで動けない可能性がある。</p>
+<h3 id="IPアドレスの処理"><a href="#IPアドレスの処理" class="headerlink" title="IPアドレスの処理"></a>IPアドレスの処理</h3><p>参考：<a target="_blank" rel="noopener" href="https://qiita.com/y231/items/1e861b7b0cb947bc260b">Windowsでwsl2(Ubuntu)上のDockerに外部から接続する #Windows10 - Qiita</a></p>
+<ol>
+<li>ローカルのIPアドレス上のポートを転送する</li>
+<li>WSL2のIPアドレスを自動で取得する（自動化しないと再起動するたびに転送する用のコマンドが変わる）</li>
+</ol>
+<p><strong>WSLのIPアドレスを確認</strong></p>
+<p><code>hostname -I</code></p>
+<p><strong>手動で転送を設定する</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># ローカルPCのポートXXXXに来たパケットをwsl2のポートXXXXに転送（XXXXはDockerで使用するポート番号）</span></span><br><span class="line">netsh.exe interface portproxy add v4tov4 listenaddress=＜ローカルPCのIPアドレス＞ listenport=＜ポート番号＞ connectaddress=＜WSLのIPアドレス＞ connectport=＜ポート番号＞</span><br><span class="line"></span><br><span class="line"><span class="comment"># 設定を確認する場合</span></span><br><span class="line">netsh.exe interface portproxy show v4tov4</span><br><span class="line"></span><br><span class="line"><span class="comment"># 設定を削除する場合</span></span><br><span class="line">netsh.exe interface portproxy delete v4tov4 listenport=＜ポート番号＞ listenaddress=＜ローカルPCのIPアドレス＞</span><br></pre></td></tr></table></figure>
+<p><strong>自動化</strong></p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment">#rootで実行</span></span><br><span class="line">wsl <span class="literal">-d</span> Ubuntu <span class="literal">-u</span> root exec sudo service docker <span class="built_in">start</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### WSLのIPアドレス取得</span></span><br><span class="line"><span class="variable">$hostname</span> = wsl <span class="literal">-d</span> Ubuntu exec hostname <span class="literal">-I</span></span><br><span class="line"><span class="variable">$wslIP</span>,<span class="variable">$dummy</span> = <span class="variable">$hostname</span>.Split(<span class="string">&quot; &quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">### ホストPCのIPアドレス取得</span></span><br><span class="line"><span class="variable">$HostIP</span> = (</span><br><span class="line">    <span class="built_in">Get-NetIPConfiguration</span> |</span><br><span class="line">    <span class="built_in">Where-Object</span> &#123;</span><br><span class="line">        <span class="variable">$_</span>.IPv4DefaultGateway <span class="operator">-ne</span> <span class="variable">$null</span> <span class="operator">-and</span></span><br><span class="line">        <span class="variable">$_</span>.NetAdapter.Status <span class="operator">-ne</span> <span class="string">&quot;Disconnected&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">).IPv4Address.IPAddress</span><br><span class="line"></span><br><span class="line"><span class="comment">##########################</span></span><br><span class="line"><span class="comment"># ポートフォーワード設定 #</span></span><br><span class="line"><span class="comment">##########################</span></span><br><span class="line"><span class="comment"># 22だけ2022から繋ぐ（22はホストPC自体に接続したいので）</span></span><br><span class="line">netsh interface portproxy add v4tov4 listenaddress=<span class="variable">$HostIP</span> listenport=<span class="number">65176</span> connectaddress=<span class="variable">$wslIP</span> connectport=<span class="number">8000</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>これで自動化したスクリプトはできたが、毎回管理者としてPSを実行して、スクリプトを開くのもめんどくさいし、さらに自動化した：</p>
+<ol>
+<li>ショットカートを作成する</li>
+<li>パス＝<code>powershell -ExecutionPolicy Bypass -File &quot;path_to_your_script.ps1&quot;</code></li>
+<li>プロパティ➝ショットカート➝詳細➝管理者として実行☑</li>
+</ol>
+<p>これで、ショットカートをクリックするだけでポート転送の設定は完了</p>
+<h3 id="ファイルシステム"><a href="#ファイルシステム" class="headerlink" title="ファイルシステム"></a>ファイルシステム</h3><p>ローカルに保存されている内容は<code>/mnt/</code>で確認できる。（GUIによるアクセスできない）</p>
+<p>アクセスするために</p>
+<ol>
+<li>DockerfileにCOPYを用いて作業フォルダにコピーしておくか</li>
+<li>docker containerを動かすときにファイルをマウントする：<code>docker run -v &lt;local_file_path&gt;:&lt;workplace_path&gt;</code></li>
+</ol>
+<h2 id="Dockerの実行"><a href="#Dockerの実行" class="headerlink" title="Dockerの実行"></a>Dockerの実行</h2><p>いよいよ最後だ。いくつかのDockerコマンドを知っておくべき。</p>
+<p>Dockerサービスの開始、停止、再開（デフォルトは停止の状態）</p>
+<p><code>sudo service docker status</code></p>
+<p><code>sudo service docker start</code></p>
+<p><code>sudo service docker restart</code></p>
+<p>Dockerイメージをビルトする</p>
+<p><code>build -t &lt;image_name&gt; &lt;path_to_docker_folder&gt;</code></p>
+<p>イメージの一覧と削除</p>
+<p><code>docker images</code> </p>
+<p><code>docekr rmi &lt;images_id&gt;</code></p>
+<p>イメージでコンテナーを起動</p>
+<p><code>docker run &lt;options&gt; &lt;image_name&gt;</code> </p>
+<ul>
+<li><code>--rm</code>: automatically remove the container when it stop</li>
+<li><code>-it</code>: interact with container</li>
+<li><code>-d</code>: detach mode (run in background)</li>
+<li><code>-p &lt;host_port&gt;:&lt;container_port&gt;</code> :ホストのポートをコンテナ内のポートに転送する（<em>コンテナと外部は分離している</em>）</li>
+<li><code>--gpus &lt;numbers/all&gt;</code>: use gpu to runshrconta</li>
+</ul>
+<p>コンテナーの操作：一覧、停止、削除</p>
+<p><code>docker ps -a</code></p>
+<p><code>docker stop &lt;container_id&gt;</code></p>
+<p><code>docker rm &lt;container_id&gt;</code></p>
+<p><strong>起動して、テストコマンドをローカル環境で実行して、responseが届いたら成功</strong></p>
+<p>以上。</p>
+<p>追記</p>
+<p>興味でAPIの動き方をもう少し調べた。FlaskAPIは確かにウェブアプリケーションとして動けるが、多数のリクエストが殺到すると対応できなくなる。また、セキュリティー問題もあります。</p>
+<p>そのため、ウェブサーバーソフトを追加する必要がある（Apache、IIS）。それらとFlaskを合わせて利用するのは一般です。</p>
+<p>あと、基本的には外部から内部アドレスにアクセスするのはできない（会社からHomePC）。それを実現したいなら、ルータのポートフォワーディングを設定するか、VPNを構築するか、が必要です。</p>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Tool/">Tool</a></div><div class="post_share"><div class="social-share" data-image="https://raw.githubusercontent.com/llsf9/pics/master/20241007140344.png" data-sites="twitter,wechat,weibo"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2024/10/03/git-command-gui/"><img class="next-cover" src="https://raw.githubusercontent.com/llsf9/pics/master/20241003224046.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Git command and GUI 操作</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/10/03/git-command-gui/" title="Git command and GUI 操作"><img class="cover" src="https://raw.githubusercontent.com/llsf9/pics/master/20241003224046.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-03</div><div class="title">Git command and GUI 操作</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/butterfly/favicon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Su</div><div class="author-info__description">You can also call me ChickenLeg</div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">30</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">16</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/llsf9" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:baihe2333@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%95%E3%81%8C%E3%81%86%E3%82%8C%E3%81%97%E3%81%84"><span class="toc-number">1.</span> <span class="toc-text">何がうれしい</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%92%B0%E5%A2%83%E8%A8%AD%E5%AE%9A"><span class="toc-number">2.</span> <span class="toc-text">環境設定</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#WSL2"><span class="toc-number">2.1.</span> <span class="toc-text">WSL2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Ubuntu"><span class="toc-number">2.2.</span> <span class="toc-text">Ubuntu</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Docker"><span class="toc-number">2.3.</span> <span class="toc-text">Docker</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B4%E7%90%86%E3%81%97%E3%81%A6%E3%81%BF%E3%81%A6%E3%80%82%E3%80%82%E3%80%82"><span class="toc-number">3.</span> <span class="toc-text">整理してみて。。。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flask"><span class="toc-number">4.</span> <span class="toc-text">Flask</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%A7%8B%E6%88%90"><span class="toc-number">4.1.</span> <span class="toc-text">基本構成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%83%86%E3%82%B9%E3%83%88%E6%96%B9%E6%B3%95"><span class="toc-number">4.2.</span> <span class="toc-text">テスト方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Dockerfile"><span class="toc-number">5.</span> <span class="toc-text">Dockerfile</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WSL2-1"><span class="toc-number">6.</span> <span class="toc-text">WSL2</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#IP%E3%82%A2%E3%83%89%E3%83%AC%E3%82%B9%E3%81%AE%E5%87%A6%E7%90%86"><span class="toc-number">6.1.</span> <span class="toc-text">IPアドレスの処理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0"><span class="toc-number">6.2.</span> <span class="toc-text">ファイルシステム</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Docker%E3%81%AE%E5%AE%9F%E8%A1%8C"><span class="toc-number">7.</span> <span class="toc-text">Dockerの実行</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/10/03/docker-and-flask/" title="Git command and GUI 操作"><img src="https://raw.githubusercontent.com/llsf9/pics/master/20241007140344.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Git command and GUI 操作"/></a><div class="content"><a class="title" href="/2024/10/03/docker-and-flask/" title="Git command and GUI 操作">Git command and GUI 操作</a><time datetime="2024-10-03T03:44:28.000Z" title="发表于 2024-10-03 12:44:28">2024-10-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/10/03/git-command-gui/" title="Git command and GUI 操作"><img src="https://raw.githubusercontent.com/llsf9/pics/master/20241003224046.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Git command and GUI 操作"/></a><div class="content"><a class="title" href="/2024/10/03/git-command-gui/" title="Git command and GUI 操作">Git command and GUI 操作</a><time datetime="2024-10-03T03:44:28.000Z" title="发表于 2024-10-03 12:44:28">2024-10-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/09/25/multiple-cuda/" title="PCに複数のCUDA環境を作る"><img src="https://images.unsplash.com/photo-1605845872108-b733db1f2663?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1170&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="PCに複数のCUDA環境を作る"/></a><div class="content"><a class="title" href="/2024/09/25/multiple-cuda/" title="PCに複数のCUDA環境を作る">PCに複数のCUDA環境を作る</a><time datetime="2024-09-25T03:44:28.000Z" title="发表于 2024-09-25 12:44:28">2024-09-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/09/12/how-to-compute-gpu/" title="PytorchGPUとCPUでモデルを実行するについて"><img src="https://s3.bmp.ovh/imgs/2022/10/07/cacd9ea1fa45fe7b.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="PytorchGPUとCPUでモデルを実行するについて"/></a><div class="content"><a class="title" href="/2024/09/12/how-to-compute-gpu/" title="PytorchGPUとCPUでモデルを実行するについて">PytorchGPUとCPUでモデルを実行するについて</a><time datetime="2024-09-12T03:44:28.000Z" title="发表于 2024-09-12 12:44:28">2024-09-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/05/09/diffusion-model/" title="Diffusion model 总结"><img src="https://s3.bmp.ovh/imgs/2022/10/07/cacd9ea1fa45fe7b.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Diffusion model 总结"/></a><div class="content"><a class="title" href="/2023/05/09/diffusion-model/" title="Diffusion model 总结">Diffusion model 总结</a><time datetime="2023-05-09T04:46:28.000Z" title="发表于 2023-05-09 13:46:28">2023-05-09</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://raw.githubusercontent.com/llsf9/pics/master/20241007140344.png')"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2024 By Su</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script></div><div class="aplayer no-destroy" data-id="7424637733" data-server="netease" data-type="playlist" data-theme="#FFDBED" data-fixed="true" data-mini="true" data-order="random"> </div><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
